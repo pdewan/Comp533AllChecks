@@ -1,0 +1,7 @@
+Auto Grading Time: Total: 0:1:50 Average: 0:1:50
+Manual Grading Time: Total: 0:0:14 Average: 0:0:14
+Number of Source Notes: Total: 1 Average: 1.0
+
+Comp790ColabInc:Assignment1
+--------------------------------------------------------------------------------------------------
+bartel, jacob(jbartel) TOTAL:80.0 AUTO:0:1:50 MANUAL:0:0:14 GRADER:dewan

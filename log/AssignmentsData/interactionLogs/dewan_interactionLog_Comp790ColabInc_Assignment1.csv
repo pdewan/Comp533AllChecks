@@ -1,0 +1,20 @@
+1506961039072,12:17:19,ProjectStepperStarted
+1506961039089,12:17:19,NavigationKindChange,Automatic
+1506961039090,12:17:19,NavigationStarted
+1506961039090,12:17:19,AutomaticNavigationStarted
+1506961041216,12:17:21,GraderSettingsStarted,Comp790ColabInc,Assignment1,jbartel,jbartel,Automatic,Grading Status,All
+1506961825758,12:30:25,ProjectStepperStarted
+1506961825778,12:30:25,NavigationKindChange,Automatic
+1506961825778,12:30:25,NavigationStarted
+1506961825779,12:30:25,AutomaticNavigationStarted
+1506961825800,12:30:25,ProjectStepStarted,jbartel,
+1506961936022,12:32:16,ProjectStepEnded,jbartel,bartelCOMMMA jacob,80.0,80.0,0.0,1.0,,,0
+1506961936030,12:32:16,AutomaticNavigationEnded
+1506961936031,12:32:16,NavigationKindChange,Manual
+1506961936031,12:32:16,NavigationStarted
+1506961936031,12:32:16,ManualNavigationStarted
+1506961936032,12:32:16,ProjectStepStarted,jbartel,bartelCOMMMA jacob
+1506961936081,12:32:16,ManualNavigationEnded
+1506961949151,12:32:29,ProceedWhenDoneChanged,jbartel,bartelCOMMMA jacob
+1506961950943,12:32:30,ProjectStepEnded,jbartel,bartelCOMMMA jacob,80.0,80.0,0.0,1.0,,,0
+1506961950945,12:32:30,ProjectStepperEnded

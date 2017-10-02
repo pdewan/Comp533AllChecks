@@ -1,0 +1,107 @@
+*****************************(Prompts for inputs)*****************************
+OUTPUT(Prompts for inputs)
+No output from program
+ERRORS(Prompts for inputs)
+Error: Could not find or load main class examples.rmi.arithmetic.DistributedRMIRegistryStarter
+Error: Could not find or load main class examples.rmi.arithmetic.AMixedTypeArithmeticServerLauncher
+Error: Could not find or load main class examples.rmi.arithmetic.AMixedTypeAirthmeticClientLauncher
+
+*****************************(Prompts for inputs)*****************************
+OUTPUT(Prompts for inputs)
+No output from program
+ERRORS(Prompts for inputs)
+Error: Could not find or load main class examples.rmi.arithmetic.DistributedRMIRegistryStarter
+Error: Could not find or load main class examples.rmi.arithmetic.AMixedTypeArithmeticServerLauncher
+Error: Could not find or load main class examples.rmi.arithmetic.AMixedTypeAirthmeticClientLauncher
+
+*****************************(Prompts for inputs)*****************************
+INPUT(Prompts for inputs)
+1
+OUTPUT(Prompts for inputs)
+No output from program
+ERRORS(Prompts for inputs)
+Error: Could not find or load main class examples.rmi.arithmetic.DistributedRMIRegistryStarter
+Error: Could not find or load main class examples.rmi.arithmetic.AMixedTypeArithmeticServerLauncher
+Error: Could not find or load main class examples.rmi.arithmetic.AMixedTypeAirthmeticClientLauncher
+
+*****************************(Prompts for inputs)*****************************
+INPUT(Prompts for inputs)
+1.4
+OUTPUT(Prompts for inputs)
+No output from program
+ERRORS(Prompts for inputs)
+Error: Could not find or load main class examples.rmi.arithmetic.DistributedRMIRegistryStarter
+Error: Could not find or load main class examples.rmi.arithmetic.AMixedTypeArithmeticServerLauncher
+Error: Could not find or load main class examples.rmi.arithmetic.AMixedTypeAirthmeticClientLauncher
+
+*****************************(Takes in Double and Integer)*****************************
+OUTPUT(Takes in Double and Integer)
+No output from program
+ERRORS(Takes in Double and Integer)
+Error: Could not find or load main class examples.rmi.arithmetic.DistributedRMIRegistryStarter
+Error: Could not find or load main class examples.rmi.arithmetic.AMixedTypeArithmeticServerLauncher
+Error: Could not find or load main class examples.rmi.arithmetic.AMixedTypeAirthmeticClientLauncher
+
+*****************************(Takes in Double and Integer)*****************************
+INPUT(Takes in Double and Integer)
+1
+OUTPUT(Takes in Double and Integer)
+No output from program
+ERRORS(Takes in Double and Integer)
+Error: Could not find or load main class examples.rmi.arithmetic.DistributedRMIRegistryStarter
+Error: Could not find or load main class examples.rmi.arithmetic.AMixedTypeArithmeticServerLauncher
+Error: Could not find or load main class examples.rmi.arithmetic.AMixedTypeAirthmeticClientLauncher
+
+*****************************(Takes in Double and Integer)*****************************
+INPUT(Takes in Double and Integer)
+1
+2.5
+OUTPUT(Takes in Double and Integer)
+No output from program
+ERRORS(Takes in Double and Integer)
+Error: Could not find or load main class examples.rmi.arithmetic.DistributedRMIRegistryStarter
+Error: Could not find or load main class examples.rmi.arithmetic.AMixedTypeArithmeticServerLauncher
+Error: Could not find or load main class examples.rmi.arithmetic.AMixedTypeAirthmeticClientLauncher
+
+*****************************(Adds and multiplies the numbers)*****************************
+INPUT(Adds and multiplies the numbers)
+4
+OUTPUT(Adds and multiplies the numbers)
+No output from program
+ERRORS(Adds and multiplies the numbers)
+Error: Could not find or load main class examples.rmi.arithmetic.DistributedRMIRegistryStarter
+Error: Could not find or load main class examples.rmi.arithmetic.AMixedTypeArithmeticServerLauncher
+Error: Could not find or load main class examples.rmi.arithmetic.AMixedTypeAirthmeticClientLauncher
+
+*****************************(Adds and multiplies the numbers)*****************************
+INPUT(Adds and multiplies the numbers)
+4
+5.213025
+OUTPUT(Adds and multiplies the numbers)
+No output from program
+ERRORS(Adds and multiplies the numbers)
+Error: Could not find or load main class examples.rmi.arithmetic.DistributedRMIRegistryStarter
+Error: Could not find or load main class examples.rmi.arithmetic.AMixedTypeArithmeticServerLauncher
+Error: Could not find or load main class examples.rmi.arithmetic.AMixedTypeAirthmeticClientLauncher
+
+*****************************(Displays results of addition and multiplication)*****************************
+INPUT(Displays results of addition and multiplication)
+4
+OUTPUT(Displays results of addition and multiplication)
+No output from program
+ERRORS(Displays results of addition and multiplication)
+Error: Could not find or load main class examples.rmi.arithmetic.DistributedRMIRegistryStarter
+Error: Could not find or load main class examples.rmi.arithmetic.AMixedTypeArithmeticServerLauncher
+Error: Could not find or load main class examples.rmi.arithmetic.AMixedTypeAirthmeticClientLauncher
+
+*****************************(Displays results of addition and multiplication)*****************************
+INPUT(Displays results of addition and multiplication)
+4
+5.213025
+OUTPUT(Displays results of addition and multiplication)
+No output from program
+ERRORS(Displays results of addition and multiplication)
+Error: Could not find or load main class examples.rmi.arithmetic.DistributedRMIRegistryStarter
+Error: Could not find or load main class examples.rmi.arithmetic.AMixedTypeArithmeticServerLauncher
+Error: Could not find or load main class examples.rmi.arithmetic.AMixedTypeAirthmeticClientLauncher
+
