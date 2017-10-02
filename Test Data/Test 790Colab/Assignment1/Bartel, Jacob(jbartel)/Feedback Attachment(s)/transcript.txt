@@ -1,0 +1,185 @@
+*****************************(ScanStringTestSuite:ScanString functions correctly)*****************************
+### gradingTools.comp401f16.assignment1.testcases.ScanStringTest: 1.0
+### gradingTools.comp401f16.assignment1.testcases.ScanStringTest: 0.0
+*****************************(ScanningIteratorSuite:Scanning Iterator)*****************************
+### gradingTools.comp401f16.assignment1.testcases.ScanningIteratorTest: 1.0
+### gradingTools.comp401f16.assignment1.testcases.ScanningIteratorTest: 0.0
+### gradingTools.comp401f16.assignment1.testcases.HasNextSideEffectTest: 1.0
+### gradingTools.comp401f16.assignment1.testcases.HasNextSideEffectTest: 0.0
+*****************************(MultipleTokenSuite:Can process multiple tokens)*****************************
+### gradingTools.comp401f16.assignment1.testcases.MultipleTokensOutputTest: 1.0
+_________________________________________________________________________
+Providing input:101 12 34 43 
+. 
+
+Expected outputs:[(.*)101(.*), (.*)12(.*), (.*)34(.*), (.*)43(.*)]
+### gradingTools.comp401f16.assignment1.testcases.MultipleTokensOutputTest: 0.0
+### gradingTools.comp401f16.assignment1.testcases.MultipleTokenSumTest: 1.0
+_________________________________________________________________________
+Providing input:101 12 34 43 
+. 
+
+Expected outputs:[(.*)190(.*)]
+### gradingTools.comp401f16.assignment1.testcases.MultipleTokenSumTest: 0.0
+### gradingTools.comp401f16.assignment1.testcases.MultipleTokenProductTest: 1.0
+_________________________________________________________________________
+Providing input:101 12 34 43 
+. 
+
+Expected outputs:[(.*)1771944(.*)]
+### gradingTools.comp401f16.assignment1.testcases.MultipleTokenProductTest: 0.0
+*****************************(InvalidCharacterSuite:Handles Invalid Characters)*****************************
+### gradingTools.comp401f16.assignment1.testcases.InvalidCharacterOutputTest: 1.0
+_________________________________________________________________________
+Providing input:101 two 12 !@ 34 ,; 43 x. 
+. 
+
+Expected outputs:[(.*)101(.*), (.*)12(.*), (.*)34(.*), (.*)43(.*)]
+### gradingTools.comp401f16.assignment1.testcases.InvalidCharacterOutputTest: 0.0
+### gradingTools.comp401f16.assignment1.testcases.InvalidCharacterSumTest: 1.0
+_________________________________________________________________________
+Providing input:101 two 12 !@ 34 ,; 43 x. 
+. 
+
+Expected outputs:[(.*)190(.*)]
+### gradingTools.comp401f16.assignment1.testcases.InvalidCharacterSumTest: 0.0
+### gradingTools.comp401f16.assignment1.testcases.InvalidCharacterProductTest: 1.0
+_________________________________________________________________________
+Providing input:101 two 12 !@ 34 ,; 43 x. 
+. 
+
+Expected outputs:[(.*)1771944(.*)]
+### gradingTools.comp401f16.assignment1.testcases.InvalidCharacterProductTest: 0.0
+*****************************(TerminatesWithStartingPeriodSuite:Terminating period forms complete line)*****************************
+### gradingTools.comp401f16.assignment1.testcases.TerminatesWithStartingPeriodOutputTest: 1.0
+_________________________________________________________________________
+Providing input:. 
+45 
+
+Expected outputs:[]
+### gradingTools.comp401f16.assignment1.testcases.TerminatesWithStartingPeriodOutputTest: 0.0
+### gradingTools.comp401f16.assignment1.testcases.TerminatesWithStartingPeriodSumTest: 1.0
+_________________________________________________________________________
+Providing input:. 
+45 
+
+Expected outputs:[]
+### gradingTools.comp401f16.assignment1.testcases.TerminatesWithStartingPeriodSumTest: 0.0
+### gradingTools.comp401f16.assignment1.testcases.TerminatesWithStartingPeriodProductTest: 1.0
+_________________________________________________________________________
+Providing input:. 
+45 
+
+Expected outputs:[]
+### gradingTools.comp401f16.assignment1.testcases.TerminatesWithStartingPeriodProductTest: 0.0
+*****************************(IndexOfNotTestSuite:IndexOfNot functions correctly)*****************************
+### gradingTools.comp401f16.assignment1.testcases.IndexOfNotNonSpaceAtEnd: 1.0
+### gradingTools.comp401f16.assignment1.testcases.IndexOfNotNonSpaceAtEnd: 0.0
+### gradingTools.comp401f16.assignment1.testcases.IndexOfNotNonSpaceFirst: 1.0
+### gradingTools.comp401f16.assignment1.testcases.IndexOfNotNonSpaceFirst: 0.0
+### gradingTools.comp401f16.assignment1.testcases.IndexOfNotNonSpaceStartAt: 1.0
+### gradingTools.comp401f16.assignment1.testcases.IndexOfNotNonSpaceStartAt: 0.0
+### gradingTools.comp401f16.assignment1.testcases.IndexOfNotSpaceAllSpace: 1.0
+### gradingTools.comp401f16.assignment1.testcases.IndexOfNotSpaceAllSpace: 0.0
+### gradingTools.comp401f16.assignment1.testcases.IndexOfNotSpaceFirst: 1.0
+### gradingTools.comp401f16.assignment1.testcases.IndexOfNotSpaceFirst: 0.0
+### gradingTools.comp401f16.assignment1.testcases.IndexOfNotSpaceSecond: 1.0
+### gradingTools.comp401f16.assignment1.testcases.IndexOfNotSpaceSecond: 0.0
+### gradingTools.comp401f16.assignment1.testcases.IndexOfNotTest: 1.0
+### gradingTools.comp401f16.assignment1.testcases.IndexOfNotTest: 0.0
+*****************************(IndexOfTestSuite:IndexOf functions correctly)*****************************
+### gradingTools.comp401f16.assignment1.testcases.IndexOfTest: 1.0
+### gradingTools.comp401f16.assignment1.testcases.IndexOfTest: 0.0
+### gradingTools.comp401f16.assignment1.testcases.IndexOfTestCharacterNotFound: 1.0
+### gradingTools.comp401f16.assignment1.testcases.IndexOfTestCharacterNotFound: 0.0
+### gradingTools.comp401f16.assignment1.testcases.IndexOfTestFirstSpace: 1.0
+### gradingTools.comp401f16.assignment1.testcases.IndexOfTestFirstSpace: 0.0
+### gradingTools.comp401f16.assignment1.testcases.IndexOfTestNonSpaceAtEnd: 1.0
+### gradingTools.comp401f16.assignment1.testcases.IndexOfTestNonSpaceAtEnd: 0.0
+### gradingTools.comp401f16.assignment1.testcases.IndexOfTestNonSpaceStartAt: 1.0
+### gradingTools.comp401f16.assignment1.testcases.IndexOfTestNonSpaceStartAt: 0.0
+### gradingTools.comp401f16.assignment1.testcases.IndexOfTestSecondSpace: 1.0
+### gradingTools.comp401f16.assignment1.testcases.IndexOfTestSecondSpace: 0.0
+### gradingTools.comp401f16.assignment1.testcases.IndexOfTestSpaceSameIndex: 1.0
+### gradingTools.comp401f16.assignment1.testcases.IndexOfTestSpaceSameIndex: 0.0
+*****************************(TerminatesWithPeriodLineSuite:Handles Space After Period)*****************************
+### gradingTools.comp401f16.assignment1.testcases.TerminatesWithPeriodLineOutputTest: 1.0
+_________________________________________________________________________
+Providing input:.
+45 
+
+Expected outputs:[]
+### gradingTools.comp401f16.assignment1.testcases.TerminatesWithPeriodLineOutputTest: 0.0
+### gradingTools.comp401f16.assignment1.testcases.TerminatesWithPeriodLineSumTest: 1.0
+_________________________________________________________________________
+Providing input:.
+45 
+
+Expected outputs:[]
+### gradingTools.comp401f16.assignment1.testcases.TerminatesWithPeriodLineSumTest: 0.0
+### gradingTools.comp401f16.assignment1.testcases.TerminatesWithPeriodLineProductTest: 1.0
+_________________________________________________________________________
+Providing input:.
+45 
+
+Expected outputs:[]
+### gradingTools.comp401f16.assignment1.testcases.TerminatesWithPeriodLineProductTest: 0.0
+*****************************(SingleTokenSuite:Can process a single token)*****************************
+### gradingTools.comp401f16.assignment1.testcases.SingleTokenOutputTest: 1.0
+_________________________________________________________________________
+Providing input:0010010 
+. 
+
+Expected outputs:[(.*)0010010(.*)]
+### gradingTools.comp401f16.assignment1.testcases.SingleTokenOutputTest: 0.0
+### gradingTools.comp401f16.assignment1.testcases.SingleTokenSumTest: 1.0
+_________________________________________________________________________
+Providing input:0010010 
+. 
+
+Expected outputs:[(.*)10010(.*)]
+### gradingTools.comp401f16.assignment1.testcases.SingleTokenSumTest: 0.0
+### gradingTools.comp401f16.assignment1.testcases.SingleTokenProductTest: 1.0
+_________________________________________________________________________
+Providing input:0010010 
+. 
+
+Expected outputs:[(.*)10010(.*)]
+### gradingTools.comp401f16.assignment1.testcases.SingleTokenProductTest: 0.0
+*****************************(VariableSpaceSuite:Handles Variable Spaces)*****************************
+### gradingTools.comp401f16.assignment1.testcases.VariableSpaceOutputTest: 1.0
+_________________________________________________________________________
+Providing input:101    12 34     43   
+. 
+
+Expected outputs:[(.*)101(.*), (.*)12(.*), (.*)34(.*), (.*)43(.*)]
+### gradingTools.comp401f16.assignment1.testcases.VariableSpaceOutputTest: 0.0
+### gradingTools.comp401f16.assignment1.testcases.VariableSpaceSumTest: 1.0
+_________________________________________________________________________
+Providing input:101    12 34     43   
+. 
+
+Expected outputs:[(.*)190(.*)]
+### gradingTools.comp401f16.assignment1.testcases.VariableSpaceSumTest: 0.0
+### gradingTools.comp401f16.assignment1.testcases.VariableSpaceProductTest: 1.0
+_________________________________________________________________________
+Providing input:101    12 34     43   
+. 
+
+Expected outputs:[(.*)190(.*)]
+### gradingTools.comp401f16.assignment1.testcases.VariableSpaceProductTest: 0.0
+*****************************(Required Methods Called in Main or Iterator)*****************************
+### main.Assignment!processInput:->void: 0.0
+### main.Assignment!indexOf:String;char;int->int: 0.0
+### main.Assignment!scanString:String->void: 0.0
+*****************************(IndexOf  Called in Iterator)*****************************
+### ScanningIterator!indexOf:String;char;int->int: 0.0
+*****************************(indexOfNot Called in Main)*****************************
+### main.Assignment!indexOfNot:String;char;int->int: 0.0
+*****************************(IndexOfNot Called in Iterator)*****************************
+### ScanningIterator!indexOfNot:String;char;int->int: 0.0
+*****************************(Iterator Methods Called in Main)*****************************
+### main.Assignment!!hasNext:->boolean: 0.0
+### main.Assignment!!next:->String: 0.0
+*****************************(Screenshots enclosed)*****************************
+### Image enclosed test case: 1.0

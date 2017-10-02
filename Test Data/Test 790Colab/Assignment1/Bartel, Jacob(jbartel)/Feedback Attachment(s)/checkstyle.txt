@@ -1,0 +1,8 @@
+Starting audit...
+src\main\ProcString.java:0: expectedTypes: Expected type names/tags [main.Assignment1, ScanningIterator//EC]
+src\main\ProcString.java:1: typeDefined: (ProcString.java:1) Class ProcString matching tag No Expected Tag defined
+src\main\ProcString.java:19:27: warning: Literal Strings should be compared using equals(), not '!='.
+src\main\ProcString.java:50:51: warning: The String " " appears 3 times in the file.
+src\main\ProcString.java:51:61: warning: The String "the num :" appears 3 times in the file.
+src\main\ProcString.java:51:77: warning: The String " and the integer is: " appears 3 times in the file.
+Audit done.
