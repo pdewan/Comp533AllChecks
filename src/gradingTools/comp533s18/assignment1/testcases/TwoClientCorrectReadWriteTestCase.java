@@ -1,0 +1,103 @@
+package gradingTools.comp533s18.assignment1.testcases;
+
+import java.util.Arrays;
+
+import grader.basics.execution.NotRunnableException;
+import grader.basics.execution.RunningProject;
+import grader.basics.junit.NotAutomatableException;
+import grader.basics.junit.TestCaseResult;
+import grader.basics.project.NotGradableException;
+import grader.basics.project.Project;
+import grader.execution.ExecutionSpecificationSelector;
+import gradingTools.comp110.assignment1.testcases.PromptTestCase;
+import gradingTools.utils.RunningProjectUtils;
+
+public class TwoClientCorrectReadWriteTestCase extends PromptTestCase {
+	private boolean atomic;
+	
+	public TwoClientCorrectReadWriteTestCase(boolean atomic) {
+//		super("Prompt printer test case");
+		super();
+		this.atomic = atomic;
+	}
+	
+	@Override
+	public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException,
+			NotGradableException {
+		setupProcesses();
+		try {
+
+			// Get the output when we have no input from the user
+//			RunningProject noInputRunningProject = RunningProjectUtils.runProject(project, 1);
+			TwoClientCorrectReadWriteTestInputGenerator anOutputBasedInputGenerator = new TwoClientCorrectReadWriteTestInputGenerator(atomic);
+			RunningProject interactiveInputProject = null;
+			try {
+				interactiveInputProject = RunningProjectUtils.runProject(project, 40,
+						anOutputBasedInputGenerator);
+				String incOutput = interactiveInputProject.await();
+			} catch (Exception e){
+				
+			}
+			if (interactiveInputProject != null) {
+				interactiveInputProject.getProcessOutput().forEach((name, output) -> System.out.println("*** " + name + " ***\n" + output));
+			}
+			int correct = 0;
+			int possible = 4;
+			StringBuilder message = new StringBuilder();
+			if (anOutputBasedInputGenerator.isClientWriteComplete()) {
+				correct++;
+			} else {
+				message.append("Improper client write.");
+			}
+			if (anOutputBasedInputGenerator.isServerReadComplete()) {
+				correct++;
+			} else {
+				if (message.length() > 0) {
+					message.append(" ");
+				}
+				message.append("Improper server read.");
+			}
+			if (anOutputBasedInputGenerator.areServerWritesComplete()) {
+				correct++;
+			} else {
+				if (message.length() > 0) {
+					message.append(" ");
+				}
+				message.append("Improper server write(s).");
+			}
+			if (anOutputBasedInputGenerator.areClientReadsComplete()) {
+				correct++;
+			} else {
+				if (message.length() > 0) {
+					message.append(" ");
+				}
+				message.append("Improper client read(s).");
+			}
+			if (correct == possible) {
+				return pass();
+			} else if (correct == 0) {
+				return fail(message.toString());
+			} else {
+				return partialPass(((double)correct)/possible, message.toString());
+			}
+		} catch (NotRunnableException e) {
+			throw new NotGradableException();
+		}
+	}
+	
+	private void setupProcesses() {
+		ExecutionSpecificationSelector.getExecutionSpecification().setProcessTeams(Arrays.asList("DistributedProgram"));
+		ExecutionSpecificationSelector.getExecutionSpecification().setTerminatingProcesses("DistributedProgram", Arrays.asList("Client_0", "Client_1"));
+		ExecutionSpecificationSelector.getExecutionSpecification().setProcesses("DistributedProgram", Arrays.asList("Server", "Client_0", "Client_1"));
+		ExecutionSpecificationSelector.getExecutionSpecification().setEntryTags("Server", Arrays.asList("Server"));
+		ExecutionSpecificationSelector.getExecutionSpecification().setEntryTags("Client_0", Arrays.asList("Client"));
+		ExecutionSpecificationSelector.getExecutionSpecification().setEntryTags("Client_1", Arrays.asList("Client"));
+		ExecutionSpecificationSelector.getExecutionSpecification().setArgs("Server", Arrays.asList());
+		ExecutionSpecificationSelector.getExecutionSpecification().setArgs("Client_0", Arrays.asList());
+		ExecutionSpecificationSelector.getExecutionSpecification().setArgs("Client_1", Arrays.asList(""));
+		ExecutionSpecificationSelector.getExecutionSpecification().setSleepTime("Server", 2000);
+		ExecutionSpecificationSelector.getExecutionSpecification().setSleepTime("Client_0", 15000);
+		ExecutionSpecificationSelector.getExecutionSpecification().setSleepTime("Client_1", 2000);
+		ExecutionSpecificationSelector.getExecutionSpecification().getProcessTeams().forEach(team -> System.out.println("### " + team));
+	}
+}
