@@ -2,6 +2,7 @@ package gradingTools.comp533s18.assignment1.testcases;
 
 import java.util.Arrays;
 
+import framework.grading.testing.BasicTestCase;
 import grader.basics.execution.NotRunnableException;
 import grader.basics.execution.RunningProject;
 import grader.basics.junit.NotAutomatableException;
@@ -12,12 +13,12 @@ import grader.execution.ExecutionSpecificationSelector;
 import gradingTools.comp110.assignment1.testcases.PromptTestCase;
 import gradingTools.utils.RunningProjectUtils;
 
-public class ReadWriteUpdateOrderTestCase extends PromptTestCase {
+public class ReadWriteUpdateOrderTestCase extends BasicTestCase {
 	private boolean atomic;
 	
 	public ReadWriteUpdateOrderTestCase(boolean atomic) {
 //		super("Prompt printer test case");
-		super();
+		super("Read-write-update order - " + (atomic ? "Atomic" : "Non-atomic") + " test case");
 		this.atomic = atomic;
 	}
 	
@@ -66,8 +67,8 @@ public class ReadWriteUpdateOrderTestCase extends PromptTestCase {
 		ExecutionSpecificationSelector.getExecutionSpecification().setProcesses("DistributedProgram", Arrays.asList("Server", "Client"));
 		ExecutionSpecificationSelector.getExecutionSpecification().setEntryTags("Server", Arrays.asList("Server"));
 		ExecutionSpecificationSelector.getExecutionSpecification().setEntryTags("Client", Arrays.asList("Client"));
-		ExecutionSpecificationSelector.getExecutionSpecification().setArgs("Server", Arrays.asList());
-		ExecutionSpecificationSelector.getExecutionSpecification().setArgs("Client", Arrays.asList());
+		ExecutionSpecificationSelector.getExecutionSpecification().setArgs("Server", StaticArgumentsTestCase.DEFAULT_SERVER_ARGS);
+		ExecutionSpecificationSelector.getExecutionSpecification().setArgs("Client", StaticArgumentsTestCase.DEFAULT_CLIENT_ARGS);
 		ExecutionSpecificationSelector.getExecutionSpecification().setSleepTime("Server", 2000);
 		ExecutionSpecificationSelector.getExecutionSpecification().setSleepTime("Client", 5000);
 		ExecutionSpecificationSelector.getExecutionSpecification().getProcessTeams().forEach(team -> System.out.println("### " + team));

@@ -3,6 +3,7 @@ package gradingTools.comp533s18.assignment1.testcases;
 import java.util.Arrays;
 import java.util.concurrent.TimeoutException;
 
+import framework.grading.testing.BasicTestCase;
 import grader.basics.execution.NotRunnableException;
 import grader.basics.execution.RunningProject;
 import grader.basics.junit.NotAutomatableException;
@@ -13,12 +14,12 @@ import grader.execution.ExecutionSpecificationSelector;
 import gradingTools.comp110.assignment1.testcases.PromptTestCase;
 import gradingTools.utils.RunningProjectUtils;
 
-public class TwoClientCorrectConnectionTestCase extends PromptTestCase {
+public class TwoClientCorrectConnectionTestCase extends BasicTestCase {
 	
 	
 	public TwoClientCorrectConnectionTestCase() {
 //		super("Prompt printer test case");
-		super();
+		super("Two client correct connection test case");
 	}
 	
 	@Override
@@ -71,9 +72,9 @@ public class TwoClientCorrectConnectionTestCase extends PromptTestCase {
 		ExecutionSpecificationSelector.getExecutionSpecification().setEntryTags("Server", Arrays.asList("Server"));
 		ExecutionSpecificationSelector.getExecutionSpecification().setEntryTags("Client_0", Arrays.asList("Client"));
 		ExecutionSpecificationSelector.getExecutionSpecification().setEntryTags("Client_1", Arrays.asList("Client"));
-		ExecutionSpecificationSelector.getExecutionSpecification().setArgs("Server", Arrays.asList());
-		ExecutionSpecificationSelector.getExecutionSpecification().setArgs("Client_0", Arrays.asList());
-		ExecutionSpecificationSelector.getExecutionSpecification().setArgs("Client_1", Arrays.asList(""));
+		ExecutionSpecificationSelector.getExecutionSpecification().setArgs("Server", StaticArgumentsTestCase.DEFAULT_SERVER_ARGS);
+		ExecutionSpecificationSelector.getExecutionSpecification().setArgs("Client_0", StaticArgumentsTestCase.DEFAULT_CLIENT_ARGS);
+		ExecutionSpecificationSelector.getExecutionSpecification().setArgs("Client_1", StaticArgumentsTestCase.DEFAULT_CLIENT_ARGS);
 		ExecutionSpecificationSelector.getExecutionSpecification().setSleepTime("Server", 2000);
 		ExecutionSpecificationSelector.getExecutionSpecification().setSleepTime("Client_0", 15000);
 		ExecutionSpecificationSelector.getExecutionSpecification().setSleepTime("Client_1", 2000);

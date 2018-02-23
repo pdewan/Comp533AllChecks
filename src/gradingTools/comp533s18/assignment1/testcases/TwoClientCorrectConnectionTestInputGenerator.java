@@ -31,7 +31,7 @@ public class TwoClientCorrectConnectionTestInputGenerator extends AnAbstractInpu
 			checkStr(MAIN_THREAD, "SelectorRequestNextInterestOp"),
 			checkStr(MAIN_THREAD, "SelectorRequestEnqueued"),
 			checkStr(MAIN_THREAD, "SelectorWokenUp"),
-			checkStr(SELECT_THREAD, "SelectUnblocked"),
+//			checkStr(SELECT_THREAD, "SelectUnblocked"),
 			checkStr(SELECT_THREAD, "SelectorRequestDequeued"),
 			checkStr(SELECT_THREAD, "SocketChannelBlockingConfigured"),
 			checkStr(SELECT_THREAD, "SocketChannelRegistered"),
@@ -64,7 +64,7 @@ public class TwoClientCorrectConnectionTestInputGenerator extends AnAbstractInpu
 	};
 	
 	private static final Pattern[] acceptStages = {
-			checkStr(SELECT_THREAD, "SelectUnblocked"),
+//			checkStr(SELECT_THREAD, "SelectUnblocked"),
 			checkStr(SELECT_THREAD, "SocketChannelAccepted"),
 			checkStr(SELECT_THREAD, "ReadListenerAdded"),
 			checkStr(SELECT_THREAD, "SocketChannelRegistered"),

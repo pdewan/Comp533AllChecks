@@ -2,6 +2,7 @@ package gradingTools.comp533s18.assignment1.testcases;
 
 import java.util.Arrays;
 
+import framework.grading.testing.BasicTestCase;
 import grader.basics.execution.NotRunnableException;
 import grader.basics.execution.RunningProject;
 import grader.basics.junit.NotAutomatableException;
@@ -12,12 +13,12 @@ import grader.execution.ExecutionSpecificationSelector;
 import gradingTools.comp110.assignment1.testcases.PromptTestCase;
 import gradingTools.utils.RunningProjectUtils;
 
-public class OneClientCorrectValuesTestCase extends PromptTestCase {
+public class OneClientCorrectValuesTestCase extends BasicTestCase {
 	private boolean atomic;
 	
 	public OneClientCorrectValuesTestCase(boolean atomic) {
 //		super("Prompt printer test case");
-		super();
+		super("One client correct values - " + (atomic ? "Atomic" : "Non-atomic") + " test case");
 		this.atomic = atomic;
 	}
 	
@@ -94,8 +95,8 @@ public class OneClientCorrectValuesTestCase extends PromptTestCase {
 		ExecutionSpecificationSelector.getExecutionSpecification().setProcesses("DistributedProgram", Arrays.asList("Server", "Client"));
 		ExecutionSpecificationSelector.getExecutionSpecification().setEntryTags("Server", Arrays.asList("Server"));
 		ExecutionSpecificationSelector.getExecutionSpecification().setEntryTags("Client", Arrays.asList("Client"));
-		ExecutionSpecificationSelector.getExecutionSpecification().setArgs("Server", Arrays.asList());
-		ExecutionSpecificationSelector.getExecutionSpecification().setArgs("Client", Arrays.asList());
+		ExecutionSpecificationSelector.getExecutionSpecification().setArgs("Server", StaticArgumentsTestCase.DEFAULT_SERVER_ARGS);
+		ExecutionSpecificationSelector.getExecutionSpecification().setArgs("Client", StaticArgumentsTestCase.DEFAULT_CLIENT_ARGS);
 		ExecutionSpecificationSelector.getExecutionSpecification().setSleepTime("Server", 2000);
 		ExecutionSpecificationSelector.getExecutionSpecification().setSleepTime("Client", 5000);
 		ExecutionSpecificationSelector.getExecutionSpecification().getProcessTeams().forEach(team -> System.out.println("### " + team));

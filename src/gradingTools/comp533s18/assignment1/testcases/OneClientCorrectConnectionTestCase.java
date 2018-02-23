@@ -3,24 +3,50 @@ package gradingTools.comp533s18.assignment1.testcases;
 import java.util.Arrays;
 import java.util.concurrent.TimeoutException;
 
+import org.junit.Test;
+
+import framework.grading.testing.BasicTestCase;
 import grader.basics.execution.NotRunnableException;
 import grader.basics.execution.RunningProject;
+import grader.basics.junit.BasicJUnitUtils;
 import grader.basics.junit.NotAutomatableException;
 import grader.basics.junit.TestCaseResult;
+import grader.basics.project.CurrentProjectHolder;
 import grader.basics.project.NotGradableException;
 import grader.basics.project.Project;
 import grader.execution.ExecutionSpecificationSelector;
 import gradingTools.comp110.assignment1.testcases.PromptTestCase;
 import gradingTools.utils.RunningProjectUtils;
+import util.annotations.Group;
+import util.annotations.MaxValue;
 
-public class OneClientCorrectConnectionTestCase extends PromptTestCase {
+@MaxValue(20)
+//@Group("Test group name")
+public class OneClientCorrectConnectionTestCase extends BasicTestCase {
 	
 	
 	public OneClientCorrectConnectionTestCase() {
 //		super("Prompt printer test case");
-		super();
+		super("One client correct connection test case");
 
 	}
+	
+//	@Test
+//	public void test() {
+//		TestCaseResult result = null;
+//        try {
+//        	result = test(CurrentProjectHolder.getOrCreateCurrentProject(), true);  
+//        	
+//    		BasicJUnitUtils.assertTrue(result.getNotes(), result.getPercentage(), result.isPass());
+//        } catch (Throwable e) {
+//        	e.printStackTrace();
+//        	if (result != null) {
+//        		BasicJUnitUtils.assertTrue(e, result.getPercentage());
+//        	} else {
+//        		BasicJUnitUtils.assertTrue(e, 0);
+//        	}
+//        }
+//	}
 	
 	@Override
 	public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException,
@@ -67,8 +93,8 @@ public class OneClientCorrectConnectionTestCase extends PromptTestCase {
 		ExecutionSpecificationSelector.getExecutionSpecification().setProcesses("DistributedProgram", Arrays.asList("Server", "Client"));
 		ExecutionSpecificationSelector.getExecutionSpecification().setEntryTags("Server", Arrays.asList("Server"));
 		ExecutionSpecificationSelector.getExecutionSpecification().setEntryTags("Client", Arrays.asList("Client"));
-		ExecutionSpecificationSelector.getExecutionSpecification().setArgs("Server", Arrays.asList());
-		ExecutionSpecificationSelector.getExecutionSpecification().setArgs("Client", Arrays.asList());
+		ExecutionSpecificationSelector.getExecutionSpecification().setArgs("Server", StaticArgumentsTestCase.DEFAULT_SERVER_ARGS);
+		ExecutionSpecificationSelector.getExecutionSpecification().setArgs("Client", StaticArgumentsTestCase.DEFAULT_CLIENT_ARGS);
 		ExecutionSpecificationSelector.getExecutionSpecification().setSleepTime("Server", 2000);
 		ExecutionSpecificationSelector.getExecutionSpecification().setSleepTime("Client", 5000);
 		ExecutionSpecificationSelector.getExecutionSpecification().getProcessTeams().forEach(team -> System.out.println("### " + team));

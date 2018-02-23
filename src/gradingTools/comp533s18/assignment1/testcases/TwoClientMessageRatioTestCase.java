@@ -1,8 +1,12 @@
 package gradingTools.comp533s18.assignment1.testcases;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.TimeoutException;
 
+import assignments.util.mainArgs.ClientArgsProcessor;
+import assignments.util.mainArgs.ServerPort;
+import framework.grading.testing.BasicTestCase;
 import grader.basics.execution.NotRunnableException;
 import grader.basics.execution.RunningProject;
 import grader.basics.junit.NotAutomatableException;
@@ -13,12 +17,13 @@ import grader.execution.ExecutionSpecificationSelector;
 import gradingTools.comp110.assignment1.testcases.PromptTestCase;
 import gradingTools.utils.RunningProjectUtils;
 
-public class TwoClientMessageRatioTestCase extends PromptTestCase {
+public class TwoClientMessageRatioTestCase extends BasicTestCase {
+	
 	
 	boolean atomic = false;
 	public TwoClientMessageRatioTestCase(boolean atomic) {
 //		super("Prompt printer test case");
-		super();
+		super("Two client message ratios - " + (atomic ? "Atomic" : "Non-atomic") + " test case");
 		this.atomic = atomic;
 	}
 	
@@ -122,9 +127,9 @@ public class TwoClientMessageRatioTestCase extends PromptTestCase {
 		ExecutionSpecificationSelector.getExecutionSpecification().setEntryTags("Server", Arrays.asList("Server"));
 		ExecutionSpecificationSelector.getExecutionSpecification().setEntryTags("Client_0", Arrays.asList("Client"));
 		ExecutionSpecificationSelector.getExecutionSpecification().setEntryTags("Client_1", Arrays.asList("Client"));
-		ExecutionSpecificationSelector.getExecutionSpecification().setArgs("Server", Arrays.asList());
-		ExecutionSpecificationSelector.getExecutionSpecification().setArgs("Client_0", Arrays.asList());
-		ExecutionSpecificationSelector.getExecutionSpecification().setArgs("Client_1", Arrays.asList(""));
+		ExecutionSpecificationSelector.getExecutionSpecification().setArgs("Server", StaticArgumentsTestCase.DEFAULT_SERVER_ARGS);
+		ExecutionSpecificationSelector.getExecutionSpecification().setArgs("Client_0", StaticArgumentsTestCase.DEFAULT_CLIENT_ARGS);
+		ExecutionSpecificationSelector.getExecutionSpecification().setArgs("Client_1", StaticArgumentsTestCase.DEFAULT_CLIENT_ARGS);
 		ExecutionSpecificationSelector.getExecutionSpecification().setSleepTime("Server", 2000);
 		ExecutionSpecificationSelector.getExecutionSpecification().setSleepTime("Client_0", 5000);
 		ExecutionSpecificationSelector.getExecutionSpecification().setSleepTime("Client_1", 2000);

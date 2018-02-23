@@ -1,9 +1,12 @@
 package gradingTools.comp533s18.assignment1.testcases;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.TimeoutException;
 
+import assignments.util.mainArgs.ClientArgsProcessor;
 import assignments.util.mainArgs.ServerPort;
+import framework.grading.testing.BasicTestCase;
 import grader.basics.execution.NotRunnableException;
 import grader.basics.execution.RunningProject;
 import grader.basics.junit.NotAutomatableException;
@@ -14,8 +17,10 @@ import grader.execution.ExecutionSpecificationSelector;
 import gradingTools.comp110.assignment1.testcases.PromptTestCase;
 import gradingTools.utils.RunningProjectUtils;
 
-public class StaticArgumentsTestCase extends PromptTestCase {
-	
+public class StaticArgumentsTestCase extends BasicTestCase {
+	public static final List<String> DEFAULT_CLIENT_ARGS = Arrays.asList("localhost", ""+ServerPort.SERVER_PORT, ClientArgsProcessor.DEFAULT_CLIENT_NAME, "true");
+	public static final List<String> DEFAULT_SERVER_ARGS = Arrays.asList(""+ServerPort.SERVER_PORT, "localhost");
+
 	private static final String DEFAULT_HOST = "localhost";
 	private static final String DEFAULT_PORT = ""+ServerPort.SERVER_PORT;
 	
@@ -25,7 +30,7 @@ public class StaticArgumentsTestCase extends PromptTestCase {
 	
 	public StaticArgumentsTestCase() {
 //		super("Prompt printer test case");
-		super();
+		super("Static arguments test case");
 
 	}
 	
@@ -102,7 +107,16 @@ public class StaticArgumentsTestCase extends PromptTestCase {
 	
 	private static String checkArgs(Project project, String testServerPort, String testHost, String testClientPort) throws NotRunnableException{
 		StringBuilder message = new StringBuilder();
-		setupProcesses(new String[] {testServerPort}, new String[] {testHost, testClientPort});
+		if (testServerPort.isEmpty()) {
+			testServerPort = DEFAULT_PORT;
+		}
+		if (testHost.isEmpty()) {
+			testHost = DEFAULT_HOST;
+		}
+		if (testClientPort.isEmpty()) {
+			testClientPort = DEFAULT_PORT;
+		}
+		setupProcesses(new String[] {testServerPort}, new String[] {testHost, testClientPort, ClientArgsProcessor.DEFAULT_CLIENT_NAME, "true"});
 
 		// Get the output when we have no input from the user
 		RunningProject interactiveInputProject = null;

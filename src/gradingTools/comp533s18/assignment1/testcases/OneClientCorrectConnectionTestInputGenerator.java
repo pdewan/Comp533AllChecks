@@ -3,6 +3,7 @@ package gradingTools.comp533s18.assignment1.testcases;
 import java.util.regex.Pattern;
 
 import util.pipe.AnAbstractInputGenerator;
+import util.trace.Tracer;
 
 public class OneClientCorrectConnectionTestInputGenerator extends AnAbstractInputGenerator {
 private static final String TRACER_PREFIX = "I***";
@@ -28,7 +29,7 @@ private static final String TRACER_PREFIX = "I***";
 			checkStr(MAIN_THREAD, "SelectorRequestNextInterestOp"),
 			checkStr(MAIN_THREAD, "SelectorRequestEnqueued"),
 			checkStr(MAIN_THREAD, "SelectorWokenUp"),
-			checkStr(SELECT_THREAD, "SelectUnblocked"),
+//			checkStr(SELECT_THREAD, "SelectUnblocked"),
 			checkStr(SELECT_THREAD, "SelectorRequestDequeued"),
 			checkStr(SELECT_THREAD, "SocketChannelBlockingConfigured"),
 			checkStr(SELECT_THREAD, "SocketChannelRegistered"),
@@ -51,14 +52,14 @@ private static final String TRACER_PREFIX = "I***";
 			checkStr(SELECT_THREAD, "SocketChannelConnectInitiated"),
 			checkStr(SELECT_THREAD, "SocketChannelRegistered"),
 			checkStr(SELECT_THREAD, "SelectCalled"),
-			checkStr(SELECT_THREAD, "SelectUnblocked"),
+//			checkStr(SELECT_THREAD, "SelectUnblocked"),
 			checkStr(SELECT_THREAD, "SocketChannelConnected"),
 			checkStr(SELECT_THREAD, "SocketChannelInterestOp"),
 			checkStr(SELECT_THREAD, "SelectCalled")
 	};
 	
 	private static final Pattern[] acceptStages = {
-			checkStr(SELECT_THREAD, "SelectUnblocked"),
+//			checkStr(SELECT_THREAD, "SelectUnblocked"),
 			checkStr(SELECT_THREAD, "SocketChannelAccepted"),
 			checkStr(SELECT_THREAD, "ReadListenerAdded"),
 			checkStr(SELECT_THREAD, "SocketChannelRegistered"),
@@ -113,6 +114,7 @@ private static final String TRACER_PREFIX = "I***";
 	}
 	
 	public boolean checkEnableAccept(String line) {
+		Tracer.info(this, "Checking for line matching: " + enableAcceptStages[enableAcceptStage]);
 		if (line.startsWith(TRACER_PREFIX) && enableAcceptStages[enableAcceptStage].matcher(line).matches()) {
 			enableAcceptStage++;
 			return true;
