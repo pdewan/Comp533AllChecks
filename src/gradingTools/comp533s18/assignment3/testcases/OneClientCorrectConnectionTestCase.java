@@ -1,4 +1,4 @@
-package gradingTools.comp533s18.assignment1.testcases;
+package gradingTools.comp533s18.assignment3.testcases;
 
 import java.util.Arrays;
 import java.util.concurrent.TimeoutException;
@@ -25,10 +25,16 @@ import util.trace.Tracer;
 //@Group("Test group name")
 public class OneClientCorrectConnectionTestCase extends BasicTestCase {
 	
+	private final boolean doNIO;
+	private final boolean doRMI;
+	private final boolean doGIPC;
 	
-	public OneClientCorrectConnectionTestCase() {
-//		super("Prompt printer test case");
+	public OneClientCorrectConnectionTestCase(boolean doNIO, boolean doRMI, boolean doGIPC) {
 		super("One client correct connection test case");
+
+		this.doNIO = doNIO;
+		this.doRMI = doRMI;
+		this.doGIPC = doGIPC;
 
 	}
 	
@@ -57,7 +63,7 @@ public class OneClientCorrectConnectionTestCase extends BasicTestCase {
 
 			// Get the output when we have no input from the user
 //			RunningProject noInputRunningProject = RunningProjectUtils.runProject(project, 1);
-			OneClientCorrectConnectionTestInputGenerator anOutputBasedInputGenerator = new OneClientCorrectConnectionTestInputGenerator();
+			OneClientCorrectConnectionTestInputGenerator anOutputBasedInputGenerator = new OneClientCorrectConnectionTestInputGenerator(doNIO, doRMI, doGIPC);
 			RunningProject interactiveInputProject = null;
 			try {
 				interactiveInputProject = RunningProjectUtils.runProject(project, 20,
@@ -70,9 +76,9 @@ public class OneClientCorrectConnectionTestCase extends BasicTestCase {
 				interactiveInputProject.getProcessOutput().forEach((name, output) -> Tracer.info(this, "*** " + name + " ***\n" + output));
 			}
 			
-			if (anOutputBasedInputGenerator.isEnableAcceptComplete()) {
-				if (anOutputBasedInputGenerator.isConnectComplete()) {
-					if (anOutputBasedInputGenerator.isAcceptComplete()) {
+			if (anOutputBasedInputGenerator.isServerSetupComplete()) {
+				if (anOutputBasedInputGenerator.isClientConnectComplete()) {
+					if (anOutputBasedInputGenerator.isServerAcceptComplete()) {
 						return pass();
 					} else {
 						return partialPass(0.66, "In " + anOutputBasedInputGenerator.getListNotFoundSource() + ", no line found matching regex: " + anOutputBasedInputGenerator.getLastNotFound());
@@ -92,13 +98,17 @@ public class OneClientCorrectConnectionTestCase extends BasicTestCase {
 	}
 	
 	private static void setupProcesses() {
-		ExecutionSpecificationSelector.getExecutionSpecification().setProcessTeams(Arrays.asList("DistributedProgram"));
-		ExecutionSpecificationSelector.getExecutionSpecification().setTerminatingProcesses("DistributedProgram", Arrays.asList("Client"));
-		ExecutionSpecificationSelector.getExecutionSpecification().setProcesses("DistributedProgram", Arrays.asList("Server", "Client"));
+
+		ExecutionSpecificationSelector.getExecutionSpecification().setProcessTeams(Arrays.asList("RegistryBasedDistributedProgram"));
+		ExecutionSpecificationSelector.getExecutionSpecification().setTerminatingProcesses("RegistryBasedDistributedProgram", Arrays.asList("Client"));
+		ExecutionSpecificationSelector.getExecutionSpecification().setProcesses("RegistryBasedDistributedProgram", Arrays.asList("Registry", "Server", "Client"));
+		ExecutionSpecificationSelector.getExecutionSpecification().setEntryTags("Registry", Arrays.asList("Registry"));
 		ExecutionSpecificationSelector.getExecutionSpecification().setEntryTags("Server", Arrays.asList("Server"));
 		ExecutionSpecificationSelector.getExecutionSpecification().setEntryTags("Client", Arrays.asList("Client"));
+		ExecutionSpecificationSelector.getExecutionSpecification().setArgs("Registry", StaticArgumentsTestCase.DEFAULT_REGISTRY_ARGS);
 		ExecutionSpecificationSelector.getExecutionSpecification().setArgs("Server", StaticArgumentsTestCase.DEFAULT_SERVER_ARGS);
 		ExecutionSpecificationSelector.getExecutionSpecification().setArgs("Client", StaticArgumentsTestCase.DEFAULT_CLIENT_ARGS);
+		ExecutionSpecificationSelector.getExecutionSpecification().setSleepTime("Registry", 500);
 		ExecutionSpecificationSelector.getExecutionSpecification().setSleepTime("Server", 2000);
 		ExecutionSpecificationSelector.getExecutionSpecification().setSleepTime("Client", 5000);
 		ExecutionSpecificationSelector.getExecutionSpecification().getProcessTeams().forEach(team -> System.out.println("### " + team));

@@ -12,6 +12,7 @@ import grader.basics.project.Project;
 import grader.execution.ExecutionSpecificationSelector;
 import gradingTools.comp110.assignment1.testcases.PromptTestCase;
 import gradingTools.utils.RunningProjectUtils;
+import util.trace.Tracer;
 
 public class OneClientCorrectReadWriteTestCase extends BasicTestCase {
 	private boolean atomic;
@@ -33,55 +34,57 @@ public class OneClientCorrectReadWriteTestCase extends BasicTestCase {
 			OneClientCorrectReadWriteTestInputGenerator anOutputBasedInputGenerator = new OneClientCorrectReadWriteTestInputGenerator(atomic);
 			RunningProject interactiveInputProject = null;
 			try {
-				interactiveInputProject = RunningProjectUtils.runProject(project, 15,
+				interactiveInputProject = RunningProjectUtils.runProject(project, 20,
 						anOutputBasedInputGenerator);
 				String incOutput = interactiveInputProject.await();
 			} catch (Exception e){
 				
 			}
 			if (interactiveInputProject != null) {
-				interactiveInputProject.getProcessOutput().forEach((name, output) -> System.out.println("*** " + name + " ***\n" + output));
+				interactiveInputProject.getProcessOutput().forEach((name, output) -> Tracer.info(this, "*** " + name + " ***\n" + output));
 			}
 			int correct = 0;
 			int possible = atomic ? 4 : 2;
-			StringBuilder message = new StringBuilder();
+//			StringBuilder message = new StringBuilder();
 			if (anOutputBasedInputGenerator.isClientWriteComplete()) {
 				correct++;
 			} else {
-				message.append("Improper client write.");
+//				message.append("Improper client write.");
 			}
 			if (anOutputBasedInputGenerator.isServerReadComplete()) {
 				correct++;
 			} else {
-				if (message.length() > 0) {
-					message.append(" ");
-				}
-				message.append("Improper server read.");
+//				if (message.length() > 0) {
+//					message.append(" ");
+//				}
+//				message.append("Improper server read.");
 			}
 			if (atomic) {
 				if (anOutputBasedInputGenerator.isServerWriteComplete()) {
 					correct++;
 				} else {
-					if (message.length() > 0) {
-						message.append(" ");
-					}
-					message.append("Improper server write.");
+//					if (message.length() > 0) {
+//						message.append(" ");
+//					}
+//					message.append("Improper server write.");
 				}
 				if (anOutputBasedInputGenerator.isClientReadComplete()) {
 					correct++;
 				} else {
-					if (message.length() > 0) {
-						message.append(" ");
-					}
-					message.append("Improper client read.");
+//					if (message.length() > 0) {
+//						message.append(" ");
+//					}
+//					message.append("Improper client read.");
 				}
 			}
 			if (correct == possible) {
 				return pass();
 			} else if (correct == 0) {
-				return fail(message.toString());
+				return fail("In " + anOutputBasedInputGenerator.getListNotFoundSource() + ", no line found matching regex: " + anOutputBasedInputGenerator.getLastNotFound());
+//				return fail(message.toString());
 			} else {
-				return partialPass(((double)correct)/possible, message.toString());
+				return partialPass(((double)correct)/possible, "In " + anOutputBasedInputGenerator.getListNotFoundSource() + ", no line found matching regex: " + anOutputBasedInputGenerator.getLastNotFound());
+//				return partialPass(((double)correct)/possible, message.toString());
 			}
 		} catch (NotRunnableException e) {
 			throw new NotGradableException();

@@ -13,6 +13,7 @@ import grader.basics.project.Project;
 import grader.execution.ExecutionSpecificationSelector;
 import gradingTools.comp110.assignment1.testcases.PromptTestCase;
 import gradingTools.utils.RunningProjectUtils;
+import util.trace.Tracer;
 
 public class TwoClientCorrectConnectionTestCase extends BasicTestCase {
 	
@@ -33,14 +34,14 @@ public class TwoClientCorrectConnectionTestCase extends BasicTestCase {
 			TwoClientCorrectConnectionTestInputGenerator anOutputBasedInputGenerator = new TwoClientCorrectConnectionTestInputGenerator();
 			RunningProject interactiveInputProject = null;
 			try {
-				interactiveInputProject = RunningProjectUtils.runProject(project, 30,
+				interactiveInputProject = RunningProjectUtils.runProject(project, 40,
 						anOutputBasedInputGenerator);
 				String incOutput = interactiveInputProject.await();
 			} catch (Exception e){
 				
 			}
 			if (interactiveInputProject != null) {
-				interactiveInputProject.getProcessOutput().forEach((name, output) -> System.out.println("*** " + name + " ***\n" + output));
+				interactiveInputProject.getProcessOutput().forEach((name, output) -> Tracer.info(this, "*** " + name + " ***\n" + output));
 			}
 			
 			if (anOutputBasedInputGenerator.isEnableAcceptComplete()) {
@@ -50,15 +51,18 @@ public class TwoClientCorrectConnectionTestCase extends BasicTestCase {
 					} else {
 						System.out.println("Accept 0: " + anOutputBasedInputGenerator.isAccepted0Complete());
 						System.out.println("Accept 1: " + anOutputBasedInputGenerator.isAccepted1Complete());
-						return partialPass(0.66, "Server failed to accept connection from at least one client");
+						return partialPass(0.66, "In " + anOutputBasedInputGenerator.getListNotFoundSource() + ", no line found matching regex: " + anOutputBasedInputGenerator.getLastNotFound());					
+//						return partialPass(0.66, "Server failed to accept connection from at least one client");					
 					}
 				} else {
 					System.out.println("Connect 0: " + anOutputBasedInputGenerator.isConnect0Complete());
 					System.out.println("Connect 1: " + anOutputBasedInputGenerator.isConnect1Complete());
-					return partialPass(0.33, "At least one client failed to connect to server");
+					return partialPass(0.33, "In " + anOutputBasedInputGenerator.getListNotFoundSource() + ", no line found matching regex: " + anOutputBasedInputGenerator.getLastNotFound());
+//					return partialPass(0.33, "At least one client failed to connect to server");
 				}
 			} else {
-				return fail("Server failed to accept connections");
+				return fail("In " + anOutputBasedInputGenerator.getListNotFoundSource() + ", no line found matching regex: " + anOutputBasedInputGenerator.getLastNotFound());
+//				return fail("Server failed to accept connections");
 			}
 		} catch (NotRunnableException e) {
 			throw new NotGradableException();

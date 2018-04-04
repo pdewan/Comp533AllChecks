@@ -2,7 +2,7 @@ package grader.trace.comp533;
 
 import util.trace.ImplicitKeywordKind;
 import util.trace.Tracer;
-
+import gradingTools.comp533s18.assignment1.testcases.OneClientCorrectConnectionTestCase;
 import gradingTools.comp533s18.assignment1.testcases.StaticArgumentsTestCase;
 
 public class Comp533TraceUtility {
@@ -18,6 +18,8 @@ public class Comp533TraceUtility {
 		Tracer.setImplicitPrintKeywordKind(ImplicitKeywordKind.OBJECT_PACKAGE_NAME);	
 		if (isTurnOn()) {
 			Tracer.setKeywordPrintStatus(StaticArgumentsTestCase.class, true);
+			Tracer.setKeywordPrintStatus(OneClientCorrectConnectionTestCase.class, true);
+			Tracer.setKeywordPrintStatus(gradingTools.comp533s18.assignment3.testcases.StaticArgumentsTestCase.class, true);
 		}
 
 	}

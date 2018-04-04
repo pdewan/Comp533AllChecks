@@ -47,15 +47,16 @@ public class TwoClientCorrectReadWriteTestInputGenerator extends TwoClientCorrec
 	private int client1ReadLen;
 	private String client1ReadStr;
 
-	private int client0UpdateStage = 0;
-	private int client1UpdateStage = 0;
-	private int client0WriteStage = 0;
-	private int client1WriteStage = 0;
-	private int serverWrite0Stage = 0;
-	private int serverWrite1Stage = 0;
-	private int client0ReadStage = 0;
-	private int client1ReadStage = 0;
-	private int serverReadStage = 0;
+	protected int client0UpdateStage = 0;
+	protected int client1UpdateStage = 0;
+	protected int client0WriteStage = 0;
+	protected int client1WriteStage = 0;
+	protected boolean serverWriteStarted = false;
+	protected int serverWrite0Stage = 0;
+	protected int serverWrite1Stage = 0;
+	protected int client0ReadStage = 0;
+	protected int client1ReadStage = 0;
+	protected int serverReadStage = 0;
 
 	private static final int CLIENT_WRITE_LEN_STAGE = 2;
 	private static final int CLIENT_WRITE_STR_STAGE = 3;
@@ -66,7 +67,7 @@ public class TwoClientCorrectReadWriteTestInputGenerator extends TwoClientCorrec
 	private static final int READ_LEN_STAGE = 2;
 	private static final int READ_STR_STAGE = 3;
 
-	private static final Pattern[] clientWriteStages = {
+	protected static final Pattern[] clientWriteStages = {
 			// checkStr(AWT_THREAD, "SetProperty"),
 			checkStr(MAIN_THREAD, "NotifiedPropertyChangeEvent"),
 			checkStr(MAIN_THREAD, "SocketChannelWriteRequested"),
@@ -85,9 +86,11 @@ public class TwoClientCorrectReadWriteTestInputGenerator extends TwoClientCorrec
 			checkStr(SELECT_THREAD, "WriteBufferIsEmpty"),
 			checkStr(SELECT_THREAD, "SelectCalled") 
 	};
+	
+	protected static final Pattern serverStartWritePattern = checkStr(READ_THREAD, "SocketChannelWriteRequested");
 
-	private static final Pattern[] serverWriteStages = {
-			checkStr(READ_THREAD, "SocketChannelWriteRequested"),
+	protected static final Pattern[] serverWriteStages = {
+//			checkStr(READ_THREAD, "SocketChannelWriteRequested"),
 			checkStr(READ_THREAD, "WriteRequestEnqueued"),
 			checkStr(READ_THREAD, "WriteRequestEnqueued"),
 			checkStr(READ_THREAD, "SelectorWokenUp"),
@@ -104,7 +107,7 @@ public class TwoClientCorrectReadWriteTestInputGenerator extends TwoClientCorrec
 //			checkStr(SELECT_THREAD, "SelectCalled")
 	};
 
-	private static final Pattern[] readStages = {
+	protected static final Pattern[] readStages = {
 			checkStr(SELECT_THREAD, "SelectUnblocked"),
 			checkStr(SELECT_THREAD, "SocketChannelRead"),
 			checkStr(SELECT_THREAD, "SocketChannelHeaderRead"),
@@ -112,11 +115,11 @@ public class TwoClientCorrectReadWriteTestInputGenerator extends TwoClientCorrec
 			checkStr(SELECT_THREAD, "SelectCalled")
 	};
 
-	private static final Pattern[] immediateUpdateStages = {
+	protected static final Pattern[] immediateUpdateStages = {
 			checkStr(AWT_THREAD, "SetProperty")
 	};
 
-	private static final Pattern[] readUpdateStages = {
+	protected static final Pattern[] readUpdateStages = {
 			checkStr(READ_THREAD, "CommandSubmitted")
 	};
 
@@ -164,11 +167,23 @@ public class TwoClientCorrectReadWriteTestInputGenerator extends TwoClientCorrec
 			}
 		} else if (aProcessName.equals(CLIENT_0_NAME)) {
 			if (!isConnect0Complete()) {
-				didClient0 = checkConnect0(anOutputLine);
+				didClient0 = checkForPropertyChangeListener0(anOutputLine);
+				if (!didClient0) {
+					didClient0 = checkForReadListener0(anOutputLine);
+					if(!didClient0 && !isConnect0FSMComplete()) {
+						didClient0 = checkConnect0(anOutputLine);
+					}
+				}
 			}
 		} else if (aProcessName.equals(CLIENT_1_NAME)) {
 			if (!isConnect1Complete()) {
-				didClient1 = checkConnect1(anOutputLine);
+				didClient1 = checkForPropertyChangeListener1(anOutputLine);
+				if (!didClient1) {
+					didClient1 = checkForReadListener1(anOutputLine);
+					if(!didClient1 && !isConnect1FSMComplete()) {
+						didClient1 = checkConnect1(anOutputLine);
+					}
+				}
 			}
 		}
 		// read/write if not connect
@@ -176,19 +191,23 @@ public class TwoClientCorrectReadWriteTestInputGenerator extends TwoClientCorrec
 			if (!isServerReadComplete()) {
 				checkServerRead(anOutputLine);
 			} else {
-				if (atomic) {
-					boolean processed = false;
-					if (!isServerWrite0Complete()) {
-						processed = checkServerWrite0(anOutputLine);
-					}
-					if (!processed && !isServerWrite1Complete()) {
-						checkServerWrite1(anOutputLine);
-					}
+				if (!serverWriteStarted) {
+					checkServerWriteStart(anOutputLine);
 				} else {
-					if (client0Writing && !isServerWrite1Complete()) {
-						checkServerWrite1(anOutputLine);
-					} else if (client1Writing && !isServerWrite0Complete()) {
-						checkServerWrite0(anOutputLine);
+					if (atomic) {
+						boolean processed = false;
+						if (!isServerWrite0Complete()) {
+							processed = checkServerWrite0(anOutputLine);
+						}
+						if (!processed && !isServerWrite1Complete()) {
+							checkServerWrite1(anOutputLine);
+						}
+					} else {
+						if (client0Writing && !isServerWrite1Complete()) {
+							checkServerWrite1(anOutputLine);
+						} else if (client1Writing && !isServerWrite0Complete()) {
+							checkServerWrite0(anOutputLine);
+						}
 					}
 				}
 			}
@@ -336,6 +355,14 @@ public class TwoClientCorrectReadWriteTestInputGenerator extends TwoClientCorrec
 		}
 		return false;
 	}
+	
+	public boolean checkServerWriteStart(String line) {
+		if (line.startsWith(TRACER_PREFIX) && serverStartWritePattern.matcher(line).matches()) {
+			serverWriteStarted = true;
+			return true;
+		}
+		return false;
+	}
 
 	public boolean checkClient0Write(String line) {
 		if (line.startsWith(TRACER_PREFIX) && clientWriteStages[client0WriteStage].matcher(line).matches()) {
@@ -446,5 +473,96 @@ public class TwoClientCorrectReadWriteTestInputGenerator extends TwoClientCorrec
 
 	private boolean bothOrAtomicAndOne(boolean a, boolean b) {
 		return (a && b) || (!atomic && (a || b));
+	}
+
+	public String getListNotFoundSource() {
+		if (!areAcceptsComplete()) {
+			return super.getLastNotFound();
+		}  else if (!isClientWriteComplete()) {
+			if (!client0Writing && !client1Writing) {
+				return "Determining client write start";
+			} else if (client0Writing && (client0WriteStage != clientWriteStages.length)) {
+				return "Client 0 writing to server";
+			} else if (client1Writing && (client1WriteStage != clientWriteStages.length)) {
+				return "Client 1 writing to server";
+			}
+		} else if (serverReadStage != readStages.length) {
+			return "Server reading";
+		} else if (!areServerWritesComplete()) {
+			if (atomic) {
+				if (!isServerWrite0Complete()) {
+					return "Server writing to client 0";
+				} else if (!isServerWrite1Complete()) {
+					return "Server writing to client 1";
+				}
+			} else {
+				if (client0Writing && !isServerWrite1Complete()) {
+					return "Server writing to client 1";
+				} else if (client1Writing && !isServerWrite0Complete()) {
+					return "Server writing to client 0";
+				}
+			}
+		} else if (!areClientReadsComplete()) {
+			if (atomic) {
+				if (!isClient0ReadComplete()) {
+					return  "Client 0 reading from server";
+				} else if (!isClient1ReadComplete()) {
+					return "Client 1 reading from server";
+				}
+			} else {
+				if (client0Writing && !isClient1ReadComplete()) {
+					return "Client 1 reading from server";
+				} else if (client1Writing && !isClient0ReadComplete()) {
+					return "Client 0 reading from server";
+				}
+			}
+		}
+		return "";
+	}
+	
+	public String getLastNotFound() {
+		String ret = "";
+		if (!areAcceptsComplete()) {
+			ret = super.getLastNotFound();
+		} else if (!isClientWriteComplete()) {
+			if (!client0Writing && !client1Writing) {
+				ret = clientWriteStages[0].pattern();
+			} else if (client0Writing && (client0WriteStage != clientWriteStages.length)) {
+				ret = clientWriteStages[client0WriteStage].pattern();
+			} else if (client1Writing && (client1WriteStage != clientWriteStages.length)) {
+				ret = clientWriteStages[client1WriteStage].pattern();
+			}
+		} else if (serverReadStage != readStages.length) {
+			return readStages[serverReadStage].pattern();
+		} else if (!areServerWritesComplete()) {
+			if (atomic) {
+				if (!isServerWrite0Complete()) {
+					return serverWriteStages[serverWrite0Stage].pattern();
+				} else if (!isServerWrite1Complete()) {
+					return serverWriteStages[serverWrite1Stage].pattern();
+				}
+			} else {
+				if (client0Writing && !isServerWrite1Complete()) {
+					return serverWriteStages[serverWrite1Stage].pattern();
+				} else if (client1Writing && !isServerWrite0Complete()) {
+					return serverWriteStages[serverWrite0Stage].pattern();
+				}
+			}
+		} else if (!areClientReadsComplete()) {
+			if (atomic) {
+				if (!isClient0ReadComplete()) {
+					return readStages[client0ReadStage].pattern();
+				} else if (!isClient1ReadComplete()) {
+					return readStages[client1ReadStage].pattern();
+				}
+			} else {
+				if (client0Writing && !isClient1ReadComplete()) {
+					return readStages[client1ReadStage].pattern();
+				} else if (client1Writing && !isClient0ReadComplete()) {
+					return readStages[client0ReadStage].pattern();
+				}
+			}
+		}
+		return ret;
 	}
 }

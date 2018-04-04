@@ -12,6 +12,7 @@ import grader.basics.project.Project;
 import grader.execution.ExecutionSpecificationSelector;
 import gradingTools.comp110.assignment1.testcases.PromptTestCase;
 import gradingTools.utils.RunningProjectUtils;
+import util.trace.Tracer;
 
 public class ReadWriteUpdateOrderTestCase extends BasicTestCase {
 	private boolean atomic;
@@ -40,19 +41,19 @@ public class ReadWriteUpdateOrderTestCase extends BasicTestCase {
 				
 			}
 			if (interactiveInputProject != null) {
-				interactiveInputProject.getProcessOutput().forEach((name, output) -> System.out.println("*** " + name + " ***\n" + output));
+				interactiveInputProject.getProcessOutput().forEach((name, output) -> Tracer.info(this, "*** " + name + " ***\n" + output));
 			}
 			if (atomic) {
 				if (anOutputBasedInputGenerator.isUpdateCorrect()) {
 					return pass();
 				} else {
-					return fail("Update found before write.");
+					return fail("Update not found after write.");
 				}
 			} else {
 				if (anOutputBasedInputGenerator.isUpdateCorrect()) {
 					return pass();
 				} else {
-					return fail("Update found before after.");
+					return fail("Update not found before write.");
 				}
 			}
 			

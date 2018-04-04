@@ -13,15 +13,19 @@ public class TwoClientCorrectConnectionTestInputGenerator extends AnAbstractInpu
 	private static final String SERVER_NAME = "Server";
 	private static final String CLIENT_0_NAME = "Client_0";
 	private static final String CLIENT_1_NAME = "Client_1";
-	private int enableAcceptStage = 0;
-	private int connect0Stage = 0;
-	private int connect1Stage = 0;
-	private int accept0Stage = 0;
-	private int accept1Stage = 0;
+	protected int enableAcceptStage = 0;
+	protected int connect0Stage = 0;
+	protected int connect1Stage = 0;
+	private boolean hasReadListener0 = false;
+	private boolean hasReadListener1 = false;
+	private boolean hasPropertyChangeListener0 = false;
+	private boolean hasPropertyChangeListener1 = false;
+	protected int accept0Stage = 0;
+	protected int accept1Stage = 0;
 	
 	private boolean quitSubmitted = false;
 
-	private static final Pattern[] enableAcceptStages = {
+	protected static final Pattern[] enableAcceptStages = {
 			checkStr(MAIN_THREAD, "SelectorFactorySet"),
 			checkStr(MAIN_THREAD, "SocketChannelBound"),
 			checkStr(MAIN_THREAD, "ListenableAcceptsEnabled"),
@@ -39,11 +43,11 @@ public class TwoClientCorrectConnectionTestInputGenerator extends AnAbstractInpu
 	};
 	
 	// SelectCalled seems to vary some
-	private static final Pattern[] connectStages = {
+	protected static final Pattern[] connectStages = {
 			checkStr(MAIN_THREAD, "SelectorFactorySet"),
-			checkStr(MAIN_THREAD, "AddedPropertyChangeListener"),
 //			checkStr(MAIN_THREAD, "AddedPropertyChangeListener"),
-			checkStr(MAIN_THREAD, "ReadListenerAdded"),
+//			checkStr(MAIN_THREAD, "AddedPropertyChangeListener"),
+//			checkStr(MAIN_THREAD, "ReadListenerAdded"),
 //			multipleCheckStr(SELECT_THREAD, "SelectCalled", MAIN_THREAD, "SocketChannelConnectRequested"),
 //			multipleCheckStr(SELECT_THREAD, "SelectCalled", MAIN_THREAD, "SocketChannelConnectRequested"),
 //			checkStr(SELECT_THREAD, "SelectCalled"),
@@ -63,7 +67,10 @@ public class TwoClientCorrectConnectionTestInputGenerator extends AnAbstractInpu
 			checkStr(SELECT_THREAD, "SelectCalled")
 	};
 	
-	private static final Pattern[] acceptStages = {
+	private static final Pattern readListenerPattern = multipleCheckStr(MAIN_THREAD, "ReadListenerAdded", SELECT_THREAD, "ReadListenerAdded");
+	private static final Pattern propertyChangeListenerPattern = checkStr(MAIN_THREAD, "AddedPropertyChangeListener");
+
+	protected static final Pattern[] acceptStages = {
 //			checkStr(SELECT_THREAD, "SelectUnblocked"),
 			checkStr(SELECT_THREAD, "SocketChannelAccepted"),
 			checkStr(SELECT_THREAD, "ReadListenerAdded"),
@@ -82,6 +89,7 @@ public class TwoClientCorrectConnectionTestInputGenerator extends AnAbstractInpu
 	
 	public TwoClientCorrectConnectionTestInputGenerator() {
 	}
+	
 	@Override
 	public void newOutputLine(String aProcessName, String anOutputLine) {
 		if (aProcessName.equals(SERVER_NAME)) {
@@ -99,11 +107,19 @@ public class TwoClientCorrectConnectionTestInputGenerator extends AnAbstractInpu
 			}
 		} else if (aProcessName.equals(CLIENT_0_NAME)) {
 			if (isEnableAcceptComplete() && !isConnect0Complete()) {
-				checkConnect0(anOutputLine);
+				if (checkForPropertyChangeListener0(anOutputLine)) {
+				} else if (checkForReadListener0(anOutputLine)) {
+				} else if (!isConnect0FSMComplete()){
+					checkConnect0(anOutputLine);
+				}
 			}
 		} else if (aProcessName.equals(CLIENT_1_NAME)) {
 			if (isEnableAcceptComplete() && !isConnect1Complete()) {
-				checkConnect1(anOutputLine);
+				if (checkForPropertyChangeListener1(anOutputLine)) {
+				} else if (checkForReadListener1(anOutputLine)) {
+				} else if (!isConnect1FSMComplete()){
+					checkConnect1(anOutputLine);
+				}
 			}
 		}
 		if (!quitSubmitted && areAcceptsComplete()) {
@@ -117,13 +133,21 @@ public class TwoClientCorrectConnectionTestInputGenerator extends AnAbstractInpu
 	public boolean isEnableAcceptComplete() {
 		return enableAcceptStage == enableAcceptStages.length;
 	}
+
+	public boolean isConnect0FSMComplete() {
+		return connect0Stage == connectStages.length;
+	}
+
+	public boolean isConnect1FSMComplete() {
+		return connect1Stage == connectStages.length;
+	}
 	
 	public boolean isConnect0Complete() {
-		return connect0Stage == connectStages.length;
+		return connect0Stage == connectStages.length && hasReadListener0 && hasPropertyChangeListener0;
 	}
 	
 	public boolean isConnect1Complete() {
-		return connect1Stage == connectStages.length;
+		return connect1Stage == connectStages.length && hasReadListener1 && hasPropertyChangeListener1;
 	}
 	
 	public boolean areConnectsComplete() {
@@ -132,7 +156,7 @@ public class TwoClientCorrectConnectionTestInputGenerator extends AnAbstractInpu
 	
 
 	public boolean canProcessAccept() {
-		return connect0Stage >= 10 || connect1Stage >= 10; // was 17
+		return connect0Stage >= 7 || connect1Stage >= 7;
 	}
 	
 	public boolean isAccepted0Complete() {
@@ -170,6 +194,38 @@ public class TwoClientCorrectConnectionTestInputGenerator extends AnAbstractInpu
 		}
 		return false;
 	}
+
+	public boolean checkForPropertyChangeListener0(String line) {
+		if (line.startsWith(TRACER_PREFIX) && propertyChangeListenerPattern.matcher(line).matches()) {
+			hasPropertyChangeListener0 = true;
+			return true;
+		}
+		return false;
+	}
+
+	public boolean checkForPropertyChangeListener1(String line) {
+		if (line.startsWith(TRACER_PREFIX) && propertyChangeListenerPattern.matcher(line).matches()) {
+			hasPropertyChangeListener1 = true;
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean checkForReadListener0(String line) {
+		if (line.startsWith(TRACER_PREFIX) && readListenerPattern.matcher(line).matches()) {
+			hasReadListener0 = true;
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean checkForReadListener1(String line) {
+		if (line.startsWith(TRACER_PREFIX) && readListenerPattern.matcher(line).matches()) {
+			hasReadListener1 = true;
+			return true;
+		}
+		return false;
+	}
 	
 	public boolean checkAccept0(String line) {
 		if (line.startsWith(TRACER_PREFIX) && acceptStages[accept0Stage].matcher(line).matches()) {
@@ -185,5 +241,49 @@ public class TwoClientCorrectConnectionTestInputGenerator extends AnAbstractInpu
 			return true;
 		}
 		return false;
+	}
+	
+	public String getListNotFoundSource() {
+		if (!isEnableAcceptComplete()) {
+			return "Server enabling accepts";
+		} else if (!isConnect0Complete()) {
+			return "Client 0 connecting";
+		} else if (!isConnect1Complete()) {
+			return "Client 1 connecting";
+		} else if (!isAccepted0Complete()) {
+			return "Server accepting client 0's connection";
+		} else if (!isAccepted1Complete()) {
+			return "Server accepting client 1's connection";
+		} else {
+			return "";
+		}
+	}
+	
+	public String getLastNotFound() {
+		if (!isEnableAcceptComplete()) {
+			return enableAcceptStages[enableAcceptStage].pattern();
+		} else if (!isConnect0Complete()) {
+			if (connect0Stage != connectStages.length) {
+				return connectStages[connect0Stage].pattern();
+			} else if (!hasPropertyChangeListener0) {
+				return propertyChangeListenerPattern.pattern();
+			} else {
+				return readListenerPattern.pattern();
+			}
+		} else if (!isConnect1Complete()) {
+			if (connect1Stage != connectStages.length) {
+				return connectStages[connect1Stage].pattern();
+			} else if (!hasPropertyChangeListener1) {
+				return propertyChangeListenerPattern.pattern();
+			} else {
+				return readListenerPattern.pattern();
+			}
+		} else if (!isAccepted0Complete()) {
+			return acceptStages[accept0Stage].pattern();
+		} else if (!isAccepted1Complete()) {
+			return acceptStages[accept1Stage].pattern();
+		} else {
+			return "";
+		}
 	}
 }

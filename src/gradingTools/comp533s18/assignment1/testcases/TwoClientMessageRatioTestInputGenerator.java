@@ -169,6 +169,4 @@ public class TwoClientMessageRatioTestInputGenerator extends AnAbstractInputGene
 	private static boolean doesLineContain(String str, String sub) {
 		return str.startsWith(TRACER_PREFIX) && Pattern.compile(".*?" + sub + ".*", Pattern.DOTALL).matcher(str).matches();
 	}
-	
-	
 }

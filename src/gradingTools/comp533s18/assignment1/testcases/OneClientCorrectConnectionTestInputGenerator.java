@@ -15,6 +15,8 @@ private static final String TRACER_PREFIX = "I***";
 	private static final String CLIENT_NAME = "Client";
 	private int enableAcceptStage = 0;
 	private int connectStage = 0;
+	private boolean hasPropertyChangeListener = false;
+	private boolean hasReadListener = false;
 	private int acceptStage = 0;
 	
 	private boolean quitSubmitted = false;
@@ -38,9 +40,8 @@ private static final String TRACER_PREFIX = "I***";
 	
 	private static final Pattern[] connectStages = {
 			checkStr(MAIN_THREAD, "SelectorFactorySet"),
-			checkStr(MAIN_THREAD, "AddedPropertyChangeListener"),
 //			checkStr(MAIN_THREAD, "AddedPropertyChangeListener"),
-			checkStr(MAIN_THREAD, "ReadListenerAdded"),
+			
 //			checkStr(SELECT_THREAD, "SelectCalled"),
 			checkStr(MAIN_THREAD, "SocketChannelConnectRequested"),
 			checkStr(MAIN_THREAD, "SelectorRequestNextInterestOp"),
@@ -57,6 +58,9 @@ private static final String TRACER_PREFIX = "I***";
 			checkStr(SELECT_THREAD, "SocketChannelInterestOp"),
 			checkStr(SELECT_THREAD, "SelectCalled")
 	};
+	
+	private static final Pattern readListenerPattern = multipleCheckStr(MAIN_THREAD, "ReadListenerAdded", SELECT_THREAD, "ReadListenerAdded");
+	private static final Pattern propertyChangeListenerPattern = checkStr(MAIN_THREAD, "AddedPropertyChangeListener");
 	
 	private static final Pattern[] acceptStages = {
 //			checkStr(SELECT_THREAD, "SelectUnblocked"),
@@ -76,17 +80,22 @@ private static final String TRACER_PREFIX = "I***";
 	
 	public OneClientCorrectConnectionTestInputGenerator() {
 	}
+	
 	@Override
 	public void newOutputLine(String aProcessName, String anOutputLine) {
 		if (aProcessName.equals(SERVER_NAME)) {
 			if (!isEnableAcceptComplete()) {
 				checkEnableAccept(anOutputLine);
-			} else if (!isAcceptComplete()) {
+			} else if (canProcessAccept() && !isAcceptComplete()) {
 				checkAccept(anOutputLine);
 			}
 		} else if (aProcessName.equals(CLIENT_NAME)) {
-			if (!isConnectComplete()) {
-				checkConnect(anOutputLine);
+			if (isEnableAcceptComplete() && !isConnectComplete()) {
+				if(checkForPropertyChangeListener(anOutputLine)) {
+				} else if (checkForReadListener(anOutputLine)) {
+				} else if (!isConnectFSMComplete()) {
+					checkConnect(anOutputLine);
+				}
 			}
 		}
 		if (!quitSubmitted && isAcceptComplete()) {
@@ -100,13 +109,17 @@ private static final String TRACER_PREFIX = "I***";
 		return enableAcceptStage == enableAcceptStages.length;
 	}
 	
-	public boolean isConnectComplete() {
+	public boolean isConnectFSMComplete() {
 		return connectStage == connectStages.length;
+	}
+	
+	public boolean isConnectComplete() {
+		return connectStage == connectStages.length && hasReadListener && hasPropertyChangeListener;
 	}
 	
 
 	public boolean canProcessAccept() {
-		return connectStage >= 15;
+		return connectStage >= 7;
 	}
 	
 	public boolean isAcceptComplete() {
@@ -130,11 +143,57 @@ private static final String TRACER_PREFIX = "I***";
 		return false;
 	}
 	
+	public boolean checkForReadListener(String line) {
+		if (line.startsWith(TRACER_PREFIX) && readListenerPattern.matcher(line).matches()) {
+			hasReadListener = true;
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean checkForPropertyChangeListener(String line) {
+		if (line.startsWith(TRACER_PREFIX) && propertyChangeListenerPattern.matcher(line).matches()) {
+			hasPropertyChangeListener = true;
+			return true;
+		}
+		return false;
+	}
+	
 	public boolean checkAccept(String line) {
 		if (line.startsWith(TRACER_PREFIX) && acceptStages[acceptStage].matcher(line).matches()) {
 			acceptStage++;
 			return true;
 		}
 		return false;
+	}
+	
+	public String getListNotFoundSource() {
+		if (!isEnableAcceptComplete()) {
+			return "Server enabling accepts";
+		} else if (!isConnectComplete()) {
+			return "Client connecting";
+		} else if (!isAcceptComplete()) {
+			return "Server accepting client's connection";
+		} else {
+			return "";
+		}
+	}
+	
+	public String getLastNotFound() {
+		if (!isEnableAcceptComplete()) {
+			return enableAcceptStages[enableAcceptStage].pattern();
+		} else if (!isConnectComplete()) {
+			if (connectStage != connectStages.length) {
+				return connectStages[connectStage].pattern();
+			} else if (!hasPropertyChangeListener) {
+				return propertyChangeListenerPattern.pattern();
+			} else {
+				return readListenerPattern.pattern();
+			}
+		} else if (!isAcceptComplete()) {
+			return acceptStages[acceptStage].pattern();
+		} else {
+			return "";
+		}
 	}
 }

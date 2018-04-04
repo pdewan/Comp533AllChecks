@@ -1,6 +1,5 @@
 package gradingTools.comp533s18.assignment1;
 
-import framework.grading.FrameworkProjectRequirements;
 import grader.junit.AJUnitProjectRequirements;
 import grader.trace.GraderTraceUtility;
 import grader.trace.comp533.Comp533TraceUtility;
@@ -9,6 +8,7 @@ import gradingTools.comp533s18.assignment1.testcases.OneClientCorrectReadWriteTe
 import gradingTools.comp533s18.assignment1.testcases.OneClientCorrectThreadsTestCase;
 import gradingTools.comp533s18.assignment1.testcases.OneClientMessageRatioTestCase;
 import gradingTools.comp533s18.assignment1.testcases.ReadWriteUpdateOrderTestCase;
+import gradingTools.comp533s18.assignment1.testcases.SingleClassTaggedTestCase;
 import gradingTools.comp533s18.assignment1.testcases.StaticArgumentsTestCase;
 import gradingTools.comp533s18.assignment1.testcases.TwoClientCorrectConnectionTestCase;
 import gradingTools.comp533s18.assignment1.testcases.TwoClientCorrectReadWriteTestCase;
@@ -25,11 +25,14 @@ public class Assignment1Requirements extends AJUnitProjectRequirements {
 		addDueDate("02/4/2014 23:55:59", 1.0);
 		addDueDate("02/5/2014 23:55:59", 0.5);
 		
-		addJUnitTestSuite(Assignment1Suite.class);
+		addFeature("Server tagged", 5, new SingleClassTaggedTestCase("Server"));
+		addFeature("Client tagged", 5, new SingleClassTaggedTestCase("Client"));
+		
+//		addJUnitTestSuite(Assignment3Suite.class);
 		
 		// takes 0.5 points from each read, write, and behaviors test, behavior exclusive testing
 		addFeature("Static arguments work properly", 20, new StaticArgumentsTestCase());
-//		addFeature("One client correct connection", 20, new OneClientCorrectConnectionTestCase());
+		addFeature("One client correct connection", 20, new OneClientCorrectConnectionTestCase());
 		// read/write correct and client+server behaviors
 		addFeature("One client correct read, write, and behaviors - Atomic", 35, new OneClientCorrectReadWriteTestCase(true));
 		addFeature("One client correct read, write, and behaviors - Non-atomic", 35, new OneClientCorrectReadWriteTestCase(false));

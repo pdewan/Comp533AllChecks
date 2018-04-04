@@ -16,6 +16,7 @@ import grader.basics.project.Project;
 import grader.execution.ExecutionSpecificationSelector;
 import gradingTools.comp110.assignment1.testcases.PromptTestCase;
 import gradingTools.utils.RunningProjectUtils;
+import util.trace.Tracer;
 
 public class StaticArgumentsTestCase extends BasicTestCase {
 	public static final List<String> DEFAULT_CLIENT_ARGS = Arrays.asList("localhost", ""+ServerPort.SERVER_PORT, ClientArgsProcessor.DEFAULT_CLIENT_NAME, "true");
@@ -105,7 +106,7 @@ public class StaticArgumentsTestCase extends BasicTestCase {
 		}
 	}
 	
-	private static String checkArgs(Project project, String testServerPort, String testHost, String testClientPort) throws NotRunnableException{
+	private String checkArgs(Project project, String testServerPort, String testHost, String testClientPort) throws NotRunnableException{
 		StringBuilder message = new StringBuilder();
 		if (testServerPort.isEmpty()) {
 			testServerPort = DEFAULT_PORT;
@@ -130,14 +131,14 @@ public class StaticArgumentsTestCase extends BasicTestCase {
 			}
 		}
 		if (interactiveInputProject != null) {
-			interactiveInputProject.getProcessOutput().forEach((name, output) -> System.out.println("*** " + name + " ***\n" + output));
+			interactiveInputProject.getProcessOutput().forEach((name, output) -> Tracer.info(this, "*** " + name + " ***\n" + output));
 			if (!inputGenerator.foundClientInfo()) {
 				message.append("Couldn't find client connection info in traces.");
 			} else {
 				String clientInfo = inputGenerator.getClientInfo();
-				System.out.println("--- CLIENT INFO ---\n" + clientInfo);
+				Tracer.info(this, "--- CLIENT INFO ---\n" + clientInfo);
 				int portEnd = clientInfo.indexOf(',');
-				int portStart = clientInfo.lastIndexOf('.', portEnd) + 1;
+				int portStart = clientInfo.lastIndexOf(':', portEnd) + 1;
 				int hostEnd = clientInfo.indexOf('/');
 				int hostStart = clientInfo.lastIndexOf('(', hostEnd) + 1;
 				if (portStart <= 0 || portEnd == -1 || hostStart <= 0 || hostEnd == -1) {
@@ -147,7 +148,7 @@ public class StaticArgumentsTestCase extends BasicTestCase {
 					String host = clientInfo.substring(hostStart, hostEnd);
 					
 					
-					System.out.println("HOST: " + host + " PORT: " + port);
+					Tracer.info(this, "HOST: " + host + " PORT: " + port);
 					if (testHost.isEmpty()) {
 						if (!host.equalsIgnoreCase(DEFAULT_HOST)) {
 							message.append("Client not using default host (no args).");
@@ -194,7 +195,7 @@ public class StaticArgumentsTestCase extends BasicTestCase {
 				
 				String serverInfo = inputGenerator.getServerInfo();
 
-				System.out.println("--- SERVER INFO ---\n" + serverInfo);
+				Tracer.info(this, "--- SERVER INFO ---\n" + serverInfo);
 				int serverPortStart = serverInfo.indexOf(':')+1;
 				int serverPortEnd = serverInfo.indexOf(' ', serverPortStart);
 				
@@ -205,7 +206,7 @@ public class StaticArgumentsTestCase extends BasicTestCase {
 					message.append("Couldn't find server connection info in traces.");
 				} else {
 					String port = serverInfo.substring(serverPortStart, serverPortEnd);
-					System.out.println("PORT: " + port);
+					Tracer.info(this, "PORT: " + port);
 					if (testServerPort.isEmpty()) {
 						if (!port.equalsIgnoreCase(DEFAULT_PORT)) {
 							if (message.length() >= 0) {

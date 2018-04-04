@@ -131,7 +131,13 @@ public class OneClientCorrectReadWriteTestInputGenerator extends OneClientCorrec
 			}
 		} else if (aProcessName.equals(CLIENT_NAME)) {
 			if (!isConnectComplete()) {
-				didClient = checkConnect(anOutputLine);
+				didClient = checkForPropertyChangeListener(anOutputLine);
+				if (!didClient) {
+					didClient = checkForReadListener(anOutputLine);
+					if(!didClient && !isConnectFSMComplete()) {
+						didClient = checkConnect(anOutputLine);
+					}
+				}
 			}
 		}
 		// read/write if not connect
@@ -261,6 +267,40 @@ public class OneClientCorrectReadWriteTestInputGenerator extends OneClientCorrec
 	}
 	
 	private static String extractWriteStr(String line) {
+		return "";
+	}
+
+	public String getListNotFoundSource() {
+		if (!isAcceptComplete()) {
+			return super.getLastNotFound();
+		}  else if (!isClientWriteComplete()) {
+			return "Client writing to server";
+		} else if (serverReadStage != readStages.length) {
+			return "Server reading";
+		} else if (atomic) {
+			if(!isServerWriteComplete()) {
+				return "Server writing to client";
+			} else if (!isClientReadComplete()) {
+				return  "Client reading from server";
+			}
+		}
+		return "";
+	}
+	
+	public String getLastNotFound() {
+		if (!isAcceptComplete()) {
+			return super.getLastNotFound();
+		} else if (!isClientWriteComplete()) {
+			return clientWriteStages[clientWriteStage].pattern();
+		} else if (serverReadStage != readStages.length) {
+			return readStages[serverReadStage].pattern();
+		} else if (atomic) {
+			if (!isServerWriteComplete()) {
+				return serverWriteStages[serverWriteStage].pattern();
+			} else if (!isClientReadComplete()) {
+				return readStages[clientReadStage].pattern();
+			}
+		}
 		return "";
 	}
 }

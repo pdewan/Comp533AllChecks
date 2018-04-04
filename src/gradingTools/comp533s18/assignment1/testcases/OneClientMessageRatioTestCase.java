@@ -13,6 +13,7 @@ import grader.basics.project.Project;
 import grader.execution.ExecutionSpecificationSelector;
 import gradingTools.comp110.assignment1.testcases.PromptTestCase;
 import gradingTools.utils.RunningProjectUtils;
+import util.trace.Tracer;
 
 public class OneClientMessageRatioTestCase extends BasicTestCase {
 	
@@ -41,7 +42,7 @@ public class OneClientMessageRatioTestCase extends BasicTestCase {
 				
 			}
 			if (interactiveInputProject != null) {
-				interactiveInputProject.getProcessOutput().forEach((name, output) -> System.out.println("*** " + name + " ***\n" + output));
+				interactiveInputProject.getProcessOutput().forEach((name, output) -> Tracer.info(this, "*** " + name + " ***\n" + output));
 			}
 			int correct = 0;
 			int possible = 4;
