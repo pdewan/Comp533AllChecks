@@ -270,9 +270,10 @@ public class OneClientCorrectReadWriteTestInputGenerator extends OneClientCorrec
 		return "";
 	}
 
-	public String getListNotFoundSource() {
+	@Override
+	public String getLastNotFoundSource() {
 		if (!isAcceptComplete()) {
-			return super.getLastNotFound();
+			return super.getLastNotFoundSource();
 		}  else if (!isClientWriteComplete()) {
 			return "Client writing to server";
 		} else if (serverReadStage != readStages.length) {
@@ -287,6 +288,7 @@ public class OneClientCorrectReadWriteTestInputGenerator extends OneClientCorrec
 		return "";
 	}
 	
+	@Override
 	public String getLastNotFound() {
 		if (!isAcceptComplete()) {
 			return super.getLastNotFound();

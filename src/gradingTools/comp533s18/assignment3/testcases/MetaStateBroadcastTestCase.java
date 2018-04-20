@@ -23,37 +23,24 @@ import util.trace.Tracer;
 
 @MaxValue(20)
 //@Group("Test group name")
-public class OneClientCorrectConnectionTestCase extends BasicTestCase {
+public class MetaStateBroadcastTestCase extends BasicTestCase {
 	
 	private final boolean doNIO;
 	private final boolean doRMI;
 	private final boolean doGIPC;
+	private final boolean atomic;
+	private final boolean clientIsSource;
 	
-	public OneClientCorrectConnectionTestCase(boolean doNIO, boolean doRMI, boolean doGIPC) {
-		super("One client correct connection test case");
-
+	public MetaStateBroadcastTestCase(boolean atomic, boolean clientIsSource, boolean doNIO, boolean doRMI, boolean doGIPC) {
+		super("Meta state broadcast test case - " +(atomic ? "Atomic" : "Non-atomic") + " from " + (clientIsSource ? "Client" : "Server"));
+		
+		this.atomic = atomic;
+		this.clientIsSource = clientIsSource;
 		this.doNIO = doNIO;
 		this.doRMI = doRMI;
 		this.doGIPC = doGIPC;
 
 	}
-	
-//	@Test
-//	public void test() {
-//		TestCaseResult result = null;
-//        try {
-//        	result = test(CurrentProjectHolder.getOrCreateCurrentProject(), true);  
-//        	
-//    		BasicJUnitUtils.assertTrue(result.getNotes(), result.getPercentage(), result.isPass());
-//        } catch (Throwable e) {
-//        	e.printStackTrace();
-//        	if (result != null) {
-//        		BasicJUnitUtils.assertTrue(e, result.getPercentage());
-//        	} else {
-//        		BasicJUnitUtils.assertTrue(e, 0);
-//        	}
-//        }
-//	}
 	
 	@Override
 	public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException,
@@ -63,10 +50,10 @@ public class OneClientCorrectConnectionTestCase extends BasicTestCase {
 
 			// Get the output when we have no input from the user
 //			RunningProject noInputRunningProject = RunningProjectUtils.runProject(project, 1);
-			OneClientCorrectConnectionTestInputGenerator anOutputBasedInputGenerator = new OneClientCorrectConnectionTestInputGenerator(doNIO, doRMI, doGIPC);
+			MetaStateBroadcastTestInputGenerator anOutputBasedInputGenerator = new MetaStateBroadcastTestInputGenerator(atomic, clientIsSource, doNIO, doRMI, doGIPC);
 			RunningProject interactiveInputProject = null;
 			try {
-				interactiveInputProject = RunningProjectUtils.runProject(project, 25,
+				interactiveInputProject = RunningProjectUtils.runProject(project, 17,
 						anOutputBasedInputGenerator);
 				String incOutput = interactiveInputProject.await();
 			} catch (Exception e){
@@ -76,21 +63,33 @@ public class OneClientCorrectConnectionTestCase extends BasicTestCase {
 				interactiveInputProject.getProcessOutput().forEach((name, output) -> Tracer.info(this, "*** " + name + " ***\n" + output));
 			}
 			
-			if (anOutputBasedInputGenerator.isServerSetupComplete()) {
-				if (anOutputBasedInputGenerator.isClientConnectComplete()) {
-					if (anOutputBasedInputGenerator.isServerAcceptComplete()) {
-						return pass();
-					} else {
-						return partialPass(0.66, "In " + anOutputBasedInputGenerator.getLastNotFoundSource() + ", no line found matching regex: " + anOutputBasedInputGenerator.getLastNotFound());
-//						return partialPass(0.66, "Server failed to accept connection from client");
-					}
-				} else {
-					return partialPass(0.33, "In " + anOutputBasedInputGenerator.getLastNotFoundSource() + ", no line found matching regex: " + anOutputBasedInputGenerator.getLastNotFound());
-//					return partialPass(0.33, "Client failed to connect to server");
+			int correct = 0;
+			int possible = 0;
+			
+			if (doNIO) {
+				possible ++;
+				if (anOutputBasedInputGenerator.isNIOCorrect()) {
+					correct ++;
 				}
+			}
+			if (doRMI) {
+				possible ++;
+				if (anOutputBasedInputGenerator.isRMICorrect()) {
+					correct ++;
+				}
+			}
+			if (doGIPC) {
+				possible ++;
+				if (anOutputBasedInputGenerator.isGIPCCorrect()) {
+					correct ++;
+				}
+			}
+			if (possible == correct) {
+				return pass();
+			} else if (correct == 0) {
+				return fail(anOutputBasedInputGenerator.getErrorMessage());
 			} else {
-				return fail("In " + anOutputBasedInputGenerator.getLastNotFoundSource() + ", no line found matching regex: " + anOutputBasedInputGenerator.getLastNotFound());
-//				return fail("Server failed to accept connections");
+				return partialPass(((double)correct)/possible, anOutputBasedInputGenerator.getErrorMessage());
 			}
 		} catch (NotRunnableException e) {
 			throw new NotGradableException();
@@ -99,17 +98,20 @@ public class OneClientCorrectConnectionTestCase extends BasicTestCase {
 	
 	private static void setupProcesses() {
 		ExecutionSpecificationSelector.getExecutionSpecification().setProcessTeams(Arrays.asList("RegistryBasedDistributedProgram"));
-		ExecutionSpecificationSelector.getExecutionSpecification().setTerminatingProcesses("RegistryBasedDistributedProgram", Arrays.asList("Client"));
-		ExecutionSpecificationSelector.getExecutionSpecification().setProcesses("RegistryBasedDistributedProgram", Arrays.asList("Registry", "Server", "Client"));
+		ExecutionSpecificationSelector.getExecutionSpecification().setTerminatingProcesses("RegistryBasedDistributedProgram", Arrays.asList("Client_0", "Client_1"));
+		ExecutionSpecificationSelector.getExecutionSpecification().setProcesses("RegistryBasedDistributedProgram", Arrays.asList("Registry", "Server", "Client_0", "Client_1"));
 		ExecutionSpecificationSelector.getExecutionSpecification().setEntryTags("Registry", Arrays.asList("Registry"));
 		ExecutionSpecificationSelector.getExecutionSpecification().setEntryTags("Server", Arrays.asList("Server"));
-		ExecutionSpecificationSelector.getExecutionSpecification().setEntryTags("Client", Arrays.asList("Client"));
+		ExecutionSpecificationSelector.getExecutionSpecification().setEntryTags("Client_0", Arrays.asList("Client"));
+		ExecutionSpecificationSelector.getExecutionSpecification().setEntryTags("Client_1", Arrays.asList("Client"));
 		ExecutionSpecificationSelector.getExecutionSpecification().setArgs("Registry", StaticArgumentsTestCase.TEST_REGISTRY_ARGS);
 		ExecutionSpecificationSelector.getExecutionSpecification().setArgs("Server", StaticArgumentsTestCase.TEST_SERVER_ARGS);
-		ExecutionSpecificationSelector.getExecutionSpecification().setArgs("Client", StaticArgumentsTestCase.TEST_CLIENT_0_ARGS);
+		ExecutionSpecificationSelector.getExecutionSpecification().setArgs("Client_0", StaticArgumentsTestCase.TEST_CLIENT_0_ARGS);
+		ExecutionSpecificationSelector.getExecutionSpecification().setArgs("Client_1", StaticArgumentsTestCase.TEST_CLIENT_1_ARGS);
 		ExecutionSpecificationSelector.getExecutionSpecification().setSleepTime("Registry", 500);
 		ExecutionSpecificationSelector.getExecutionSpecification().setSleepTime("Server", 2000);
-		ExecutionSpecificationSelector.getExecutionSpecification().setSleepTime("Client", 5000);
+		ExecutionSpecificationSelector.getExecutionSpecification().setSleepTime("Client_0", 5000);
+		ExecutionSpecificationSelector.getExecutionSpecification().setSleepTime("Client_1", 5000);
 		ExecutionSpecificationSelector.getExecutionSpecification().getProcessTeams().forEach(team -> System.out.println("### " + team));
 	}
 }

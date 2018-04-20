@@ -1,59 +1,64 @@
 package gradingTools.comp533s18.assignment3.testcases;
 
 import java.util.Arrays;
-import java.util.concurrent.TimeoutException;
-
-import org.junit.Test;
 
 import framework.grading.testing.BasicTestCase;
 import grader.basics.execution.NotRunnableException;
 import grader.basics.execution.RunningProject;
-import grader.basics.junit.BasicJUnitUtils;
 import grader.basics.junit.NotAutomatableException;
 import grader.basics.junit.TestCaseResult;
-import grader.basics.project.CurrentProjectHolder;
 import grader.basics.project.NotGradableException;
 import grader.basics.project.Project;
 import grader.execution.ExecutionSpecificationSelector;
-import gradingTools.comp110.assignment1.testcases.PromptTestCase;
 import gradingTools.utils.RunningProjectUtils;
-import util.annotations.Group;
-import util.annotations.MaxValue;
 import util.trace.Tracer;
 
-@MaxValue(20)
-//@Group("Test group name")
-public class OneClientCorrectConnectionTestCase extends BasicTestCase {
-	
+public class OneClientCorrectReadWriteTestCase extends BasicTestCase {
+	private boolean atomic;
 	private final boolean doNIO;
 	private final boolean doRMI;
 	private final boolean doGIPC;
 	
-	public OneClientCorrectConnectionTestCase(boolean doNIO, boolean doRMI, boolean doGIPC) {
-		super("One client correct connection test case");
+	private static int RUNTIME = 40;
+	
+	private static String formatName(boolean atomic, boolean doNIO, boolean doRMI, boolean doGIPC) {
+		StringBuilder sb = new StringBuilder("One client correct read write test case - ");
+		if (atomic) {
+			sb.append("Atomic");
+		} else {
+			sb.append("Non-atomic");
+		}
+		sb.append(" (using");
+		boolean hasMethod = false;
+		if (doNIO) {
+			hasMethod = true;
+			sb.append(" NIO");
+		}
+		if (doRMI) {
+			if (hasMethod) {
+				sb.append(",");
+			}
+			sb.append(" RMI");
+		}
+		if (doGIPC) {
+			if (hasMethod) {
+				sb.append(",");
+			}
+			sb.append(" GIPC");
+		}
+		sb.append(")");
+		
+		return sb.toString();
+	}
+	
+	public OneClientCorrectReadWriteTestCase(boolean atomic, boolean doNIO, boolean doRMI, boolean doGIPC) {
+		super(formatName(atomic, doNIO, doRMI, doGIPC));
+		this.atomic = atomic;
 
 		this.doNIO = doNIO;
 		this.doRMI = doRMI;
 		this.doGIPC = doGIPC;
-
 	}
-	
-//	@Test
-//	public void test() {
-//		TestCaseResult result = null;
-//        try {
-//        	result = test(CurrentProjectHolder.getOrCreateCurrentProject(), true);  
-//        	
-//    		BasicJUnitUtils.assertTrue(result.getNotes(), result.getPercentage(), result.isPass());
-//        } catch (Throwable e) {
-//        	e.printStackTrace();
-//        	if (result != null) {
-//        		BasicJUnitUtils.assertTrue(e, result.getPercentage());
-//        	} else {
-//        		BasicJUnitUtils.assertTrue(e, 0);
-//        	}
-//        }
-//	}
 	
 	@Override
 	public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException,
@@ -63,10 +68,10 @@ public class OneClientCorrectConnectionTestCase extends BasicTestCase {
 
 			// Get the output when we have no input from the user
 //			RunningProject noInputRunningProject = RunningProjectUtils.runProject(project, 1);
-			OneClientCorrectConnectionTestInputGenerator anOutputBasedInputGenerator = new OneClientCorrectConnectionTestInputGenerator(doNIO, doRMI, doGIPC);
+			OneClientCorrectReadWriteTestInputGenerator anOutputBasedInputGenerator = new OneClientCorrectReadWriteTestInputGenerator(atomic, doNIO, doRMI, doGIPC);
 			RunningProject interactiveInputProject = null;
 			try {
-				interactiveInputProject = RunningProjectUtils.runProject(project, 25,
+				interactiveInputProject = RunningProjectUtils.runProject(project, RUNTIME,
 						anOutputBasedInputGenerator);
 				String incOutput = interactiveInputProject.await();
 			} catch (Exception e){
@@ -75,25 +80,51 @@ public class OneClientCorrectConnectionTestCase extends BasicTestCase {
 			if (interactiveInputProject != null) {
 				interactiveInputProject.getProcessOutput().forEach((name, output) -> Tracer.info(this, "*** " + name + " ***\n" + output));
 			}
-			
-			if (anOutputBasedInputGenerator.isServerSetupComplete()) {
-				if (anOutputBasedInputGenerator.isClientConnectComplete()) {
-					if (anOutputBasedInputGenerator.isServerAcceptComplete()) {
-						return pass();
-					} else {
-						return partialPass(0.66, "In " + anOutputBasedInputGenerator.getLastNotFoundSource() + ", no line found matching regex: " + anOutputBasedInputGenerator.getLastNotFound());
-//						return partialPass(0.66, "Server failed to accept connection from client");
-					}
-				} else {
-					return partialPass(0.33, "In " + anOutputBasedInputGenerator.getLastNotFoundSource() + ", no line found matching regex: " + anOutputBasedInputGenerator.getLastNotFound());
-//					return partialPass(0.33, "Client failed to connect to server");
+			int correct = 0;
+			int possible = atomic ? 4 : 2;
+			int[] scoring = new int[] {0,0};
+			if (doNIO) {
+				check(scoring, anOutputBasedInputGenerator.isClientNIOWriteComplete());
+				check(scoring, anOutputBasedInputGenerator.isServerNIOReadComplete());
+				if (atomic) {
+					check(scoring, anOutputBasedInputGenerator.isServerNIOWriteComplete());
+					check(scoring, anOutputBasedInputGenerator.isClientNIOReadComplete());
 				}
-			} else {
+			}
+			if (doRMI) {
+				check(scoring, anOutputBasedInputGenerator.isClientRMIWriteComplete());
+				check(scoring, anOutputBasedInputGenerator.isServerRMIReadComplete());
+				if (atomic) {
+					check(scoring, anOutputBasedInputGenerator.isServerRMIWriteComplete());
+					check(scoring, anOutputBasedInputGenerator.isClientRMIReadComplete());
+				}
+			}
+			if (doGIPC) {
+				check(scoring, anOutputBasedInputGenerator.isClientGIPCWriteComplete());
+				check(scoring, anOutputBasedInputGenerator.isServerGIPCReadComplete());
+				if (atomic) {
+					check(scoring, anOutputBasedInputGenerator.isServerGIPCWriteComplete());
+					check(scoring, anOutputBasedInputGenerator.isClientGIPCReadComplete());
+				}
+			}
+			correct = scoring[0];
+			possible = scoring[1];
+			if (correct == possible) {
+				return pass();
+			} else if (correct == 0) {
 				return fail("In " + anOutputBasedInputGenerator.getLastNotFoundSource() + ", no line found matching regex: " + anOutputBasedInputGenerator.getLastNotFound());
-//				return fail("Server failed to accept connections");
+			} else {
+				return partialPass(((double)correct)/possible, "In " + anOutputBasedInputGenerator.getLastNotFoundSource() + ", no line found matching regex: " + anOutputBasedInputGenerator.getLastNotFound());
 			}
 		} catch (NotRunnableException e) {
 			throw new NotGradableException();
+		}
+	}
+	
+	private static void check(int[] scoring, boolean condition) {
+		scoring[1] ++;
+		if (condition) {
+			scoring[0] ++;
 		}
 	}
 	

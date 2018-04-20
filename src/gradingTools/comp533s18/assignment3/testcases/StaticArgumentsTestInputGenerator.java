@@ -4,8 +4,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import util.pipe.AnAbstractInputGenerator;
+import util.trace.Tracer;
 
 public class StaticArgumentsTestInputGenerator extends AnAbstractInputGenerator {
+	private static final boolean PRINT_CHECKED_REGEX = true;
+
 	private static final String TRACER_PREFIX = "I***";
 	
 	private static final String SERVER_NAME = "Server";
@@ -54,6 +57,8 @@ public class StaticArgumentsTestInputGenerator extends AnAbstractInputGenerator 
 	private boolean foundClientRMIInfo = false;
 	private boolean foundClientGIPCInfo = false;
 	
+	private boolean clientGIPCConnectRequestedProcessed = false;
+	
 	private boolean isHeadless = false;
 	
 	private String serverNIOLocalAddr1;
@@ -86,10 +91,28 @@ public class StaticArgumentsTestInputGenerator extends AnAbstractInputGenerator 
 			} else if (doGIPC && !foundServerGIPCInfo() && checkForServerGIPCInfo(anOutputLine)) {
 			}
 		} else if (aProcessName.equals(CLIENT_NAME)) {
+//			System.out.println("========== " + anOutputLine);
+			boolean used = false;
 			if (checkForHeadless(anOutputLine)) {
-			} else if (doNIO && !foundClientNIOInfo() && checkForClientNIOInfo(anOutputLine)) {
-			} else if (doRMI && !foundClientRMIInfo() && checkForClientRMIInfo(anOutputLine)) {
-			} else if (doGIPC && !foundClientGIPCInfo() && checkForClientGIPCInfo(anOutputLine)) {
+			} else if (doGIPC) {
+				if (!foundClientGIPCInfo() && checkForClientGIPCInfo(anOutputLine)) {
+					used = true;
+				} else if (doNIO && foundClientGIPCInfo() && !foundClientNIOInfo && !clientGIPCConnectRequestedProcessed) {
+					// 
+					if (checkForClientNIOInfo(anOutputLine)) {
+						used = true;
+						clientGIPCConnectRequestedProcessed = true;
+						clientNIORemoteAddr1 = null;
+						clientNIORemoteAddr2 = null;
+						clientNIORemotePort = null;
+						foundClientNIOInfo = false;
+					}
+				}
+			}
+			if (!used) {
+				if (doNIO && !foundClientNIOInfo() && checkForClientNIOInfo(anOutputLine)) {
+				} else if (doRMI && !foundClientRMIInfo() && checkForClientRMIInfo(anOutputLine)) {
+				}
 			}
 		}
 		if (!quitSubmitted && foundServerInfo() && foundClientInfo()) {
@@ -169,6 +192,9 @@ public class StaticArgumentsTestInputGenerator extends AnAbstractInputGenerator 
 	
 	private boolean checkForClientNIOInfo(String line) {
 		if (line.startsWith(TRACER_PREFIX)) {
+			if (PRINT_CHECKED_REGEX) {
+				Tracer.info(this, "Checking for client NIO info if line matches: " + NIO_CLIENT_LINE_TO_INFO);
+			}
 			Matcher match = NIO_CLIENT_LINE_TO_INFO.matcher(line);
 			if (match.matches()) {
 				clientNIORemoteAddr1 = match.group(1);
@@ -183,6 +209,9 @@ public class StaticArgumentsTestInputGenerator extends AnAbstractInputGenerator 
 	
 	private boolean checkForServerNIOInfo(String line) {
 		if (line.startsWith(TRACER_PREFIX)) {
+			if (PRINT_CHECKED_REGEX) {
+				Tracer.info(this, "Checking for server NIO info if line matches: " + NIO_SERVER_LINE_TO_INFO);
+			}
 			Matcher match = NIO_SERVER_LINE_TO_INFO.matcher(line);
 			if (match.matches()) {
 				serverNIOLocalAddr1 = match.group(1);
@@ -197,6 +226,9 @@ public class StaticArgumentsTestInputGenerator extends AnAbstractInputGenerator 
 	
 	private boolean checkForClientRMIInfo(String line) {
 		if (line.startsWith(TRACER_PREFIX)) {
+			if (PRINT_CHECKED_REGEX) {
+				Tracer.info(this, "Checking for client RMI info if line matches: " + RMI_LINE_TO_INFO);
+			}
 			Matcher match = RMI_LINE_TO_INFO.matcher(line);
 			if (match.matches()) {
 				clientRMIRemoteAddr = match.group(1);
@@ -210,6 +242,9 @@ public class StaticArgumentsTestInputGenerator extends AnAbstractInputGenerator 
 	
 	private boolean checkForServerRMIInfo(String line) {
 		if (line.startsWith(TRACER_PREFIX)) {
+			if (PRINT_CHECKED_REGEX) {
+				Tracer.info(this, "Checking for server RMI info if line matches: " + RMI_LINE_TO_INFO);
+			}
 			Matcher match = RMI_LINE_TO_INFO.matcher(line);
 			if (match.matches()) {
 				serverRMIRemoteAddr = match.group(1);
@@ -223,6 +258,9 @@ public class StaticArgumentsTestInputGenerator extends AnAbstractInputGenerator 
 	
 	private boolean checkForClientGIPCInfo(String line) {
 		if (line.startsWith(TRACER_PREFIX)) {
+			if (PRINT_CHECKED_REGEX) {
+				Tracer.info(this, "Checking for client GIPC info if line matches: " + GIPC_CLIENT_LINE_TO_INFO);
+			}
 			Matcher match = GIPC_CLIENT_LINE_TO_INFO.matcher(line);
 			if (match.matches()) {
 				clientGIPCRemoteAddr = match.group(1);
@@ -237,6 +275,9 @@ public class StaticArgumentsTestInputGenerator extends AnAbstractInputGenerator 
 	
 	private boolean checkForServerGIPCInfo(String line) {
 		if (line.startsWith(TRACER_PREFIX)) {
+			if (PRINT_CHECKED_REGEX) {
+				Tracer.info(this, "Checking for server GIPC info if line matches: " + GIPC_SERVER_LINE_TO_INFO);
+			}
 			Matcher match = GIPC_SERVER_LINE_TO_INFO.matcher(line);
 			if (match.matches()) {
 				serverGIPCLocalPort = match.group(1);
@@ -248,6 +289,9 @@ public class StaticArgumentsTestInputGenerator extends AnAbstractInputGenerator 
 	}
 	
 	private boolean checkForHeadless(String line) {
+		if (PRINT_CHECKED_REGEX) {
+			Tracer.info(this, "Checking for headless if line matches: " + HEADLESS_LINE);
+		}
 		if (HEADLESS_LINE.equals(line)) {
 			isHeadless = true;
 			return true;

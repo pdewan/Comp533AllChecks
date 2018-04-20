@@ -4,8 +4,12 @@ import grader.junit.AJUnitProjectRequirements;
 import grader.trace.GraderTraceUtility;
 import grader.trace.comp533.Comp533TraceUtility;
 import gradingTools.comp533s18.assignment1.testcases.SingleClassTaggedTestCase;
+import gradingTools.comp533s18.assignment3.testcases.MetaStateBroadcastTestCase;
 import gradingTools.comp533s18.assignment3.testcases.OneClientCorrectConnectionTestCase;
+import gradingTools.comp533s18.assignment3.testcases.OneClientCorrectReadWriteTestCase;
 import gradingTools.comp533s18.assignment3.testcases.StaticArgumentsTestCase;
+import gradingTools.comp533s18.assignment3.testcases.TwoClientCorrectConnectionTestCase;
+import gradingTools.comp533s18.assignment3.testcases.TwoClientCorrectReadWriteTestCase;
 
 public class Assignment3Requirements extends AJUnitProjectRequirements {
 	public Assignment3Requirements() {
@@ -23,10 +27,25 @@ public class Assignment3Requirements extends AJUnitProjectRequirements {
 		
 //		addJUnitTestSuite(Assignment3Suite.class);
 		
-//		// takes 0.5 points from each read, write, and behaviors test, behavior exclusive testing
-		addFeature("Static arguments work properly", 20, new StaticArgumentsTestCase(true, true, true));
-		addFeature("One client correct connection", 20, new OneClientCorrectConnectionTestCase(true, true, true));
-//		// read/write correct and client+server behaviors
+		// takes 0.5 points from each read, write, and behaviors test, behavior exclusive testing
+//		addFeature("Static arguments work properly", 20, new StaticArgumentsTestCase(true, true, true));
+////		
+//		addFeature("One client correct connection", 20, new OneClientCorrectConnectionTestCase(false, true, true));
+//		addFeature("Two client correct connection", 20, new TwoClientCorrectConnectionTestCase(false, true, true));
+//		
+//		addFeature("One client correct read, write, and behaviors - Atomic", 20, new OneClientCorrectReadWriteTestCase(false, true, true, true));
+//		addFeature("One client correct read, write, and behaviors - Non-Atomic", 20, new OneClientCorrectReadWriteTestCase(false, true, true, true));
+//
+//		addFeature("Two client correct read, write, and behaviors - Atomic", 20, new TwoClientCorrectReadWriteTestCase(false, true, true, true));
+//		addFeature("Two client correct read, write, and behaviors - Non-Atomic", 20, new TwoClientCorrectReadWriteTestCase(false, true, true, true));
+
+		addFeature("Broadcast meta state - Atomic from Client", 20, new MetaStateBroadcastTestCase(true, true, true, true, true));
+		addFeature("Broadcast meta state - Atomic from Server", 20, new MetaStateBroadcastTestCase(true, false, true, true, true));
+		addFeature("Broadcast meta state - Non-Atomic from Client", 20, new MetaStateBroadcastTestCase(false, true, true, true, true));
+		addFeature("Broadcast meta state - Non-Atomic from Server", 20, new MetaStateBroadcastTestCase(false, false, true, true, true));
+
+		
+		//		// read/write correct and client+server behaviors
 //		addFeature("One client correct read, write, and behaviors - Atomic", 35, new OneClientCorrectReadWriteTestCase(true));
 //		addFeature("One client correct read, write, and behaviors - Non-atomic", 35, new OneClientCorrectReadWriteTestCase(false));
 ////		  threads exist

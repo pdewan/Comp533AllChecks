@@ -475,9 +475,10 @@ public class TwoClientCorrectReadWriteTestInputGenerator extends TwoClientCorrec
 		return (a && b) || (!atomic && (a || b));
 	}
 
-	public String getListNotFoundSource() {
+	@Override
+	public String getLastNotFoundSource() {
 		if (!areAcceptsComplete()) {
-			return super.getLastNotFound();
+			return super.getLastNotFoundSource();
 		}  else if (!isClientWriteComplete()) {
 			if (!client0Writing && !client1Writing) {
 				return "Determining client write start";
@@ -520,6 +521,7 @@ public class TwoClientCorrectReadWriteTestInputGenerator extends TwoClientCorrec
 		return "";
 	}
 	
+	@Override
 	public String getLastNotFound() {
 		String ret = "";
 		if (!areAcceptsComplete()) {

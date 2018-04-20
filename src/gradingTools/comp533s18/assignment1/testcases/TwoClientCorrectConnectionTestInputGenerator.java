@@ -243,7 +243,7 @@ public class TwoClientCorrectConnectionTestInputGenerator extends AnAbstractInpu
 		return false;
 	}
 	
-	public String getListNotFoundSource() {
+	public String getLastNotFoundSource() {
 		if (!isEnableAcceptComplete()) {
 			return "Server enabling accepts";
 		} else if (!isConnect0Complete()) {

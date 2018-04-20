@@ -6,7 +6,9 @@ import util.pipe.AnAbstractInputGenerator;
 import util.trace.Tracer;
 
 public class OneClientCorrectConnectionTestInputGenerator extends AnAbstractInputGenerator {
-private static final String TRACER_PREFIX = "I***";
+	private static final boolean PRINT_CHECKED_REGEX = false;
+
+	private static final String TRACER_PREFIX = "I***";
 	
 	private static final String MAIN_THREAD = "\\{main\\}";
 	private static final String SELECT_THREAD = "\\{.*?[sS][eE][lL][eE][cC][tT].*?\\}";
@@ -21,15 +23,19 @@ private static final String TRACER_PREFIX = "I***";
 	private int serverGIPCSetupStage = 0;
 	private int clientNIOConnectStage = 0;
 	private int clientRMIConnectStage = 0;
-	private int clientGIPCConnectStage = 0;
+	private int clientGIPCConnectStage1 = 0;
+	private int clientGIPCConnectStage2 = 0;
 	private int serverNIOAcceptStage = 0;
 	private int serverGIPCAcceptStage = 0;
 	
 	private boolean serverRegisteredGIPCObject = false;
 
+	
+	private boolean hasPropertyChangeListener = false;
 	private boolean[] hasNIOListeners = {false, false};
 	private boolean[] hasRMIListeners = {false};
 	private boolean[] hasGIPCListeners = {false, false, false};
+	private boolean hasGIPCObjectLookedUp = false;
 	
 	private final boolean doNIO;
 	private final boolean doRMI;
@@ -91,8 +97,8 @@ private static final String TRACER_PREFIX = "I***";
 			checkStr(MAIN_THREAD, "RMIObjectLookedUp")
 	};
 	
-	// PropertyChangeListener, ReadListener, WriteListener
-	private static final Pattern[] clientGIPCConnectStages = {
+	// PropertyChangeListener, ReadListener, WriteListener, GIPCObjectLookedUp
+	private static final Pattern[] clientGIPCConnectStages1 = {
 			checkStr(MAIN_THREAD, "GIPCRegistryLocated"),
 			checkStr(MAIN_THREAD, "SelectorFactorySet"),
 			checkStr(MAIN_THREAD, "SelectorFactorySet"),
@@ -112,23 +118,7 @@ private static final String TRACER_PREFIX = "I***";
 			checkStr(SELECT_THREAD, "SelectorWokenUp"),
 			checkStr(SELECT_THREAD, "SocketChannelInterestOp"),
 			checkStr(SELECT_THREAD, "SocketChannelInterestOp"),
-			checkStr(SELECT_THREAD, "SelectCalled"),
-			checkStr(SELECT_THREAD, "SelectCalled"),
-			checkStr(SELECT_THREAD, "SocketChannelWritten"),
-			checkStr(SELECT_THREAD, "WriteRequestDequeued"),
-			checkStr(SELECT_THREAD, "SocketChannelWritten"),
-			checkStr(SELECT_THREAD, "WriteRequestDequeued"),
-			checkStr(SELECT_THREAD, "SocketChannelInterestOp"),
-			checkStr(SELECT_THREAD, "WriteBufferIsEmpty"),
-			checkStr(SELECT_THREAD, "ReadsEnabled"),
-			checkStr(SELECT_THREAD, "SocketChannelInterestOp"),
-			checkStr(SELECT_THREAD, "SelectCalled"),
-			checkStr(MAIN_THREAD, "GIPCObjectLookedUp"),
-			checkStr(MAIN_THREAD, "SocketChannelWriteRequested"),
-			checkStr(MAIN_THREAD, "WriteRequestEnqueued"),
-			checkStr(MAIN_THREAD, "WriteRequestEnqueued"),
-			checkStr(MAIN_THREAD, "SelectorWokenUp"),
-			checkStr(SELECT_THREAD, "SocketChannelInterestOp"),
+//			checkStr(SELECT_THREAD, "SelectCalled"),
 			checkStr(SELECT_THREAD, "SelectCalled"),
 			checkStr(SELECT_THREAD, "SocketChannelWritten"),
 			checkStr(SELECT_THREAD, "WriteRequestDequeued"),
@@ -139,12 +129,46 @@ private static final String TRACER_PREFIX = "I***";
 			checkStr(SELECT_THREAD, "ReadsEnabled"),
 			checkStr(SELECT_THREAD, "SocketChannelInterestOp"),
 			checkStr(SELECT_THREAD, "SelectCalled")
+//			checkStr(MAIN_THREAD, "GIPCObjectLookedUp"),
+//			checkStr(MAIN_THREAD, "SocketChannelWriteRequested"),
+//			checkStr(MAIN_THREAD, "WriteRequestEnqueued"),
+//			checkStr(MAIN_THREAD, "WriteRequestEnqueued"),
+//			checkStr(MAIN_THREAD, "SelectorWokenUp"),
+//			checkStr(SELECT_THREAD, "SocketChannelInterestOp"),
+//			checkStr(SELECT_THREAD, "SelectCalled"),
+//			checkStr(SELECT_THREAD, "SocketChannelWritten"),
+//			checkStr(SELECT_THREAD, "WriteRequestDequeued"),
+//			checkStr(SELECT_THREAD, "SocketChannelWritten"),
+//			checkStr(SELECT_THREAD, "WriteRequestDequeued"),
+//			checkStr(SELECT_THREAD, "SocketChannelInterestOp"),
+//			checkStr(SELECT_THREAD, "WriteBufferIsEmpty"),
+//			checkStr(SELECT_THREAD, "ReadsEnabled"),
+//			checkStr(SELECT_THREAD, "SocketChannelInterestOp"),
+//			checkStr(SELECT_THREAD, "SelectCalled")
+	};
+	
+	private static final Pattern[] clientGIPCConnectStages2 = {
+			checkStr(MAIN_THREAD, "SocketChannelWriteRequested"),
+			checkStr(MAIN_THREAD, "WriteRequestEnqueued"),
+			checkStr(MAIN_THREAD, "WriteRequestEnqueued"),
+			checkStr(MAIN_THREAD, "SelectorWokenUp"),
+//			checkStr(SELECT_THREAD, "SocketChannelInterestOp"),
+			checkStr(SELECT_THREAD, "SelectCalled"),
+			checkStr(SELECT_THREAD, "SocketChannelWritten"),
+			checkStr(SELECT_THREAD, "WriteRequestDequeued"),
+			checkStr(SELECT_THREAD, "SocketChannelWritten"),
+			checkStr(SELECT_THREAD, "WriteRequestDequeued"),
+//			checkStr(SELECT_THREAD, "SocketChannelInterestOp"),
+//			checkStr(SELECT_THREAD, "WriteBufferIsEmpty"),
+//			checkStr(SELECT_THREAD, "ReadsEnabled"),
+//			checkStr(SELECT_THREAD, "SocketChannelInterestOp")
 	};
 	
 	private static final Pattern readListenerPattern = multipleCheckStr(MAIN_THREAD, "ReadListenerAdded", SELECT_THREAD, "ReadListenerAdded");
 	private static final Pattern writeListenerPattern = multipleCheckStr(MAIN_THREAD, "WriteListenerAdded", SELECT_THREAD, "WriteListenerAdded");
 	private static final Pattern propertyChangeListenerPattern = multipleCheckStr(MAIN_THREAD, "AddedPropertyChangeListener", SELECT_THREAD, "AddedPropertyChangeListener");
 	
+	private static final Pattern gipcObjectLookedUpPattern = checkStr(MAIN_THREAD, "GIPCObjectLookedUp");
 	private static final Pattern gipcObjectRegisteredPattern = checkStr(MAIN_THREAD, "GIPCObjectRegistered");
 	
 	private static final Pattern[] serverNIOAcceptStages = {
@@ -187,26 +211,62 @@ private static final String TRACER_PREFIX = "I***";
 	@Override
 	public void newOutputLine(String aProcessName, String anOutputLine) {
 		if (aProcessName.equals(SERVER_NAME)) {
-			if (!isServerSetupComplete()) {
-				if (!isServerNIOSetupComplete() && checkServerNIOSetup(anOutputLine)) {
-				} else if (!isServerRMISetupComplete() && checkServerRMISetup(anOutputLine)) {
-				} else if (!isServerGIPCSetupComplete() && checkServerGIPCSetup(anOutputLine)) {}
-			} else if (!isServerAcceptComplete()) {
-				if (!isServerNIOAcceptComplete() && checkServerNIOAccept(anOutputLine)) {
-				} else if (!isServerGIPCAcceptComplete() && checkServerGIPCAccept(anOutputLine)) {}
-			}
+			checkServer(anOutputLine);
+//			if (!isServerSetupComplete()) {
+//				if (!isServerNIOSetupComplete() && checkServerNIOSetup(anOutputLine)) {
+//				} else if (!isServerRMISetupComplete() && checkServerRMISetup(anOutputLine)) {
+//				} else if (!isServerGIPCSetupComplete() && checkServerGIPCSetup(anOutputLine)) {}
+//			} else if (!isServerAcceptComplete()) {
+//				if (!isServerNIOAcceptComplete() && checkServerNIOAccept(anOutputLine)) {
+//				} else if (!isServerGIPCAcceptComplete() && checkServerGIPCAccept(anOutputLine)) {}
+//			}
 		} else if (aProcessName.equals(CLIENT_NAME)) {
-			if (!isClientConnectComplete()) {
-				if (!isClientNIOConnectComplete() && checkClientNIOConnect(anOutputLine)) {
-				} else if (!isClientRMIConnectComplete() && checkClientRMIConnect(anOutputLine)) {
-				} else if (!isClientGIPCConnectComplete() && checkClientGIPCConnect(anOutputLine)) {}
-			}
+			checkClient(anOutputLine);
+//			if (!isClientConnectComplete()) {
+//				if (!isClientNIOConnectComplete() && checkClientNIOConnect(anOutputLine)) {
+//				} else if (!isClientRMIConnectComplete() && checkClientRMIConnect(anOutputLine)) {
+//				} else if (!isClientGIPCConnectComplete() && checkClientGIPCConnect(anOutputLine)) {}
+//			}
 		}
 		if (!quitSubmitted && isServerAcceptComplete()) {
 			notifyNewInputLine(CLIENT_NAME, "q 0");
 			notifyNewInputLine(SERVER_NAME, "q 0");
 			quitSubmitted = true;
 		}
+	}
+	
+	protected boolean checkServer(String line) {
+		boolean used = false;
+		if (!isServerSetupComplete()) {
+			if (!isServerNIOSetupComplete() && checkServerNIOSetup(line)) {
+				used = true;
+			} else if (!isServerRMISetupComplete() && checkServerRMISetup(line)) {
+				used = true;
+			} else if (!isServerGIPCSetupComplete() && checkServerGIPCSetup(line)) {
+				used = true;
+			}
+		} else if (!isServerAcceptComplete()) {
+			if (!isServerNIOAcceptComplete() && checkServerNIOAccept(line)) {
+				used = true;
+			} else if (!isServerGIPCAcceptComplete() && checkServerGIPCAccept(line)) {
+				used = true;
+			}
+		}
+		return used;
+	}
+	
+	protected boolean checkClient(String line) {
+		boolean used = false;
+		if (!isClientConnectComplete()) {
+			if (!isClientGIPCConnectComplete() && checkClientGIPCConnect(line)) {
+				used = true;
+			} else if (!isClientNIOConnectComplete() && checkClientNIOConnect(line)) {
+				used = true;
+			} else if (!isClientRMIConnectComplete() && checkClientRMIConnect(line)) {
+				used = true;
+			}
+		}
+		return used;
 	}
 	
 	public boolean isServerNIOSetupComplete() {
@@ -234,7 +294,7 @@ private static final String TRACER_PREFIX = "I***";
 	}
 	
 	public boolean isClientNIOConnectComplete() {
-		return !doNIO || (isClientNIOConnectFSMComplete() && hasNIOListeners[0] && hasNIOListeners[1]);
+		return !doNIO || (isClientNIOConnectFSMComplete() && (hasPropertyChangeListener || hasNIOListeners[0]) && hasNIOListeners[1]);
 	}
 
 	public boolean isClientRMIConnectFSMComplete() {
@@ -242,15 +302,19 @@ private static final String TRACER_PREFIX = "I***";
 	}
 	
 	public boolean isClientRMIConnectComplete() {
-		return !doRMI || (isClientRMIConnectFSMComplete() && hasRMIListeners[0]);
+		return !doRMI || (isClientRMIConnectFSMComplete() && (hasPropertyChangeListener || hasRMIListeners[0]));
 	}
 	
-	public boolean isClientGIPCConnectFSMComplete() {
-		return clientGIPCConnectStage == clientGIPCConnectStages.length;
+	public boolean isClientGIPCConnectFSM1Complete() {
+		return clientGIPCConnectStage1 == clientGIPCConnectStages1.length;
+	}
+	
+	public boolean isClientGIPCConnectFSM2Complete() {
+		return clientGIPCConnectStage2 == clientGIPCConnectStages2.length;
 	}
 	
 	public boolean isClientGIPCConnectComplete() {
-		return !doGIPC || (isClientGIPCConnectFSMComplete() && hasGIPCListeners[0] && hasGIPCListeners[1] && hasGIPCListeners[2]);
+		return !doGIPC || (isClientGIPCConnectFSM1Complete() && isClientGIPCConnectFSM2Complete() && (hasPropertyChangeListener || hasGIPCListeners[0]) && hasGIPCListeners[1] && hasGIPCListeners[2] && hasGIPCObjectLookedUp);
 	}
 	
 	public boolean isClientConnectComplete() {
@@ -274,29 +338,41 @@ private static final String TRACER_PREFIX = "I***";
 	}
 	
 	public boolean checkServerNIOSetup(String line) {
-		Tracer.info(this, "Checking for line matching: " + serverNIOSetupStages[serverNIOSetupStage]);
-		if (line.startsWith(TRACER_PREFIX) && serverNIOSetupStages[serverNIOSetupStage].matcher(line).matches()) {
-			serverNIOSetupStage++;
-			return true;
+		if (line.startsWith(TRACER_PREFIX)) {
+			if (PRINT_CHECKED_REGEX) {
+				Tracer.info(this, "Checking for line matching: " + serverNIOSetupStages[serverNIOSetupStage]);
+			}
+			if (line.startsWith(TRACER_PREFIX) && serverNIOSetupStages[serverNIOSetupStage].matcher(line).matches()) {
+				serverNIOSetupStage++;
+				return true;
+			}
 		}
 		return false; 
 	}
 	
 	public boolean checkServerRMISetup(String line) {
-		Tracer.info(this, "Checking for line matching: " + serverRMISetupStages[serverRMISetupStage]);
-		if (line.startsWith(TRACER_PREFIX) && serverRMISetupStages[serverRMISetupStage].matcher(line).matches()) {
-			serverRMISetupStage++;
-			return true;
+		if (line.startsWith(TRACER_PREFIX)) {
+			if (PRINT_CHECKED_REGEX) {
+				Tracer.info(this, "Checking for line matching: " + serverRMISetupStages[serverRMISetupStage]);
+			}
+			if (serverRMISetupStages[serverRMISetupStage].matcher(line).matches()) {
+				serverRMISetupStage++;
+				return true;
+			}
 		}
 		return false; 
 	}
 	
 	public boolean checkServerGIPCSetup(String line) {
 		if (!isServerGIPCSetupFSMComplete()) {
-			Tracer.info(this, "Checking for line matching: " + serverGIPCSetupStages[serverGIPCSetupStage]);
-			if (line.startsWith(TRACER_PREFIX) && serverGIPCSetupStages[serverGIPCSetupStage].matcher(line).matches()) {
-				serverGIPCSetupStage++;
-				return true;
+			if (line.startsWith(TRACER_PREFIX)) {
+				if (PRINT_CHECKED_REGEX) {
+					Tracer.info(this, "Checking for line matching: " + serverGIPCSetupStages[serverGIPCSetupStage]);
+				}
+				if (serverGIPCSetupStages[serverGIPCSetupStage].matcher(line).matches()) {
+					serverGIPCSetupStage++;
+					return true;
+				}
 			}
 		}
 		if (!serverRegisteredGIPCObject && checkForGIPCObjectRegistered(line)) {
@@ -308,14 +384,19 @@ private static final String TRACER_PREFIX = "I***";
 	
 	public boolean checkClientNIOConnect(String line) {
 		if (!isClientNIOConnectFSMComplete()) {
-			Tracer.info(this, "Checking for line matching: " + clientNIOConnectStages[clientNIOConnectStage]);
-			if (line.startsWith(TRACER_PREFIX) && clientNIOConnectStages[clientNIOConnectStage].matcher(line).matches()) {
-				clientNIOConnectStage++;
-				return true;
+			if (line.startsWith(TRACER_PREFIX)) {
+				if (PRINT_CHECKED_REGEX) {
+					Tracer.info(this, "Checking for line matching: " + clientNIOConnectStages[clientNIOConnectStage]);
+				}
+				if (clientNIOConnectStages[clientNIOConnectStage].matcher(line).matches()) {
+					clientNIOConnectStage++;
+					return true;
+				}
 			}
 		}
 		if (!hasNIOListeners[0] && checkForPropertyChangeListener(line)) {
-			hasNIOListeners[0] = true;   
+			hasNIOListeners[0] = true;
+			hasPropertyChangeListener = true;
 			return true;
 		} else if (!hasNIOListeners[1] && checkForReadListener(line)) {
 			hasNIOListeners[1] = true;
@@ -326,29 +407,50 @@ private static final String TRACER_PREFIX = "I***";
 	
 	public boolean checkClientRMIConnect(String line) {
 		if (!isClientRMIConnectFSMComplete()) {
-			Tracer.info(this, "Checking for line matching: " + clientRMIConnectStages[clientRMIConnectStage]);
-			if(line.startsWith(TRACER_PREFIX) && clientRMIConnectStages[clientRMIConnectStage].matcher(line).matches()) {
-				clientRMIConnectStage++;
-				return true;
+			if (line.startsWith(TRACER_PREFIX)) {
+				if (PRINT_CHECKED_REGEX) {
+					Tracer.info(this, "Checking for line matching: " + clientRMIConnectStages[clientRMIConnectStage]);
+				}
+				if(clientRMIConnectStages[clientRMIConnectStage].matcher(line).matches()) {
+					clientRMIConnectStage++;
+					return true;
+				}
 			}
 		}
 		if (!hasRMIListeners[0] && checkForPropertyChangeListener(line)) {
 			hasRMIListeners[0] = true;
+			hasPropertyChangeListener = true;
 			return true;
 		}
 		return false; 
 	}
 	
 	public boolean checkClientGIPCConnect(String line) {
-		if (!isClientGIPCConnectFSMComplete()) {
-			Tracer.info(this, "Checking for line matching: " + clientGIPCConnectStages[clientGIPCConnectStage]);
-			if (line.startsWith(TRACER_PREFIX) && clientGIPCConnectStages[clientGIPCConnectStage].matcher(line).matches()) {
-				clientGIPCConnectStage++;
-				return true;
+		if (!isClientGIPCConnectFSM1Complete()) {
+			if (line.startsWith(TRACER_PREFIX)) {
+				if (PRINT_CHECKED_REGEX) {
+					Tracer.info(this, "Checking for line matching: " + clientGIPCConnectStages1[clientGIPCConnectStage1]);
+				}
+				if (clientGIPCConnectStages1[clientGIPCConnectStage1].matcher(line).matches()) {
+					clientGIPCConnectStage1++;
+					return true;
+				}
+			}
+		}
+		if (!isClientGIPCConnectFSM2Complete()) {
+			if (line.startsWith(TRACER_PREFIX)) {
+				if (PRINT_CHECKED_REGEX) {
+					Tracer.info(this, "Checking for line matching: " + clientGIPCConnectStages2[clientGIPCConnectStage2]);
+				}
+				if (clientGIPCConnectStages2[clientGIPCConnectStage2].matcher(line).matches()) {
+					clientGIPCConnectStage2++;
+					return true;
+				}
 			}
 		}
 		if (!hasGIPCListeners[0] && checkForPropertyChangeListener(line)) {
 			hasGIPCListeners[0] = true;   
+			hasPropertyChangeListener = true;
 			return true;
 		} else if (!hasGIPCListeners[1] && checkForReadListener(line)) {
 			hasGIPCListeners[1] = true;
@@ -356,49 +458,90 @@ private static final String TRACER_PREFIX = "I***";
 		} else if (!hasGIPCListeners[2] && checkForWriteListener(line)) {
 			hasGIPCListeners[2] = true;
 			return true;
+		} else if (!hasGIPCObjectLookedUp && checkForGIPCObjectLookedUp(line)) {
+			hasGIPCObjectLookedUp = true;
+			return true;
 		}
 		return false; 
 	}
 	
 	public boolean checkServerNIOAccept(String line) {
-		Tracer.info(this, "Checking for line matching: " + serverNIOAcceptStages[serverNIOAcceptStage]);
-		if (line.startsWith(TRACER_PREFIX) && serverNIOAcceptStages[serverNIOAcceptStage].matcher(line).matches()) {
-			serverNIOAcceptStage++;
-			return true;
+		if (line.startsWith(TRACER_PREFIX)) {
+			if (PRINT_CHECKED_REGEX) {
+				Tracer.info(this, "Checking for line matching: " + serverNIOAcceptStages[serverNIOAcceptStage]);
+			}
+			if (serverNIOAcceptStages[serverNIOAcceptStage].matcher(line).matches()) {
+				serverNIOAcceptStage++;
+				return true;
+			}
 		}
 		return false;
 	}
 	
 	public boolean checkServerGIPCAccept(String line) {
-		Tracer.info(this, "Checking for line matching: " + serverGIPCAcceptStages[serverGIPCAcceptStage]);
-		if (line.startsWith(TRACER_PREFIX) && serverGIPCAcceptStages[serverGIPCAcceptStage].matcher(line).matches()) {
-			serverGIPCAcceptStage++;
-			return true;
+		if (line.startsWith(TRACER_PREFIX)) {
+			if (PRINT_CHECKED_REGEX) {
+				Tracer.info(this, "Checking for line matching: " + serverGIPCAcceptStages[serverGIPCAcceptStage]);
+			}
+			if (serverGIPCAcceptStages[serverGIPCAcceptStage].matcher(line).matches()) {
+				serverGIPCAcceptStage++;
+				return true;
+			}
 		}
 		return false;
 	}
 	
 	public boolean checkForReadListener(String line) {
-		Tracer.info(this, "Checking for line matching: " + readListenerPattern);
-		return line.startsWith(TRACER_PREFIX) && readListenerPattern.matcher(line).matches();
+		if (line.startsWith(TRACER_PREFIX)) {
+			if (PRINT_CHECKED_REGEX) {
+				Tracer.info(this, "Checking for line matching: " + readListenerPattern);
+			}
+			return readListenerPattern.matcher(line).matches();
+		}
+		return false;
 	}
 	
 	public boolean checkForWriteListener(String line) {
-		Tracer.info(this, "Checking for line matching: " + writeListenerPattern);
-		return line.startsWith(TRACER_PREFIX) && writeListenerPattern.matcher(line).matches();
+		if (line.startsWith(TRACER_PREFIX)) {
+			if (PRINT_CHECKED_REGEX) {
+				Tracer.info(this, "Checking for line matching: " + writeListenerPattern);
+			}
+			return writeListenerPattern.matcher(line).matches();
+		}
+		return false;
 	}
 	
 	public boolean checkForPropertyChangeListener(String line) {
-		Tracer.info(this, "Checking for line matching: " + propertyChangeListenerPattern);
-		return line.startsWith(TRACER_PREFIX) && propertyChangeListenerPattern.matcher(line).matches();
+		if (line.startsWith(TRACER_PREFIX)) {
+			if (PRINT_CHECKED_REGEX) {
+				Tracer.info(this, "Checking for line matching: " + propertyChangeListenerPattern);
+			}
+			return propertyChangeListenerPattern.matcher(line).matches();
+		}
+		return false;
 	}
 	
 	public boolean checkForGIPCObjectRegistered(String line) {
-		Tracer.info(this, "Checking for line matching: " + gipcObjectRegisteredPattern);
-		return line.startsWith(TRACER_PREFIX) && gipcObjectRegisteredPattern.matcher(line).matches();
+		if (line.startsWith(TRACER_PREFIX)) {
+			if (PRINT_CHECKED_REGEX) {
+				Tracer.info(this, "Checking for line matching: " + gipcObjectRegisteredPattern);
+			}
+			return gipcObjectRegisteredPattern.matcher(line).matches();
+		}
+		return false;
 	}
 	
-	public String getListNotFoundSource() {
+	public boolean checkForGIPCObjectLookedUp(String line) {
+		if (line.startsWith(TRACER_PREFIX)) {
+			if (PRINT_CHECKED_REGEX) {
+				Tracer.info(this, "Checking for line matching: " + gipcObjectLookedUpPattern);
+			}
+			return gipcObjectLookedUpPattern.matcher(line).matches();
+		}
+		return false;
+	}
+	
+	public String getLastNotFoundSource() {
 		if (!isServerSetupComplete()) {
 			if (!isServerNIOSetupComplete()) {
 				return "Server enabling NIO";
@@ -454,14 +597,18 @@ private static final String TRACER_PREFIX = "I***";
 					return propertyChangeListenerPattern.pattern();
 				}
 			} else if (!isClientGIPCConnectComplete()) {
-				if (!isClientGIPCConnectFSMComplete()) {
-					return clientGIPCConnectStages[clientGIPCConnectStage].pattern();
+				if (!isClientGIPCConnectFSM1Complete()) {
+					return clientGIPCConnectStages1[clientGIPCConnectStage1].pattern();
+				} else if (!isClientGIPCConnectFSM2Complete()) {
+					return clientGIPCConnectStages2[clientGIPCConnectStage2].pattern();
 				} else if (!hasGIPCListeners[0]) {
 					return propertyChangeListenerPattern.pattern();
 				} else if (!hasGIPCListeners[1]) {
 					return readListenerPattern.pattern();
 				} else if (!hasGIPCListeners[2]) {
 					return writeListenerPattern.pattern();
+				} else if (!hasGIPCObjectLookedUp) {
+					return gipcObjectLookedUpPattern.pattern();
 				}
 			}
 		} else if (!isServerAcceptComplete()) {
@@ -473,4 +620,16 @@ private static final String TRACER_PREFIX = "I***";
 		}
 		return "";
 	}
+
+	public boolean doNIO() {
+		return doNIO;
+	}
+
+	public boolean doRMI() {
+		return doRMI;
+	}
+
+	public boolean doGIPC() {
+		return doGIPC;
+	}	
 }

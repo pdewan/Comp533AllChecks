@@ -51,17 +51,17 @@ public class TwoClientCorrectConnectionTestCase extends BasicTestCase {
 					} else {
 						System.out.println("Accept 0: " + anOutputBasedInputGenerator.isAccepted0Complete());
 						System.out.println("Accept 1: " + anOutputBasedInputGenerator.isAccepted1Complete());
-						return partialPass(0.66, "In " + anOutputBasedInputGenerator.getListNotFoundSource() + ", no line found matching regex: " + anOutputBasedInputGenerator.getLastNotFound());					
+						return partialPass(0.66, "In " + anOutputBasedInputGenerator.getLastNotFoundSource() + ", no line found matching regex: " + anOutputBasedInputGenerator.getLastNotFound());					
 //						return partialPass(0.66, "Server failed to accept connection from at least one client");					
 					}
 				} else {
 					System.out.println("Connect 0: " + anOutputBasedInputGenerator.isConnect0Complete());
 					System.out.println("Connect 1: " + anOutputBasedInputGenerator.isConnect1Complete());
-					return partialPass(0.33, "In " + anOutputBasedInputGenerator.getListNotFoundSource() + ", no line found matching regex: " + anOutputBasedInputGenerator.getLastNotFound());
+					return partialPass(0.33, "In " + anOutputBasedInputGenerator.getLastNotFoundSource() + ", no line found matching regex: " + anOutputBasedInputGenerator.getLastNotFound());
 //					return partialPass(0.33, "At least one client failed to connect to server");
 				}
 			} else {
-				return fail("In " + anOutputBasedInputGenerator.getListNotFoundSource() + ", no line found matching regex: " + anOutputBasedInputGenerator.getLastNotFound());
+				return fail("In " + anOutputBasedInputGenerator.getLastNotFoundSource() + ", no line found matching regex: " + anOutputBasedInputGenerator.getLastNotFound());
 //				return fail("Server failed to accept connections");
 			}
 		} catch (NotRunnableException e) {

@@ -80,10 +80,10 @@ public class OneClientCorrectReadWriteTestCase extends BasicTestCase {
 			if (correct == possible) {
 				return pass();
 			} else if (correct == 0) {
-				return fail("In " + anOutputBasedInputGenerator.getListNotFoundSource() + ", no line found matching regex: " + anOutputBasedInputGenerator.getLastNotFound());
+				return fail("In " + anOutputBasedInputGenerator.getLastNotFoundSource() + ", no line found matching regex: " + anOutputBasedInputGenerator.getLastNotFound());
 //				return fail(message.toString());
 			} else {
-				return partialPass(((double)correct)/possible, "In " + anOutputBasedInputGenerator.getListNotFoundSource() + ", no line found matching regex: " + anOutputBasedInputGenerator.getLastNotFound());
+				return partialPass(((double)correct)/possible, "In " + anOutputBasedInputGenerator.getLastNotFoundSource() + ", no line found matching regex: " + anOutputBasedInputGenerator.getLastNotFound());
 //				return partialPass(((double)correct)/possible, message.toString());
 			}
 		} catch (NotRunnableException e) {

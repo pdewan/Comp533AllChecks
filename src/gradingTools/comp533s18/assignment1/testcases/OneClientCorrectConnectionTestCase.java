@@ -75,15 +75,15 @@ public class OneClientCorrectConnectionTestCase extends BasicTestCase {
 					if (anOutputBasedInputGenerator.isAcceptComplete()) {
 						return pass();
 					} else {
-						return partialPass(0.66, "In " + anOutputBasedInputGenerator.getListNotFoundSource() + ", no line found matching regex: " + anOutputBasedInputGenerator.getLastNotFound());
+						return partialPass(0.66, "In " + anOutputBasedInputGenerator.getLastNotFoundSource() + ", no line found matching regex: " + anOutputBasedInputGenerator.getLastNotFound());
 //						return partialPass(0.66, "Server failed to accept connection from client");
 					}
 				} else {
-					return partialPass(0.33, "In " + anOutputBasedInputGenerator.getListNotFoundSource() + ", no line found matching regex: " + anOutputBasedInputGenerator.getLastNotFound());
+					return partialPass(0.33, "In " + anOutputBasedInputGenerator.getLastNotFoundSource() + ", no line found matching regex: " + anOutputBasedInputGenerator.getLastNotFound());
 //					return partialPass(0.33, "Client failed to connect to server");
 				}
 			} else {
-				return fail("In " + anOutputBasedInputGenerator.getListNotFoundSource() + ", no line found matching regex: " + anOutputBasedInputGenerator.getLastNotFound());
+				return fail("In " + anOutputBasedInputGenerator.getLastNotFoundSource() + ", no line found matching regex: " + anOutputBasedInputGenerator.getLastNotFound());
 //				return fail("Server failed to accept connections");
 			}
 		} catch (NotRunnableException e) {
