@@ -28,21 +28,21 @@ public class Assignment3Requirements extends AJUnitProjectRequirements {
 //		addJUnitTestSuite(Assignment3Suite.class);
 		
 		// takes 0.5 points from each read, write, and behaviors test, behavior exclusive testing
-//		addFeature("Static arguments work properly", 20, new StaticArgumentsTestCase(true, true, true));
-////		
-//		addFeature("One client correct connection", 20, new OneClientCorrectConnectionTestCase(false, true, true));
-//		addFeature("Two client correct connection", 20, new TwoClientCorrectConnectionTestCase(false, true, true));
+		addFeature("Static arguments work properly", 20, new StaticArgumentsTestCase(true, true, true));
 //		
-//		addFeature("One client correct read, write, and behaviors - Atomic", 20, new OneClientCorrectReadWriteTestCase(false, true, true, true));
-//		addFeature("One client correct read, write, and behaviors - Non-Atomic", 20, new OneClientCorrectReadWriteTestCase(false, true, true, true));
-//
-//		addFeature("Two client correct read, write, and behaviors - Atomic", 20, new TwoClientCorrectReadWriteTestCase(false, true, true, true));
-//		addFeature("Two client correct read, write, and behaviors - Non-Atomic", 20, new TwoClientCorrectReadWriteTestCase(false, true, true, true));
+		addFeature("One client correct connection", 20, new OneClientCorrectConnectionTestCase(false, true, true));
+		addFeature("Two client correct connection", 20, new TwoClientCorrectConnectionTestCase(false, true, true));
+		
+		addFeature("One client correct read, write, and behaviors - Atomic", 20, new OneClientCorrectReadWriteTestCase(false, true, true, true));
+		addFeature("One client correct read, write, and behaviors - Non-Atomic", 20, new OneClientCorrectReadWriteTestCase(false, true, true, true));
+
+		addFeature("Two client correct read, write, and behaviors - Atomic", 20, new TwoClientCorrectReadWriteTestCase(false, true, true, true));
+		addFeature("Two client correct read, write, and behaviors - Non-Atomic", 20, new TwoClientCorrectReadWriteTestCase(false, true, true, true));
 
 		addFeature("Broadcast meta state - Atomic from Client", 20, new MetaStateBroadcastTestCase(true, true, true, true, true));
-		addFeature("Broadcast meta state - Atomic from Server", 20, new MetaStateBroadcastTestCase(true, false, true, true, true));
-		addFeature("Broadcast meta state - Non-Atomic from Client", 20, new MetaStateBroadcastTestCase(false, true, true, true, true));
-		addFeature("Broadcast meta state - Non-Atomic from Server", 20, new MetaStateBroadcastTestCase(false, false, true, true, true));
+//		addFeature("Broadcast meta state - Atomic from Server", 20, new MetaStateBroadcastTestCase(true, false, true, true, true));
+//		addFeature("Broadcast meta state - Non-Atomic from Client", 20, new MetaStateBroadcastTestCase(false, true, true, true, true));
+//		addFeature("Broadcast meta state - Non-Atomic from Server", 20, new MetaStateBroadcastTestCase(false, false, true, true, true));
 
 		
 		//		// read/write correct and client+server behaviors
