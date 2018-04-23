@@ -130,7 +130,7 @@ public class MetaStateBroadcastTestInputGenerator extends TwoClientCorrectConnec
 				}
 			}
 		}
-		if (!quitSubmitted && isNIOCorrect() && isRMICorrect() && isGIPCCorrect()) {
+		if (!quitSubmitted && (!doNIO() || isNIOCorrect()) && (!doRMI() || isRMICorrect()) && (!doGIPC() || isGIPCCorrect())) {
 			notifyNewInputLine(CLIENT_0_NAME, "q 0");
 			notifyNewInputLine(CLIENT_1_NAME, "q 0");
 			notifyNewInputLine(SERVER_NAME, "q 0");
