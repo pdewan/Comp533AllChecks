@@ -38,34 +38,10 @@ public class Assignment3Requirements extends AJUnitProjectRequirements {
 
 		addFeature("Two client correct read, write, and behaviors - Atomic", 20, new TwoClientCorrectReadWriteTestCase(false, true, true, true));
 		addFeature("Two client correct read, write, and behaviors - Non-Atomic", 20, new TwoClientCorrectReadWriteTestCase(false, true, true, true));
-
-		addFeature("Broadcast meta state - Atomic from Client", 20, new MetaStateBroadcastTestCase(true, true, true, true, true));
-//		addFeature("Broadcast meta state - Atomic from Server", 20, new MetaStateBroadcastTestCase(true, false, true, true, true));
-//		addFeature("Broadcast meta state - Non-Atomic from Client", 20, new MetaStateBroadcastTestCase(false, true, true, true, true));
-//		addFeature("Broadcast meta state - Non-Atomic from Server", 20, new MetaStateBroadcastTestCase(false, false, true, true, true));
-
-		
-		//		// read/write correct and client+server behaviors
-//		addFeature("One client correct read, write, and behaviors - Atomic", 35, new OneClientCorrectReadWriteTestCase(true));
-//		addFeature("One client correct read, write, and behaviors - Non-atomic", 35, new OneClientCorrectReadWriteTestCase(false));
-////		  threads exist
-//		addFeature("One client correct threads - Atomic", 5, new OneClientCorrectThreadsTestCase(true));
-//		addFeature("One client correct threads - Non-atomic", 5, new OneClientCorrectThreadsTestCase(false));
-//		addFeature("One client correct message ratios - Atomic", 10, new OneClientMessageRatioTestCase(true));
-//		addFeature("One client correct message ratios - Non-atomic", 10, new OneClientMessageRatioTestCase(false));
-////		addFeature("One client correct values - Atomic", 10, new OneClientCorrectValuesTestCase(true));
-////		addFeature("One client correct values - Non-atomic", 10, new OneClientCorrectValuesTestCase(false));
-//		addFeature("Two client correct connection", 20, new TwoClientCorrectConnectionTestCase());
-//		// read/write correct and client+server behaviors
-//		addFeature("Two client correct read, write, and behaviors - Atomic", 35, new TwoClientCorrectReadWriteTestCase(true));
-//		addFeature("Two client correct read, write, and behaviors - Non-atomic", 35, new TwoClientCorrectReadWriteTestCase(false));
-//		//  threads exist
-//		addFeature("Two client correct threads - Atomic", 5, new TwoClientCorrectThreadsTestCase(true));
-//		addFeature("Two client correct threads - Non-atomic", 5, new TwoClientCorrectThreadsTestCase(false));
-//		addFeature("Two client correct message ratios - Atomic", 10, new TwoClientMessageRatioTestCase(true));
-//		addFeature("Two client correct message ratios - Non-atomic", 10, new TwoClientMessageRatioTestCase(false));
-//		// update ordering
-//		addFeature("Read-Write-Update ordering - Atomic", 10, new ReadWriteUpdateOrderTestCase(true));
-//		addFeature("Read-Write-Update ordering - Non-atomic", 10, new ReadWriteUpdateOrderTestCase(false));
+//
+		addFeature("Broadcast meta-state - Enabled, set in Client", 5, new MetaStateBroadcastTestCase(true, true, false, false, true));
+		addFeature("Broadcast meta-state - Enabled, set in Server", 0, new MetaStateBroadcastTestCase(true, false, false, false, true));
+		addFeature("Broadcast meta-state - Disabled, set in Client", 5, new MetaStateBroadcastTestCase(false, true, false, false, true));
+		addFeature("Broadcast meta-state - Disabled, set in Server", 5, new MetaStateBroadcastTestCase(false, false, false, false, true));
 	}
 }

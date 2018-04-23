@@ -4,6 +4,7 @@ import grader.junit.AJUnitProjectRequirements;
 import grader.trace.GraderTraceUtility;
 import grader.trace.comp533.Comp533TraceUtility;
 import gradingTools.comp533s18.assignment1.testcases.SingleClassTaggedTestCase;
+import gradingTools.comp533s18.assignment3.testcases.MetaStateBroadcastTestCase;
 import gradingTools.comp533s18.assignment3.testcases.OneClientCorrectConnectionTestCase;
 import gradingTools.comp533s18.assignment3.testcases.OneClientCorrectReadWriteTestCase;
 import gradingTools.comp533s18.assignment3.testcases.StaticArgumentsTestCase;
@@ -37,7 +38,10 @@ public class Assignment2Requirements extends AJUnitProjectRequirements {
 		addFeature("Two client correct read, write, and behaviors - Atomic", 20, new TwoClientCorrectReadWriteTestCase(true, true, true, false));
 		addFeature("Two client correct read, write, and behaviors - Non-Atomic", 20, new TwoClientCorrectReadWriteTestCase(false, true, true, false));
 
-
+		addFeature("Broadcast meta-state - Enabled, set in Client", 5, new MetaStateBroadcastTestCase(true, true, false, true, false));
+		addFeature("Broadcast meta-state - Enabled, set in Server", 0, new MetaStateBroadcastTestCase(true, false, false, true, false));
+		addFeature("Broadcast meta-state - Disabled, set in Client", 5, new MetaStateBroadcastTestCase(false, true, false, true, false));
+		addFeature("Broadcast meta-state - Disabled, set in Server", 5, new MetaStateBroadcastTestCase(false, false, false, true, false));
 
 ////		  threads exist
 //		addFeature("One client correct threads - Atomic", 5, new OneClientCorrectThreadsTestCase(true));

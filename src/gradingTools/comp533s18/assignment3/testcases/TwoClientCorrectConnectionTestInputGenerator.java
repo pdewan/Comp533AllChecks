@@ -112,7 +112,7 @@ public class TwoClientCorrectConnectionTestInputGenerator extends AnAbstractInpu
 	private static final Pattern[] clientGIPCConnectStages1 = {
 			checkStr(MAIN_THREAD, "GIPCRegistryLocated"),
 			checkStr(MAIN_THREAD, "SelectorFactorySet"),
-			checkStr(MAIN_THREAD, "SelectorFactorySet"),
+//			checkStr(MAIN_THREAD, "SelectorFactorySet"),
 			checkStr(MAIN_THREAD, "SocketChannelConnectRequested"),
 			checkStr(MAIN_THREAD, "SelectorRequestNextInterestOp"),
 			checkStr(MAIN_THREAD, "SelectorRequestEnqueued"),
@@ -123,11 +123,11 @@ public class TwoClientCorrectConnectionTestInputGenerator extends AnAbstractInpu
 			checkStr(SELECT_THREAD, "SocketChannelRegistered"),
 			checkStr(SELECT_THREAD, "SelectCalled"),
 			checkStr(SELECT_THREAD, "SocketChannelConnected"),
+			checkStr(SELECT_THREAD, "SocketChannelInterestOp"),
 			checkStr(SELECT_THREAD, "SocketChannelWriteRequested"),
 			checkStr(SELECT_THREAD, "WriteRequestEnqueued"),
 			checkStr(SELECT_THREAD, "WriteRequestEnqueued"),
 			checkStr(SELECT_THREAD, "SelectorWokenUp"),
-			checkStr(SELECT_THREAD, "SocketChannelInterestOp"),
 			checkStr(SELECT_THREAD, "SocketChannelInterestOp"),
 //			checkStr(SELECT_THREAD, "SelectCalled"),
 			checkStr(SELECT_THREAD, "SelectCalled"),
@@ -175,16 +175,16 @@ public class TwoClientCorrectConnectionTestInputGenerator extends AnAbstractInpu
 	
 	private static final Pattern[] serverNIOAcceptStages = {
 			checkStr(SELECT_THREAD, "SocketChannelAccepted"),
-			checkStr(SELECT_THREAD, "ReadListenerAdded"),
 			checkStr(SELECT_THREAD, "SocketChannelRegistered"),
+			checkStr(SELECT_THREAD, "ReadListenerAdded"),
 			checkStr(SELECT_THREAD, "SelectCalled")
 	};
 	
 	private static final Pattern[] serverGIPCAcceptStages = {
 			checkStr(SELECT_THREAD, "SocketChannelAccepted"),
+			checkStr(SELECT_THREAD, "SocketChannelRegistered"),
 			checkStr(SELECT_THREAD, "ReadListenerAdded"),
 			checkStr(SELECT_THREAD, "WriteListenerAdded"),
-			checkStr(SELECT_THREAD, "SocketChannelRegistered"),
 			checkStr(SELECT_THREAD, "SelectCalled"),
 			checkStr(SELECT_THREAD, "SocketChannelRead"),
 			checkStr(SELECT_THREAD, "SocketChannelHeaderRead"),
@@ -257,11 +257,11 @@ public class TwoClientCorrectConnectionTestInputGenerator extends AnAbstractInpu
 	protected boolean checkServer(String line) {
 		boolean used = false;
 		if (!isServerSetupComplete()) {
-			if (!isServerNIOSetupComplete() && checkServerNIOSetup(line)) {
+			if (!isServerGIPCSetupComplete() && checkServerGIPCSetup(line)) {
+				used = true;
+			} else if (!isServerNIOSetupComplete() && checkServerNIOSetup(line)) {
 				used = true;
 			} else if (!isServerRMISetupComplete() && checkServerRMISetup(line)) {
-				used = true;
-			} else if (!isServerGIPCSetupComplete() && checkServerGIPCSetup(line)) {
 				used = true;
 			}
 		} else if (!areServerAcceptsComplete()) {
@@ -303,11 +303,11 @@ public class TwoClientCorrectConnectionTestInputGenerator extends AnAbstractInpu
 	protected boolean checkClient1(String line) {
 		boolean used = false;
 		if (!isClient1ConnectComplete()) {
-			if (!isClient1NIOConnectComplete() && checkClient1NIOConnect(line)) {
+			if (!isClient1GIPCConnectComplete() && checkClient1GIPCConnect(line)) {
+				used = true;
+			} else if (!isClient1NIOConnectComplete() && checkClient1NIOConnect(line)) {
 				used = true;
 			} else if (!isClient1RMIConnectComplete() && checkClient1RMIConnect(line)) {
-				used = true;
-			} else if (!isClient1GIPCConnectComplete() && checkClient1GIPCConnect(line)) {
 				used = true;
 			}
 		}
@@ -673,12 +673,23 @@ public class TwoClientCorrectConnectionTestInputGenerator extends AnAbstractInpu
 	
 	public boolean checkServerGIPCAccept0(String line) {
 		if (line.startsWith(TRACER_PREFIX)) {
-			if (PRINT_CHECKED_REGEX) {
-				Tracer.info(this, "Checking for line matching: " + serverGIPCAcceptStages[serverGIPCAccept0Stage].pattern());
-			}
-			if (serverGIPCAcceptStages[serverGIPCAccept0Stage].matcher(line).matches()) {
-				serverGIPCAccept0Stage++;
-				return true;
+			if (serverNIOAccept0Stage == 3 && serverGIPCAccept0Stage < 3) {
+				if (PRINT_CHECKED_REGEX) {
+					Tracer.info(this, "Checking for line matching: " + serverGIPCAcceptStages[3]);
+				}
+				if (serverGIPCAcceptStages[serverNIOAccept0Stage].matcher(line).matches()) {
+					serverNIOAccept0Stage = serverGIPCAccept0Stage;
+					serverGIPCAccept0Stage = 4;
+					return true;
+				}
+			} else {
+				if (PRINT_CHECKED_REGEX) {
+					Tracer.info(this, "Checking for line matching: " + serverGIPCAcceptStages[serverGIPCAccept0Stage]);
+				}
+				if (serverGIPCAcceptStages[serverGIPCAccept0Stage].matcher(line).matches()) {
+					serverGIPCAccept0Stage++;
+					return true;
+				}
 			}
 		}
 		return false;
@@ -686,12 +697,23 @@ public class TwoClientCorrectConnectionTestInputGenerator extends AnAbstractInpu
 	
 	public boolean checkServerGIPCAccept1(String line) {
 		if (line.startsWith(TRACER_PREFIX)) {
-			if (PRINT_CHECKED_REGEX) {
-				Tracer.info(this, "Checking for line matching: " + serverGIPCAcceptStages[serverGIPCAccept1Stage].pattern());
-			}
-			if (serverGIPCAcceptStages[serverGIPCAccept1Stage].matcher(line).matches()) {
-				serverGIPCAccept1Stage++;
-				return true;
+			if (serverNIOAccept1Stage == 3 && serverGIPCAccept1Stage < 3) {
+				if (PRINT_CHECKED_REGEX) {
+					Tracer.info(this, "Checking for line matching: " + serverGIPCAcceptStages[3]);
+				}
+				if (serverGIPCAcceptStages[serverNIOAccept1Stage].matcher(line).matches()) {
+					serverNIOAccept1Stage = serverGIPCAccept1Stage;
+					serverGIPCAccept1Stage = 4;
+					return true;
+				}
+			} else {
+				if (PRINT_CHECKED_REGEX) {
+					Tracer.info(this, "Checking for line matching: " + serverGIPCAcceptStages[serverGIPCAccept1Stage]);
+				}
+				if (serverGIPCAcceptStages[serverGIPCAccept1Stage].matcher(line).matches()) {
+					serverGIPCAccept1Stage++;
+					return true;
+				}
 			}
 		}
 		return false;

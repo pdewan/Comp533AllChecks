@@ -164,7 +164,7 @@ public class OneClientCorrectReadWriteTestInputGenerator extends OneClientCorrec
 	};
 	
 	private static final Pattern[] serverRMIReadStages = {
-			checkStr(RMI_THREAD, "RemoteProposeRequestReceived"),
+//			checkStr(RMI_THREAD, "RemoteProposeRequestReceived"),
 			checkStr(RMI_THREAD, "RemoteProposeRequestReceived")
 	};
 
@@ -180,7 +180,7 @@ public class OneClientCorrectReadWriteTestInputGenerator extends OneClientCorrec
 			checkStr(SELECT_THREAD, "SocketChannelFullMessageRead"),
 //			checkStr(SELECT_THREAD, "SelectCalled"),
 			checkStr(GIPC_THREAD, "ReceivedCallInitiated"),
-			checkStr(GIPC_THREAD, "RemoteProposeRequestReceived"),
+//			checkStr(GIPC_THREAD, "RemoteProposeRequestReceived"),
 			checkStr(GIPC_THREAD, "RemoteProposeRequestReceived")
 	};
 	
