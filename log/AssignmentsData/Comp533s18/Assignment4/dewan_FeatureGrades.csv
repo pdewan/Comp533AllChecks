@@ -1,0 +1,5 @@
+"Assignment 1","Points","","","","","","","","","","","","","","","","","","","","",""
+"","","","","","","","","","","","","","","","","","","","","","",""
+"Display ID","ID","Last Name","First Name","grade","Source Points","Early/Late","Weighted Grade","Server tagged","Client tagged","Registry tagged","Two client correct connection","Two client correct read, write, and behaviors - Atomic","Two client correct read, write, and behaviors - Non-Atomic","Server tagged","Client tagged","Registry tagged","Two client correct connection","Two client correct read, write, and behaviors - Atomic","Two client correct read, write, and behaviors - Non-Atomic","","",""
+"tstudent","tstudent","Student","Test","0.0","","","","","","","","","","","","","","","","","",""
+"tstudent2","tstudent2","Student2","Test","23.5","","1.0","23.5","2.5","2.5","2.5","16.0","Server tagged                                          %.1f /  5.0","Client tagged                                          %.1f /  5.0","Registry tagged                                        %.1f /  5.0","Two client correct connection                          %.1f / 20.0","","","","","","",""

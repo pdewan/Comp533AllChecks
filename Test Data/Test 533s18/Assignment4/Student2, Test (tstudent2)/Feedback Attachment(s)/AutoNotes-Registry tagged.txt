@@ -1,0 +1,1 @@
+  -- Multiple classes tagged:Registry [gipc.simulation.launcher.RMIRegistryLauncherFromGIPC, gipc.custom.simulation.launcher.CustomRMIRegistryLauncherFromGIPC, rmi.simulation.registry.ADistributedRMIRegistryStarter]

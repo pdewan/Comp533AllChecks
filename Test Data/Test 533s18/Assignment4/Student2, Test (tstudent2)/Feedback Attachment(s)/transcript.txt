@@ -1,0 +1,394 @@
+*****************************(Two client correct connection)*****************************
+MAIN ARGS(Two client correct connection)
+[localhost,5000,Client_1,true,localhost,6000,7000[OUTPUT(Two client correct connection)
+I***Tracer: showInfo = true
+I***Tracer: showInfo = true
+I***@1809996811111584 {main}(SelectorFactorySet) EvtSrc(AcceptCommandFactorySelector)  inputport.nio.manager.factories.classes.AReadingAcceptCommandFactory@3d71d552
+I***@1809996817681273 {main}(SocketChannelBound) EvtSrc(AGIPCAndRMIAndNIOSimulationServer)  0.0.0.0/0.0.0.0:5000 sun.nio.ch.ServerSocketChannelImpl[/0:0:0:0:0:0:0:0:5000]
+I***@1809996837453786 {main}(ListenableAcceptsEnabled) EvtSrc(AnNIOManager)  [gipc.simulation.server.AGIPCAndRMIAndNIOSimulationServer@7960847b]<-sun.nio.ch.ServerSocketChannelImpl[/0:0:0:0:0:0:0:0:5000]
+I***@1809996837852825 {Selecting Thread}(SelectCalled) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@236a3830
+I***@1809996838376584 {main}(SelectorRequestNextInterestOp) EvtSrc(AnAcceptCommand)  Ops:1 Channel:sun.nio.ch.ServerSocketChannelImpl[/0:0:0:0:0:0:0:0:5000]
+I***@1809996838615448 {main}(SelectorRequestEnqueued) EvtSrc(ASelectionConnectionManager)  Command:inputport.nio.manager.commands.classes.AnAcceptCommand@512ddf17
+I***@1809996838973743 {main}(SelectorWokenUp) EvtSrc(ASelectionConnectionManager)  sun.nio.ch.WindowsSelectorImpl@236a3830
+I***@1809996839346035 {Selecting Thread}(SelectUnblocked) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@236a3830
+I***@1809996839490038 {Selecting Thread}(SelectorRequestDequeued) EvtSrc(ASelectionConnectionManager)  Command:inputport.nio.manager.commands.classes.AnAcceptCommand@512ddf17
+I***@1809996839645859 {Selecting Thread}(SocketChannelBlockingConfigured) EvtSrc(AnAcceptCommand)  false sun.nio.ch.ServerSocketChannelImpl[/0:0:0:0:0:0:0:0:5000]
+I***@1809996840041166 {Selecting Thread}(SocketChannelRegistered) EvtSrc(AnAcceptCommand)  Ops:16,  Selector:sun.nio.ch.WindowsSelectorImpl@236a3830, sun.nio.ch.ServerSocketChannelImpl[/0:0:0:0:0:0:0:0:5000]
+I***@1809996840151579 {Selecting Thread}(SelectCalled) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@236a3830
+Command processor scanner opened
+I***@1809996890993185 {main}(RMIRegistryLocated) EvtSrc(AGIPCAndRMIAndNIOSimulationServer)  localhost:6000->RegistryImpl_Stub[UnicastRef [liveRef: [endpoint:[localhost:6000](remote),objID:[0:0:0, 0]]]]
+I***@1809997016186756 {main}(RMIObjectRegistered) EvtSrc(AGIPCAndRMIAndNIOSimulationServer)  rmi.simulation.server.twophase.ATwoPhaseRMISimulationRelayer@77afea7d<->session server:RegistryImpl_Stub[UnicastRef [liveRef: [endpoint:[localhost:6000](remote),objID:[0:0:0, 0]]]]
+I***@1809997017176424 {main}(GIPCRegistryCreated) EvtSrc(GIPCRegistry)  7000
+I***@1809997077250677 {main}(SelectorFactorySet) EvtSrc(AcceptCommandFactorySelector)  inputport.nio.manager.factories.classes.AReadingAcceptCommandFactory@51565ec2
+I***@1809997102089716 {main}(ListenableAcceptsEnabled) EvtSrc(AnNIOManager)  [inputport.datacomm.duplex.buffer.nio.AnNIODuplexBufferServerInputPortDriver@5c7fa833]<-sun.nio.ch.ServerSocketChannelImpl[/0:0:0:0:0:0:0:0:7000]
+I***@1809997102193286 {main}(SelectorRequestNextInterestOp) EvtSrc(AnAcceptCommand)  Ops:1 Channel:sun.nio.ch.ServerSocketChannelImpl[/0:0:0:0:0:0:0:0:7000]
+I***@1809997102258600 {main}(SelectorRequestEnqueued) EvtSrc(ASelectionConnectionManager)  Command:inputport.nio.manager.commands.classes.AnAcceptCommand@5f2108b5
+I***@1809997102433394 {main}(SelectorWokenUp) EvtSrc(ASelectionConnectionManager)  sun.nio.ch.WindowsSelectorImpl@236a3830
+I***@1809997102743792 {Selecting Thread}(SelectUnblocked) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@236a3830
+I***@1809997102830878 {Selecting Thread}(SelectorRequestDequeued) EvtSrc(ASelectionConnectionManager)  Command:inputport.nio.manager.commands.classes.AnAcceptCommand@5f2108b5
+I***@1809997102908944 {main}(GIPCObjectRegistered) EvtSrc(AnAbstractDuplexRPCServerPortLauncher)  rmi.simulation.server.twophase.ATwoPhaseRMISimulationRelayer@31a5c39e<->session server:inputport.rpc.duplex.AnAbstractDuplexRPCServerPortLauncher@3f49dace
+I***@1809997102915165 {Selecting Thread}(SocketChannelBlockingConfigured) EvtSrc(AnAcceptCommand)  false sun.nio.ch.ServerSocketChannelImpl[/0:0:0:0:0:0:0:0:7000]
+I***@1809997103190418 {Selecting Thread}(SocketChannelRegistered) EvtSrc(AnAcceptCommand)  Ops:16,  Selector:sun.nio.ch.WindowsSelectorImpl@236a3830, sun.nio.ch.ServerSocketChannelImpl[/0:0:0:0:0:0:0:0:7000]
+I***@1809997103266307 {Selecting Thread}(SelectCalled) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@236a3830
+Enter (prefixes of) print, quit or a method and its parameters separated by commas:
+I***Tracer: showInfo = true
+I***@1809998835592950 {main}(SelectorFactorySet) EvtSrc(ConnectCommandFactorySelector)  inputport.nio.manager.factories.classes.AReadingWritingConnectCommandFactory@6f539caf
+I***@1809998958412190 {main}(AddedPropertyChangeListener) EvtSrc(AHalloweenCommandProcessor)  nio.manager.simulation.client.AnNIOManagerSimulationClientOutCoupler@4dfa3a9d
+I***@1809998977354589 {main}(ReadListenerAdded) EvtSrc(AnNIOManager)  nio.manager.simulation.client.AnNIOManagerSimulationClientInCoupler@7e0b0338<-java.nio.channels.SocketChannel[unconnected]
+I***@1809998977711018 {Selecting Thread}(SelectCalled) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@17c3c48b
+I***@1809998985443613 {main}(SocketChannelConnectRequested) EvtSrc(AnNIOManager)  (localhost/127.0.0.1:5000,[rmi.simulation.client.AnRMIAndNIOSimulationClient@31dc339b]) <-java.nio.channels.SocketChannel[unconnected]
+I***@1809998986154606 {main}(SelectorRequestNextInterestOp) EvtSrc(AConnectCommand)  Ops:1 Channel:java.nio.channels.SocketChannel[unconnected]
+I***@1809998986291455 {main}(SelectorRequestEnqueued) EvtSrc(ASelectionConnectionManager)  Command:inputport.nio.manager.commands.classes.AConnectCommand@71318ec4
+I***@1809998986415863 {main}(SelectorWokenUp) EvtSrc(ASelectionConnectionManager)  sun.nio.ch.WindowsSelectorImpl@17c3c48b
+I***@1809998986711333 {Selecting Thread}(SelectUnblocked) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@17c3c48b
+I***@1809998986882083 {Selecting Thread}(SelectorRequestDequeued) EvtSrc(ASelectionConnectionManager)  Command:inputport.nio.manager.commands.classes.AConnectCommand@71318ec4
+I***@1809998987111617 {Selecting Thread}(SocketChannelBlockingConfigured) EvtSrc(AConnectCommand)  false java.nio.channels.SocketChannel[unconnected]
+Command processor scanner opened
+I***@1809998988052143 {Selecting Thread}(SocketChannelConnectInitiated) EvtSrc(AConnectCommand)  java.nio.channels.SocketChannel[connection-pending remote=localhost/127.0.0.1:5000]
+I***@1809998988500635 {Selecting Thread}(SelectUnblocked) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@236a3830
+I***@1809998988875725 {Selecting Thread}(SocketChannelAccepted) EvtSrc(AnAcceptCommand)  [gipc.simulation.server.AGIPCAndRMIAndNIOSimulationServer@7960847b]<-java.nio.channels.SocketChannel[connected local=/127.0.0.1:5000 remote=/127.0.0.1:65508]:sun.nio.ch.ServerSocketChannelImpl[/0:0:0:0:0:0:0:0:5000]
+I***@1809998989011330 {Selecting Thread}(SocketChannelRegistered) EvtSrc(AnAcceptCommand)  Ops:1,  Selector:sun.nio.ch.WindowsSelectorImpl@236a3830, java.nio.channels.SocketChannel[connected local=/127.0.0.1:5000 remote=/127.0.0.1:65508]
+I***@1809998989166530 {Selecting Thread}(ReadListenerAdded) EvtSrc(AnNIOManager)  nio.manager.simulation.server.AnNIOManagerSimulationServerReceiver@cbf2759<-java.nio.channels.SocketChannel[connected local=/127.0.0.1:5000 remote=/127.0.0.1:65508]
+I***@1809998988706219 {Selecting Thread}(SocketChannelRegistered) EvtSrc(AConnectCommand)  Ops:8,  Selector:sun.nio.ch.WindowsSelectorImpl@17c3c48b, java.nio.channels.SocketChannel[connection-pending remote=localhost/127.0.0.1:5000]
+I***@1809998988808234 {Selecting Thread}(SelectCalled) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@17c3c48b
+I***@1809998988942284 {Selecting Thread}(SelectUnblocked) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@17c3c48b
+I***@1809998991630746 {Selecting Thread}(SocketChannelConnected) EvtSrc(AConnectCommand)  [rmi.simulation.client.AnRMIAndNIOSimulationClient@31dc339b]<-java.nio.channels.SocketChannel[connected local=/127.0.0.1:65508 remote=localhost/127.0.0.1:5000]
+I***@1809998991414276 {Selecting Thread}(SelectCalled) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@236a3830
+I***@1809998991894492 {Selecting Thread}(SocketChannelInterestOp) EvtSrc(AConnectCommand)  Ops:1 Selection Key:sun.nio.ch.SelectionKeyImpl@1d3baffb
+I***@1809998991989975 {Selecting Thread}(SelectCalled) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@17c3c48b
+I***@1809999091673947 {main}(AddedPropertyChangeListener) EvtSrc(AHalloweenCommandProcessor)  rmi.simulation.client.AnRMISimulationOutCoupler@4f063c0a
+Enter (prefixes of) print, quit or a method and its parameters separated by commas:
+I***Tracer: showInfo = true
+I***@1810003829902827 {main}(SelectorFactorySet) EvtSrc(ConnectCommandFactorySelector)  inputport.nio.manager.factories.classes.AReadingWritingConnectCommandFactory@6f539caf
+I***@1810003971343183 {main}(AddedPropertyChangeListener) EvtSrc(AHalloweenCommandProcessor)  nio.manager.simulation.client.AnNIOManagerSimulationClientOutCoupler@4dfa3a9d
+I***@1810003995949267 {main}(ReadListenerAdded) EvtSrc(AnNIOManager)  nio.manager.simulation.client.AnNIOManagerSimulationClientInCoupler@7e0b0338<-java.nio.channels.SocketChannel[unconnected]
+I***@1810003996286102 {Selecting Thread}(SelectCalled) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@12e7aa4c
+I***@1810004005927741 {main}(SocketChannelConnectRequested) EvtSrc(AnNIOManager)  (localhost/127.0.0.1:5000,[rmi.simulation.client.AnRMIAndNIOSimulationClient@31dc339b]) <-java.nio.channels.SocketChannel[unconnected]
+I***@1810004006651486 {main}(SelectorRequestNextInterestOp) EvtSrc(AConnectCommand)  Ops:1 Channel:java.nio.channels.SocketChannel[unconnected]
+I***@1810004006783670 {main}(SelectorRequestEnqueued) EvtSrc(ASelectionConnectionManager)  Command:inputport.nio.manager.commands.classes.AConnectCommand@71318ec4
+I***@1810004006904035 {main}(SelectorWokenUp) EvtSrc(ASelectionConnectionManager)  sun.nio.ch.WindowsSelectorImpl@12e7aa4c
+I***@1810004007178977 {Selecting Thread}(SelectUnblocked) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@12e7aa4c
+I***@1810004007383007 {Selecting Thread}(SelectorRequestDequeued) EvtSrc(ASelectionConnectionManager)  Command:inputport.nio.manager.commands.classes.AConnectCommand@71318ec4
+I***@1810004007554068 {Selecting Thread}(SocketChannelBlockingConfigured) EvtSrc(AConnectCommand)  false java.nio.channels.SocketChannel[unconnected]
+I***@1810004008229294 {Selecting Thread}(SocketChannelConnectInitiated) EvtSrc(AConnectCommand)  java.nio.channels.SocketChannel[connection-pending remote=localhost/127.0.0.1:5000]
+Command processor scanner opened
+I***@1810004008936244 {Selecting Thread}(SocketChannelRegistered) EvtSrc(AConnectCommand)  Ops:8,  Selector:sun.nio.ch.WindowsSelectorImpl@12e7aa4c, java.nio.channels.SocketChannel[connection-pending remote=localhost/127.0.0.1:5000]
+I***@1810004009057853 {Selecting Thread}(SelectCalled) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@12e7aa4c
+I***@1810004009179462 {Selecting Thread}(SelectUnblocked) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@12e7aa4c
+I***@1810004009454715 {Selecting Thread}(SocketChannelConnected) EvtSrc(AConnectCommand)  [rmi.simulation.client.AnRMIAndNIOSimulationClient@31dc339b]<-java.nio.channels.SocketChannel[connected local=/127.0.0.1:65516 remote=localhost/127.0.0.1:5000]
+I***@1810004009591253 {Selecting Thread}(SocketChannelInterestOp) EvtSrc(AConnectCommand)  Ops:1 Selection Key:sun.nio.ch.SelectionKeyImpl@181fc13c
+I***@1810004009678961 {Selecting Thread}(SelectCalled) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@12e7aa4c
+I***@1810004008701423 {Selecting Thread}(SelectUnblocked) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@236a3830
+I***@1810004009022707 {Selecting Thread}(SocketChannelAccepted) EvtSrc(AnAcceptCommand)  [gipc.simulation.server.AGIPCAndRMIAndNIOSimulationServer@7960847b]<-java.nio.channels.SocketChannel[connected local=/127.0.0.1:5000 remote=/127.0.0.1:65516]:sun.nio.ch.ServerSocketChannelImpl[/0:0:0:0:0:0:0:0:5000]
+I***@1810004009130943 {Selecting Thread}(SocketChannelRegistered) EvtSrc(AnAcceptCommand)  Ops:1,  Selector:sun.nio.ch.WindowsSelectorImpl@236a3830, java.nio.channels.SocketChannel[connected local=/127.0.0.1:5000 remote=/127.0.0.1:65516]
+I***@1810004009198434 {Selecting Thread}(ReadListenerAdded) EvtSrc(AnNIOManager)  nio.manager.simulation.server.AnNIOManagerSimulationServerReceiver@cbf2759<-java.nio.channels.SocketChannel[connected local=/127.0.0.1:5000 remote=/127.0.0.1:65516]
+I***@1810004010757580 {Selecting Thread}(SelectCalled) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@236a3830
+I***@1810004107602245 {main}(AddedPropertyChangeListener) EvtSrc(AHalloweenCommandProcessor)  rmi.simulation.client.AnRMISimulationOutCoupler@4f063c0a
+Enter (prefixes of) print, quit or a method and its parameters separated by commas:
+
+ERRORS(Two client correct connection)
+Headless program, not generating UI
+Headless program, not generating UI
+Headless program, not generating UI
+Headless program, not generating UI
+
+*****************************(Two client correct connection)*****************************
+I***(AnExecutionSpecification) Setting process team: [RegistryBasedDistributedProgram]
+I***(AnExecutionSpecification) Setting terminating processes: RegistryBasedDistributedProgram - [Client_0, Client_1]
+I***(AnExecutionSpecification) Setting processes: RegistryBasedDistributedProgram = [Registry, Server, Client_0, Client_1]
+I***(AnExecutionSpecification) Setting entry tags processes: Registry - [Registry]
+I***(AnExecutionSpecification) Setting entry tags processes: Server - [Server, GIPC]
+I***(AnExecutionSpecification) Setting entry tags processes: Client_0 - [Client, GIPC]
+I***(AnExecutionSpecification) Setting entry tags processes: Client_1 - [Client, GIPC]
+I***(AnExecutionSpecification) Setting processes args: Registry - [6000, 6000, 6000]
+I***(AnExecutionSpecification) Setting processes args: Server - [5000, localhost, 6000, 7000]
+I***(AnExecutionSpecification) Setting processes args: Client_0 - [localhost, 5000, Client_0, true, localhost, 6000, 7000]
+I***(AnExecutionSpecification) Setting processes args: Client_1 - [localhost, 5000, Client_1, true, localhost, 6000, 7000]
+I***(AnExecutionSpecification) Setting sleep time: 500
+I***(AnExecutionSpecification) Setting sleep time: 2000
+I***(AnExecutionSpecification) Setting sleep time: 5000
+I***(AnExecutionSpecification) Setting sleep time: 5000
+### RegistryBasedDistributedProgram
+E***Time(1524778916988, 17:41:56) Multiple classes found with tag:[Registry]
+I***(ProcessRunner) Running command:java -cp ".;..;D:\dewan_backup\Java\lib\checkstyle-6.5-all.jar;D:\dewan_backup\Java\lib\UNCChecks_6.5.0.jar;D:\dewan_backup\Java\lib\oeall22.jar;D:\dewan_backup\Java\lib\UNCChecks_6.5.0.jar;D:\dewan_backup\Java\lib\gipc.jar;D:\dewan_backup\Java\lib\Beau.jar;D:\dewan_backup\Java\lib\oeall22.jar;D:\Program Files\eclipse-java-luna-SR2-win32-x86_64\eclipse\plugins\org.junit_4.11.0.v201303080030\junit.jar" gipc.custom.simulation.launcher.CustomRMIRegistryLauncherFromGIPC 6000 6000 6000
+I***(ProcessRunner) Running in folder: D:\dewan_backup\Java\Comp533AllChecks\Test Data\Test 533s18\Assignment4\Student2, Test (tstudent2)\Submission attachment(s)\Comp533MySubmission\Comp533MySubmission\bin
+I***(ProcessRunner) Time(1524778917092, 17:41:57) Process started; folder: D:\dewan_backup\Java\Comp533AllChecks\Test Data\Test 533s18\Assignment4\Student2, Test (tstudent2)\Submission attachment(s)\Comp533MySubmission\Comp533MySubmission\bin entry point: null class path: D:\dewan_backup\Java\lib\checkstyle-6.5-all.jar;D:\dewan_backup\Java\lib\UNCChecks_6.5.0.jar;D:\dewan_backup\Java\lib\oeall22.jar;D:\dewan_backup\Java\lib\UNCChecks_6.5.0.jar;D:\dewan_backup\Java\lib\gipc.jar;D:\dewan_backup\Java\lib\Beau.jar
+I***(ARunnerOutputStreamProcessor) Process line:I***Tracer: showInfo = true
+I***(ARunnerOutputStreamProcessor) (Registry)I***Tracer: showInfo = true
+E***Time(1524778917620, 17:41:57) Multiple classes found with tag:[Server, GIPC]
+I***(ProcessRunner) Running command:java -cp ".;..;D:\dewan_backup\Java\lib\checkstyle-6.5-all.jar;D:\dewan_backup\Java\lib\UNCChecks_6.5.0.jar;D:\dewan_backup\Java\lib\oeall22.jar;D:\dewan_backup\Java\lib\UNCChecks_6.5.0.jar;D:\dewan_backup\Java\lib\gipc.jar;D:\dewan_backup\Java\lib\Beau.jar;D:\dewan_backup\Java\lib\oeall22.jar;D:\Program Files\eclipse-java-luna-SR2-win32-x86_64\eclipse\plugins\org.junit_4.11.0.v201303080030\junit.jar" gipc.simulation.launcher.GIPCAndRMIAndNIOServerLauncher 5000 localhost 6000 7000
+I***(ProcessRunner) Running in folder: D:\dewan_backup\Java\Comp533AllChecks\Test Data\Test 533s18\Assignment4\Student2, Test (tstudent2)\Submission attachment(s)\Comp533MySubmission\Comp533MySubmission\bin
+I***(ProcessRunner) Time(1524778917661, 17:41:57) Process started; folder: D:\dewan_backup\Java\Comp533AllChecks\Test Data\Test 533s18\Assignment4\Student2, Test (tstudent2)\Submission attachment(s)\Comp533MySubmission\Comp533MySubmission\bin entry point: null class path: D:\dewan_backup\Java\lib\checkstyle-6.5-all.jar;D:\dewan_backup\Java\lib\UNCChecks_6.5.0.jar;D:\dewan_backup\Java\lib\oeall22.jar;D:\dewan_backup\Java\lib\UNCChecks_6.5.0.jar;D:\dewan_backup\Java\lib\gipc.jar;D:\dewan_backup\Java\lib\Beau.jar
+I***(ARunnerOutputStreamProcessor) Process line:I***Tracer: showInfo = true
+I***(ARunnerOutputStreamProcessor) (Server)I***Tracer: showInfo = true
+I***(ARunnerOutputStreamProcessor) Process line:I***@1809996811111584 {main}(SelectorFactorySet) EvtSrc(AcceptCommandFactorySelector)  inputport.nio.manager.factories.classes.AReadingAcceptCommandFactory@3d71d552
+I***(ARunnerOutputStreamProcessor) (Server)I***@1809996811111584 {main}(SelectorFactorySet) EvtSrc(AcceptCommandFactorySelector)  inputport.nio.manager.factories.classes.AReadingAcceptCommandFactory@3d71d552
+I***(ARunnerOutputStreamProcessor) Process line:I***@1809996817681273 {main}(SocketChannelBound) EvtSrc(AGIPCAndRMIAndNIOSimulationServer)  0.0.0.0/0.0.0.0:5000 sun.nio.ch.ServerSocketChannelImpl[/0:0:0:0:0:0:0:0:5000]
+I***(ARunnerOutputStreamProcessor) (Server)I***@1809996817681273 {main}(SocketChannelBound) EvtSrc(AGIPCAndRMIAndNIOSimulationServer)  0.0.0.0/0.0.0.0:5000 sun.nio.ch.ServerSocketChannelImpl[/0:0:0:0:0:0:0:0:5000]
+I***(ARunnerOutputStreamProcessor) Process line:I***@1809996837453786 {main}(ListenableAcceptsEnabled) EvtSrc(AnNIOManager)  [gipc.simulation.server.AGIPCAndRMIAndNIOSimulationServer@7960847b]<-sun.nio.ch.ServerSocketChannelImpl[/0:0:0:0:0:0:0:0:5000]
+I***(ARunnerOutputStreamProcessor) (Server)I***@1809996837453786 {main}(ListenableAcceptsEnabled) EvtSrc(AnNIOManager)  [gipc.simulation.server.AGIPCAndRMIAndNIOSimulationServer@7960847b]<-sun.nio.ch.ServerSocketChannelImpl[/0:0:0:0:0:0:0:0:5000]
+I***(ARunnerOutputStreamProcessor) Process line:I***@1809996837852825 {Selecting Thread}(SelectCalled) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@236a3830
+I***(ARunnerOutputStreamProcessor) (Server)I***@1809996837852825 {Selecting Thread}(SelectCalled) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@236a3830
+I***(ARunnerOutputStreamProcessor) Process line:I***@1809996838376584 {main}(SelectorRequestNextInterestOp) EvtSrc(AnAcceptCommand)  Ops:1 Channel:sun.nio.ch.ServerSocketChannelImpl[/0:0:0:0:0:0:0:0:5000]
+I***(ARunnerOutputStreamProcessor) (Server)I***@1809996838376584 {main}(SelectorRequestNextInterestOp) EvtSrc(AnAcceptCommand)  Ops:1 Channel:sun.nio.ch.ServerSocketChannelImpl[/0:0:0:0:0:0:0:0:5000]
+I***(ARunnerOutputStreamProcessor) Process line:I***@1809996838615448 {main}(SelectorRequestEnqueued) EvtSrc(ASelectionConnectionManager)  Command:inputport.nio.manager.commands.classes.AnAcceptCommand@512ddf17
+I***(ARunnerOutputStreamProcessor) (Server)I***@1809996838615448 {main}(SelectorRequestEnqueued) EvtSrc(ASelectionConnectionManager)  Command:inputport.nio.manager.commands.classes.AnAcceptCommand@512ddf17
+I***(ARunnerOutputStreamProcessor) Process line:I***@1809996838973743 {main}(SelectorWokenUp) EvtSrc(ASelectionConnectionManager)  sun.nio.ch.WindowsSelectorImpl@236a3830
+I***(ARunnerOutputStreamProcessor) (Server)I***@1809996838973743 {main}(SelectorWokenUp) EvtSrc(ASelectionConnectionManager)  sun.nio.ch.WindowsSelectorImpl@236a3830
+I***(ARunnerOutputStreamProcessor) Process line:I***@1809996839346035 {Selecting Thread}(SelectUnblocked) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@236a3830
+I***(ARunnerOutputStreamProcessor) (Server)I***@1809996839346035 {Selecting Thread}(SelectUnblocked) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@236a3830
+I***(ARunnerOutputStreamProcessor) Process line:I***@1809996839490038 {Selecting Thread}(SelectorRequestDequeued) EvtSrc(ASelectionConnectionManager)  Command:inputport.nio.manager.commands.classes.AnAcceptCommand@512ddf17
+I***(ARunnerOutputStreamProcessor) (Server)I***@1809996839490038 {Selecting Thread}(SelectorRequestDequeued) EvtSrc(ASelectionConnectionManager)  Command:inputport.nio.manager.commands.classes.AnAcceptCommand@512ddf17
+I***(ARunnerOutputStreamProcessor) Process line:I***@1809996839645859 {Selecting Thread}(SocketChannelBlockingConfigured) EvtSrc(AnAcceptCommand)  false sun.nio.ch.ServerSocketChannelImpl[/0:0:0:0:0:0:0:0:5000]
+I***(ARunnerOutputStreamProcessor) (Server)I***@1809996839645859 {Selecting Thread}(SocketChannelBlockingConfigured) EvtSrc(AnAcceptCommand)  false sun.nio.ch.ServerSocketChannelImpl[/0:0:0:0:0:0:0:0:5000]
+I***(ARunnerOutputStreamProcessor) Process line:I***@1809996840041166 {Selecting Thread}(SocketChannelRegistered) EvtSrc(AnAcceptCommand)  Ops:16,  Selector:sun.nio.ch.WindowsSelectorImpl@236a3830, sun.nio.ch.ServerSocketChannelImpl[/0:0:0:0:0:0:0:0:5000]
+I***(ARunnerOutputStreamProcessor) (Server)I***@1809996840041166 {Selecting Thread}(SocketChannelRegistered) EvtSrc(AnAcceptCommand)  Ops:16,  Selector:sun.nio.ch.WindowsSelectorImpl@236a3830, sun.nio.ch.ServerSocketChannelImpl[/0:0:0:0:0:0:0:0:5000]
+I***(ARunnerOutputStreamProcessor) Process line:I***@1809996840151579 {Selecting Thread}(SelectCalled) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@236a3830
+I***(ARunnerOutputStreamProcessor) (Server)I***@1809996840151579 {Selecting Thread}(SelectCalled) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@236a3830
+I***(ARunnerOutputStreamProcessor) Process line:Command processor scanner opened
+I***(ARunnerOutputStreamProcessor) (Server)Command processor scanner opened
+I***(ARunnerOutputStreamProcessor) Process line:I***@1809996890993185 {main}(RMIRegistryLocated) EvtSrc(AGIPCAndRMIAndNIOSimulationServer)  localhost:6000->RegistryImpl_Stub[UnicastRef [liveRef: [endpoint:[localhost:6000](remote),objID:[0:0:0, 0]]]]
+I***(ARunnerOutputStreamProcessor) (Server)I***@1809996890993185 {main}(RMIRegistryLocated) EvtSrc(AGIPCAndRMIAndNIOSimulationServer)  localhost:6000->RegistryImpl_Stub[UnicastRef [liveRef: [endpoint:[localhost:6000](remote),objID:[0:0:0, 0]]]]
+I***(ARunnerOutputStreamProcessor) Process line:I***@1809997016186756 {main}(RMIObjectRegistered) EvtSrc(AGIPCAndRMIAndNIOSimulationServer)  rmi.simulation.server.twophase.ATwoPhaseRMISimulationRelayer@77afea7d<->session server:RegistryImpl_Stub[UnicastRef [liveRef: [endpoint:[localhost:6000](remote),objID:[0:0:0, 0]]]]
+I***(ARunnerOutputStreamProcessor) (Server)I***@1809997016186756 {main}(RMIObjectRegistered) EvtSrc(AGIPCAndRMIAndNIOSimulationServer)  rmi.simulation.server.twophase.ATwoPhaseRMISimulationRelayer@77afea7d<->session server:RegistryImpl_Stub[UnicastRef [liveRef: [endpoint:[localhost:6000](remote),objID:[0:0:0, 0]]]]
+I***(ARunnerOutputStreamProcessor) Process line:I***@1809997017176424 {main}(GIPCRegistryCreated) EvtSrc(GIPCRegistry)  7000
+I***(ARunnerOutputStreamProcessor) (Server)I***@1809997017176424 {main}(GIPCRegistryCreated) EvtSrc(GIPCRegistry)  7000
+I***(ARunnerOutputStreamProcessor) Process line:I***@1809997077250677 {main}(SelectorFactorySet) EvtSrc(AcceptCommandFactorySelector)  inputport.nio.manager.factories.classes.AReadingAcceptCommandFactory@51565ec2
+I***(ARunnerOutputStreamProcessor) (Server)I***@1809997077250677 {main}(SelectorFactorySet) EvtSrc(AcceptCommandFactorySelector)  inputport.nio.manager.factories.classes.AReadingAcceptCommandFactory@51565ec2
+I***(ARunnerOutputStreamProcessor) Process line:I***@1809997102089716 {main}(ListenableAcceptsEnabled) EvtSrc(AnNIOManager)  [inputport.datacomm.duplex.buffer.nio.AnNIODuplexBufferServerInputPortDriver@5c7fa833]<-sun.nio.ch.ServerSocketChannelImpl[/0:0:0:0:0:0:0:0:7000]
+I***(ARunnerOutputStreamProcessor) (Server)I***@1809997102089716 {main}(ListenableAcceptsEnabled) EvtSrc(AnNIOManager)  [inputport.datacomm.duplex.buffer.nio.AnNIODuplexBufferServerInputPortDriver@5c7fa833]<-sun.nio.ch.ServerSocketChannelImpl[/0:0:0:0:0:0:0:0:7000]
+I***(ARunnerOutputStreamProcessor) Process line:I***@1809997102193286 {main}(SelectorRequestNextInterestOp) EvtSrc(AnAcceptCommand)  Ops:1 Channel:sun.nio.ch.ServerSocketChannelImpl[/0:0:0:0:0:0:0:0:7000]
+I***(ARunnerOutputStreamProcessor) (Server)I***@1809997102193286 {main}(SelectorRequestNextInterestOp) EvtSrc(AnAcceptCommand)  Ops:1 Channel:sun.nio.ch.ServerSocketChannelImpl[/0:0:0:0:0:0:0:0:7000]
+I***(ARunnerOutputStreamProcessor) Process line:I***@1809997102258600 {main}(SelectorRequestEnqueued) EvtSrc(ASelectionConnectionManager)  Command:inputport.nio.manager.commands.classes.AnAcceptCommand@5f2108b5
+I***(ARunnerOutputStreamProcessor) (Server)I***@1809997102258600 {main}(SelectorRequestEnqueued) EvtSrc(ASelectionConnectionManager)  Command:inputport.nio.manager.commands.classes.AnAcceptCommand@5f2108b5
+I***(ARunnerOutputStreamProcessor) Process line:I***@1809997102433394 {main}(SelectorWokenUp) EvtSrc(ASelectionConnectionManager)  sun.nio.ch.WindowsSelectorImpl@236a3830
+I***(ARunnerOutputStreamProcessor) (Server)I***@1809997102433394 {main}(SelectorWokenUp) EvtSrc(ASelectionConnectionManager)  sun.nio.ch.WindowsSelectorImpl@236a3830
+I***(ARunnerOutputStreamProcessor) Process line:I***@1809997102743792 {Selecting Thread}(SelectUnblocked) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@236a3830
+I***(ARunnerOutputStreamProcessor) (Server)I***@1809997102743792 {Selecting Thread}(SelectUnblocked) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@236a3830
+I***(ARunnerOutputStreamProcessor) Process line:I***@1809997102830878 {Selecting Thread}(SelectorRequestDequeued) EvtSrc(ASelectionConnectionManager)  Command:inputport.nio.manager.commands.classes.AnAcceptCommand@5f2108b5
+I***(ARunnerOutputStreamProcessor) (Server)I***@1809997102830878 {Selecting Thread}(SelectorRequestDequeued) EvtSrc(ASelectionConnectionManager)  Command:inputport.nio.manager.commands.classes.AnAcceptCommand@5f2108b5
+I***(ARunnerOutputStreamProcessor) Process line:I***@1809997102908944 {main}(GIPCObjectRegistered) EvtSrc(AnAbstractDuplexRPCServerPortLauncher)  rmi.simulation.server.twophase.ATwoPhaseRMISimulationRelayer@31a5c39e<->session server:inputport.rpc.duplex.AnAbstractDuplexRPCServerPortLauncher@3f49dace
+I***(ARunnerOutputStreamProcessor) (Server)I***@1809997102908944 {main}(GIPCObjectRegistered) EvtSrc(AnAbstractDuplexRPCServerPortLauncher)  rmi.simulation.server.twophase.ATwoPhaseRMISimulationRelayer@31a5c39e<->session server:inputport.rpc.duplex.AnAbstractDuplexRPCServerPortLauncher@3f49dace
+I***(ARunnerOutputStreamProcessor) Process line:I***@1809997102915165 {Selecting Thread}(SocketChannelBlockingConfigured) EvtSrc(AnAcceptCommand)  false sun.nio.ch.ServerSocketChannelImpl[/0:0:0:0:0:0:0:0:7000]
+I***(ARunnerOutputStreamProcessor) (Server)I***@1809997102915165 {Selecting Thread}(SocketChannelBlockingConfigured) EvtSrc(AnAcceptCommand)  false sun.nio.ch.ServerSocketChannelImpl[/0:0:0:0:0:0:0:0:7000]
+I***(ARunnerOutputStreamProcessor) Process line:I***@1809997103190418 {Selecting Thread}(SocketChannelRegistered) EvtSrc(AnAcceptCommand)  Ops:16,  Selector:sun.nio.ch.WindowsSelectorImpl@236a3830, sun.nio.ch.ServerSocketChannelImpl[/0:0:0:0:0:0:0:0:7000]
+I***(ARunnerOutputStreamProcessor) (Server)I***@1809997103190418 {Selecting Thread}(SocketChannelRegistered) EvtSrc(AnAcceptCommand)  Ops:16,  Selector:sun.nio.ch.WindowsSelectorImpl@236a3830, sun.nio.ch.ServerSocketChannelImpl[/0:0:0:0:0:0:0:0:7000]
+I***(ARunnerOutputStreamProcessor) Process line:I***@1809997103266307 {Selecting Thread}(SelectCalled) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@236a3830
+I***(ARunnerOutputStreamProcessor) (Server)I***@1809997103266307 {Selecting Thread}(SelectCalled) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@236a3830
+I***(ARunnerOutputStreamProcessor) Process line:Enter (prefixes of) print, quit or a method and its parameters separated by commas:
+I***(ARunnerOutputStreamProcessor) (Server)Enter (prefixes of) print, quit or a method and its parameters separated by commas:
+I***(ProcessRunner) Running command:java -cp ".;..;D:\dewan_backup\Java\lib\checkstyle-6.5-all.jar;D:\dewan_backup\Java\lib\UNCChecks_6.5.0.jar;D:\dewan_backup\Java\lib\oeall22.jar;D:\dewan_backup\Java\lib\UNCChecks_6.5.0.jar;D:\dewan_backup\Java\lib\gipc.jar;D:\dewan_backup\Java\lib\Beau.jar;D:\dewan_backup\Java\lib\oeall22.jar;D:\Program Files\eclipse-java-luna-SR2-win32-x86_64\eclipse\plugins\org.junit_4.11.0.v201303080030\junit.jar" gipc.simulation.client.AGIPCAndRMIAndNIOSimulationClient localhost 5000 Client_0 true localhost 6000 7000
+I***(ProcessRunner) Running in folder: D:\dewan_backup\Java\Comp533AllChecks\Test Data\Test 533s18\Assignment4\Student2, Test (tstudent2)\Submission attachment(s)\Comp533MySubmission\Comp533MySubmission\bin
+I***(ProcessRunner) Time(1524778919734, 17:41:59) Process started; folder: D:\dewan_backup\Java\Comp533AllChecks\Test Data\Test 533s18\Assignment4\Student2, Test (tstudent2)\Submission attachment(s)\Comp533MySubmission\Comp533MySubmission\bin entry point: null class path: D:\dewan_backup\Java\lib\checkstyle-6.5-all.jar;D:\dewan_backup\Java\lib\UNCChecks_6.5.0.jar;D:\dewan_backup\Java\lib\oeall22.jar;D:\dewan_backup\Java\lib\UNCChecks_6.5.0.jar;D:\dewan_backup\Java\lib\gipc.jar;D:\dewan_backup\Java\lib\Beau.jar
+I***(ARunnerOutputStreamProcessor) Process line:I***Tracer: showInfo = true
+I***(ARunnerOutputStreamProcessor) (Client_0)I***Tracer: showInfo = true
+I***(ARunnerOutputStreamProcessor) Process line:I***@1809998835592950 {main}(SelectorFactorySet) EvtSrc(ConnectCommandFactorySelector)  inputport.nio.manager.factories.classes.AReadingWritingConnectCommandFactory@6f539caf
+I***(ARunnerOutputStreamProcessor) (Client_0)I***@1809998835592950 {main}(SelectorFactorySet) EvtSrc(ConnectCommandFactorySelector)  inputport.nio.manager.factories.classes.AReadingWritingConnectCommandFactory@6f539caf
+I***(ARunnerOutputStreamProcessor) Process line:I***@1809998958412190 {main}(AddedPropertyChangeListener) EvtSrc(AHalloweenCommandProcessor)  nio.manager.simulation.client.AnNIOManagerSimulationClientOutCoupler@4dfa3a9d
+I***(ARunnerOutputStreamProcessor) (Client_0)I***@1809998958412190 {main}(AddedPropertyChangeListener) EvtSrc(AHalloweenCommandProcessor)  nio.manager.simulation.client.AnNIOManagerSimulationClientOutCoupler@4dfa3a9d
+I***(ARunnerOutputStreamProcessor) Process line:I***@1809998977354589 {main}(ReadListenerAdded) EvtSrc(AnNIOManager)  nio.manager.simulation.client.AnNIOManagerSimulationClientInCoupler@7e0b0338<-java.nio.channels.SocketChannel[unconnected]
+I***(ARunnerOutputStreamProcessor) (Client_0)I***@1809998977354589 {main}(ReadListenerAdded) EvtSrc(AnNIOManager)  nio.manager.simulation.client.AnNIOManagerSimulationClientInCoupler@7e0b0338<-java.nio.channels.SocketChannel[unconnected]
+I***(ARunnerOutputStreamProcessor) Process line:I***@1809998977711018 {Selecting Thread}(SelectCalled) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@17c3c48b
+I***(ARunnerOutputStreamProcessor) (Client_0)I***@1809998977711018 {Selecting Thread}(SelectCalled) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@17c3c48b
+I***(ARunnerOutputStreamProcessor) Process line:I***@1809998985443613 {main}(SocketChannelConnectRequested) EvtSrc(AnNIOManager)  (localhost/127.0.0.1:5000,[rmi.simulation.client.AnRMIAndNIOSimulationClient@31dc339b]) <-java.nio.channels.SocketChannel[unconnected]
+I***(ARunnerOutputStreamProcessor) (Client_0)I***@1809998985443613 {main}(SocketChannelConnectRequested) EvtSrc(AnNIOManager)  (localhost/127.0.0.1:5000,[rmi.simulation.client.AnRMIAndNIOSimulationClient@31dc339b]) <-java.nio.channels.SocketChannel[unconnected]
+I***(ARunnerOutputStreamProcessor) Process line:I***@1809998986154606 {main}(SelectorRequestNextInterestOp) EvtSrc(AConnectCommand)  Ops:1 Channel:java.nio.channels.SocketChannel[unconnected]
+I***(ARunnerOutputStreamProcessor) (Client_0)I***@1809998986154606 {main}(SelectorRequestNextInterestOp) EvtSrc(AConnectCommand)  Ops:1 Channel:java.nio.channels.SocketChannel[unconnected]
+I***(ARunnerOutputStreamProcessor) Process line:I***@1809998986291455 {main}(SelectorRequestEnqueued) EvtSrc(ASelectionConnectionManager)  Command:inputport.nio.manager.commands.classes.AConnectCommand@71318ec4
+I***(ARunnerOutputStreamProcessor) (Client_0)I***@1809998986291455 {main}(SelectorRequestEnqueued) EvtSrc(ASelectionConnectionManager)  Command:inputport.nio.manager.commands.classes.AConnectCommand@71318ec4
+I***(ARunnerOutputStreamProcessor) Process line:I***@1809998986415863 {main}(SelectorWokenUp) EvtSrc(ASelectionConnectionManager)  sun.nio.ch.WindowsSelectorImpl@17c3c48b
+I***(ARunnerOutputStreamProcessor) (Client_0)I***@1809998986415863 {main}(SelectorWokenUp) EvtSrc(ASelectionConnectionManager)  sun.nio.ch.WindowsSelectorImpl@17c3c48b
+I***(ARunnerOutputStreamProcessor) Process line:I***@1809998986711333 {Selecting Thread}(SelectUnblocked) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@17c3c48b
+I***(ARunnerOutputStreamProcessor) (Client_0)I***@1809998986711333 {Selecting Thread}(SelectUnblocked) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@17c3c48b
+I***(ARunnerOutputStreamProcessor) Process line:I***@1809998986882083 {Selecting Thread}(SelectorRequestDequeued) EvtSrc(ASelectionConnectionManager)  Command:inputport.nio.manager.commands.classes.AConnectCommand@71318ec4
+I***(ARunnerOutputStreamProcessor) (Client_0)I***@1809998986882083 {Selecting Thread}(SelectorRequestDequeued) EvtSrc(ASelectionConnectionManager)  Command:inputport.nio.manager.commands.classes.AConnectCommand@71318ec4
+I***(ARunnerOutputStreamProcessor) Process line:I***@1809998987111617 {Selecting Thread}(SocketChannelBlockingConfigured) EvtSrc(AConnectCommand)  false java.nio.channels.SocketChannel[unconnected]
+I***(ARunnerOutputStreamProcessor) (Client_0)I***@1809998987111617 {Selecting Thread}(SocketChannelBlockingConfigured) EvtSrc(AConnectCommand)  false java.nio.channels.SocketChannel[unconnected]
+I***(ARunnerOutputStreamProcessor) Process line:Command processor scanner opened
+I***(ARunnerOutputStreamProcessor) (Client_0)Command processor scanner opened
+I***(ARunnerOutputStreamProcessor) Process line:I***@1809998988052143 {Selecting Thread}(SocketChannelConnectInitiated) EvtSrc(AConnectCommand)  java.nio.channels.SocketChannel[connection-pending remote=localhost/127.0.0.1:5000]
+I***(ARunnerOutputStreamProcessor) (Client_0)I***@1809998988052143 {Selecting Thread}(SocketChannelConnectInitiated) EvtSrc(AConnectCommand)  java.nio.channels.SocketChannel[connection-pending remote=localhost/127.0.0.1:5000]
+I***(ARunnerOutputStreamProcessor) Process line:I***@1809998988500635 {Selecting Thread}(SelectUnblocked) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@236a3830
+I***(ARunnerOutputStreamProcessor) (Server)I***@1809998988500635 {Selecting Thread}(SelectUnblocked) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@236a3830
+I***(ARunnerOutputStreamProcessor) Process line:I***@1809998988875725 {Selecting Thread}(SocketChannelAccepted) EvtSrc(AnAcceptCommand)  [gipc.simulation.server.AGIPCAndRMIAndNIOSimulationServer@7960847b]<-java.nio.channels.SocketChannel[connected local=/127.0.0.1:5000 remote=/127.0.0.1:65508]:sun.nio.ch.ServerSocketChannelImpl[/0:0:0:0:0:0:0:0:5000]
+I***(ARunnerOutputStreamProcessor) (Server)I***@1809998988875725 {Selecting Thread}(SocketChannelAccepted) EvtSrc(AnAcceptCommand)  [gipc.simulation.server.AGIPCAndRMIAndNIOSimulationServer@7960847b]<-java.nio.channels.SocketChannel[connected local=/127.0.0.1:5000 remote=/127.0.0.1:65508]:sun.nio.ch.ServerSocketChannelImpl[/0:0:0:0:0:0:0:0:5000]
+I***(ARunnerOutputStreamProcessor) Process line:I***@1809998989011330 {Selecting Thread}(SocketChannelRegistered) EvtSrc(AnAcceptCommand)  Ops:1,  Selector:sun.nio.ch.WindowsSelectorImpl@236a3830, java.nio.channels.SocketChannel[connected local=/127.0.0.1:5000 remote=/127.0.0.1:65508]
+I***(ARunnerOutputStreamProcessor) (Server)I***@1809998989011330 {Selecting Thread}(SocketChannelRegistered) EvtSrc(AnAcceptCommand)  Ops:1,  Selector:sun.nio.ch.WindowsSelectorImpl@236a3830, java.nio.channels.SocketChannel[connected local=/127.0.0.1:5000 remote=/127.0.0.1:65508]
+I***(ARunnerOutputStreamProcessor) Process line:I***@1809998989166530 {Selecting Thread}(ReadListenerAdded) EvtSrc(AnNIOManager)  nio.manager.simulation.server.AnNIOManagerSimulationServerReceiver@cbf2759<-java.nio.channels.SocketChannel[connected local=/127.0.0.1:5000 remote=/127.0.0.1:65508]
+I***(ARunnerOutputStreamProcessor) (Server)I***@1809998989166530 {Selecting Thread}(ReadListenerAdded) EvtSrc(AnNIOManager)  nio.manager.simulation.server.AnNIOManagerSimulationServerReceiver@cbf2759<-java.nio.channels.SocketChannel[connected local=/127.0.0.1:5000 remote=/127.0.0.1:65508]
+I***(ARunnerOutputStreamProcessor) Process line:I***@1809998988706219 {Selecting Thread}(SocketChannelRegistered) EvtSrc(AConnectCommand)  Ops:8,  Selector:sun.nio.ch.WindowsSelectorImpl@17c3c48b, java.nio.channels.SocketChannel[connection-pending remote=localhost/127.0.0.1:5000]
+I***(ARunnerOutputStreamProcessor) (Client_0)I***@1809998988706219 {Selecting Thread}(SocketChannelRegistered) EvtSrc(AConnectCommand)  Ops:8,  Selector:sun.nio.ch.WindowsSelectorImpl@17c3c48b, java.nio.channels.SocketChannel[connection-pending remote=localhost/127.0.0.1:5000]
+I***(ARunnerOutputStreamProcessor) Process line:I***@1809998988808234 {Selecting Thread}(SelectCalled) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@17c3c48b
+I***(ARunnerOutputStreamProcessor) (Client_0)I***@1809998988808234 {Selecting Thread}(SelectCalled) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@17c3c48b
+I***(ARunnerOutputStreamProcessor) Process line:I***@1809998988942284 {Selecting Thread}(SelectUnblocked) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@17c3c48b
+I***(ARunnerOutputStreamProcessor) (Client_0)I***@1809998988942284 {Selecting Thread}(SelectUnblocked) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@17c3c48b
+I***(ARunnerOutputStreamProcessor) Process line:I***@1809998991630746 {Selecting Thread}(SocketChannelConnected) EvtSrc(AConnectCommand)  [rmi.simulation.client.AnRMIAndNIOSimulationClient@31dc339b]<-java.nio.channels.SocketChannel[connected local=/127.0.0.1:65508 remote=localhost/127.0.0.1:5000]
+I***(ARunnerOutputStreamProcessor) (Client_0)I***@1809998991630746 {Selecting Thread}(SocketChannelConnected) EvtSrc(AConnectCommand)  [rmi.simulation.client.AnRMIAndNIOSimulationClient@31dc339b]<-java.nio.channels.SocketChannel[connected local=/127.0.0.1:65508 remote=localhost/127.0.0.1:5000]
+I***(ARunnerOutputStreamProcessor) Process line:I***@1809998991414276 {Selecting Thread}(SelectCalled) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@236a3830
+I***(ARunnerOutputStreamProcessor) (Server)I***@1809998991414276 {Selecting Thread}(SelectCalled) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@236a3830
+I***(ARunnerOutputStreamProcessor) Process line:I***@1809998991894492 {Selecting Thread}(SocketChannelInterestOp) EvtSrc(AConnectCommand)  Ops:1 Selection Key:sun.nio.ch.SelectionKeyImpl@1d3baffb
+I***(ARunnerOutputStreamProcessor) (Client_0)I***@1809998991894492 {Selecting Thread}(SocketChannelInterestOp) EvtSrc(AConnectCommand)  Ops:1 Selection Key:sun.nio.ch.SelectionKeyImpl@1d3baffb
+***** Input reordered
+I***(ARunnerOutputStreamProcessor) Process line:I***@1809998991989975 {Selecting Thread}(SelectCalled) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@17c3c48b
+I***(ARunnerOutputStreamProcessor) (Client_0)I***@1809998991989975 {Selecting Thread}(SelectCalled) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@17c3c48b
+I***(ARunnerOutputStreamProcessor) Process line:I***@1809999091673947 {main}(AddedPropertyChangeListener) EvtSrc(AHalloweenCommandProcessor)  rmi.simulation.client.AnRMISimulationOutCoupler@4f063c0a
+I***(ARunnerOutputStreamProcessor) (Client_0)I***@1809999091673947 {main}(AddedPropertyChangeListener) EvtSrc(AHalloweenCommandProcessor)  rmi.simulation.client.AnRMISimulationOutCoupler@4f063c0a
+I***(ARunnerOutputStreamProcessor) Process line:Enter (prefixes of) print, quit or a method and its parameters separated by commas:
+I***(ARunnerOutputStreamProcessor) (Client_0)Enter (prefixes of) print, quit or a method and its parameters separated by commas:
+I***(ProcessRunner) Running command:java -cp ".;..;D:\dewan_backup\Java\lib\checkstyle-6.5-all.jar;D:\dewan_backup\Java\lib\UNCChecks_6.5.0.jar;D:\dewan_backup\Java\lib\oeall22.jar;D:\dewan_backup\Java\lib\UNCChecks_6.5.0.jar;D:\dewan_backup\Java\lib\gipc.jar;D:\dewan_backup\Java\lib\Beau.jar;D:\dewan_backup\Java\lib\oeall22.jar;D:\Program Files\eclipse-java-luna-SR2-win32-x86_64\eclipse\plugins\org.junit_4.11.0.v201303080030\junit.jar" gipc.simulation.client.AGIPCAndRMIAndNIOSimulationClient localhost 5000 Client_1 true localhost 6000 7000
+I***(ProcessRunner) Running in folder: D:\dewan_backup\Java\Comp533AllChecks\Test Data\Test 533s18\Assignment4\Student2, Test (tstudent2)\Submission attachment(s)\Comp533MySubmission\Comp533MySubmission\bin
+I***(ProcessRunner) Time(1524778924754, 17:42:4) Process started; folder: D:\dewan_backup\Java\Comp533AllChecks\Test Data\Test 533s18\Assignment4\Student2, Test (tstudent2)\Submission attachment(s)\Comp533MySubmission\Comp533MySubmission\bin entry point: null class path: D:\dewan_backup\Java\lib\checkstyle-6.5-all.jar;D:\dewan_backup\Java\lib\UNCChecks_6.5.0.jar;D:\dewan_backup\Java\lib\oeall22.jar;D:\dewan_backup\Java\lib\UNCChecks_6.5.0.jar;D:\dewan_backup\Java\lib\gipc.jar;D:\dewan_backup\Java\lib\Beau.jar
+I***(ARunnerOutputStreamProcessor) Process line:I***Tracer: showInfo = true
+I***(ARunnerOutputStreamProcessor) (Client_1)I***Tracer: showInfo = true
+I***(ARunnerOutputStreamProcessor) Process line:I***@1810003829902827 {main}(SelectorFactorySet) EvtSrc(ConnectCommandFactorySelector)  inputport.nio.manager.factories.classes.AReadingWritingConnectCommandFactory@6f539caf
+I***(ARunnerOutputStreamProcessor) (Client_1)I***@1810003829902827 {main}(SelectorFactorySet) EvtSrc(ConnectCommandFactorySelector)  inputport.nio.manager.factories.classes.AReadingWritingConnectCommandFactory@6f539caf
+I***(ARunnerOutputStreamProcessor) Process line:I***@1810003971343183 {main}(AddedPropertyChangeListener) EvtSrc(AHalloweenCommandProcessor)  nio.manager.simulation.client.AnNIOManagerSimulationClientOutCoupler@4dfa3a9d
+I***(ARunnerOutputStreamProcessor) (Client_1)I***@1810003971343183 {main}(AddedPropertyChangeListener) EvtSrc(AHalloweenCommandProcessor)  nio.manager.simulation.client.AnNIOManagerSimulationClientOutCoupler@4dfa3a9d
+I***(ARunnerOutputStreamProcessor) Process line:I***@1810003995949267 {main}(ReadListenerAdded) EvtSrc(AnNIOManager)  nio.manager.simulation.client.AnNIOManagerSimulationClientInCoupler@7e0b0338<-java.nio.channels.SocketChannel[unconnected]
+I***(ARunnerOutputStreamProcessor) (Client_1)I***@1810003995949267 {main}(ReadListenerAdded) EvtSrc(AnNIOManager)  nio.manager.simulation.client.AnNIOManagerSimulationClientInCoupler@7e0b0338<-java.nio.channels.SocketChannel[unconnected]
+I***(ARunnerOutputStreamProcessor) Process line:I***@1810003996286102 {Selecting Thread}(SelectCalled) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@12e7aa4c
+I***(ARunnerOutputStreamProcessor) (Client_1)I***@1810003996286102 {Selecting Thread}(SelectCalled) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@12e7aa4c
+I***(ARunnerOutputStreamProcessor) Process line:I***@1810004005927741 {main}(SocketChannelConnectRequested) EvtSrc(AnNIOManager)  (localhost/127.0.0.1:5000,[rmi.simulation.client.AnRMIAndNIOSimulationClient@31dc339b]) <-java.nio.channels.SocketChannel[unconnected]
+I***(ARunnerOutputStreamProcessor) (Client_1)I***@1810004005927741 {main}(SocketChannelConnectRequested) EvtSrc(AnNIOManager)  (localhost/127.0.0.1:5000,[rmi.simulation.client.AnRMIAndNIOSimulationClient@31dc339b]) <-java.nio.channels.SocketChannel[unconnected]
+I***(ARunnerOutputStreamProcessor) Process line:I***@1810004006651486 {main}(SelectorRequestNextInterestOp) EvtSrc(AConnectCommand)  Ops:1 Channel:java.nio.channels.SocketChannel[unconnected]
+I***(ARunnerOutputStreamProcessor) (Client_1)I***@1810004006651486 {main}(SelectorRequestNextInterestOp) EvtSrc(AConnectCommand)  Ops:1 Channel:java.nio.channels.SocketChannel[unconnected]
+I***(ARunnerOutputStreamProcessor) Process line:I***@1810004006783670 {main}(SelectorRequestEnqueued) EvtSrc(ASelectionConnectionManager)  Command:inputport.nio.manager.commands.classes.AConnectCommand@71318ec4
+I***(ARunnerOutputStreamProcessor) (Client_1)I***@1810004006783670 {main}(SelectorRequestEnqueued) EvtSrc(ASelectionConnectionManager)  Command:inputport.nio.manager.commands.classes.AConnectCommand@71318ec4
+I***(ARunnerOutputStreamProcessor) Process line:I***@1810004006904035 {main}(SelectorWokenUp) EvtSrc(ASelectionConnectionManager)  sun.nio.ch.WindowsSelectorImpl@12e7aa4c
+I***(ARunnerOutputStreamProcessor) (Client_1)I***@1810004006904035 {main}(SelectorWokenUp) EvtSrc(ASelectionConnectionManager)  sun.nio.ch.WindowsSelectorImpl@12e7aa4c
+I***(ARunnerOutputStreamProcessor) Process line:I***@1810004007178977 {Selecting Thread}(SelectUnblocked) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@12e7aa4c
+I***(ARunnerOutputStreamProcessor) (Client_1)I***@1810004007178977 {Selecting Thread}(SelectUnblocked) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@12e7aa4c
+I***(ARunnerOutputStreamProcessor) Process line:I***@1810004007383007 {Selecting Thread}(SelectorRequestDequeued) EvtSrc(ASelectionConnectionManager)  Command:inputport.nio.manager.commands.classes.AConnectCommand@71318ec4
+I***(ARunnerOutputStreamProcessor) (Client_1)I***@1810004007383007 {Selecting Thread}(SelectorRequestDequeued) EvtSrc(ASelectionConnectionManager)  Command:inputport.nio.manager.commands.classes.AConnectCommand@71318ec4
+I***(ARunnerOutputStreamProcessor) Process line:I***@1810004007554068 {Selecting Thread}(SocketChannelBlockingConfigured) EvtSrc(AConnectCommand)  false java.nio.channels.SocketChannel[unconnected]
+I***(ARunnerOutputStreamProcessor) (Client_1)I***@1810004007554068 {Selecting Thread}(SocketChannelBlockingConfigured) EvtSrc(AConnectCommand)  false java.nio.channels.SocketChannel[unconnected]
+I***(ARunnerOutputStreamProcessor) Process line:I***@1810004008229294 {Selecting Thread}(SocketChannelConnectInitiated) EvtSrc(AConnectCommand)  java.nio.channels.SocketChannel[connection-pending remote=localhost/127.0.0.1:5000]
+I***(ARunnerOutputStreamProcessor) (Client_1)I***@1810004008229294 {Selecting Thread}(SocketChannelConnectInitiated) EvtSrc(AConnectCommand)  java.nio.channels.SocketChannel[connection-pending remote=localhost/127.0.0.1:5000]
+I***(ARunnerOutputStreamProcessor) Process line:Command processor scanner opened
+I***(ARunnerOutputStreamProcessor) (Client_1)Command processor scanner opened
+I***(ARunnerOutputStreamProcessor) Process line:I***@1810004008936244 {Selecting Thread}(SocketChannelRegistered) EvtSrc(AConnectCommand)  Ops:8,  Selector:sun.nio.ch.WindowsSelectorImpl@12e7aa4c, java.nio.channels.SocketChannel[connection-pending remote=localhost/127.0.0.1:5000]
+I***(ARunnerOutputStreamProcessor) (Client_1)I***@1810004008936244 {Selecting Thread}(SocketChannelRegistered) EvtSrc(AConnectCommand)  Ops:8,  Selector:sun.nio.ch.WindowsSelectorImpl@12e7aa4c, java.nio.channels.SocketChannel[connection-pending remote=localhost/127.0.0.1:5000]
+I***(ARunnerOutputStreamProcessor) Process line:I***@1810004009057853 {Selecting Thread}(SelectCalled) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@12e7aa4c
+I***(ARunnerOutputStreamProcessor) (Client_1)I***@1810004009057853 {Selecting Thread}(SelectCalled) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@12e7aa4c
+I***(ARunnerOutputStreamProcessor) Process line:I***@1810004009179462 {Selecting Thread}(SelectUnblocked) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@12e7aa4c
+I***(ARunnerOutputStreamProcessor) (Client_1)I***@1810004009179462 {Selecting Thread}(SelectUnblocked) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@12e7aa4c
+I***(ARunnerOutputStreamProcessor) Process line:I***@1810004009454715 {Selecting Thread}(SocketChannelConnected) EvtSrc(AConnectCommand)  [rmi.simulation.client.AnRMIAndNIOSimulationClient@31dc339b]<-java.nio.channels.SocketChannel[connected local=/127.0.0.1:65516 remote=localhost/127.0.0.1:5000]
+I***(ARunnerOutputStreamProcessor) (Client_1)I***@1810004009454715 {Selecting Thread}(SocketChannelConnected) EvtSrc(AConnectCommand)  [rmi.simulation.client.AnRMIAndNIOSimulationClient@31dc339b]<-java.nio.channels.SocketChannel[connected local=/127.0.0.1:65516 remote=localhost/127.0.0.1:5000]
+I***(ARunnerOutputStreamProcessor) Process line:I***@1810004009591253 {Selecting Thread}(SocketChannelInterestOp) EvtSrc(AConnectCommand)  Ops:1 Selection Key:sun.nio.ch.SelectionKeyImpl@181fc13c
+I***(ARunnerOutputStreamProcessor) (Client_1)I***@1810004009591253 {Selecting Thread}(SocketChannelInterestOp) EvtSrc(AConnectCommand)  Ops:1 Selection Key:sun.nio.ch.SelectionKeyImpl@181fc13c
+I***(ARunnerOutputStreamProcessor) Process line:I***@1810004009678961 {Selecting Thread}(SelectCalled) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@12e7aa4c
+I***(ARunnerOutputStreamProcessor) (Client_1)I***@1810004009678961 {Selecting Thread}(SelectCalled) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@12e7aa4c
+I***(ARunnerOutputStreamProcessor) Process line:I***@1810004008701423 {Selecting Thread}(SelectUnblocked) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@236a3830
+I***(ARunnerOutputStreamProcessor) (Server)I***@1810004008701423 {Selecting Thread}(SelectUnblocked) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@236a3830
+I***(ARunnerOutputStreamProcessor) Process line:I***@1810004009022707 {Selecting Thread}(SocketChannelAccepted) EvtSrc(AnAcceptCommand)  [gipc.simulation.server.AGIPCAndRMIAndNIOSimulationServer@7960847b]<-java.nio.channels.SocketChannel[connected local=/127.0.0.1:5000 remote=/127.0.0.1:65516]:sun.nio.ch.ServerSocketChannelImpl[/0:0:0:0:0:0:0:0:5000]
+I***(ARunnerOutputStreamProcessor) (Server)I***@1810004009022707 {Selecting Thread}(SocketChannelAccepted) EvtSrc(AnAcceptCommand)  [gipc.simulation.server.AGIPCAndRMIAndNIOSimulationServer@7960847b]<-java.nio.channels.SocketChannel[connected local=/127.0.0.1:5000 remote=/127.0.0.1:65516]:sun.nio.ch.ServerSocketChannelImpl[/0:0:0:0:0:0:0:0:5000]
+I***(ARunnerOutputStreamProcessor) Process line:I***@1810004009130943 {Selecting Thread}(SocketChannelRegistered) EvtSrc(AnAcceptCommand)  Ops:1,  Selector:sun.nio.ch.WindowsSelectorImpl@236a3830, java.nio.channels.SocketChannel[connected local=/127.0.0.1:5000 remote=/127.0.0.1:65516]
+I***(ARunnerOutputStreamProcessor) (Server)I***@1810004009130943 {Selecting Thread}(SocketChannelRegistered) EvtSrc(AnAcceptCommand)  Ops:1,  Selector:sun.nio.ch.WindowsSelectorImpl@236a3830, java.nio.channels.SocketChannel[connected local=/127.0.0.1:5000 remote=/127.0.0.1:65516]
+I***(ARunnerOutputStreamProcessor) Process line:I***@1810004009198434 {Selecting Thread}(ReadListenerAdded) EvtSrc(AnNIOManager)  nio.manager.simulation.server.AnNIOManagerSimulationServerReceiver@cbf2759<-java.nio.channels.SocketChannel[connected local=/127.0.0.1:5000 remote=/127.0.0.1:65516]
+I***(ARunnerOutputStreamProcessor) (Server)I***@1810004009198434 {Selecting Thread}(ReadListenerAdded) EvtSrc(AnNIOManager)  nio.manager.simulation.server.AnNIOManagerSimulationServerReceiver@cbf2759<-java.nio.channels.SocketChannel[connected local=/127.0.0.1:5000 remote=/127.0.0.1:65516]
+I***(ARunnerOutputStreamProcessor) Process line:I***@1810004010757580 {Selecting Thread}(SelectCalled) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@236a3830
+I***(ARunnerOutputStreamProcessor) (Server)I***@1810004010757580 {Selecting Thread}(SelectCalled) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@236a3830
+***** Input reordered
+I***(ARunnerOutputStreamProcessor) Process line:I***@1810004107602245 {main}(AddedPropertyChangeListener) EvtSrc(AHalloweenCommandProcessor)  rmi.simulation.client.AnRMISimulationOutCoupler@4f063c0a
+I***(ARunnerOutputStreamProcessor) (Client_1)I***@1810004107602245 {main}(AddedPropertyChangeListener) EvtSrc(AHalloweenCommandProcessor)  rmi.simulation.client.AnRMISimulationOutCoupler@4f063c0a
+I***(ARunnerOutputStreamProcessor) Process line:Enter (prefixes of) print, quit or a method and its parameters separated by commas:
+I***(ARunnerOutputStreamProcessor) (Client_1)Enter (prefixes of) print, quit or a method and its parameters separated by commas:
+I***(ARunningProject) Terminating:Client_1
+I***(ARunningProject) Terminating:Client_0
+I***(ARunningProject) Terminating:Server
+I***(ARunningProject) Terminating:Registry
+I***(ARunningProject) Time(1524778959789, 17:42:39) Transcript Saved to File:D:/dewan_backup/Java/Comp533AllChecks/Test Data/Test 533s18/Assignment4/Student2, Test (tstudent2)/Feedback Attachment(s)/transcript.txt. Transcript:*****************************(Two client correct connection)*****************************
+MAIN ARGS(Two client correct connection)
+[localhost,5000,Client_1,true,localhost,6000,7000[OUTPUT(Two client correct connection)
+I***Tracer: showInfo = true
+I***Tracer: showInfo = true
+I***@1809996811111584 {main}(SelectorFactorySet) EvtSrc(AcceptCommandFactorySelector)  inputport.nio.manager.factories.classes.AReadingAcceptCommandFactory@3d71d552
+I***@1809996817681273 {main}(SocketChannelBound) EvtSrc(AGIPCAndRMIAndNIOSimulationServer)  0.0.0.0/0.0.0.0:5000 sun.nio.ch.ServerSocketChannelImpl[/0:0:0:0:0:0:0:0:5000]
+I***@1809996837453786 {main}(ListenableAcceptsEnabled) EvtSrc(AnNIOManager)  [gipc.simulation.server.AGIPCAndRMIAndNIOSimulationServer@7960847b]<-sun.nio.ch.ServerSocketChannelImpl[/0:0:0:0:0:0:0:0:5000]
+I***@1809996837852825 {Selecting Thread}(SelectCalled) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@236a3830
+I***@1809996838376584 {main}(SelectorRequestNextInterestOp) EvtSrc(AnAcceptCommand)  Ops:1 Channel:sun.nio.ch.ServerSocketChannelImpl[/0:0:0:0:0:0:0:0:5000]
+I***@1809996838615448 {main}(SelectorRequestEnqueued) EvtSrc(ASelectionConnectionManager)  Command:inputport.nio.manager.commands.classes.AnAcceptCommand@512ddf17
+I***@1809996838973743 {main}(SelectorWokenUp) EvtSrc(ASelectionConnectionManager)  sun.nio.ch.WindowsSelectorImpl@236a3830
+I***@1809996839346035 {Selecting Thread}(SelectUnblocked) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@236a3830
+I***@1809996839490038 {Selecting Thread}(SelectorRequestDequeued) EvtSrc(ASelectionConnectionManager)  Command:inputport.nio.manager.commands.classes.AnAcceptCommand@512ddf17
+I***@1809996839645859 {Selecting Thread}(SocketChannelBlockingConfigured) EvtSrc(AnAcceptCommand)  false sun.nio.ch.ServerSocketChannelImpl[/0:0:0:0:0:0:0:0:5000]
+I***@1809996840041166 {Selecting Thread}(SocketChannelRegistered) EvtSrc(AnAcceptCommand)  Ops:16,  Selector:sun.nio.ch.WindowsSelectorImpl@236a3830, sun.nio.ch.ServerSocketChannelImpl[/0:0:0:0:0:0:0:0:5000]
+I***@1809996840151579 {Selecting Thread}(SelectCalled) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@236a3830
+Command processor scanner opened
+I***@1809996890993185 {main}(RMIRegistryLocated) EvtSrc(AGIPCAndRMIAndNIOSimulationServer)  localhost:6000->RegistryImpl_Stub[UnicastRef [liveRef: [endpoint:[localhost:6000](remote),objID:[0:0:0, 0]]]]
+I***@1809997016186756 {main}(RMIObjectRegistered) EvtSrc(AGIPCAndRMIAndNIOSimulationServer)  rmi.simulation.server.twophase.ATwoPhaseRMISimulationRelayer@77afea7d<->session server:RegistryImpl_Stub[UnicastRef [liveRef: [endpoint:[localhost:6000](remote),objID:[0:0:0, 0]]]]
+I***@1809997017176424 {main}(GIPCRegistryCreated) EvtSrc(GIPCRegistry)  7000
+I***@1809997077250677 {main}(SelectorFactorySet) EvtSrc(AcceptCommandFactorySelector)  inputport.nio.manager.factories.classes.AReadingAcceptCommandFactory@51565ec2
+I***@1809997102089716 {main}(ListenableAcceptsEnabled) EvtSrc(AnNIOManager)  [inputport.datacomm.duplex.buffer.nio.AnNIODuplexBufferServerInputPortDriver@5c7fa833]<-sun.nio.ch.ServerSocketChannelImpl[/0:0:0:0:0:0:0:0:7000]
+I***@1809997102193286 {main}(SelectorRequestNextInterestOp) EvtSrc(AnAcceptCommand)  Ops:1 Channel:sun.nio.ch.ServerSocketChannelImpl[/0:0:0:0:0:0:0:0:7000]
+I***@1809997102258600 {main}(SelectorRequestEnqueued) EvtSrc(ASelectionConnectionManager)  Command:inputport.nio.manager.commands.classes.AnAcceptCommand@5f2108b5
+I***@1809997102433394 {main}(SelectorWokenUp) EvtSrc(ASelectionConnectionManager)  sun.nio.ch.WindowsSelectorImpl@236a3830
+I***@1809997102743792 {Selecting Thread}(SelectUnblocked) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@236a3830
+I***@1809997102830878 {Selecting Thread}(SelectorRequestDequeued) EvtSrc(ASelectionConnectionManager)  Command:inputport.nio.manager.commands.classes.AnAcceptCommand@5f2108b5
+I***@1809997102908944 {main}(GIPCObjectRegistered) EvtSrc(AnAbstractDuplexRPCServerPortLauncher)  rmi.simulation.server.twophase.ATwoPhaseRMISimulationRelayer@31a5c39e<->session server:inputport.rpc.duplex.AnAbstractDuplexRPCServerPortLauncher@3f49dace
+I***@1809997102915165 {Selecting Thread}(SocketChannelBlockingConfigured) EvtSrc(AnAcceptCommand)  false sun.nio.ch.ServerSocketChannelImpl[/0:0:0:0:0:0:0:0:7000]
+I***@1809997103190418 {Selecting Thread}(SocketChannelRegistered) EvtSrc(AnAcceptCommand)  Ops:16,  Selector:sun.nio.ch.WindowsSelectorImpl@236a3830, sun.nio.ch.ServerSocketChannelImpl[/0:0:0:0:0:0:0:0:7000]
+I***@1809997103266307 {Selecting Thread}(SelectCalled) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@236a3830
+Enter (prefixes of) print, quit or a method and its parameters separated by commas:
+I***Tracer: showInfo = true
+I***@1809998835592950 {main}(SelectorFactorySet) EvtSrc(ConnectCommandFactorySelector)  inputport.nio.manager.factories.classes.AReadingWritingConnectCommandFactory@6f539caf
+I***@1809998958412190 {main}(AddedPropertyChangeListener) EvtSrc(AHalloweenCommandProcessor)  nio.manager.simulation.client.AnNIOManagerSimulationClientOutCoupler@4dfa3a9d
+I***@1809998977354589 {main}(ReadListenerAdded) EvtSrc(AnNIOManager)  nio.manager.simulation.client.AnNIOManagerSimulationClientInCoupler@7e0b0338<-java.nio.channels.SocketChannel[unconnected]
+I***@1809998977711018 {Selecting Thread}(SelectCalled) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@17c3c48b
+I***@1809998985443613 {main}(SocketChannelConnectRequested) EvtSrc(AnNIOManager)  (localhost/127.0.0.1:5000,[rmi.simulation.client.AnRMIAndNIOSimulationClient@31dc339b]) <-java.nio.channels.SocketChannel[unconnected]
+I***@1809998986154606 {main}(SelectorRequestNextInterestOp) EvtSrc(AConnectCommand)  Ops:1 Channel:java.nio.channels.SocketChannel[unconnected]
+I***@1809998986291455 {main}(SelectorRequestEnqueued) EvtSrc(ASelectionConnectionManager)  Command:inputport.nio.manager.commands.classes.AConnectCommand@71318ec4
+I***@1809998986415863 {main}(SelectorWokenUp) EvtSrc(ASelectionConnectionManager)  sun.nio.ch.WindowsSelectorImpl@17c3c48b
+I***@1809998986711333 {Selecting Thread}(SelectUnblocked) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@17c3c48b
+I***@1809998986882083 {Selecting Thread}(SelectorRequestDequeued) EvtSrc(ASelectionConnectionManager)  Command:inputport.nio.manager.commands.classes.AConnectCommand@71318ec4
+I***@1809998987111617 {Selecting Thread}(SocketChannelBlockingConfigured) EvtSrc(AConnectCommand)  false java.nio.channels.SocketChannel[unconnected]
+Command processor scanner opened
+I***@1809998988052143 {Selecting Thread}(SocketChannelConnectInitiated) EvtSrc(AConnectCommand)  java.nio.channels.SocketChannel[connection-pending remote=localhost/127.0.0.1:5000]
+I***@1809998988500635 {Selecting Thread}(SelectUnblocked) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@236a3830
+I***@1809998988875725 {Selecting Thread}(SocketChannelAccepted) EvtSrc(AnAcceptCommand)  [gipc.simulation.server.AGIPCAndRMIAndNIOSimulationServer@7960847b]<-java.nio.channels.SocketChannel[connected local=/127.0.0.1:5000 remote=/127.0.0.1:65508]:sun.nio.ch.ServerSocketChannelImpl[/0:0:0:0:0:0:0:0:5000]
+I***@1809998989011330 {Selecting Thread}(SocketChannelRegistered) EvtSrc(AnAcceptCommand)  Ops:1,  Selector:sun.nio.ch.WindowsSelectorImpl@236a3830, java.nio.channels.SocketChannel[connected local=/127.0.0.1:5000 remote=/127.0.0.1:65508]
+I***@1809998989166530 {Selecting Thread}(ReadListenerAdded) EvtSrc(AnNIOManager)  nio.manager.simulation.server.AnNIOManagerSimulationServerReceiver@cbf2759<-java.nio.channels.SocketChannel[connected local=/127.0.0.1:5000 remote=/127.0.0.1:65508]
+I***@1809998988706219 {Selecting Thread}(SocketChannelRegistered) EvtSrc(AConnectCommand)  Ops:8,  Selector:sun.nio.ch.WindowsSelectorImpl@17c3c48b, java.nio.channels.SocketChannel[connection-pending remote=localhost/127.0.0.1:5000]
+I***@1809998988808234 {Selecting Thread}(SelectCalled) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@17c3c48b
+I***@1809998988942284 {Selecting Thread}(SelectUnblocked) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@17c3c48b
+I***@1809998991630746 {Selecting Thread}(SocketChannelConnected) EvtSrc(AConnectCommand)  [rmi.simulation.client.AnRMIAndNIOSimulationClient@31dc339b]<-java.nio.channels.SocketChannel[connected local=/127.0.0.1:65508 remote=localhost/127.0.0.1:5000]
+I***@1809998991414276 {Selecting Thread}(SelectCalled) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@236a3830
+I***@1809998991894492 {Selecting Thread}(SocketChannelInterestOp) EvtSrc(AConnectCommand)  Ops:1 Selection Key:sun.nio.ch.SelectionKeyImpl@1d3baffb
+I***@1809998991989975 {Selecting Thread}(SelectCalled) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@17c3c48b
+I***@1809999091673947 {main}(AddedPropertyChangeListener) EvtSrc(AHalloweenCommandProcessor)  rmi.simulation.client.AnRMISimulationOutCoupler@4f063c0a
+Enter (prefixes of) print, quit or a method and its parameters separated by commas:
+I***Tracer: showInfo = true
+I***@1810003829902827 {main}(SelectorFactorySet) EvtSrc(ConnectCommandFactorySelector)  inputport.nio.manager.factories.classes.AReadingWritingConnectCommandFactory@6f539caf
+I***@1810003971343183 {main}(AddedPropertyChangeListener) EvtSrc(AHalloweenCommandProcessor)  nio.manager.simulation.client.AnNIOManagerSimulationClientOutCoupler@4dfa3a9d
+I***@1810003995949267 {main}(ReadListenerAdded) EvtSrc(AnNIOManager)  nio.manager.simulation.client.AnNIOManagerSimulationClientInCoupler@7e0b0338<-java.nio.channels.SocketChannel[unconnected]
+I***@1810003996286102 {Selecting Thread}(SelectCalled) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@12e7aa4c
+I***@1810004005927741 {main}(SocketChannelConnectRequested) EvtSrc(AnNIOManager)  (localhost/127.0.0.1:5000,[rmi.simulation.client.AnRMIAndNIOSimulationClient@31dc339b]) <-java.nio.channels.SocketChannel[unconnected]
+I***@1810004006651486 {main}(SelectorRequestNextInterestOp) EvtSrc(AConnectCommand)  Ops:1 Channel:java.nio.channels.SocketChannel[unconnected]
+I***@1810004006783670 {main}(SelectorRequestEnqueued) EvtSrc(ASelectionConnectionManager)  Command:inputport.nio.manager.commands.classes.AConnectCommand@71318ec4
+I***@1810004006904035 {main}(SelectorWokenUp) EvtSrc(ASelectionConnectionManager)  sun.nio.ch.WindowsSelectorImpl@12e7aa4c
+I***@1810004007178977 {Selecting Thread}(SelectUnblocked) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@12e7aa4c
+I***@1810004007383007 {Selecting Thread}(SelectorRequestDequeued) EvtSrc(ASelectionConnectionManager)  Command:inputport.nio.manager.commands.classes.AConnectCommand@71318ec4
+I***@1810004007554068 {Selecting Thread}(SocketChannelBlockingConfigured) EvtSrc(AConnectCommand)  false java.nio.channels.SocketChannel[unconnected]
+I***@1810004008229294 {Selecting Thread}(SocketChannelConnectInitiated) EvtSrc(AConnectCommand)  java.nio.channels.SocketChannel[connection-pending remote=localhost/127.0.0.1:5000]
+Command processor scanner opened
+I***@1810004008936244 {Selecting Thread}(SocketChannelRegistered) EvtSrc(AConnectCommand)  Ops:8,  Selector:sun.nio.ch.WindowsSelectorImpl@12e7aa4c, java.nio.channels.SocketChannel[connection-pending remote=localhost/127.0.0.1:5000]
+I***@1810004009057853 {Selecting Thread}(SelectCalled) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@12e7aa4c
+I***@1810004009179462 {Selecting Thread}(SelectUnblocked) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@12e7aa4c
+I***@1810004009454715 {Selecting Thread}(SocketChannelConnected) EvtSrc(AConnectCommand)  [rmi.simulation.client.AnRMIAndNIOSimulationClient@31dc339b]<-java.nio.channels.SocketChannel[connected local=/127.0.0.1:65516 remote=localhost/127.0.0.1:5000]
+I***@1810004009591253 {Selecting Thread}(SocketChannelInterestOp) EvtSrc(AConnectCommand)  Ops:1 Selection Key:sun.nio.ch.SelectionKeyImpl@181fc13c
+I***@1810004009678961 {Selecting Thread}(SelectCalled) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@12e7aa4c
+I***@1810004008701423 {Selecting Thread}(SelectUnblocked) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@236a3830
+I***@1810004009022707 {Selecting Thread}(SocketChannelAccepted) EvtSrc(AnAcceptCommand)  [gipc.simulation.server.AGIPCAndRMIAndNIOSimulationServer@7960847b]<-java.nio.channels.SocketChannel[connected local=/127.0.0.1:5000 remote=/127.0.0.1:65516]:sun.nio.ch.ServerSocketChannelImpl[/0:0:0:0:0:0:0:0:5000]
+I***@1810004009130943 {Selecting Thread}(SocketChannelRegistered) EvtSrc(AnAcceptCommand)  Ops:1,  Selector:sun.nio.ch.WindowsSelectorImpl@236a3830, java.nio.channels.SocketChannel[connected local=/127.0.0.1:5000 remote=/127.0.0.1:65516]
+I***@1810004009198434 {Selecting Thread}(ReadListenerAdded) EvtSrc(AnNIOManager)  nio.manager.simulation.server.AnNIOManagerSimulationServerReceiver@cbf2759<-java.nio.channels.SocketChannel[connected local=/127.0.0.1:5000 remote=/127.0.0.1:65516]
+I***@1810004010757580 {Selecting Thread}(SelectCalled) EvtSrc(AScatterGatherSelectionManager)  sun.nio.ch.WindowsSelectorImpl@236a3830
+I***@1810004107602245 {main}(AddedPropertyChangeListener) EvtSrc(AHalloweenCommandProcessor)  rmi.simulation.client.AnRMISimulationOutCoupler@4f063c0a
+Enter (prefixes of) print, quit or a method and its parameters separated by commas:
+
+ERRORS(Two client correct connection)
+Headless program, not generating UI
+Headless program, not generating UI
+Headless program, not generating UI
+Headless program, not generating UI
+
+
