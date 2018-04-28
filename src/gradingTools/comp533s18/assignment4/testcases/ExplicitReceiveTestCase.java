@@ -27,7 +27,7 @@ import util.tags.DistributedTags;
 import util.trace.Tracer;
 
 @MaxValue(20)
-//@Group("Test group name")
+//@Group("Test group name ")
 public class ExplicitReceiveTestCase extends BasicTestCase {
 	
 	
