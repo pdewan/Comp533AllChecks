@@ -219,9 +219,9 @@ public class Assignment4Requirements extends AJUnitProjectRequirements {
 //		addFeature("Blocking Receive Client1 Tagged", 5, new SingleClassTagListTestCase(Comp533Tags.BLOCKING_RPC_CLIENT1));
 //		addFeature("Blocking Receive Client2 Tagged", 5, new SingleClassTagListTestCase(Comp533Tags.BLOCKING_RPC_CLIENT2));
 
-		addFeature("Simulation Registry Tagged", 5, new SingleClassTagListTestCase(false, SIMULATION_REGISTRY_TAGS));
-		addFeature("Simulation Server Tagged", 5, new SingleClassTagListTestCase(SIMULATION_SERVER_TAGS));
-		addFeature("Simulation Client Client Tagged", 5, new SingleClassTagListTestCase(SIMULATION_CLIENT_TAGS));
+		addFeature("Simulation Registry Tagged", 2, new SingleClassTagListTestCase(false, SIMULATION_REGISTRY_TAGS));
+		addFeature("Simulation Server Tagged", 2, new SingleClassTagListTestCase(SIMULATION_SERVER_TAGS));
+		addFeature("Simulation Client Tagged", 2, new SingleClassTagListTestCase(SIMULATION_CLIENT_TAGS));
 
 //		addFeature("Registry tagged", 5, new SingleClassTagListTestCase("Registry"));
 		
@@ -230,7 +230,7 @@ public class Assignment4Requirements extends AJUnitProjectRequirements {
 		// takes 0.5 points from each read, write, and behaviors test, behavior exclusive testing
 //		addFeature("Static arguments work properly", 20, new StaticArgumentsTestCase(true, true, true));
 //		
-//		addFeature("Two client correct connection", 20, new CustomIPCTwoClientCorrectConnectionTestCase(false, false, true));
+		addFeature("Two client correct connection", 20, new CustomIPCTwoClientCorrectConnectionTestCase(false, false, true));
 		
 //		addFeature("One client correct read, write, and behaviors - Atomic", 20, new OneClientCorrectReadWriteTestCase(false, false, true, true));
 //		addFeature("One client correct read, write, and behaviors - Non-Atomic", 20, new OneClientCorrectReadWriteTestCase(false, false, true, true));
