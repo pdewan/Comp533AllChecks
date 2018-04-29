@@ -32,23 +32,39 @@ import util.trace.Tracer;
 
 @MaxValue(20)
 //@Group("Test group name ")
-public class ExplicitReceiveServerTestCase extends BasicTestCase {
+public class AStringCheckBasedDependentTestCase extends BasicTestCase {
 	
 	
-	protected SubstringSequenceChecker checker = new ARegularCounterServerChecker(0.1);	
+//	protected SubstringSequenceChecker checker = new ARegularCounterServerChecker(0.1);	
 
-	
-	protected BasicTestCase explicitReceiveServerTestCase;
+	protected SubstringSequenceChecker checker;;	
+
+	protected BasicTestCase outputGeneratingTestCase;
 	protected ABufferingTestInputGenerator outputBasedInputGenerator = new DistributedCounterTestInputGenerator();
 	protected RunningProject interactiveInputProject;
-	protected String serverName;
+	protected String processName;
+	protected boolean checkTrue = true;
 	
-	public ExplicitReceiveServerTestCase(String aServerName,
-			BasicTestCase anExplicitReceiveServerTestCase) {
-//		super();
-		serverName = aServerName;
-		explicitReceiveServerTestCase = anExplicitReceiveServerTestCase;
-
+	public AStringCheckBasedDependentTestCase(String aProcessName,
+			SubstringSequenceChecker aChecker,
+			BasicTestCase anOutputGeneratingTestcase) {
+		init(aProcessName, aChecker, true, anOutputGeneratingTestcase);
+	}
+	public AStringCheckBasedDependentTestCase(
+			String aProcessName,
+			SubstringSequenceChecker aChecker,
+			boolean aCheckTrue,
+			BasicTestCase anOutputGeneratingTestcase) {
+		init(aProcessName, aChecker, aCheckTrue, anOutputGeneratingTestcase);
+	}
+	public void init (String aProcessName,
+			SubstringSequenceChecker aChecker,
+			boolean aCheckTrue,
+			BasicTestCase anOutputGeneratingTestcase) {
+		processName = aProcessName;
+		outputGeneratingTestCase = anOutputGeneratingTestcase;
+		checker = aChecker;
+		checkTrue = aCheckTrue;		
 	}
 
 	
@@ -65,20 +81,25 @@ public class ExplicitReceiveServerTestCase extends BasicTestCase {
 //			RunningProject noInputRunningProject = RunningProjectUtils.runProject(project, 1);
 //			ExclicitReceiveTestInputGenerator anOutputBasedInputGenerator = 
 //					new ExclicitReceiveTestInputGenerator();
-			outputBasedInputGenerator = explicitReceiveServerTestCase.getOutputBasedInputGenerator();
-			 interactiveInputProject = explicitReceiveServerTestCase.getInteractiveInputProject();
+			outputBasedInputGenerator = outputGeneratingTestCase.getOutputBasedInputGenerator();
+			 interactiveInputProject = outputGeneratingTestCase.getInteractiveInputProject();
 
 			if (outputBasedInputGenerator == null || interactiveInputProject == null) {
-				return fail("Problem running explicit server test case");
+				return fail("Problem running test case" + outputGeneratingTestCase.getName() );
 			}
 //			
 			StringBuffer aClient1Output = 
-					interactiveInputProject.getProcessOutput().get(serverName);
+					interactiveInputProject.getProcessOutput().get(processName);
 //			ARegularCounterServerChecker aServerChecker = new ARegularCounterServerChecker(1.0);
 			
-			boolean aRetval = checker.check(aClient1Output);
-			if (!aRetval) {
+			boolean aCheckVal = checker.check(aClient1Output);
+			boolean aRetVal = checkTrue&&aCheckVal || !checkTrue&&!aCheckVal;
+			if (!aRetVal && checkTrue) {
 				return fail("Did not match:" + Arrays.toString(checker.getSubstrings()));
+			} 
+			if (!aRetVal && !checkTrue) {
+				return fail("Did not match:" + Arrays.toString(checker.getSubstrings()));
+
 			}
 //			if (interactiveInputProject != null) {
 //				interactiveInputProject.getProcessOutput().forEach((name, output) -> Tracer.info(this, "*** " + name + " ***\n" + output));

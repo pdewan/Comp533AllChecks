@@ -1,12 +1,14 @@
 package gradingTools.comp533s18.assignment4.testcases;
 
+import gradingTools.shared.testcases.utils.ABufferingTestInputGenerator;
+
 import java.util.regex.Pattern;
 
 import util.annotations.Comp533Tags;
 import util.pipe.AnAbstractInputGenerator;
 import util.trace.Tracer;
 
-public class ExplicitReceiveTestInputGenerator extends ABufferingTestInputGenerator {
+public class DistributedCounterTestInputGenerator extends ABufferingTestInputGenerator {
 	private static final boolean PRINT_CHECKED_REGEX = false;
 
 	public static final String TRACER_PREFIX = "I***";

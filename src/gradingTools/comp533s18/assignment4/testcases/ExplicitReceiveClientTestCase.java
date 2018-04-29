@@ -32,22 +32,24 @@ import util.trace.Tracer;
 
 @MaxValue(20)
 //@Group("Test group name ")
-public class ExplicitReceiveServerTestCase extends BasicTestCase {
+public class ExplicitReceiveClientTestCase extends BasicTestCase {
 	
 	
-	protected SubstringSequenceChecker checker = new ARegularCounterServerChecker(0.1);	
+	protected SubstringSequenceChecker regularClient1Checker ;;	
 
 	
-	protected BasicTestCase explicitReceiveServerTestCase;
+	protected DistributedCounterProgramRunningTestCase explicitReceiveServerTestCase;
+	String clientName;
 	protected ABufferingTestInputGenerator outputBasedInputGenerator = new DistributedCounterTestInputGenerator();
 	protected RunningProject interactiveInputProject;
-	protected String serverName;
 	
-	public ExplicitReceiveServerTestCase(String aServerName,
-			BasicTestCase anExplicitReceiveServerTestCase) {
-//		super();
-		serverName = aServerName;
+	public ExplicitReceiveClientTestCase(
+			DistributedCounterProgramRunningTestCase anExplicitReceiveServerTestCase,
+			String aClientName) {
+		super("Explicit Receive Client Test Case");
 		explicitReceiveServerTestCase = anExplicitReceiveServerTestCase;
+		clientName = aClientName;
+
 
 	}
 
@@ -73,12 +75,12 @@ public class ExplicitReceiveServerTestCase extends BasicTestCase {
 			}
 //			
 			StringBuffer aClient1Output = 
-					interactiveInputProject.getProcessOutput().get(serverName);
+					interactiveInputProject.getProcessOutput().get(clientName);
 //			ARegularCounterServerChecker aServerChecker = new ARegularCounterServerChecker(1.0);
 			
-			boolean aRetval = checker.check(aClient1Output);
+			boolean aRetval = regularClient1Checker.check(aClient1Output);
 			if (!aRetval) {
-				return fail("Did not match:" + Arrays.toString(checker.getSubstrings()));
+				return fail("Did not match:" + Arrays.toString(regularClient1Checker.getSubstrings()));
 			}
 //			if (interactiveInputProject != null) {
 //				interactiveInputProject.getProcessOutput().forEach((name, output) -> Tracer.info(this, "*** " + name + " ***\n" + output));

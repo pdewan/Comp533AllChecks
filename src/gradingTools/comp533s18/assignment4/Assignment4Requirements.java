@@ -13,13 +13,98 @@ import gradingTools.comp533s18.assignment3.testcases.OneClientCorrectConnectionT
 import gradingTools.comp533s18.assignment3.testcases.OneClientCorrectReadWriteTestCase;
 import gradingTools.comp533s18.assignment3.testcases.StaticArgumentsTestCase;
 import gradingTools.comp533s18.assignment3.testcases.TwoClientCorrectReadWriteTestCase;
+import gradingTools.comp533s18.assignment4.testcases.ARegularCounterClientChecker;
+import gradingTools.comp533s18.assignment4.testcases.ARegularCounterServerChecker;
+import gradingTools.comp533s18.assignment4.testcases.AStringCheckBasedDependentTestCase;
+import gradingTools.comp533s18.assignment4.testcases.ExplicitReceiveClientTestCase;
+import gradingTools.comp533s18.assignment4.testcases.DistributedCounterProgramRunningTestCase;
+import gradingTools.comp533s18.assignment4.testcases.SubstringSequenceChecker;
 import gradingTools.comp533s18.assignment4.testcases.TwoClientCorrectConnectionTestCase;
+import gradingTools.comp533s18.assignment4.testcases.blocking_rpc.ABlockingRPCClientReceivesChecker;
+import gradingTools.comp533s18.assignment4.testcases.custom_rpc.ACustomRPCClientReceivesChecker;
+import gradingTools.comp533s18.assignment4.testcases.custom_rpc.ARegularRPCClientReceivesChecker;
+import gradingTools.comp533s18.assignment4.testcases.explicit_receive.AMultipleReceiveQueueChecker;
+import gradingTools.comp533s18.assignment4.testcases.explicit_receive.AnExplicitReceiveClientReceivesChecker;
+import gradingTools.comp533s18.assignment4.testcases.explicit_receive.AnExplicitReceiveServerReceivesChecker;
 
 public class Assignment4Requirements extends AJUnitProjectRequirements {
 	public static String[] SIMULATION_CLIENT_TAGS = {DistributedTags.CLIENT, DistributedTags.GIPC, Comp533Tags.CUSTOM_IPC};
 	public static String[] SIMULATION_SERVER_TAGS = {DistributedTags.SERVER, DistributedTags.GIPC, Comp533Tags.CUSTOM_IPC};
 	public static String[] SIMULATION_REGISTRY_TAGS = {DistributedTags.REGISTRY, DistributedTags.GIPC, Comp533Tags.CUSTOM_IPC};
 
+	public DistributedCounterProgramRunningTestCase addCounterExperimentFetaures(
+			String anExperimentName,
+			String aServerTag, 
+			String aClient1Tag,
+			String aClient2Tag,
+			SubstringSequenceChecker aServerChecker,
+			SubstringSequenceChecker aClientChecker
+
+			) {
+		SingleClassTagListTestCase anExplicitReceiveServerTagged = 
+				new SingleClassTagListTestCase(aServerTag);
+		SingleClassTagListTestCase anExplicitReceiveClient1Tagged = 
+				new SingleClassTagListTestCase(aClient1Tag);
+		SingleClassTagListTestCase anExplicitReceiveClient2Tagged = 
+				new SingleClassTagListTestCase(aClient2Tag);
+		addFeature(anExperimentName + " Server Tagged", 2, anExplicitReceiveServerTagged);
+		addFeature(anExperimentName +  " Client1 Tagged", 2, anExplicitReceiveClient1Tagged);
+		addFeature(anExperimentName + " Client2 Tagged", 2, anExplicitReceiveClient2Tagged);
+		
+//		addFeature("Explicit Receive Server Tagged", 5, new SingleClassTagListTestCase(Comp533Tags.EXPLICIT_RECEIVE_SERVER));
+//		addFeature("Explicit Receive Client1 Tagged", 5, new SingleClassTagListTestCase(Comp533Tags.EXPLICIT_RECEIVE_CLIENT1));
+//		addFeature("Explicit Receive Client2 Tagged", 5, new SingleClassTagListTestCase(Comp533Tags.EXPLICIT_RECEIVE_CLIENT2));
+		DistributedCounterProgramRunningTestCase anExplicitReceiveProgramRunningTestCase = 
+				new DistributedCounterProgramRunningTestCase(
+						new ARegularCounterServerChecker(),
+						anExplicitReceiveServerTagged,
+						anExplicitReceiveClient1Tagged,
+						anExplicitReceiveClient2Tagged);
+		addFeature(anExperimentName + " Regular Server Output", 5, anExplicitReceiveProgramRunningTestCase);
+//		addFeature("Server Creates Two Receive Queues", 5, 
+//				new AStringCheckBasedDependentTestCase(
+//						DistributedCounterProgramRunningTestCase.SERVER_NAME,
+//						new ARegularCounterServerChecker(),
+//						anExplicitReceiveProgramRunningTestCase )
+//				);
+		if (aServerChecker != null) {
+		addFeature(anExperimentName + " Server Receives", 10, 
+				new AStringCheckBasedDependentTestCase(
+						DistributedCounterProgramRunningTestCase.SERVER_NAME,
+						aServerChecker,
+						anExplicitReceiveProgramRunningTestCase )
+				);
+		}
+		addFeature(anExperimentName + " Regular Client 1 Output", 5, 
+				new AStringCheckBasedDependentTestCase(
+						DistributedCounterProgramRunningTestCase.CLIENT_1_NAME,
+						new ARegularCounterClientChecker(),
+						anExplicitReceiveProgramRunningTestCase )
+				);
+		if (aClientChecker != null) {
+		addFeature(anExperimentName + " Receive Client 1 Receives", 10, 
+				new AStringCheckBasedDependentTestCase(
+						DistributedCounterProgramRunningTestCase.CLIENT_2_NAME,
+						aClientChecker,
+						anExplicitReceiveProgramRunningTestCase )
+				);
+		};
+		addFeature(anExperimentName + " Regular Client 2 Output", 5, 
+				new AStringCheckBasedDependentTestCase(
+						DistributedCounterProgramRunningTestCase.CLIENT_1_NAME,
+						new ARegularCounterClientChecker(),
+						anExplicitReceiveProgramRunningTestCase )
+				);
+		if (aClientChecker != null) {
+		addFeature(anExperimentName + " Client 2 Receives", 10, 
+				new AStringCheckBasedDependentTestCase(
+						DistributedCounterProgramRunningTestCase.CLIENT_2_NAME,
+						aClientChecker,
+						anExplicitReceiveProgramRunningTestCase )
+				);
+		}
+		return anExplicitReceiveProgramRunningTestCase;
+	}
 	public Assignment4Requirements() {
 		Comp533TraceUtility.setTurnOn(true);
 		Comp533TraceUtility.setTracing();
@@ -27,21 +112,111 @@ public class Assignment4Requirements extends AJUnitProjectRequirements {
 		GraderTraceUtility.setTracing();
 		
 		BasicProjectIntrospection.setCheckAllSpecifiedTags(true);
+		DistributedCounterProgramRunningTestCase aDistributedCounterProgramRunningTestCase;
 		
-		addDueDate("02/4/2014 23:55:59", 1.0);
-		addDueDate("02/5/2014 23:55:59", 0.5);
+//		 aDistributedCounterProgramRunningTestCase =
+//				addCounterExperimentFetaures(				
+//				"Experiment Receives", 				
+//				Comp533Tags.EXPLICIT_RECEIVE_SERVER, 
+//				Comp533Tags.EXPLICIT_RECEIVE_CLIENT1,
+//				Comp533Tags.EXPLICIT_RECEIVE_CLIENT2,
+//				new AnExplicitReceiveServerReceivesChecker(),
+//				new AnExplicitReceiveClientReceivesChecker());
+//		addFeature("Server Creates Two Receive Queues", 5, 
+//				new AStringCheckBasedDependentTestCase(
+//						DistributedCounterProgramRunningTestCase.SERVER_NAME,
+//						new AMultipleReceiveQueueChecker(),
+//						aDistributedCounterProgramRunningTestCase)
+//				);
+//		 aDistributedCounterProgramRunningTestCase =
+//				addCounterExperimentFetaures(				
+//				"Custom RPC", 				
+//				Comp533Tags.CUSTOM_RPC_SERVER, 
+//				Comp533Tags.CUSTOM_RPC_CLIENT1,
+//				Comp533Tags.CUSTOM_RPC_CLIENT2,
+//				null,
+//				new ACustomRPCClientReceivesChecker());
+//		 addFeature("Client does not queue return values", 5, 
+//					new AStringCheckBasedDependentTestCase(
+//							DistributedCounterProgramRunningTestCase.CLIENT_1_NAME,
+//							new ARegularRPCClientReceivesChecker(),
+//							false,
+//							aDistributedCounterProgramRunningTestCase)
+//					);
+//		 aDistributedCounterProgramRunningTestCase =
+//					addCounterExperimentFetaures(				
+//					"Blocking RPC", 				
+//					Comp533Tags.BLOCKING_RPC_SERVER, 
+//					Comp533Tags.BLOCKING_RPC_CLIENT1,
+//					Comp533Tags.BLOCKING_RPC_CLIENT2,
+//					null,
+//					new ABlockingRPCClientReceivesChecker());
 		
-		addFeature("Explicit Receive Server Tagged", 5, new SingleClassTagListTestCase(Comp533Tags.EXPLICIT_RECEIVE_SERVER));
-		addFeature("Explicit Receive Client1 Tagged", 5, new SingleClassTagListTestCase(Comp533Tags.EXPLICIT_RECEIVE_CLIENT1));
-		addFeature("Explicit Receive Client2 Tagged", 5, new SingleClassTagListTestCase(Comp533Tags.EXPLICIT_RECEIVE_CLIENT2));
+	
 		
-		addFeature("Custom RPC Server Tagged", 5, new SingleClassTagListTestCase(Comp533Tags.CUSTOM_RPC_SERVER));
-		addFeature("Blocking Receive Client1 Tagged", 5, new SingleClassTagListTestCase(Comp533Tags.CUSTOM_RPC_CLIENT1));
-		addFeature("Blocking Receive Client2 Tagged", 5, new SingleClassTagListTestCase(Comp533Tags.CUSTOM_RPC_CLIENT2));
+//		SingleClassTagListTestCase anExplicitReceiveServerTagged = new SingleClassTagListTestCase(Comp533Tags.EXPLICIT_RECEIVE_SERVER);
+//		SingleClassTagListTestCase anExplicitReceiveClient1Tagged = new SingleClassTagListTestCase(Comp533Tags.EXPLICIT_RECEIVE_CLIENT1);
+//		SingleClassTagListTestCase anExplicitReceiveClient2Tagged = new SingleClassTagListTestCase(Comp533Tags.EXPLICIT_RECEIVE_CLIENT2);
+//		addFeature("Explicit Receive Server Tagged", 2, anExplicitReceiveServerTagged);
+//		addFeature("Explicit Receive Client1 Tagged", 2, anExplicitReceiveClient1Tagged);
+//		addFeature("Explicit Receive Client2 Tagged", 2, anExplicitReceiveClient2Tagged);
+//		
+//
+//		DistributedCounterProgramRunningTestCase anExplicitReceiveProgramRunningTestCase = 
+//				new DistributedCounterProgramRunningTestCase(
+//						new ARegularCounterServerChecker(),
+//						anExplicitReceiveServerTagged,
+//						anExplicitReceiveClient1Tagged,
+//						anExplicitReceiveClient2Tagged);
+//		addFeature("Explicit Receive Regular Server Output", 5, anExplicitReceiveProgramRunningTestCase);
+//		addFeature("Server Creates Two Receive Queues", 5, 
+//				new AStringCheckBasedDependentTestCase(
+//						DistributedCounterProgramRunningTestCase.SERVER_NAME,
+//						new ARegularCounterServerChecker(),
+//						anExplicitReceiveProgramRunningTestCase )
+//				);
+//		addFeature("Explicit Receive Server Receives", 10, 
+//				new AStringCheckBasedDependentTestCase(
+//						DistributedCounterProgramRunningTestCase.CLIENT_1_NAME,
+//						new ARegularCounterClientChecker(),
+//						anExplicitReceiveProgramRunningTestCase )
+//				);
+//		addFeature("Explicit Receive Regular Client 1 Output", 5, 
+//				new AStringCheckBasedDependentTestCase(
+//						DistributedCounterProgramRunningTestCase.CLIENT_1_NAME,
+//						new ARegularCounterClientChecker(),
+//						anExplicitReceiveProgramRunningTestCase )
+//				);
+//		addFeature("Explicit Receive Client 1 Receives", 10, 
+//				new AStringCheckBasedDependentTestCase(
+//						DistributedCounterProgramRunningTestCase.CLIENT_1_NAME,
+//						new AnExplicitReceiveClientReceivesChecker(),
+//						anExplicitReceiveProgramRunningTestCase )
+//				);
+//		;
+//		addFeature("Explicit Receive Regular Client 2 Output", 5, 
+//				new AStringCheckBasedDependentTestCase(
+//						DistributedCounterProgramRunningTestCase.CLIENT_2_NAME,
+//						new ARegularCounterClientChecker(),
+//						anExplicitReceiveProgramRunningTestCase )
+//				);
+//		addFeature("Explicit Receive Client 2 Receives", 10, 
+//				new AStringCheckBasedDependentTestCase(
+//						DistributedCounterProgramRunningTestCase.CLIENT_1_NAME,
+//						new AnExplicitReceiveClientReceivesChecker(),
+//						anExplicitReceiveProgramRunningTestCase )
+//				);
+				
 		
-		addFeature("Blocking RPC Server Tagged", 5, new SingleClassTagListTestCase(Comp533Tags.BLOCKING_RPC_SERVER));
-		addFeature("Blocking Receive Client1 Tagged", 5, new SingleClassTagListTestCase(Comp533Tags.BLOCKING_RPC_CLIENT1));
-		addFeature("Blocking Receive Client2 Tagged", 5, new SingleClassTagListTestCase(Comp533Tags.BLOCKING_RPC_CLIENT2));
+	
+
+//		addFeature("Custom RPC Server Tagged", 5, new SingleClassTagListTestCase(Comp533Tags.CUSTOM_RPC_SERVER));
+//		addFeature("Blocking Receive Client1 Tagged", 5, new SingleClassTagListTestCase(Comp533Tags.CUSTOM_RPC_CLIENT1));
+//		addFeature("Blocking Receive Client2 Tagged", 5, new SingleClassTagListTestCase(Comp533Tags.CUSTOM_RPC_CLIENT2));
+//		
+//		addFeature("Blocking RPC Server Tagged", 5, new SingleClassTagListTestCase(Comp533Tags.BLOCKING_RPC_SERVER));
+//		addFeature("Blocking Receive Client1 Tagged", 5, new SingleClassTagListTestCase(Comp533Tags.BLOCKING_RPC_CLIENT1));
+//		addFeature("Blocking Receive Client2 Tagged", 5, new SingleClassTagListTestCase(Comp533Tags.BLOCKING_RPC_CLIENT2));
 
 		addFeature("Simulation Registry Tagged", 5, new SingleClassTagListTestCase(false, SIMULATION_REGISTRY_TAGS));
 		addFeature("Simulation Server Tagged", 5, new SingleClassTagListTestCase(SIMULATION_SERVER_TAGS));

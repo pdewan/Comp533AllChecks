@@ -13,6 +13,11 @@ import grader.basics.project.Project;
 
 public class SingleClassTagListTestCase extends BasicTestCase {
 	private final String[] tags;
+	public String[] getTags() {
+		return tags;
+	}
+
+
 	protected boolean checkAllTags = true;
 	
 	
