@@ -16,6 +16,7 @@ import gradingTools.comp533s18.assignment3.testcases.TwoClientCorrectReadWriteTe
 import gradingTools.comp533s18.assignment4.testcases.ARegularCounterClientChecker;
 import gradingTools.comp533s18.assignment4.testcases.ARegularCounterServerChecker;
 import gradingTools.comp533s18.assignment4.testcases.AStringCheckBasedDependentTestCase;
+import gradingTools.comp533s18.assignment4.testcases.CustomIPCTwoClientCorrectConnectionTestCase;
 import gradingTools.comp533s18.assignment4.testcases.ExplicitReceiveClientTestCase;
 import gradingTools.comp533s18.assignment4.testcases.DistributedCounterProgramRunningTestCase;
 import gradingTools.comp533s18.assignment4.testcases.SubstringSequenceChecker;
@@ -114,43 +115,43 @@ public class Assignment4Requirements extends AJUnitProjectRequirements {
 		BasicProjectIntrospection.setCheckAllSpecifiedTags(true);
 		DistributedCounterProgramRunningTestCase aDistributedCounterProgramRunningTestCase;
 		
-//		 aDistributedCounterProgramRunningTestCase =
-//				addCounterExperimentFetaures(				
-//				"Experiment Receives", 				
-//				Comp533Tags.EXPLICIT_RECEIVE_SERVER, 
-//				Comp533Tags.EXPLICIT_RECEIVE_CLIENT1,
-//				Comp533Tags.EXPLICIT_RECEIVE_CLIENT2,
-//				new AnExplicitReceiveServerReceivesChecker(),
-//				new AnExplicitReceiveClientReceivesChecker());
-//		addFeature("Server Creates Two Receive Queues", 5, 
-//				new AStringCheckBasedDependentTestCase(
-//						DistributedCounterProgramRunningTestCase.SERVER_NAME,
-//						new AMultipleReceiveQueueChecker(),
-//						aDistributedCounterProgramRunningTestCase)
-//				);
-//		 aDistributedCounterProgramRunningTestCase =
-//				addCounterExperimentFetaures(				
-//				"Custom RPC", 				
-//				Comp533Tags.CUSTOM_RPC_SERVER, 
-//				Comp533Tags.CUSTOM_RPC_CLIENT1,
-//				Comp533Tags.CUSTOM_RPC_CLIENT2,
-//				null,
-//				new ACustomRPCClientReceivesChecker());
-//		 addFeature("Client does not queue return values", 5, 
-//					new AStringCheckBasedDependentTestCase(
-//							DistributedCounterProgramRunningTestCase.CLIENT_1_NAME,
-//							new ARegularRPCClientReceivesChecker(),
-//							false,
-//							aDistributedCounterProgramRunningTestCase)
-//					);
-//		 aDistributedCounterProgramRunningTestCase =
-//					addCounterExperimentFetaures(				
-//					"Blocking RPC", 				
-//					Comp533Tags.BLOCKING_RPC_SERVER, 
-//					Comp533Tags.BLOCKING_RPC_CLIENT1,
-//					Comp533Tags.BLOCKING_RPC_CLIENT2,
-//					null,
-//					new ABlockingRPCClientReceivesChecker());
+		 aDistributedCounterProgramRunningTestCase =
+				addCounterExperimentFetaures(				
+				"Experiment Receives", 				
+				Comp533Tags.EXPLICIT_RECEIVE_SERVER, 
+				Comp533Tags.EXPLICIT_RECEIVE_CLIENT1,
+				Comp533Tags.EXPLICIT_RECEIVE_CLIENT2,
+				new AnExplicitReceiveServerReceivesChecker(),
+				new AnExplicitReceiveClientReceivesChecker());
+		addFeature("Server Creates Two Receive Queues", 5, 
+				new AStringCheckBasedDependentTestCase(
+						DistributedCounterProgramRunningTestCase.SERVER_NAME,
+						new AMultipleReceiveQueueChecker(),
+						aDistributedCounterProgramRunningTestCase)
+				);
+		 aDistributedCounterProgramRunningTestCase =
+				addCounterExperimentFetaures(				
+				"Custom RPC", 				
+				Comp533Tags.CUSTOM_RPC_SERVER, 
+				Comp533Tags.CUSTOM_RPC_CLIENT1,
+				Comp533Tags.CUSTOM_RPC_CLIENT2,
+				null,
+				new ACustomRPCClientReceivesChecker());
+		 addFeature("Client does not queue return values", 5, 
+					new AStringCheckBasedDependentTestCase(
+							DistributedCounterProgramRunningTestCase.CLIENT_1_NAME,
+							new ARegularRPCClientReceivesChecker(),
+							false,
+							aDistributedCounterProgramRunningTestCase)
+					);
+		 aDistributedCounterProgramRunningTestCase =
+					addCounterExperimentFetaures(				
+					"Blocking RPC", 				
+					Comp533Tags.BLOCKING_RPC_SERVER, 
+					Comp533Tags.BLOCKING_RPC_CLIENT1,
+					Comp533Tags.BLOCKING_RPC_CLIENT2,
+					null,
+					new ABlockingRPCClientReceivesChecker());
 		
 	
 		
@@ -229,7 +230,7 @@ public class Assignment4Requirements extends AJUnitProjectRequirements {
 		// takes 0.5 points from each read, write, and behaviors test, behavior exclusive testing
 //		addFeature("Static arguments work properly", 20, new StaticArgumentsTestCase(true, true, true));
 //		
-		addFeature("Two client correct connection", 20, new TwoClientCorrectConnectionTestCase(false, false, true));
+//		addFeature("Two client correct connection", 20, new CustomIPCTwoClientCorrectConnectionTestCase(false, false, true));
 		
 //		addFeature("One client correct read, write, and behaviors - Atomic", 20, new OneClientCorrectReadWriteTestCase(false, false, true, true));
 //		addFeature("One client correct read, write, and behaviors - Non-Atomic", 20, new OneClientCorrectReadWriteTestCase(false, false, true, true));

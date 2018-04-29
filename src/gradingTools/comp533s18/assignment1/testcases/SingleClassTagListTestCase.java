@@ -45,13 +45,18 @@ public class SingleClassTagListTestCase extends BasicTestCase {
 		if (!checkAllTags) {
 			BasicProjectIntrospection.setCheckAllSpecifiedTags(aCurrentCheckAllTags);
 		}
-
+		if (checkAllTags) {
     	if (aClasses.size() == 1) {
     		return pass();
     	}
     	if (aClasses.size() > 1) {
     		return partialPass(0.5, "Multiple classes tagged:" + Arrays.toString(tags) + " " + aClasses);
     	}
+		} else {
+			if (aClasses.size() > 1) {
+	    		return pass();
+	    	}
+		}
     	return fail("No class tagged: " + Arrays.toString(tags));
 	}
 }
