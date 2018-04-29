@@ -117,7 +117,7 @@ public class Assignment4Requirements extends AJUnitProjectRequirements {
 		
 		 aDistributedCounterProgramRunningTestCase =
 				addCounterExperimentFetaures(				
-				"Experiment Receives", 				
+				"Ecplicit Receives", 				
 				Comp533Tags.EXPLICIT_RECEIVE_SERVER, 
 				Comp533Tags.EXPLICIT_RECEIVE_CLIENT1,
 				Comp533Tags.EXPLICIT_RECEIVE_CLIENT2,
