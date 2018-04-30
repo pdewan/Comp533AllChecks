@@ -110,7 +110,9 @@ public class DistributedCounterProgramRunningTestCase extends BasicTestCase {
 			
 			boolean aRetval = stringChecker.check(aServerOutput);
 			if (!aRetval) {
-				return fail("Server output did not match:" + Arrays.toString(stringChecker.getSubstrings()));
+//				return fail("Server output did not match:" + Arrays.toString(stringChecker.getSubstrings()));
+				return fail("Server output did not match:" + stringChecker.getRegex());
+
 			}
 //			if (interactiveInputProject != null) {
 //				interactiveInputProject.getProcessOutput().forEach((name, output) -> Tracer.info(this, "*** " + name + " ***\n" + output));
