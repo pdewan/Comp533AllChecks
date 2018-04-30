@@ -2,6 +2,7 @@ package gradingTools.comp533s18.assignment4;
 
 import util.annotations.Comp533Tags;
 import util.tags.DistributedTags;
+import grader.basics.execution.BasicRunningProject;
 import grader.basics.project.BasicProjectIntrospection;
 import grader.junit.AJUnitProjectRequirements;
 import grader.trace.GraderTraceUtility;
@@ -111,6 +112,7 @@ public class Assignment4Requirements extends AJUnitProjectRequirements {
 		Comp533TraceUtility.setTracing();
 		GraderTraceUtility.setTurnOn(true);
 		GraderTraceUtility.setTracing();
+		BasicRunningProject.setEchoOutput(false);
 		
 		BasicProjectIntrospection.setCheckAllSpecifiedTags(true);
 		DistributedCounterProgramRunningTestCase aDistributedCounterProgramRunningTestCase;
@@ -230,7 +232,7 @@ public class Assignment4Requirements extends AJUnitProjectRequirements {
 		// takes 0.5 points from each read, write, and behaviors test, behavior exclusive testing
 //		addFeature("Static arguments work properly", 20, new StaticArgumentsTestCase(true, true, true));
 //		
-		addFeature("Two client correct connection", 20, new CustomIPCTwoClientCorrectConnectionTestCase(false, false, true));
+//		addFeature("Two client correct connection", 20, new CustomIPCTwoClientCorrectConnectionTestCase(false, false, true));
 		
 //		addFeature("One client correct read, write, and behaviors - Atomic", 20, new OneClientCorrectReadWriteTestCase(false, false, true, true));
 //		addFeature("One client correct read, write, and behaviors - Non-Atomic", 20, new OneClientCorrectReadWriteTestCase(false, false, true, true));
