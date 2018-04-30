@@ -173,11 +173,11 @@ public class DistributedCounterProgramRunningTestCase extends BasicTestCase {
 				CLIENT_1_NAME, Arrays.asList(client1TaggedTestCase.getTags()));
 		ExecutionSpecificationSelector.getExecutionSpecification().setEntryTags(
 				CLIENT_2_NAME, Arrays.asList(client2TaggedTestCase.getTags()));
-		
+		ExecutionSpecificationSelector.getExecutionSpecification().setSleepTime(SERVER_NAME, 2000);
 		ExecutionSpecificationSelector.getExecutionSpecification().
-			setSleepTime(CLIENT_1_NAME, 5000);
+			setSleepTime(CLIENT_1_NAME, 7000);
 		ExecutionSpecificationSelector.getExecutionSpecification().
-			setSleepTime(CLIENT_2_NAME, 5000);
+			setSleepTime(CLIENT_2_NAME, 7000);
 		ExecutionSpecificationSelector.getExecutionSpecification().getProcessTeams().forEach(team -> System.out.println("### " + team));
 	}
 }

@@ -70,7 +70,7 @@ public class Assignment4Requirements extends AJUnitProjectRequirements {
 //						anExplicitReceiveProgramRunningTestCase )
 //				);
 		if (aServerChecker != null) {
-		addFeature(anExperimentName + " Server Receives", 10, 
+		addFeature(anExperimentName + " Special Server Output", 10, 
 				new AStringCheckBasedDependentTestCase(
 						DistributedCounterProgramRunningTestCase.SERVER_NAME,
 						aServerChecker,
@@ -84,7 +84,7 @@ public class Assignment4Requirements extends AJUnitProjectRequirements {
 						anExplicitReceiveProgramRunningTestCase )
 				);
 		if (aClientChecker != null) {
-		addFeature(anExperimentName + " Receive Client 1 Receives", 10, 
+		addFeature(anExperimentName + " Speical Client 1 Output", 10, 
 				new AStringCheckBasedDependentTestCase(
 						DistributedCounterProgramRunningTestCase.CLIENT_2_NAME,
 						aClientChecker,
@@ -98,7 +98,7 @@ public class Assignment4Requirements extends AJUnitProjectRequirements {
 						anExplicitReceiveProgramRunningTestCase )
 				);
 		if (aClientChecker != null) {
-		addFeature(anExperimentName + " Client 2 Receives", 10, 
+		addFeature(anExperimentName + " Special Client 2 Output", 10, 
 				new AStringCheckBasedDependentTestCase(
 						DistributedCounterProgramRunningTestCase.CLIENT_2_NAME,
 						aClientChecker,
@@ -119,7 +119,7 @@ public class Assignment4Requirements extends AJUnitProjectRequirements {
 		
 		 aDistributedCounterProgramRunningTestCase =
 				addCounterExperimentFetaures(				
-				"Ecplicit Receives", 				
+				"Explicit Receives (Part 1)", 				
 				Comp533Tags.EXPLICIT_RECEIVE_SERVER, 
 				Comp533Tags.EXPLICIT_RECEIVE_CLIENT1,
 				Comp533Tags.EXPLICIT_RECEIVE_CLIENT2,
@@ -133,13 +133,13 @@ public class Assignment4Requirements extends AJUnitProjectRequirements {
 				);
 		 aDistributedCounterProgramRunningTestCase =
 				addCounterExperimentFetaures(				
-				"Custom RPC", 				
+				"Custom RPC (Part 2)", 				
 				Comp533Tags.CUSTOM_RPC_SERVER, 
 				Comp533Tags.CUSTOM_RPC_CLIENT1,
 				Comp533Tags.CUSTOM_RPC_CLIENT2,
 				null,
 				new ACustomRPCClientReceivesChecker());
-		 addFeature("Client does not queue return values", 5, 
+		 addFeature("Blocking RPC client does not use regular queue for return values", 5, 
 					new AStringCheckBasedDependentTestCase(
 							DistributedCounterProgramRunningTestCase.CLIENT_1_NAME,
 							new ARegularRPCClientReceivesChecker(),
@@ -148,7 +148,7 @@ public class Assignment4Requirements extends AJUnitProjectRequirements {
 					);
 		 aDistributedCounterProgramRunningTestCase =
 					addCounterExperimentFetaures(				
-					"Blocking RPC", 				
+					"Blocking RPC (Part 3)", 				
 					Comp533Tags.BLOCKING_RPC_SERVER, 
 					Comp533Tags.BLOCKING_RPC_CLIENT1,
 					Comp533Tags.BLOCKING_RPC_CLIENT2,
