@@ -43,9 +43,9 @@ public class ExplicitReceiveServerTestCase extends BasicTestCase {
 	protected RunningProject interactiveInputProject;
 	protected String serverName;
 	
-	public ExplicitReceiveServerTestCase(String aServerName,
+	public ExplicitReceiveServerTestCase(String aName, String aServerName,
 			BasicTestCase anExplicitReceiveServerTestCase) {
-//		super();
+		super(aName);
 		serverName = aServerName;
 		explicitReceiveServerTestCase = anExplicitReceiveServerTestCase;
 

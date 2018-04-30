@@ -45,16 +45,19 @@ public class AStringCheckBasedDependentTestCase extends BasicTestCase {
 	protected String processName;
 	protected boolean checkTrue = true;
 	
-	public AStringCheckBasedDependentTestCase(String aProcessName,
+	public AStringCheckBasedDependentTestCase(String aCheckName, String aProcessName,
 			SubstringSequenceChecker aChecker,
 			BasicTestCase anOutputGeneratingTestcase) {
+		super (aCheckName);		
 		init(aProcessName, aChecker, true, anOutputGeneratingTestcase);
 	}
 	public AStringCheckBasedDependentTestCase(
+			String aCheckName,
 			String aProcessName,
 			SubstringSequenceChecker aChecker,
 			boolean aCheckTrue,
 			BasicTestCase anOutputGeneratingTestcase) {
+		super (aCheckName);	
 		init(aProcessName, aChecker, aCheckTrue, anOutputGeneratingTestcase);
 	}
 	public void init (String aProcessName,
@@ -95,10 +98,14 @@ public class AStringCheckBasedDependentTestCase extends BasicTestCase {
 			boolean aCheckVal = checker.check(aClient1Output);
 			boolean aRetVal = checkTrue&&aCheckVal || !checkTrue&&!aCheckVal;
 			if (!aRetVal && checkTrue) {
-				return fail("Did not match:" + Arrays.toString(checker.getSubstrings()));
+//				return fail(processName + " Output Did not match:" + Arrays.toString(checker.getSubstrings()));
+				return fail(processName + " Output Did not match:" + checker.getRegex());
+
 			} 
 			if (!aRetVal && !checkTrue) {
-				return fail("Did not match:" + Arrays.toString(checker.getSubstrings()));
+//				return fail("Did not match:" + Arrays.toString(checker.getSubstrings()));
+				return fail(processName + " Output matched:" + checker.getRegex());
+
 
 			}
 //			if (interactiveInputProject != null) {

@@ -4,10 +4,9 @@ import gradingTools.comp533s18.assignment4.testcases.ASubstringSequenceChecker;
 
 public class AMultipleReceiveQueueChecker extends ASubstringSequenceChecker{
 	public static final String[] MY_SUBSTRINGS = {
+		"ReceivedMessageQueueCreated",		
 		"ReceivedMessageQueueCreated",
-		"Opened",
-		"ReceivedMessageQueueCreated",
-		"Opened"
+		
 		
 	};
 	public AMultipleReceiveQueueChecker() {

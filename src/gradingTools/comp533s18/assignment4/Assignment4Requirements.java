@@ -2,6 +2,7 @@ package gradingTools.comp533s18.assignment4;
 
 import util.annotations.Comp533Tags;
 import util.tags.DistributedTags;
+import framework.grading.testing.BasicTestCase;
 import grader.basics.execution.BasicRunningProject;
 import grader.basics.project.BasicProjectIntrospection;
 import grader.junit.AJUnitProjectRequirements;
@@ -72,6 +73,7 @@ public class Assignment4Requirements extends AJUnitProjectRequirements {
 		if (aServerChecker != null) {
 		addFeature(anExperimentName + " Special Server Output", 10, 
 				new AStringCheckBasedDependentTestCase(
+						"Special Server Output",
 						DistributedCounterProgramRunningTestCase.SERVER_NAME,
 						aServerChecker,
 						anExplicitReceiveProgramRunningTestCase )
@@ -79,6 +81,7 @@ public class Assignment4Requirements extends AJUnitProjectRequirements {
 		}
 		addFeature(anExperimentName + " Regular Client 1 Output", 5, 
 				new AStringCheckBasedDependentTestCase(
+						" Regular Client 1 Output",
 						DistributedCounterProgramRunningTestCase.CLIENT_1_NAME,
 						new ARegularCounterClientChecker(),
 						anExplicitReceiveProgramRunningTestCase )
@@ -86,6 +89,7 @@ public class Assignment4Requirements extends AJUnitProjectRequirements {
 		if (aClientChecker != null) {
 		addFeature(anExperimentName + " Speical Client 1 Output", 10, 
 				new AStringCheckBasedDependentTestCase(
+						" Special Client 1 Output",
 						DistributedCounterProgramRunningTestCase.CLIENT_2_NAME,
 						aClientChecker,
 						anExplicitReceiveProgramRunningTestCase )
@@ -93,6 +97,7 @@ public class Assignment4Requirements extends AJUnitProjectRequirements {
 		};
 		addFeature(anExperimentName + " Regular Client 2 Output", 5, 
 				new AStringCheckBasedDependentTestCase(
+						"Regular Client 2 Output",
 						DistributedCounterProgramRunningTestCase.CLIENT_1_NAME,
 						new ARegularCounterClientChecker(),
 						anExplicitReceiveProgramRunningTestCase )
@@ -100,11 +105,97 @@ public class Assignment4Requirements extends AJUnitProjectRequirements {
 		if (aClientChecker != null) {
 		addFeature(anExperimentName + " Special Client 2 Output", 10, 
 				new AStringCheckBasedDependentTestCase(
+						" Special Client 2 Output",
 						DistributedCounterProgramRunningTestCase.CLIENT_2_NAME,
 						aClientChecker,
 						anExplicitReceiveProgramRunningTestCase )
 				);
 		}
+		return anExplicitReceiveProgramRunningTestCase;
+	}
+	public DistributedCounterProgramRunningTestCase addGroupedCounterExperimentFetaures(
+			String anExperimentName,
+			String aServerTag, 
+			String aClient1Tag,
+			String aClient2Tag,
+			SubstringSequenceChecker aServerChecker,
+			SubstringSequenceChecker aClientChecker
+
+			) {
+		SingleClassTagListTestCase anExplicitReceiveServerTagged = 
+				new SingleClassTagListTestCase(aServerTag);
+		SingleClassTagListTestCase anExplicitReceiveClient1Tagged = 
+				new SingleClassTagListTestCase(aClient1Tag);
+		SingleClassTagListTestCase anExplicitReceiveClient2Tagged = 
+				new SingleClassTagListTestCase(aClient2Tag);
+		addFeature(anExperimentName + " Tags (S, C1, C2)", 6, anExplicitReceiveServerTagged,  
+				anExplicitReceiveClient1Tagged, 
+				anExplicitReceiveClient2Tagged);
+		
+//		addFeature("Explicit Receive Server Tagged", 5, new SingleClassTagListTestCase(Comp533Tags.EXPLICIT_RECEIVE_SERVER));
+//		addFeature("Explicit Receive Client1 Tagged", 5, new SingleClassTagListTestCase(Comp533Tags.EXPLICIT_RECEIVE_CLIENT1));
+//		addFeature("Explicit Receive Client2 Tagged", 5, new SingleClassTagListTestCase(Comp533Tags.EXPLICIT_RECEIVE_CLIENT2));
+		DistributedCounterProgramRunningTestCase anExplicitReceiveProgramRunningTestCase = 
+				new DistributedCounterProgramRunningTestCase(
+						new ARegularCounterServerChecker(),
+						anExplicitReceiveServerTagged,
+						anExplicitReceiveClient1Tagged,
+						anExplicitReceiveClient2Tagged);
+		addFeature(anExperimentName + " Regular Output (S, C1, C2)", 15, 
+				anExplicitReceiveProgramRunningTestCase,
+				new AStringCheckBasedDependentTestCase(
+						"Regular Client 1 Output",
+						DistributedCounterProgramRunningTestCase.CLIENT_1_NAME,
+						new ARegularCounterClientChecker(),
+						anExplicitReceiveProgramRunningTestCase ),
+				new AStringCheckBasedDependentTestCase(
+						"Regular Client 2 Output",
+						DistributedCounterProgramRunningTestCase.CLIENT_2_NAME,
+						new ARegularCounterClientChecker(),
+						anExplicitReceiveProgramRunningTestCase )						
+						
+				);
+		BasicTestCase aClient1TestCase = new  AStringCheckBasedDependentTestCase(
+				"Special Client 1 Output",
+				DistributedCounterProgramRunningTestCase.CLIENT_1_NAME,
+				aClientChecker,
+				anExplicitReceiveProgramRunningTestCase );
+		
+		BasicTestCase aClient2TestCase = new  AStringCheckBasedDependentTestCase(
+				"Special Client 2 Output",
+				DistributedCounterProgramRunningTestCase.CLIENT_2_NAME,
+				aClientChecker,
+				anExplicitReceiveProgramRunningTestCase );
+		BasicTestCase aServerTestCase = new  AStringCheckBasedDependentTestCase(
+				"Special Server Output",
+				DistributedCounterProgramRunningTestCase.SERVER_NAME,
+				aServerChecker,
+				anExplicitReceiveProgramRunningTestCase );
+		
+		if (aClientChecker != null && aServerChecker != null) {		
+			
+			
+			addFeature(anExperimentName + " Special Output (S, C1, C2)", 30,
+					aServerTestCase,
+					aClient1TestCase,
+					aClient2TestCase);
+		} else if (aServerChecker != null) {
+			addFeature(anExperimentName + " Special Output (S)", 15,
+					aServerTestCase,
+					aClient1TestCase,
+					aClient2TestCase);
+		} else if (aClientChecker != null) {
+			addFeature(anExperimentName + " Special Output (C1, C2)", 30,
+					aClient1TestCase,
+					aClient2TestCase);
+		}
+//		addFeature("Server Creates Two Receive Queues", 5, 
+//				new AStringCheckBasedDependentTestCase(
+//						DistributedCounterProgramRunningTestCase.SERVER_NAME,
+//						new ARegularCounterServerChecker(),
+//						anExplicitReceiveProgramRunningTestCase )
+//				);
+		
 		return anExplicitReceiveProgramRunningTestCase;
 	}
 	public Assignment4Requirements() {
@@ -118,21 +209,23 @@ public class Assignment4Requirements extends AJUnitProjectRequirements {
 		DistributedCounterProgramRunningTestCase aDistributedCounterProgramRunningTestCase;
 		
 		 aDistributedCounterProgramRunningTestCase =
-				addCounterExperimentFetaures(				
+//				addCounterExperimentFetaures(	
+			addGroupedCounterExperimentFetaures(
 				"Explicit Receives (Part 1)", 				
 				Comp533Tags.EXPLICIT_RECEIVE_SERVER, 
 				Comp533Tags.EXPLICIT_RECEIVE_CLIENT1,
 				Comp533Tags.EXPLICIT_RECEIVE_CLIENT2,
 				new AnExplicitReceiveServerReceivesChecker(),
 				new AnExplicitReceiveClientReceivesChecker());
-		addFeature("Server Creates Two Receive Queues", 5, 
+		addFeature("Explicit Receives Server Creates Two Receive Queues", 5, 
 				new AStringCheckBasedDependentTestCase(
+						"Explicit Receives Server Creates Two Receive Queues",
 						DistributedCounterProgramRunningTestCase.SERVER_NAME,
 						new AMultipleReceiveQueueChecker(),
 						aDistributedCounterProgramRunningTestCase)
 				);
 		 aDistributedCounterProgramRunningTestCase =
-				addCounterExperimentFetaures(				
+			addGroupedCounterExperimentFetaures(				
 				"Custom RPC (Part 2)", 				
 				Comp533Tags.CUSTOM_RPC_SERVER, 
 				Comp533Tags.CUSTOM_RPC_CLIENT1,
@@ -141,13 +234,14 @@ public class Assignment4Requirements extends AJUnitProjectRequirements {
 				new ACustomRPCClientReceivesChecker());
 		 addFeature("Blocking RPC client does not use regular queue for return values", 5, 
 					new AStringCheckBasedDependentTestCase(
+							"Blocking RPC client does not use regular queue for return values",
 							DistributedCounterProgramRunningTestCase.CLIENT_1_NAME,
 							new ARegularRPCClientReceivesChecker(),
 							false,
 							aDistributedCounterProgramRunningTestCase)
 					);
 		 aDistributedCounterProgramRunningTestCase =
-					addCounterExperimentFetaures(				
+				addGroupedCounterExperimentFetaures(				
 					"Blocking RPC (Part 3)", 				
 					Comp533Tags.BLOCKING_RPC_SERVER, 
 					Comp533Tags.BLOCKING_RPC_CLIENT1,

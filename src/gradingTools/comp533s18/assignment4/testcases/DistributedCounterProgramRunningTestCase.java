@@ -110,7 +110,7 @@ public class DistributedCounterProgramRunningTestCase extends BasicTestCase {
 			
 			boolean aRetval = stringChecker.check(aServerOutput);
 			if (!aRetval) {
-				return fail("Did not match:" + Arrays.toString(stringChecker.getSubstrings()));
+				return fail("Server output did not match:" + Arrays.toString(stringChecker.getSubstrings()));
 			}
 //			if (interactiveInputProject != null) {
 //				interactiveInputProject.getProcessOutput().forEach((name, output) -> Tracer.info(this, "*** " + name + " ***\n" + output));
@@ -173,7 +173,7 @@ public class DistributedCounterProgramRunningTestCase extends BasicTestCase {
 				CLIENT_1_NAME, Arrays.asList(client1TaggedTestCase.getTags()));
 		ExecutionSpecificationSelector.getExecutionSpecification().setEntryTags(
 				CLIENT_2_NAME, Arrays.asList(client2TaggedTestCase.getTags()));
-		ExecutionSpecificationSelector.getExecutionSpecification().setSleepTime(SERVER_NAME, 2000);
+		ExecutionSpecificationSelector.getExecutionSpecification().setSleepTime(SERVER_NAME, 5000);
 		ExecutionSpecificationSelector.getExecutionSpecification().
 			setSleepTime(CLIENT_1_NAME, 7000);
 		ExecutionSpecificationSelector.getExecutionSpecification().
