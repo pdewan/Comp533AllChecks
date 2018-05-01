@@ -27,6 +27,14 @@ public class ACheckerList implements CheckerList {
 		}
 		return retVal;
 	}
+	@Override
+	public  boolean check(String aString) {
+		boolean retVal = true;
+		for (SubstringSequenceChecker aChecker:checkers) {
+			retVal = aChecker.check(aString) && retVal;
+		}
+		return retVal;
+	}
 	
 	@Override
 	public List<String[]> getUnmatchedStrings() {

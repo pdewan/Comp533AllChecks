@@ -37,16 +37,22 @@ public ASubstringSequenceChecker(String[] aSubstrings, double aMyWeight ) {
 	  }
 	  return aRetVal.toString();
   }
+ 
   /* (non-Javadoc)
  * @see gradingTools.comp533s18.assignment4.testcases.SubstringSequenceChecker#check(java.lang.StringBuffer)
  */
 @Override
-public boolean check(StringBuffer aStringBuffer) {
+public boolean check(String aString) {
 		
-	  success = aStringBuffer != null && pattern.matcher(aStringBuffer).matches();
+	  success = aString != null && pattern.matcher(aString).matches();
 	  return success;	  
 	  
   }
+@Override
+public boolean check(StringBuffer aStringBuffer) {
+	 success = aStringBuffer != null && pattern.matcher(aStringBuffer).matches();
+	  return success;
+}
   /* (non-Javadoc)
  * @see gradingTools.comp533s18.assignment4.testcases.SubstringSequenceChecker#getSubstrings()
  */
@@ -107,4 +113,5 @@ public String[] getSubstrings() {
 	public boolean isSuccess() {
 		return success;
 	}
+	
 }

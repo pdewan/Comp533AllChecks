@@ -72,7 +72,7 @@ public class AStringCheckBasedDependentTestCase extends BasicTestCase {
 
 	
 	
-
+	protected StringBuffer programmingRunOutput;
 
 	@Override
 	public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException,
@@ -91,11 +91,11 @@ public class AStringCheckBasedDependentTestCase extends BasicTestCase {
 				return fail("Problem running test case" + outputGeneratingTestCase.getName() );
 			}
 //			
-			StringBuffer aClient1Output = 
+			programmingRunOutput = 
 					interactiveInputProject.getProcessOutput().get(processName);
 //			ARegularCounterServerChecker aServerChecker = new ARegularCounterServerChecker(1.0);
 			
-			boolean aCheckVal = checker.check(aClient1Output);
+			boolean aCheckVal = checker.check(programmingRunOutput);
 			boolean aRetVal = checkTrue&&aCheckVal || !checkTrue&&!aCheckVal;
 			if (!aRetVal && checkTrue) {
 //				return fail(processName + " Output Did not match:" + Arrays.toString(checker.getSubstrings()));

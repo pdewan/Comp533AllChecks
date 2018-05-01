@@ -60,7 +60,7 @@ public class DistributedCounterProgramRunningTestCase extends BasicTestCase {
 			SingleClassTagListTestCase aServerTaggedTestCase, 
 			SingleClassTagListTestCase aClient1TaggedTestCase,
 			SingleClassTagListTestCase aClient2TaggedTestCase) {
-		super("Explicit Receive Program Running Test Case");
+		super("A4 Program Running Test Case");
 		serverTaggedTestCase = aServerTaggedTestCase;
 		client1TaggedTestCase = aClient1TaggedTestCase;
 		client2TaggedTestCase = aClient2TaggedTestCase;

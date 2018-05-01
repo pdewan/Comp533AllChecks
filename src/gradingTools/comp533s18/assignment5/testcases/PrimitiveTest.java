@@ -1,4 +1,4 @@
-package gradingTools.comp533s18.assignment4.testcases;
+package gradingTools.comp533s18.assignment5.testcases;
 
 //import static org.junit.jupiter.api.Assertions.assertEquals;
 //import static org.junit.jupiter.api.Assertions.fail;
@@ -28,9 +28,13 @@ import java.util.stream.LongStream;
 
 
 
+
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+
 
 
 
@@ -48,11 +52,12 @@ import examples.serialization.NamedBMISpreadsheet;
 import examples.serialization.StringHistory;
 import grader.basics.execution.BasicProjectExecution;
 import grader.basics.project.BasicProjectIntrospection;
-import gradingTools.comp401f16.assignment.testInterfaces.TestBridgeScene;
-import gradingTools.comp401f16.assignment7.testcases.factory.BridgeSceneFactoryMethodTest;
+
+import gradingTools.shared.testcases.ProxyTest;
 import serialization.Serializer;
 import serialization.SerializerFactory;
 import serialization.SerializerSelector;
+import util.annotations.Comp533Tags;
 import util.misc.RemoteReflectionUtility;
 
 
@@ -64,7 +69,7 @@ import util.misc.RemoteReflectionUtility;
  * @author parth96
  *
  */
-public class PrimitiveTest {
+public class PrimitiveTest  {
 	private static final double DELTA = 0.01;
 	private static final float FLOAT_DELTA = 0.01f;
 	// increasing EXP_SIZE increases inputs to each test case. can lead to out of memory erros
@@ -76,23 +81,15 @@ public class PrimitiveTest {
 		SUNDAY, MONDAY, TUESDAY, WEDNESDAY,
 		THURSDAY, FRIDAY, SATURDAY 
 	}
+	protected SerializerFactory createLogicalTextualSerializerFactory() {
+		String[] aClassTags = {Comp533Tags.LOGICAL_TEXTUAL_SERIALIZER_FACTORY};
+		return (SerializerFactory) BasicProjectIntrospection.createInstance(SerializerFactory.class,  aClassTags);
+		
+	}
 	protected SerializerFactory createLogicalBinarySerializerFactory() {
-		Class<?> factoryClass = BasicProjectIntrospection.findClassByTags(factoryClassTag);
-		try {
-			anInstance = BasicProjectExecution.timedInvoke(factoryClass, factoryMethod, emptyObjectArgs);
-		} catch (Throwable e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			anInstance = null;
-		}
-		(SerializerFactory) getOrCreateObject(
-				factoryClassTags(), 
-				BridgeSceneFactoryMethodTest.FACTORY_METHOD_TAGS, 
-				SerializerFactory.class);
-		if (bridgeScene == null) {
-//			testing = false;
-			assertTrue("Could not create bridge scene", false);
-		}
+		String[] aClassTags = {Comp533Tags.LOGICAL_BINARY_SERIALIZER_FACTORY};
+		return (SerializerFactory) BasicProjectIntrospection.createInstance(SerializerFactory.class,  aClassTags);
+		
 	}
 
 //	@BeforeEach
@@ -101,8 +98,8 @@ public class PrimitiveTest {
 		SerializerSelector  logical = new SerializerSelector();
 		SerializerSelector  binary = new SerializerSelector();
 // want the buffer size for the LogicalBinarySerializerFactory to be atleast 1000000 to not run out of buffer space during test.
-		binary.setSerializerFactory(new LogicalBinarySerializerFactory());
-		logical.setSerializerFactory(new LogicalTextualSerializerFactory());
+		binary.setSerializerFactory(createLogicalBinarySerializerFactory());
+		logical.setSerializerFactory(createLogicalBinarySerializerFactory());
 
 		logicalSerializer = logical.createSerializer();
 		binarySerializer = binary.createSerializer();
