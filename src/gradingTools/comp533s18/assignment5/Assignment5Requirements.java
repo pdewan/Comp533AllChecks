@@ -7,7 +7,7 @@ import grader.trace.comp533.Comp533TraceUtility;
 import gradingTools.comp533s18.assignment4.Assignment4Requirements;
 import gradingTools.comp533s18.assignment5.testcases.ARegularSerializerPoolChecker;
 import gradingTools.comp533s18.assignment5.testcases.ASerializerPoolChecker;
-import gradingTools.comp533s18.assignment5.testcases.all.ABasicSerializerTestSuite;
+import gradingTools.comp533s18.assignment5.testcases.output.ABasicSerializerOutputTestSuite;
 import util.annotations.Comp533Tags;
 
 public class Assignment5Requirements extends Assignment4Requirements  {
@@ -34,7 +34,7 @@ public class Assignment5Requirements extends Assignment4Requirements  {
 		GraderTraceUtility.setTurnOn(true);
 		GraderTraceUtility.setTracing();
 		BasicRunningProject.setEchoOutput(false);
-    	addJUnitTestSuite(ABasicSerializerTestSuite.class);
+    	addJUnitTestSuite(ABasicSerializerOutputTestSuite.class);
 
 		
 		BasicProjectIntrospection.setCheckAllSpecifiedTags(true);
