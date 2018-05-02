@@ -1,4 +1,4 @@
-package gradingTools.comp533s18.assignment5.testcases.all.checks;
+package gradingTools.comp533s18.assignment5.testcases.output.checks;
 
 import gradingTools.comp533s18.assignment4.testcases.ASubstringSequenceChecker;
 import gradingTools.comp533s18.assignment4.testcases.DistributedCounterProgramRunningTestCase;
