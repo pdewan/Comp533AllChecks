@@ -1,7 +1,7 @@
 package gradingTools.comp533s18.assignment5.testcases.output.binary;
 
 import gradingTools.comp533s18.assignment4.testcases.SubstringSequenceChecker;
-import gradingTools.comp533s18.assignment5.testcases.all.checks.AWholeNumberChecker;
+import gradingTools.comp533s18.assignment5.testcases.output.checks.AWholeNumberChecker;
 
 import org.junit.Assert;
 import org.junit.Test;
