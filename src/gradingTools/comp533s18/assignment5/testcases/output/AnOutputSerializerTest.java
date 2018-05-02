@@ -13,7 +13,7 @@ import util.trace.port.serialization.extensible.ExtensibleSerializationTraceUtil
 import grader.basics.execution.BasicProjectExecution;
 import grader.basics.project.BasicProjectIntrospection;
 import gradingTools.comp533s18.assignment4.testcases.SubstringSequenceChecker;
-import gradingTools.comp533s18.assignment5.testcases.all.checks.AWholeNumberChecker;
+import gradingTools.comp533s18.assignment5.testcases.output.checks.AWholeNumberChecker;
 import gradingTools.shared.testcases.FactoryMethodTest;
 import gradingTools.shared.testcases.ProxyTest;
 
