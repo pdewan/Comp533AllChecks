@@ -64,6 +64,10 @@ public abstract class AnOutputSerializerTest extends FactoryMethodTest {
 //	protected String classTag;
 
 	protected Map<String, Class> tagToSerializer;
+	protected SerializerFactory serializerFactory;
+	protected Serializer serializer;
+	protected Serializer serializerProxy;
+
 	
 	protected void initSerializers() {
 		Project aProject = CurrentProjectHolder.getCurrentProject();
@@ -98,13 +102,79 @@ public abstract class AnOutputSerializerTest extends FactoryMethodTest {
 		return aClass;
 	}
 	
+	protected Object createUsingFactoryMethod() {
+		if (serializer == null ) {
+			serializerFactory = (SerializerFactory) createInstance();
+			serializerFactory = (SerializerFactory) BasicProjectIntrospection.
+					forceCreateProxy(SerializerFactory.class, serializerFactory);
+			serializer = serializerFactory.createSerializer();
+			Assert.assertTrue(serializerFactory + " returned null instance", serializer != null);
+			Assert.assertTrue(serializerFactory + " returned instance of " + ASimpleSerializer.class, !ASimpleSerializer.class.isInstance(serializer));
+			serializerProxy = (Serializer) BasicProjectIntrospection.forceCreateProxy(Serializer.class, serializer); 
+			rootProxy = serializerProxy;
+		}
+		return rootProxy;
+	}
 	@Override
-	protected boolean doTest() {
+	public String getOutput() {
+		
+		String anOutputKey = Arrays.toString(proxyClassTags());
+		String anOutputLinesKey = anOutputKey + "Lines";
+		output = (String) BasicProjectIntrospection.getUserObject(anOutputKey);
+		outputLines = (String[]) BasicProjectIntrospection.getUserObject(anOutputLinesKey);
+		if (output == null) {
+			createUsingFactoryMethod();
+			ExtensibleSerializationTraceUtility.setTracing();
+			boolean prevBufferTracedMessages = Tracer.isBufferTracedMessages();
+			Tracer.setBufferTracedMessages(false);
+
+//		serializerFactory = (SerializerFactory) createInstance();
+//		serializerFactory = (SerializerFactory) BasicProjectIntrospection.
+//				forceCreateProxy(SerializerFactory.class, serializerFactory);
+//		serializer = serializerFactory.createSerializer();
+//		Assert.assertTrue(serializerFactory + " returned null instance", serializer != null);
+//		Assert.assertTrue(serializerFactory + " returned instance of " + ASimpleSerializer.class, !ASimpleSerializer.class.isInstance(serializer));
+//		serializerProxy = (Serializer) BasicProjectIntrospection.forceCreateProxy(Serializer.class, serializer); 
+//		SerializerSelector.setSerializerFactory(aSerializerFactory);
+		BasicProjectExecution.redirectOutput();
+		SerializationTester.testSerialization(serializerProxy);		
+		output = BasicProjectExecution.restoreAndGetOut();
+		BasicProjectIntrospection.putUserObject(anOutputKey, output);
+		ExtensibleSerializationTraceUtility.setTracing(false);
+		Tracer.setBufferTracedMessages(prevBufferTracedMessages);
+
+		}
+		if (outputLines == null) {
+			outputLines = output.split("\n");
+			BasicProjectIntrospection.putUserObject(anOutputLinesKey, outputLines);
+
+		}
+		
+		return output;
+	}
+	@Override
+	protected void executeOperations(Object aProxy) throws Exception {
 		output = getOutput();
 		
+	}
+	
+	@Override
+	protected boolean checkOutput(Object aLocatable) {
 		boolean aRetVal = checker().check(output);
 		Assert.assertTrue(checker().getRegex() + " not matched in output of TestSerialization", aRetVal);
 		return true;
+	}
+	@Override
+	protected boolean doTest() throws Exception {
+//		createUsingFactoryMethod();
+		executeOperations(rootProxy);
+		return checkOutput(rootProxy);
+		
+//		output = getOutput();
+//		
+//		boolean aRetVal = checker().check(output);
+//		Assert.assertTrue(checker().getRegex() + " not matched in output of TestSerialization", aRetVal);
+//		return true;
 	}
 	abstract protected String[] proxyClassTags() ;
 
@@ -115,11 +185,7 @@ public abstract class AnOutputSerializerTest extends FactoryMethodTest {
 	}
 	
 
-	@Override
-	protected void executeOperations(Object aProxy) throws Exception {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 	@Override
 	protected void setActual(Object aProxy) {
@@ -127,11 +193,7 @@ public abstract class AnOutputSerializerTest extends FactoryMethodTest {
 		
 	}
 
-	@Override
-	protected boolean checkOutput(Object aLocatable) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	
 	
 	public static final String TAG_TO_MAP = "TAG_TO_MAP";
 	
@@ -145,35 +207,7 @@ public abstract class AnOutputSerializerTest extends FactoryMethodTest {
 	}
 	
 
-	@Override
-	public String getOutput() {
-		
-		String aKey = Arrays.toString(proxyClassTags());
-		output = (String) BasicProjectIntrospection.getUserObject(aKey);
-		if (output == null) {
-			ExtensibleSerializationTraceUtility.setTracing();
-			boolean prevBufferTracedMessages = Tracer.isBufferTracedMessages();
-			Tracer.setBufferTracedMessages(false);
 
-		SerializerFactory aSerializerFactory = (SerializerFactory) createInstance();
-		aSerializerFactory = (SerializerFactory) BasicProjectIntrospection.
-				forceCreateProxy(SerializerFactory.class, aSerializerFactory);
-		Serializer aSerializer = aSerializerFactory.createSerializer();
-		Assert.assertTrue(aSerializerFactory + " returned null instance", aSerializer != null);
-		Assert.assertTrue(aSerializerFactory + " returned instance of " + ASimpleSerializer.class, !ASimpleSerializer.class.isInstance(aSerializer));
-		Serializer aSerializerProxy = (Serializer) BasicProjectIntrospection.forceCreateProxy(Serializer.class, aSerializer); 
-//		SerializerSelector.setSerializerFactory(aSerializerFactory);
-		BasicProjectExecution.redirectOutput();
-		SerializationTester.testSerialization(aSerializerProxy);		
-		output = BasicProjectExecution.restoreAndGetOut();
-		BasicProjectIntrospection.putUserObject(aKey, output);
-		ExtensibleSerializationTraceUtility.setTracing(false);
-		Tracer.setBufferTracedMessages(prevBufferTracedMessages);
-
-		}
-		
-		return output;
-	}
 //	static AnAllSerializerTest singleton;
 //	public static AnAllSerializerTest getSingleton() {
 //		if (singleton == null) {

@@ -7,11 +7,9 @@ public class ABlockingRPCClientReceivesChecker extends ASubstringSequenceChecker
 	//make sure receives from both clients take place, need to ensure alternatibg, cannot with regular expressions
 	public  final String[] MY_SUBSTRINGS = {
 		"main..ProxyMethodCalled",
-		"main..ReceivedMessageDequeued",
-		"AnRPCReturnValue",
+		"main..ReceivedMessageDequeued.*AnRPCReturnValue",
 		"main..ProxyMethodCalled",
-		"main..ReceivedMessageDequeued",
-		"AnRPCReturnValue"
+		"main..ReceivedMessageDequeued.*AnRPCReturnValue"
 		
 	};
 	public ABlockingRPCClientReceivesChecker() {
