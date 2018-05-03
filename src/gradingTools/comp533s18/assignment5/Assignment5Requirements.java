@@ -1,5 +1,6 @@
 package gradingTools.comp533s18.assignment5;
 
+import grader.basics.execution.BasicProjectExecution;
 import grader.basics.execution.BasicRunningProject;
 import grader.basics.project.BasicProjectIntrospection;
 import grader.trace.GraderTraceUtility;
@@ -7,7 +8,7 @@ import grader.trace.comp533.Comp533TraceUtility;
 import gradingTools.comp533s18.assignment4.Assignment4Requirements;
 import gradingTools.comp533s18.assignment5.testcases.ARegularSerializerPoolChecker;
 import gradingTools.comp533s18.assignment5.testcases.ASerializerPoolChecker;
-import gradingTools.comp533s18.assignment5.testcases.output.ABasicSerializerOutputTestSuite;
+import gradingTools.comp533s18.assignment5.testcases.output.ABinarySerializerOutputTestSuite;
 import util.annotations.Comp533Tags;
 
 public class Assignment5Requirements extends Assignment4Requirements  {
@@ -34,21 +35,24 @@ public class Assignment5Requirements extends Assignment4Requirements  {
 		GraderTraceUtility.setTurnOn(true);
 		GraderTraceUtility.setTracing();
 		BasicRunningProject.setEchoOutput(false);
-    	addJUnitTestSuite(ABasicSerializerOutputTestSuite.class);
+    	addJUnitTestSuite(ABinarySerializerOutputTestSuite.class);
+    	BasicProjectExecution.setMethodTimeOut(20000);
+    	BasicProjectExecution.setConstructorTimeOut(20000);
+//    	BasicProjectExecution.setUseMethodAndConstructorTimeOut(false);
 
 		
 		BasicProjectIntrospection.setCheckAllSpecifiedTags(true);
 		
-		addGroupedCounterExperimentFetaures(
-				"Counter: Custom Serialization", 				
-				Comp533Tags.CUSTOM_SERIALIZER_SERVER, 
-				Comp533Tags.CUSTOM_SERIALIZER_CLIENT1,
-				Comp533Tags.CUSTOM_SERIALIZER_CLIENT2,
-				new ASerializerPoolChecker(),
-				new ASerializerPoolChecker(),
-				new ARegularSerializerPoolChecker(),
-				new ARegularSerializerPoolChecker()
-				);
+//		addGroupedCounterExperimentFetaures(
+//				"Counter: Custom Serialization", 				
+//				Comp533Tags.CUSTOM_SERIALIZER_SERVER, 
+//				Comp533Tags.CUSTOM_SERIALIZER_CLIENT1,
+//				Comp533Tags.CUSTOM_SERIALIZER_CLIENT2,
+//				new ASerializerPoolChecker(),
+//				new ASerializerPoolChecker(),
+//				new ARegularSerializerPoolChecker(),
+//				new ARegularSerializerPoolChecker()
+//				);
 		
 	}
 }
