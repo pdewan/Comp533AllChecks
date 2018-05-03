@@ -1,18 +1,20 @@
 package gradingTools.comp533s18.assignment5.testcases.output.binary;
 
 import gradingTools.comp533s18.assignment4.testcases.SubstringSequenceChecker;
-import gradingTools.comp533s18.assignment5.testcases.output.checks.AWholeNumberChecker;
+import gradingTools.comp533s18.assignment5.testcases.output.checks.ASerializationTraceChecker;
 
 import org.junit.Assert;
 import org.junit.Test;
 
+import util.annotations.Comp533Tags;
 import util.annotations.MaxValue;
 
-@MaxValue(10)
-public class AWholeNumberOutputSerializerTest extends AnOutputBinarySerializerTest{
+@MaxValue(25)
+public class AnOutputBinaryHashMapSerializerTest extends AnOutputBinarySerializerTest{
 	@Override
 	protected SubstringSequenceChecker checker() {
-		return new AWholeNumberChecker();
+		 
+		return new ASerializationTraceChecker(taggedClass(), "HeapByteBuffer", "5=4.0, greeting=ni hao" );
 	}
 //	@Override
 //	protected boolean doTest() {
@@ -21,6 +23,12 @@ public class AWholeNumberOutputSerializerTest extends AnOutputBinarySerializerTe
 //		Assert.assertTrue(checker.getRegex() + " not matched in output of TestSerialization", aRetVal);
 //		return true;
 //	}
+
+	@Override
+	protected String classTag() {
+		// TODO Auto-generated method stub
+		return Comp533Tags.MAP_SERIALIZER;
+	}
 	
 
 }
