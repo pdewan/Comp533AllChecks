@@ -6,10 +6,10 @@ import gradingTools.comp533s18.assignment4.testcases.DistributedCounterProgramRu
 public class AnExplicitReceiveServerReceivesChecker extends ASubstringSequenceChecker{
 	//make sure receives from both clients take place, need to ensure alternatibg, cannot with regular expressions
 	public  final String[] MY_SUBSTRINGS = {
-		"main..ReceivedMessageDequeued.*Client1",
-		"Received message:.*Client1",
-		"main..ReceivedMessageDequeued.*Client2",
-		"Received message:.*Client2"
+		"I\\*\\*\\*." + "main..ReceivedMessageDequeued.*Client1",
+		 "Received message:.*Client1",
+		 "I\\*\\*\\*." + "main..ReceivedMessageDequeued.*Client2",
+		 "Received message:.*Client2"
 	};
 	public AnExplicitReceiveServerReceivesChecker() {
 		init( MY_SUBSTRINGS, 0.0);

@@ -4,7 +4,7 @@ import gradingTools.comp533s18.assignment4.testcases.ASubstringSequenceChecker;
 
 public class ASerializerPoolChecker extends ASubstringSequenceChecker{
 	public static final String[] MY_SUBSTRINGS = {
-		"SerializerTakenFromPool"	
+		"I\\*\\*\\*.*" + "SerializerTakenFromPool"	
 		
 		
 	};

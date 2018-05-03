@@ -12,6 +12,7 @@ public class ASerializationTraceChecker extends ASubstringSequenceChecker{
 //				"Serializing " + aStringRepresentation ,
 
 //				"ExtensibleValueSerializationInitiated",
+				"I\\*\\*\\*.*" +
 				aClassName + ".*" +
 				aBinaryOrText,
 //				aStringRepresentation,
