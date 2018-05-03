@@ -13,7 +13,7 @@ public class ABlockingRPCClientReceivesChecker extends ASubstringSequenceChecker
 		
 	};
 	public ABlockingRPCClientReceivesChecker() {
-		init( MY_SUBSTRINGS, 0.0);
+		init( MY_SUBSTRINGS);
 	}
 	
 

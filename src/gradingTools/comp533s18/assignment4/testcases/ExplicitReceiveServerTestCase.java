@@ -35,7 +35,7 @@ import util.trace.Tracer;
 public class ExplicitReceiveServerTestCase extends BasicTestCase {
 	
 	
-	protected SubstringSequenceChecker checker = new ARegularCounterServerChecker(0.1);	
+	protected SubstringSequenceChecker checker = new ARegularCounterServerChecker();	
 
 	
 	protected BasicTestCase explicitReceiveServerTestCase;

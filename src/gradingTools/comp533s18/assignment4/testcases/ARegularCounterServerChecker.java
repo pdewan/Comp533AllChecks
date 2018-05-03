@@ -9,11 +9,11 @@ public class ARegularCounterServerChecker extends ASubstringSequenceChecker{
 		 "getValue returns:12"
 		
 	};
-	public ARegularCounterServerChecker(double aFraction) {
-		super(MY_SUBSTRINGS, aFraction);
-	}
+//	public ARegularCounterServerChecker(double aFraction) {
+//		super(MY_SUBSTRINGS);
+//	}
 	public ARegularCounterServerChecker() {
-		super(MY_SUBSTRINGS, 0.0);
+		super(MY_SUBSTRINGS);
 	}
 
 }

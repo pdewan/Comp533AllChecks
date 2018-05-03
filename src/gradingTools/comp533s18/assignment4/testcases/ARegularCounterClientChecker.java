@@ -9,7 +9,7 @@ public class ARegularCounterClientChecker extends ASubstringSequenceChecker{
 		
 	};
 	public ARegularCounterClientChecker() {
-		super(MY_SUBSTRINGS, 0);
+		super(MY_SUBSTRINGS);
 	}
 
 }

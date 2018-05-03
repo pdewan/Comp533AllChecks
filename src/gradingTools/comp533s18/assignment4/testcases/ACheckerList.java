@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.emory.mathcs.backport.java.util.Arrays;
+import gradingTools.comp533s18.assignment5.LinesMatchKind;
+import gradingTools.comp533s18.assignment5.LinesMatcher;
 import scala.Array;
 
 public class ACheckerList implements CheckerList {
@@ -47,15 +49,21 @@ public class ACheckerList implements CheckerList {
 		return unmatchedStrings;
 		
 	}
+//	@Override
+//	public double getMyWeight() {
+//		double retVal = 0.;
+//		for (SubstringSequenceChecker aChecker:checkers) {
+//			if (aChecker.isSuccess()) {
+//				retVal += aChecker.getMyWeight();
+//			}
+//		}
+//		return retVal;
+//	}
 	@Override
-	public double getMyWeight() {
-		double retVal = 0.;
-		for (SubstringSequenceChecker aChecker:checkers) {
-			if (aChecker.isSuccess()) {
-				retVal += aChecker.getMyWeight();
-			}
-		}
-		return retVal;
+	public boolean check(LinesMatcher aLinesMatcher, LinesMatchKind aMatchKind,
+			int aFlags) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 

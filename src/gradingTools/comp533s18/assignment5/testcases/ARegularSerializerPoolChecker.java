@@ -9,7 +9,7 @@ public class ARegularSerializerPoolChecker extends ASubstringSequenceChecker{
 		
 	};
 	public ARegularSerializerPoolChecker() {
-		super(MY_SUBSTRINGS, 0);
+		super(MY_SUBSTRINGS);
 	}
 /*
  .*ReceivedMessageQueueCreated.*Server0<-->Client1 (Opened).*ReceivedMessageQueueCreated.*Server0<-->Client2 (Opened).*

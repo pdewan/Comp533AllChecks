@@ -13,7 +13,7 @@ public class ACustomRPCClientReceivesChecker extends ASubstringSequenceChecker{
 //		"main..ProxyPureFunctionCalled",
 	};
 	public ACustomRPCClientReceivesChecker() {
-		init( MY_SUBSTRINGS, 0.0);
+		init( MY_SUBSTRINGS);
 	}
 	
 

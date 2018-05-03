@@ -1,27 +1,30 @@
 package gradingTools.comp533s18.assignment4.testcases;
 
+import gradingTools.comp533s18.assignment5.LinesMatcher;
+import gradingTools.comp533s18.assignment5.LinesMatchKind;
+
 import java.util.regex.Pattern;
 
 public class ASubstringSequenceChecker implements SubstringSequenceChecker {
   protected String[] substrings;
-  protected double myWeight;
+//  protected double myWeight;
   protected String regex;
   protected Pattern pattern;
   protected boolean success;
   
 
-public ASubstringSequenceChecker(String[] aSubstrings, double aMyWeight ) {
-	 init(aSubstrings, aMyWeight);
+public ASubstringSequenceChecker(String[] aSubstrings ) {
+	 init(aSubstrings);
 	  
   }
 	public ASubstringSequenceChecker() {
 	  
  }
-   protected void init(String[] aSubstrings, double aMyWeight) {
+   protected void init(String[] aSubstrings) {
 		  substrings = aSubstrings;
-		  myWeight = aMyWeight;
-		  regex = toRegex(substrings);
-		  pattern = toPattern(regex);
+//		  myWeight = aMyWeight;
+//		  regex = toRegex(substrings);
+//		  pattern = toPattern(regex);
    }
   public static Pattern toPattern(String aRegex) {
 	  return Pattern.compile(aRegex, Pattern.DOTALL);
@@ -37,6 +40,20 @@ public ASubstringSequenceChecker(String[] aSubstrings, double aMyWeight ) {
 	  }
 	  return aRetVal.toString();
   }
+  
+  protected Pattern pattern() {
+	  if (pattern == null) {
+		  initializePattern();
+	  }
+	  return pattern;
+  }
+  
+  protected void initializePattern() {
+	  if (regex == null) {
+		  regex = toRegex(substrings);
+		  pattern = toPattern(regex);
+	  }
+  }
  
   /* (non-Javadoc)
  * @see gradingTools.comp533s18.assignment4.testcases.SubstringSequenceChecker#check(java.lang.StringBuffer)
@@ -44,13 +61,18 @@ public ASubstringSequenceChecker(String[] aSubstrings, double aMyWeight ) {
 @Override
 public boolean check(String aString) {
 		
-	  success = aString != null && pattern.matcher(aString).matches();
+	  success = aString != null && pattern().matcher(aString).matches();
 	  return success;	  
 	  
   }
 @Override
 public boolean check(StringBuffer aStringBuffer) {
-	 success = aStringBuffer != null && pattern.matcher(aStringBuffer).matches();
+	 success = aStringBuffer != null && pattern().matcher(aStringBuffer).matches();
+	  return success;
+}
+@Override
+public boolean check(LinesMatcher aLinesMatcher, LinesMatchKind aMatchKind, int aFlags) {
+	  success = aLinesMatcher.match(substrings, aMatchKind, aFlags);
 	  return success;
 }
   /* (non-Javadoc)
@@ -70,20 +92,8 @@ public String[] getSubstrings() {
 	/* (non-Javadoc)
 	 * @see gradingTools.comp533s18.assignment4.testcases.SubstringSequenceChecker#getMyWeight()
 	 */
-	@Override
-	public double getMyWeight() {
-		return myWeight;
-	}
-	/* (non-Javadoc)
-	 * @see gradingTools.comp533s18.assignment4.testcases.SubstringSequenceChecker#setMyWeight(double)
-	 */
-	@Override
-	public void setMyWeight(double myWeight) {
-		this.myWeight = myWeight;
-	}
-	/* (non-Javadoc)
-	 * @see gradingTools.comp533s18.assignment4.testcases.SubstringSequenceChecker#getRegex()
-	 */
+	
+	
 	@Override
 	public String getRegex() {
 		return regex;

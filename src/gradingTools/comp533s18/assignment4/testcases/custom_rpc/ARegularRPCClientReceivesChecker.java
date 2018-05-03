@@ -11,7 +11,7 @@ public class ARegularRPCClientReceivesChecker extends ASubstringSequenceChecker{
 			"I\\*\\*\\*.*" + "Selecting Thread..ReceivedReturnValueQueued"		
 	};
 	public ARegularRPCClientReceivesChecker() {
-		init( MY_SUBSTRINGS, 0.0);
+		init( MY_SUBSTRINGS);
 	}
 	
 

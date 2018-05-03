@@ -12,9 +12,7 @@ public class ASerializationTraceChecker extends ASubstringSequenceChecker{
 //				"Serializing " + aStringRepresentation ,
 
 //				"ExtensibleValueSerializationInitiated",
-				"I\\*\\*\\*.*" +
-				aClassName + ".*" +
-				aBinaryOrText,
+				"I\\*\\*\\*.*" + aClassName + ".*" +aBinaryOrText +".*",
 //				aStringRepresentation,
 //				"ExtensibleValueSerializationFinished",
 //				aClassName,
@@ -28,10 +26,9 @@ public class ASerializationTraceChecker extends ASubstringSequenceChecker{
 //				aClassName,
 //				"HeapByteBuffer",
 //				aStringRepresentation,
-				"Deserialized.*"+
-				aStringRepresentation,
+				"Deserialized.*"+ aStringRepresentation + ".*",
 				};
-		init (subStrings, 0.0);
+		init (subStrings);
 	}
 //	//make sure receives from both clients take place, need to ensure alternatibg, cannot with regular expressions
 //	public  String[] subStrings = {

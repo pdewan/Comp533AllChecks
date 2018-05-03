@@ -20,6 +20,9 @@ import grader.basics.project.BasicProjectIntrospection;
 import grader.basics.project.CurrentProjectHolder;
 import grader.basics.project.Project;
 import gradingTools.comp533s18.assignment4.testcases.SubstringSequenceChecker;
+import gradingTools.comp533s18.assignment5.ALinesMatcher;
+import gradingTools.comp533s18.assignment5.LinesMatchKind;
+import gradingTools.comp533s18.assignment5.LinesMatcher;
 import gradingTools.comp533s18.assignment5.testcases.output.checks.ASerializationTraceChecker;
 import gradingTools.shared.testcases.FactoryMethodTest;
 import gradingTools.shared.testcases.ProxyTest;
@@ -67,6 +70,7 @@ public abstract class AnOutputSerializerTest extends FactoryMethodTest {
 	protected SerializerFactory serializerFactory;
 	protected Serializer serializer;
 	protected Serializer serializerProxy;
+	protected LinesMatcher linesMatcher;
 
 	
 	protected void initSerializers() {
@@ -120,8 +124,10 @@ public abstract class AnOutputSerializerTest extends FactoryMethodTest {
 		
 		String anOutputKey = Arrays.toString(proxyClassTags());
 		String anOutputLinesKey = anOutputKey + "Lines";
+		String anOutputLinesMatcherKey = anOutputKey + "LinesMatcher";
 		output = (String) BasicProjectIntrospection.getUserObject(anOutputKey);
 		outputLines = (String[]) BasicProjectIntrospection.getUserObject(anOutputLinesKey);
+		linesMatcher = (LinesMatcher) BasicProjectIntrospection.getUserObject(anOutputLinesMatcherKey);
 		if (output == null) {
 			createUsingFactoryMethod();
 			ExtensibleSerializationTraceUtility.setTracing();
@@ -149,6 +155,11 @@ public abstract class AnOutputSerializerTest extends FactoryMethodTest {
 			BasicProjectIntrospection.putUserObject(anOutputLinesKey, outputLines);
 
 		}
+		if (linesMatcher == null) {
+			linesMatcher = new ALinesMatcher(outputLines);
+			BasicProjectIntrospection.putUserObject(anOutputLinesMatcherKey, linesMatcher);
+
+		}
 		
 		return output;
 	}
@@ -160,7 +171,8 @@ public abstract class AnOutputSerializerTest extends FactoryMethodTest {
 	
 	@Override
 	protected boolean checkOutput(Object aLocatable) {
-		boolean aRetVal = checker().check(output);
+//		boolean aRetVal = checker().check(output);
+		boolean aRetVal = checker().check(linesMatcher, LinesMatchKind.ONE_TIME_LINE, 0);
 		Assert.assertTrue(checker().getRegex() + " not matched in output of TestSerialization", aRetVal);
 		return true;
 	}

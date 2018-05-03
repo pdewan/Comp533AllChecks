@@ -28,14 +28,14 @@ import org.junit.runners.Suite;
 import util.annotations.MaxValue;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-//	AnOutputBinaryShortSerializerTest.class,
 //	AnOutputBinaryIntegerSerializerTest.class,
+//	AnOutputBinaryShortSerializerTest.class,
 //	AnOutputBinaryLongSerializerTest.class,
-//	AnOutputBinaryFloatSerializerTest.class,
 //	AnOutputBinaryDoubleSerializerTest.class,
+//	AnOutputBinaryFloatSerializerTest.class,
+//	AnOutputBinaryStringSerializerTest.class,
 //	AnOutputBinaryBooleanSerializerTest.class,
 //	AnOutputBinaryEnumSerializerTest.class,
-//	AnOutputBinaryStringSerializerTest.class,
 //	AnOutputBinaryArraySerializerTest.class,
 //	AnOutputBinaryArrayListSerializerTest.class,
 //	AnOutputBinaryVectorSerializerTest.class,	

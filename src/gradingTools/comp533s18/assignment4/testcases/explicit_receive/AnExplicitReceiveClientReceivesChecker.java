@@ -10,7 +10,7 @@ public class AnExplicitReceiveClientReceivesChecker extends ASubstringSequenceCh
 	     "Received message:.*AnRPCReturnValue"
 	};
 	public AnExplicitReceiveClientReceivesChecker() {
-		init( MY_SUBSTRINGS, 0.0);
+		init( MY_SUBSTRINGS);
 	}
 	
 

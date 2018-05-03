@@ -12,7 +12,7 @@ public interface SubstringSequenceChecker extends SubstringChecker {
 
 //	public abstract double getMyWeight();
 
-	public abstract void setMyWeight(double myWeight);
+//	public abstract void setMyWeight(double myWeight);
 
 	public abstract String getRegex();
 

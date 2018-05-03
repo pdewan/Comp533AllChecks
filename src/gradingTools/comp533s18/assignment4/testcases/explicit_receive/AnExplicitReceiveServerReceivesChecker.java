@@ -12,7 +12,7 @@ public class AnExplicitReceiveServerReceivesChecker extends ASubstringSequenceCh
 		 "Received message:.*Client2"
 	};
 	public AnExplicitReceiveServerReceivesChecker() {
-		init( MY_SUBSTRINGS, 0.0);
+		init( MY_SUBSTRINGS);
 	}
 	
 
