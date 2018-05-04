@@ -9,12 +9,15 @@ import org.junit.Test;
 import util.annotations.Comp533Tags;
 import util.annotations.MaxValue;
 
-@MaxValue(5)
-public class AnOutputBinaryLongSerializerTest extends AnOutputTextualSerializerTest{
+@MaxValue(35)
+public class AnOutputTextualBeanSerializerTest extends AnOutputTextualSerializerTest{
 	@Override
 	protected SubstringSequenceChecker checker() {
 		 
-		return new ASerializationTraceChecker(taggedClass(), "HeapByteBuffer", "5" );
+		return new ASerializationTraceChecker(taggedClass(), 
+				"2.0.*75.0.*18.75.*true", 
+				"examples.serialization.AnotherBMISpreadsheet.*\\(2.0,75.0,18.75,true\\)" 
+				);
 	}
 //	@Override
 //	protected boolean doTest() {
@@ -27,7 +30,7 @@ public class AnOutputBinaryLongSerializerTest extends AnOutputTextualSerializerT
 	@Override
 	protected String classTag() {
 		// TODO Auto-generated method stub
-		return Comp533Tags.LONG_SERIALIZER;
+		return Comp533Tags.BEAN_SERIALIZER;
 	}
 	
 

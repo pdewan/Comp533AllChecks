@@ -9,19 +9,12 @@ import org.junit.Test;
 import util.annotations.Comp533Tags;
 import util.annotations.MaxValue;
 
-@MaxValue(25)
-public class AnOutputBinarySimpleRecursiveSerializerTest extends AnOutputTextualSerializerTest{
+@MaxValue(5)
+public class AnOutputTextualDoubleSerializerTest extends AnOutputTextualSerializerTest{
 	@Override
 	protected SubstringSequenceChecker checker() {
 		 
-		return new ASerializationTraceChecker(taggedClass(), "HeapByteBuffer", 
-				"\\[\\(this Collection\\)\\]"
-//				"\\[\\(this Collectin\\)\\]"
-
-
-				//				"namaste"
-//				"Hello world, 3, BLUE, null, .Goodbye world, Hello world., .5=4.0, greeting=ni hao" 
-				);
+		return new ASerializationTraceChecker(taggedClass(), "5.5", "5.5" );
 	}
 //	@Override
 //	protected boolean doTest() {
@@ -34,7 +27,7 @@ public class AnOutputBinarySimpleRecursiveSerializerTest extends AnOutputTextual
 	@Override
 	protected String classTag() {
 		// TODO Auto-generated method stub
-		return Comp533Tags.COLLECTION_SERIALIZER;
+		return Comp533Tags.DOUBLE_SERIALIZER;
 	}
 	
 

@@ -9,13 +9,12 @@ import org.junit.Test;
 import util.annotations.Comp533Tags;
 import util.annotations.MaxValue;
 
-@MaxValue(50)
-public class AnOutputBinaryRecursiveListPatternSerializerTest extends AnOutputTextualSerializerTest{
+@MaxValue(3)
+public class AnOutputTextualFloatSerializerTest extends AnOutputTextualSerializerTest{
 	@Override
 	protected SubstringSequenceChecker checker() {
 		 
-		return new ASerializationTraceChecker(taggedClass(), "HeapByteBuffer", 
-				"examples.serialization.AStringHistory.*\\(James Dean,Joe Doe,Jane Smith,John Smith\\)" );
+		return new ASerializationTraceChecker(taggedClass(), "5.5", "5.5" );
 	}
 //	@Override
 //	protected boolean doTest() {
@@ -28,7 +27,7 @@ public class AnOutputBinaryRecursiveListPatternSerializerTest extends AnOutputTe
 	@Override
 	protected String classTag() {
 		// TODO Auto-generated method stub
-		return Comp533Tags.LIST_PATTERN_SERIALIZER;
+		return Comp533Tags.FLOAT_SERIALIZER;
 	}
 	
 

@@ -10,11 +10,11 @@ import util.annotations.Comp533Tags;
 import util.annotations.MaxValue;
 
 @MaxValue(5)
-public class AnOutputBinaryShortSerializerTest extends AnOutputTextualSerializerTest{
+public class AnOutputTextualHashTableSerializerTest extends AnOutputTextualSerializerTest{
 	@Override
 	protected SubstringSequenceChecker checker() {
 		 
-		return new ASerializationTraceChecker(taggedClass(), "HeapByteBuffer", "5" );
+		return new ASerializationTraceChecker(taggedClass(), "2.0.*ni hao", "5=2.0, greeting=ni hao" );
 	}
 //	@Override
 //	protected boolean doTest() {
@@ -27,7 +27,7 @@ public class AnOutputBinaryShortSerializerTest extends AnOutputTextualSerializer
 	@Override
 	protected String classTag() {
 		// TODO Auto-generated method stub
-		return Comp533Tags.SHORT_SERIALIZER;
+		return Comp533Tags.MAP_SERIALIZER;
 	}
 	
 
