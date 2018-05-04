@@ -14,7 +14,7 @@ public class AnOutputTextualArraySerializerTest extends AnOutputTextualSerialize
 	@Override
 	protected SubstringSequenceChecker checker() {
 		 
-		return new ASerializationTraceChecker(taggedClass(), "Hello World.* Goodbye World.* GREEN", "Hello World, Goodbye World, GREEN" );
+		return new ASerializationTraceChecker(taggedClass(), "Hello World.*Goodbye World.*GREEN", "Hello World, Goodbye World, GREEN" );
 	}
 //	@Override
 //	protected boolean doTest() {
