@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 import org.junit.Assert;
 
@@ -20,14 +21,14 @@ import grader.basics.project.BasicProjectIntrospection;
 import grader.basics.project.CurrentProjectHolder;
 import grader.basics.project.Project;
 import gradingTools.comp533s18.assignment4.testcases.SubstringSequenceChecker;
-import gradingTools.comp533s18.assignment5.ALinesMatcher;
-import gradingTools.comp533s18.assignment5.LinesMatchKind;
-import gradingTools.comp533s18.assignment5.LinesMatcher;
 import gradingTools.comp533s18.assignment5.testcases.output.checks.ASerializationTraceChecker;
 import gradingTools.shared.testcases.FactoryMethodTest;
 import gradingTools.shared.testcases.ProxyTest;
+import gradingTools.shared.testcases.utils.ALinesMatcher;
+import gradingTools.shared.testcases.utils.LinesMatchKind;
+import gradingTools.shared.testcases.utils.LinesMatcher;
 
-public abstract class AnOutputSerializerTest extends FactoryMethodTest {
+public abstract class AnOutputSerializerTest extends ASerializerTest {
 	
 	static AnOutputSerializerTest singleton;
 //	protected SubstringSequenceChecker checker;
@@ -67,9 +68,9 @@ public abstract class AnOutputSerializerTest extends FactoryMethodTest {
 //	protected String classTag;
 
 	protected Map<String, Class> tagToSerializer;
-	protected SerializerFactory serializerFactory;
-	protected Serializer serializer;
-	protected Serializer serializerProxy;
+//	protected SerializerFactory serializerFactory;
+//	protected Serializer serializer;
+//	protected Serializer serializerProxy;
 	protected LinesMatcher linesMatcher;
 
 	
@@ -106,19 +107,19 @@ public abstract class AnOutputSerializerTest extends FactoryMethodTest {
 		return aClass;
 	}
 	
-	protected Object createUsingFactoryMethod() {
-		if (serializer == null ) {
-			serializerFactory = (SerializerFactory) createInstance();
-			serializerFactory = (SerializerFactory) BasicProjectIntrospection.
-					forceCreateProxy(SerializerFactory.class, serializerFactory);
-			serializer = serializerFactory.createSerializer();
-			Assert.assertTrue(serializerFactory + " returned null instance", serializer != null);
-			Assert.assertTrue(serializerFactory + " returned instance of " + ASimpleSerializer.class, !ASimpleSerializer.class.isInstance(serializer));
-			serializerProxy = (Serializer) BasicProjectIntrospection.forceCreateProxy(Serializer.class, serializer); 
-			rootProxy = serializerProxy;
-		}
-		return rootProxy;
-	}
+//	protected Object createUsingFactoryMethod() {
+//		if (serializer == null ) {
+//			serializerFactory = (SerializerFactory) createInstance();
+//			serializerFactory = (SerializerFactory) BasicProjectIntrospection.
+//					forceCreateProxy(SerializerFactory.class, serializerFactory);
+//			serializer = serializerFactory.createSerializer();
+//			Assert.assertTrue(serializerFactory + " returned null instance", serializer != null);
+//			Assert.assertTrue(serializerFactory + " returned instance of " + ASimpleSerializer.class, !ASimpleSerializer.class.isInstance(serializer));
+//			serializerProxy = (Serializer) BasicProjectIntrospection.forceCreateProxy(Serializer.class, serializer); 
+//			rootProxy = serializerProxy;
+//		}
+//		return rootProxy;
+//	}
 	@Override
 	public String getOutput() {
 		
@@ -172,8 +173,10 @@ public abstract class AnOutputSerializerTest extends FactoryMethodTest {
 	@Override
 	protected boolean checkOutput(Object aLocatable) {
 //		boolean aRetVal = checker().check(output);
-		boolean aRetVal = checker().check(linesMatcher, LinesMatchKind.ONE_TIME_LINE, 0);
-		Assert.assertTrue(checker().getRegex() + " not matched in output of TestSerialization", aRetVal);
+		boolean aRetVal = checker().check(linesMatcher, LinesMatchKind.ONE_TIME_LINE, Pattern.DOTALL);
+//		Assert.assertTrue(checker().getRegex() + " not matched in output of TestSerialization", aRetVal);
+		Assert.assertTrue(linesMatcher.getLastUnmatchedRegex() + " not matched in output of TestSerialization", aRetVal);
+
 		return true;
 	}
 	@Override
@@ -191,19 +194,19 @@ public abstract class AnOutputSerializerTest extends FactoryMethodTest {
 	abstract protected String[] proxyClassTags() ;
 
 	
-	@Override
-	protected Class proxyClass() {
-		return SerializerFactory.class;
-	}
-	
+//	@Override
+//	protected Class proxyClass() {
+//		return SerializerFactory.class;
+//	}
+//	
 
 	
-
-	@Override
-	protected void setActual(Object aProxy) {
-		// TODO Auto-generated method stub
-		
-	}
+//
+//	@Override
+//	protected void setActual(Object aProxy) {
+//		// TODO Auto-generated method stub
+//		
+//	}
 
 	
 	

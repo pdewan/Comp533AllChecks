@@ -9,7 +9,7 @@ import org.junit.Test;
 import util.annotations.Comp533Tags;
 import util.annotations.MaxValue;
 
-@MaxValue(15)
+@MaxValue(5)
 public class AnOutputBinaryHashSetSerializerTest extends AnOutputBinarySerializerTest{
 	@Override
 	protected SubstringSequenceChecker checker() {

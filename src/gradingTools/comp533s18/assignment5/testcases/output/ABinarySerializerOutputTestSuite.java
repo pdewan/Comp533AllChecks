@@ -28,26 +28,26 @@ import org.junit.runners.Suite;
 import util.annotations.MaxValue;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-//	AnOutputBinaryIntegerSerializerTest.class,
-//	AnOutputBinaryShortSerializerTest.class,
-//	AnOutputBinaryLongSerializerTest.class,
-//	AnOutputBinaryDoubleSerializerTest.class,
-//	AnOutputBinaryFloatSerializerTest.class,
-//	AnOutputBinaryStringSerializerTest.class,
-//	AnOutputBinaryBooleanSerializerTest.class,
-//	AnOutputBinaryEnumSerializerTest.class,
-//	AnOutputBinaryArraySerializerTest.class,
-//	AnOutputBinaryArrayListSerializerTest.class,
+	AnOutputBinaryIntegerSerializerTest.class,
+	AnOutputBinaryShortSerializerTest.class,
+	AnOutputBinaryLongSerializerTest.class,
+	AnOutputBinaryDoubleSerializerTest.class,
+	AnOutputBinaryFloatSerializerTest.class,
+	AnOutputBinaryStringSerializerTest.class,
+	AnOutputBinaryBooleanSerializerTest.class,
+	AnOutputBinaryEnumSerializerTest.class,
+	AnOutputBinaryArraySerializerTest.class,
+	AnOutputBinaryArrayListSerializerTest.class,
 //	AnOutputBinaryVectorSerializerTest.class,	
-//	AnOutputBinaryHashMapSerializerTest.class,
-//	AnOutputBinaryHashTableSerializerTest.class,
-//	AnOutputBinaryHashSetSerializerTest.class,
-//	AnOutputBinaryNestedSerializerTest.class
-//	AnOutputBinaryRecursiveSerializerTest.class
-//	AnOutputBinaryBeanSerializerTest.class,
+	AnOutputBinaryHashMapSerializerTest.class,
+	AnOutputBinaryHashTableSerializerTest.class,
+	AnOutputBinaryHashSetSerializerTest.class,
+	AnOutputBinaryNestedSerializerTest.class,
+	AnOutputBinaryRecursiveSerializerTest.class,
+	AnOutputBinaryBeanSerializerTest.class,
 
-//	AnOutputBinaryInheritingBeanSerializerTest.class
-//	AnOutputBinaryListPatternSerializerTest.class,
+	AnOutputBinaryInheritingBeanSerializerTest.class,
+	AnOutputBinaryListPatternSerializerTest.class,
 	AnOutputBinarySimpleRecursiveSerializerTest.class,
 
 

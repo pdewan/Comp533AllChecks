@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.emory.mathcs.backport.java.util.Arrays;
-import gradingTools.comp533s18.assignment5.LinesMatchKind;
-import gradingTools.comp533s18.assignment5.LinesMatcher;
+import gradingTools.shared.testcases.utils.LinesMatchKind;
+import gradingTools.shared.testcases.utils.LinesMatcher;
 import scala.Array;
 
 public class ACheckerList implements CheckerList {

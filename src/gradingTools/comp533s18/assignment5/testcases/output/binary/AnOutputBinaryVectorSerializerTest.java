@@ -9,12 +9,12 @@ import org.junit.Test;
 import util.annotations.Comp533Tags;
 import util.annotations.MaxValue;
 
-@MaxValue(10)
+@MaxValue(5)
 public class AnOutputBinaryVectorSerializerTest extends AnOutputBinarySerializerTest{
 	@Override
 	protected SubstringSequenceChecker checker() {
 		 
-		return new ASerializationTraceChecker(taggedClass(), "HeapByteBuffer", "Hello world, 5, BLUE, null" );
+		return new ASerializationTraceChecker(taggedClass(), "HeapByteBuffer", "Hello world 5, BLUE, null" );
 	}
 //	@Override
 //	protected boolean doTest() {

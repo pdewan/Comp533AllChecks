@@ -126,6 +126,12 @@ public class Assignment4Requirements extends AJUnitProjectRequirements {
 				aClient2TaggedTestCase);
 		
 	}
+	protected int regularOutputCredit() {
+		return 5;
+	}
+	protected int specialOutputCredit() {
+		return 30;
+	}
 	public DistributedCounterProgramRunningTestCase addGroupedCounterExperimentFetaures(
 			String anExperimentName,
 			String aServerTag, 
@@ -161,7 +167,7 @@ public class Assignment4Requirements extends AJUnitProjectRequirements {
 //						anExplicitReceiveServerTagged,
 //						anExplicitReceiveClient1Tagged,
 //						anExplicitReceiveClient2Tagged);
-		addFeature(anExperimentName + " Regular Output (S, C1, C2)", 15, 
+		addFeature(anExperimentName + " Regular Output (S, C1, C2)", regularOutputCredit(), 
 				anExplicitReceiveProgramRunningTestCase,
 				new AStringCheckBasedDependentTestCase(
 						"Regular Client 1 Output",
@@ -199,17 +205,17 @@ public class Assignment4Requirements extends AJUnitProjectRequirements {
 		if (aClientChecker != null && aServerChecker != null) {		
 			
 			
-			addFeature(anExperimentName + " Special Output (S, C1, C2)", 30,
+			addFeature(anExperimentName + " Special Output (S, C1, C2)", specialOutputCredit(),
 					aServerTestCase,
 					aClient1TestCase,
 					aClient2TestCase);
 		} else if (aServerChecker != null) {
-			addFeature(anExperimentName + " Special Output (S)", 15,
+			addFeature(anExperimentName + " Special Output (S)", specialOutputCredit(),
 					aServerTestCase,
 					aClient1TestCase,
 					aClient2TestCase);
 		} else if (aClientChecker != null) {
-			addFeature(anExperimentName + " Special Output (C1, C2)", 30,
+			addFeature(anExperimentName + " Special Output (C1, C2)", specialOutputCredit(),
 					aClient1TestCase,
 					aClient2TestCase);
 		}

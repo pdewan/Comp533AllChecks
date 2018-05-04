@@ -5,10 +5,15 @@ import grader.basics.execution.BasicRunningProject;
 import grader.basics.project.BasicProjectIntrospection;
 import grader.trace.GraderTraceUtility;
 import grader.trace.comp533.Comp533TraceUtility;
+import gradingTools.comp533s18.assignment1.testcases.SingleClassTagListTestCase;
 import gradingTools.comp533s18.assignment4.Assignment4Requirements;
+import gradingTools.comp533s18.assignment4.testcases.ARegularCounterServerChecker;
+import gradingTools.comp533s18.assignment4.testcases.DistributedCounterProgramRunningTestCase;
+import gradingTools.comp533s18.assignment4.testcases.SubstringSequenceChecker;
 import gradingTools.comp533s18.assignment5.testcases.ARegularSerializerPoolChecker;
 import gradingTools.comp533s18.assignment5.testcases.ASerializerPoolChecker;
 import gradingTools.comp533s18.assignment5.testcases.output.ABinarySerializerOutputTestSuite;
+import gradingTools.comp533s18.assignment5.testcases.output.ATextualSerializerOutputTestSuite;
 import util.annotations.Comp533Tags;
 
 public class Assignment5Requirements extends Assignment4Requirements  {
@@ -28,6 +33,12 @@ public class Assignment5Requirements extends Assignment4Requirements  {
 //				aClient2TaggedTestCase);
 //		
 //	}
+	protected int regularOutputCredit() {
+		return 5;
+	}
+	protected int specialOutputCredit() {
+		return 50;
+	}
 	@Override
 	public void init() {
 		Comp533TraceUtility.setTurnOn(true);
@@ -36,23 +47,25 @@ public class Assignment5Requirements extends Assignment4Requirements  {
 		GraderTraceUtility.setTracing();
 		BasicRunningProject.setEchoOutput(false);
     	addJUnitTestSuite(ABinarySerializerOutputTestSuite.class);
-    	BasicProjectExecution.setMethodTimeOut(20000);
-    	BasicProjectExecution.setConstructorTimeOut(20000);
+    	addJUnitTestSuite(ATextualSerializerOutputTestSuite.class);
+
+    	BasicProjectExecution.setMethodTimeOut(5000);
+    	BasicProjectExecution.setConstructorTimeOut(5000);
 //    	BasicProjectExecution.setUseMethodAndConstructorTimeOut(false);
 
 		
 		BasicProjectIntrospection.setCheckAllSpecifiedTags(true);
 		
-//		addGroupedCounterExperimentFetaures(
-//				"Counter: Custom Serialization", 				
-//				Comp533Tags.CUSTOM_SERIALIZER_SERVER, 
-//				Comp533Tags.CUSTOM_SERIALIZER_CLIENT1,
-//				Comp533Tags.CUSTOM_SERIALIZER_CLIENT2,
-//				new ASerializerPoolChecker(),
-//				new ASerializerPoolChecker(),
-//				new ARegularSerializerPoolChecker(),
-//				new ARegularSerializerPoolChecker()
-//				);
+		addGroupedCounterExperimentFetaures(
+				"Counter: Custom Serialization", 				
+				Comp533Tags.CUSTOM_SERIALIZER_SERVER, 
+				Comp533Tags.CUSTOM_SERIALIZER_CLIENT1,
+				Comp533Tags.CUSTOM_SERIALIZER_CLIENT2,
+				new ASerializerPoolChecker(),
+				new ASerializerPoolChecker(),
+				new ARegularSerializerPoolChecker(),
+				new ARegularSerializerPoolChecker()
+				);
 		
 	}
 }

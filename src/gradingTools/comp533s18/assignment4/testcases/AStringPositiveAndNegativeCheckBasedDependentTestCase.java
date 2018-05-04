@@ -24,6 +24,7 @@ import gradingTools.comp110.assignment4.Assignment4Requirements;
 import gradingTools.comp533s18.assignment1.testcases.SingleClassTagListTestCase;
 import gradingTools.comp533s18.assignment3.testcases.StaticArgumentsTestCase;
 import gradingTools.shared.testcases.utils.ABufferingTestInputGenerator;
+import gradingTools.shared.testcases.utils.LinesMatchKind;
 import gradingTools.utils.RunningProjectUtils;
 import util.annotations.Comp533Tags;
 import util.annotations.Group;
@@ -52,9 +53,10 @@ public class AStringPositiveAndNegativeCheckBasedDependentTestCase extends AStri
 		if (!aSuperResult.isPass() || negativeChecker == null) {
 			return aSuperResult;
 		}
-		boolean aCheckVal = negativeChecker.check(programmingRunOutput);
+//		boolean aCheckVal = negativeChecker.check(programmingRunOutput);
+		boolean aCheckVal = negativeChecker.check(linesMatcher, LinesMatchKind.ONE_TIME_LINE, Pattern.DOTALL);
 		if (aCheckVal) {
-			fail(processName + " Output matched:" + negativeChecker.getRegex());
+			fail(processName + " Output matched:" + linesMatcher.getLastUnmatchedRegex());
 		}
 		return pass();		
 	

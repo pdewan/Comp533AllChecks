@@ -6,10 +6,10 @@ import gradingTools.comp533s18.assignment4.testcases.DistributedCounterProgramRu
 public class ABlockingRPCClientReceivesChecker extends ASubstringSequenceChecker{
 	//make sure receives from both clients take place, need to ensure alternatibg, cannot with regular expressions
 	public  final String[] MY_SUBSTRINGS = {
-			"I\\*\\*\\*." +  "main..ProxyMethodCalled",
-			"I\\*\\*\\*." +  "main..ReceivedMessageDequeued.*AnRPCReturnValue",
-			"I\\*\\*\\*." + "main..ProxyMethodCalled",
-			"I\\*\\*\\*." + "main..ReceivedMessageDequeued.*AnRPCReturnValue"
+			"I\\*\\*\\*." +  "main..ProxyMethodCalled.*",
+			"I\\*\\*\\*." +  "main..ReceivedMessageDequeued.*AnRPCReturnValue.*",
+			"I\\*\\*\\*." + "main..ProxyMethodCalled.*",
+			"I\\*\\*\\*." + "main..ReceivedMessageDequeued.*AnRPCReturnValue.*"
 		
 	};
 	public ABlockingRPCClientReceivesChecker() {

@@ -2,10 +2,13 @@ package gradingTools.comp533s18.assignment4.testcases;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeoutException;
 import java.util.regex.Pattern;
 
+import org.codehaus.jackson.format.MatchStrength;
 import org.junit.Test;
 
 import framework.grading.testing.BasicTestCase;
@@ -23,6 +26,9 @@ import gradingTools.comp110.assignment4.Assignment4Requirements;
 import gradingTools.comp533s18.assignment1.testcases.SingleClassTagListTestCase;
 import gradingTools.comp533s18.assignment3.testcases.StaticArgumentsTestCase;
 import gradingTools.shared.testcases.utils.ABufferingTestInputGenerator;
+import gradingTools.shared.testcases.utils.ALinesMatcher;
+import gradingTools.shared.testcases.utils.LinesMatchKind;
+import gradingTools.shared.testcases.utils.LinesMatcher;
 import gradingTools.utils.RunningProjectUtils;
 import util.annotations.Comp533Tags;
 import util.annotations.Group;
@@ -42,6 +48,12 @@ public class AStringCheckBasedDependentTestCase extends BasicTestCase {
 	protected BasicTestCase outputGeneratingTestCase;
 	protected ABufferingTestInputGenerator outputBasedInputGenerator = new DistributedCounterTestInputGenerator();
 	protected RunningProject interactiveInputProject;
+	protected LinesMatcher linesMatcher;
+	protected StringBuffer programmingRunOutput;
+//	protected List<String> programmingRunOutputLinesList;
+	
+
+
 	protected String processName;
 	protected boolean checkTrue = true;
 	
@@ -60,6 +72,8 @@ public class AStringCheckBasedDependentTestCase extends BasicTestCase {
 		super (aCheckName);	
 		init(aProcessName, aChecker, aCheckTrue, anOutputGeneratingTestcase);
 	}
+	
+
 	public void init (String aProcessName,
 			SubstringSequenceChecker aChecker,
 			boolean aCheckTrue,
@@ -72,7 +86,7 @@ public class AStringCheckBasedDependentTestCase extends BasicTestCase {
 
 	
 	
-	protected StringBuffer programmingRunOutput;
+	
 
 	@Override
 	public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException,
@@ -84,6 +98,9 @@ public class AStringCheckBasedDependentTestCase extends BasicTestCase {
 //			RunningProject noInputRunningProject = RunningProjectUtils.runProject(project, 1);
 //			ExclicitReceiveTestInputGenerator anOutputBasedInputGenerator = 
 //					new ExclicitReceiveTestInputGenerator();
+			if (!outputGeneratingTestCase.getLastResult().isPass()) {
+				return fail("Did not pass regular output test");
+			}
 			outputBasedInputGenerator = outputGeneratingTestCase.getOutputBasedInputGenerator();
 			 interactiveInputProject = outputGeneratingTestCase.getInteractiveInputProject();
 
@@ -93,13 +110,26 @@ public class AStringCheckBasedDependentTestCase extends BasicTestCase {
 //			
 			programmingRunOutput = 
 					interactiveInputProject.getProcessOutput().get(processName);
+//			programmingRunOutputLinesList =
+//					interactiveInputProject.getProcessOutputLines().get(processName);
+			linesMatcher = 
+					interactiveInputProject.getProcessLineMatcher().get(processName);
+			
+			if (checker == null) {
+				return pass();
+			}
+			
 //			ARegularCounterServerChecker aServerChecker = new ARegularCounterServerChecker(1.0);
 			
-			boolean aCheckVal = checker.check(programmingRunOutput);
+//			boolean aCheckVal = checker.check(programmingRunOutput);
+			boolean aCheckVal = checker.check(linesMatcher, LinesMatchKind.ONE_TIME_LINE, Pattern.DOTALL);
+		
 			boolean aRetVal = checkTrue&&aCheckVal || !checkTrue&&!aCheckVal;
 			if (!aRetVal && checkTrue) {
 //				return fail(processName + " Output Did not match:" + Arrays.toString(checker.getSubstrings()));
-				return fail(processName + " Output Did not match:" + checker.getRegex());
+//				return fail(processName + " Output Did not match:" + checker.getRegex());
+				return fail(processName + " Output Did not match:" + linesMatcher.getLastUnmatchedRegex());
+
 
 			} 
 			if (!aRetVal && !checkTrue) {

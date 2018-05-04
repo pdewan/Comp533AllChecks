@@ -16,6 +16,8 @@ public class AnOutputBinarySimpleRecursiveSerializerTest extends AnOutputBinaryS
 		 
 		return new ASerializationTraceChecker(taggedClass(), "HeapByteBuffer", 
 				"\\[\\(this Collection\\)\\]"
+//				"\\[\\(this Collectin\\)\\]"
+
 
 				//				"namaste"
 //				"Hello world, 3, BLUE, null, .Goodbye world, Hello world., .5=4.0, greeting=ni hao" 

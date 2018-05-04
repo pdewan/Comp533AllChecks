@@ -14,7 +14,7 @@ public class AnOutputBinaryLongSerializerTest extends AnOutputBinarySerializerTe
 	@Override
 	protected SubstringSequenceChecker checker() {
 		 
-		return new ASerializationTraceChecker(taggedClass(), "HeapByteBuffer", "5" );
+		return new ASerializationTraceChecker(taggedClass(), "5", "5" );
 	}
 //	@Override
 //	protected boolean doTest() {

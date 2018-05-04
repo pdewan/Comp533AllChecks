@@ -7,6 +7,7 @@ import java.util.concurrent.TimeoutException;
 import java.util.regex.Pattern;
 
 import org.apache.velocity.runtime.directive.InputBase;
+import org.codehaus.jackson.format.MatchStrength;
 import org.junit.Test;
 
 import framework.grading.testing.BasicTestCase;
@@ -24,6 +25,8 @@ import gradingTools.comp110.assignment4.Assignment4Requirements;
 import gradingTools.comp533s18.assignment1.testcases.SingleClassTagListTestCase;
 import gradingTools.comp533s18.assignment3.testcases.StaticArgumentsTestCase;
 import gradingTools.shared.testcases.utils.ABufferingTestInputGenerator;
+import gradingTools.shared.testcases.utils.LinesMatchKind;
+import gradingTools.shared.testcases.utils.LinesMatcher;
 import gradingTools.utils.RunningProjectUtils;
 import util.annotations.Comp533Tags;
 import util.annotations.Group;
@@ -106,9 +109,12 @@ public class DistributedCounterProgramRunningTestCase extends BasicTestCase {
 				
 			}
 			StringBuffer aServerOutput = interactiveInputProject.getProcessOutput().get(SERVER_NAME);
+			LinesMatcher aLinesMatcher = interactiveInputProject.getProcessLineMatcher().get(SERVER_NAME);
+			
 //			ARegularCounterServerChecker aServerChecker = new ARegularCounterServerChecker(1.0);
 			
-			boolean aRetval = stringChecker.check(aServerOutput);
+//			boolean aRetval = stringChecker.check(aServerOutput);
+			boolean aRetval = stringChecker.check(aLinesMatcher, LinesMatchKind.ONE_TIME_LINE, Pattern.DOTALL);
 			if (!aRetval) {
 //				return fail("Server output did not match:" + Arrays.toString(stringChecker.getSubstrings()));
 				return fail("Server output did not match:" + stringChecker.getRegex());

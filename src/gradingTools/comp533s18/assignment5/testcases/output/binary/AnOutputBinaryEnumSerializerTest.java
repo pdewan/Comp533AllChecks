@@ -14,7 +14,7 @@ public class AnOutputBinaryEnumSerializerTest extends AnOutputBinarySerializerTe
 	@Override
 	protected SubstringSequenceChecker checker() {
 		 
-		return new ASerializationTraceChecker(taggedClass(), "HeapByteBuffer", "hello world" );
+		return new ASerializationTraceChecker(taggedClass(), "HeapByteBuffer", "RED" );
 	}
 //	@Override
 //	protected boolean doTest() {
@@ -27,7 +27,7 @@ public class AnOutputBinaryEnumSerializerTest extends AnOutputBinarySerializerTe
 	@Override
 	protected String classTag() {
 		// TODO Auto-generated method stub
-		return Comp533Tags.STRING_SERIALIZER;
+		return Comp533Tags.ENUM_SERIALIZER;
 	}
 	
 

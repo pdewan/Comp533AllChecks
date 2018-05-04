@@ -14,7 +14,7 @@ public class AnOutputBinaryStringSerializerTest extends AnOutputBinarySerializer
 	@Override
 	protected SubstringSequenceChecker checker() {
 		 
-		return new ASerializationTraceChecker(taggedClass(), "HeapByteBuffer", "true" );
+		return new ASerializationTraceChecker(taggedClass(), "HeapByteBuffer", "hello world" );
 	}
 //	@Override
 //	protected boolean doTest() {
@@ -27,7 +27,7 @@ public class AnOutputBinaryStringSerializerTest extends AnOutputBinarySerializer
 	@Override
 	protected String classTag() {
 		// TODO Auto-generated method stub
-		return Comp533Tags.BOOLEAN_SERIALIZER;
+		return Comp533Tags.STRING_SERIALIZER;
 	}
 	
 

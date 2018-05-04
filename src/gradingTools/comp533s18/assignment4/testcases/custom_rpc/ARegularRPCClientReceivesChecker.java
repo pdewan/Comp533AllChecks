@@ -8,7 +8,7 @@ public class ARegularRPCClientReceivesChecker extends ASubstringSequenceChecker{
 	//make sure receives from both clients take place, need to ensure alternatibg, cannot with regular expressions
 	public  final String[] MY_SUBSTRINGS = {
 //		"(Asynchronous Received Call Invoker|Selecting Thread)..ReceivedMessageDequeued",
-			"I\\*\\*\\*.*" + "Selecting Thread..ReceivedReturnValueQueued"		
+			"I\\*\\*\\*.*" + "Selecting Thread..ReceivedReturnValueQueued.*"		
 	};
 	public ARegularRPCClientReceivesChecker() {
 		init( MY_SUBSTRINGS);

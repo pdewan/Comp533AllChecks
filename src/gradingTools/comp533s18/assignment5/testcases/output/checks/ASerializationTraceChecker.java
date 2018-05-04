@@ -12,7 +12,7 @@ public class ASerializationTraceChecker extends ASubstringSequenceChecker{
 //				"Serializing " + aStringRepresentation ,
 
 //				"ExtensibleValueSerializationInitiated",
-				"I\\*\\*\\*.*" + aClassName + ".*" +aBinaryOrText +".*",
+//				"I\\*\\*\\*.*" + aClassName + ".*" +aBinaryOrText +".*",
 //				aStringRepresentation,
 //				"ExtensibleValueSerializationFinished",
 //				aClassName,
@@ -23,6 +23,8 @@ public class ASerializationTraceChecker extends ASubstringSequenceChecker{
 //				"HeapByteBuffer",
 //				aStringRepresentation,
 //				"ExtensibleBufferDeserializationFinished",
+				"I\\*\\*\\*.*ExtensibleBufferDeserializationFinished.*" + aClassName + ".*" +aBinaryOrText +".*",
+
 //				aClassName,
 //				"HeapByteBuffer",
 //				aStringRepresentation,
