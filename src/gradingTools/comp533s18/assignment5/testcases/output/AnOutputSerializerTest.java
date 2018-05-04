@@ -144,7 +144,9 @@ public abstract class AnOutputSerializerTest extends ASerializerTest {
 //		serializerProxy = (Serializer) BasicProjectIntrospection.forceCreateProxy(Serializer.class, serializer); 
 //		SerializerSelector.setSerializerFactory(aSerializerFactory);
 		BasicProjectExecution.redirectOutput();
-		SerializationTester.testSerialization(serializerProxy);		
+//		SerializationTester.testSerialization(serializerProxy);	
+		SerializationTester.testSerialization();		
+
 		output = BasicProjectExecution.restoreAndGetOut();
 		BasicProjectIntrospection.putUserObject(anOutputKey, output);
 		ExtensibleSerializationTraceUtility.setTracing(false);

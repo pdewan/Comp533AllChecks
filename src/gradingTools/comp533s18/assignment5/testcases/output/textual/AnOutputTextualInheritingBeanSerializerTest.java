@@ -9,7 +9,7 @@ import org.junit.Test;
 import util.annotations.Comp533Tags;
 import util.annotations.MaxValue;
 
-@MaxValue(30)
+@MaxValue(15)
 public class AnOutputTextualInheritingBeanSerializerTest extends AnOutputTextualSerializerTest{
 	@Override
 	protected SubstringSequenceChecker checker() {
