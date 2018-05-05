@@ -50,6 +50,8 @@ public abstract class AnEqualsSerializerTest extends ASerializerTest {
 		ExtensibleSerializationTraceUtility.setTracing();
 		boolean prevBufferTracedMessages = Tracer.isBufferTracedMessages();
 		createUsingFactoryMethod();
+		Tracer.setBufferTracedMessages(false);
+
 		deserializedObject = SerializationTester.translate(serializerProxy,originalObject);
 		Tracer.setBufferTracedMessages(prevBufferTracedMessages);
 

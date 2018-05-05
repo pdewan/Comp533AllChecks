@@ -9,8 +9,8 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Set;
 
-public class ProgrammerDefinedCollection<E> implements List<E> {
-	protected List<E> delegate = new LinkedList<E>();
+public class ProgrammerDefinedCollection<E> implements Set<E> {
+	protected Set<E> delegate = new HashSet<E>();
 
 //	public default void forEach(Consumer<? super E> action) {
 //		delegate.forEach(action);
@@ -56,9 +56,6 @@ public class ProgrammerDefinedCollection<E> implements List<E> {
 		return delegate.addAll(c);
 	}
 
-	public boolean addAll(int index, Collection<? extends E> c) {
-		return delegate.addAll(index, c);
-	}
 
 	public boolean removeAll(Collection<?> c) {
 		return delegate.removeAll(c);
@@ -92,49 +89,14 @@ public class ProgrammerDefinedCollection<E> implements List<E> {
 		return delegate.hashCode();
 	}
 
-	public E get(int index) {
-		return delegate.get(index);
-	}
-
-	public E set(int index, E element) {
-		return delegate.set(index, element);
-	}
-
-	public void add(int index, E element) {
-		delegate.add(index, element);
-	}
-
-//	public default Stream<E> stream() {
-//		return delegate.stream();
-//	}
-
-	public E remove(int index) {
-		return delegate.remove(index);
-	}
-
+	
+	
 //	public default Stream<E> parallelStream() {
 //		return delegate.parallelStream();
 //	}
 
-	public int indexOf(Object o) {
-		return delegate.indexOf(o);
-	}
 
-	public int lastIndexOf(Object o) {
-		return delegate.lastIndexOf(o);
-	}
 
-	public ListIterator<E> listIterator() {
-		return delegate.listIterator();
-	}
-
-	public ListIterator<E> listIterator(int index) {
-		return delegate.listIterator(index);
-	}
-
-	public List<E> subList(int fromIndex, int toIndex) {
-		return delegate.subList(fromIndex, toIndex);
-	}
 	@Override
 	public String toString() {
 		return delegate.toString();
@@ -144,8 +106,8 @@ public class ProgrammerDefinedCollection<E> implements List<E> {
 //		return delegate.equals(o);
 //	}
 	
-	public static List createFilledInstance() {
-		List aList = new ProgrammerDefinedCollection<>();
+	public static Set createFilledInstance() {
+		Set aList = new ProgrammerDefinedCollection<>();
 		aList.add("leaf1");
 		Set<String> aSet = new HashSet();
 		aList.add(new HashMap());
