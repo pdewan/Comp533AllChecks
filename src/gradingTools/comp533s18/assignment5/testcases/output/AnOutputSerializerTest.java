@@ -103,7 +103,7 @@ public abstract class AnOutputSerializerTest extends ASerializerTest {
 		String aTag = classTag();
 		tagToSerializer = getTagToSerializer();
 		Class aClass = tagToSerializer.get(aTag);
-		assertTrue("Unique class not found for tag " + aTag, aClass != null);
+		assertTrue("Unique class not found for tag " + aTag + ". Either zero or multiple classes found for the tag.", aClass != null);
 		return aClass;
 	}
 	
@@ -144,8 +144,8 @@ public abstract class AnOutputSerializerTest extends ASerializerTest {
 //		serializerProxy = (Serializer) BasicProjectIntrospection.forceCreateProxy(Serializer.class, serializer); 
 //		SerializerSelector.setSerializerFactory(aSerializerFactory);
 		BasicProjectExecution.redirectOutput();
-//		SerializationTester.testSerialization(serializerProxy);	
-		SerializationTester.testSerialization();		
+		SerializationTester.testSerialization(serializerProxy);	
+//		SerializationTester.testSerialization();		
 
 		output = BasicProjectExecution.restoreAndGetOut();
 		BasicProjectIntrospection.putUserObject(anOutputKey, output);

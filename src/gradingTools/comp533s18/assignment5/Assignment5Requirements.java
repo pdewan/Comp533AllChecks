@@ -49,8 +49,8 @@ public class Assignment5Requirements extends Assignment4Requirements  {
     	addJUnitTestSuite(ABinarySerializerOutputTestSuite.class);
     	addJUnitTestSuite(ATextualSerializerOutputTestSuite.class);
 
-    	BasicProjectExecution.setMethodTimeOut(5000);
-    	BasicProjectExecution.setConstructorTimeOut(5000);
+    	BasicProjectExecution.setMethodTimeOut(100);
+    	BasicProjectExecution.setConstructorTimeOut(100);
 //    	BasicProjectExecution.setUseMethodAndConstructorTimeOut(false);
 
 		
