@@ -1,4 +1,4 @@
-package gradingTools.comp533s18.assignment5.testcases.output;
+package gradingTools.comp533s18.assignment5.testcases;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -50,8 +50,8 @@ public abstract class ASerializerTest extends FactoryMethodTest {
 //		checker = checker();
 		
 	}
-	protected abstract SubstringSequenceChecker checker();
-	protected abstract String classTag();
+//	protected abstract SubstringSequenceChecker checker();
+//	protected abstract String classTag();
 	
 	
 	

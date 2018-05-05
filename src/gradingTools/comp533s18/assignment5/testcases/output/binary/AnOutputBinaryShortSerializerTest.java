@@ -1,6 +1,7 @@
 package gradingTools.comp533s18.assignment5.testcases.output.binary;
 
 import gradingTools.comp533s18.assignment4.testcases.SubstringSequenceChecker;
+import gradingTools.comp533s18.assignment5.testcases.output.AnOutputBinarySerializerTest;
 import gradingTools.comp533s18.assignment5.testcases.output.checks.ASerializationTraceChecker;
 
 import org.junit.Assert;

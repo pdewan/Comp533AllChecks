@@ -1,6 +1,7 @@
 package gradingTools.comp533s18.assignment5.testcases.output.textual;
 
 import gradingTools.comp533s18.assignment4.testcases.SubstringSequenceChecker;
+import gradingTools.comp533s18.assignment5.testcases.output.AnOutputTextualSerializerTest;
 import gradingTools.comp533s18.assignment5.testcases.output.checks.ASerializationTraceChecker;
 
 import org.junit.Assert;
@@ -14,7 +15,7 @@ public class AnOutputTextualHashSetSerializerTest extends AnOutputTextualSeriali
 	@Override
 	protected SubstringSequenceChecker checker() {
 		 
-		return new ASerializationTraceChecker(taggedClass(), "Goodbye world.*Hello world", "Goodbye world, Hello world" );
+		return new ASerializationTraceChecker(taggedClass(), ".* world.*world", ".* world, .* world" );
 	}
 //	@Override
 //	protected boolean doTest() {

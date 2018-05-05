@@ -1,6 +1,5 @@
-package gradingTools.comp533s18.assignment5.testcases.output.textual;
+package gradingTools.comp533s18.assignment5.testcases.output;
 
-import gradingTools.comp533s18.assignment5.testcases.output.AnOutputSerializerTest;
 import util.annotations.Comp533Tags;
 
 public abstract class AnOutputTextualSerializerTest extends AnOutputSerializerTest {

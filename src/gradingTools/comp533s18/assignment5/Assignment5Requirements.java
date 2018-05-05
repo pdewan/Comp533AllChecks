@@ -12,6 +12,7 @@ import gradingTools.comp533s18.assignment4.testcases.DistributedCounterProgramRu
 import gradingTools.comp533s18.assignment4.testcases.SubstringSequenceChecker;
 import gradingTools.comp533s18.assignment5.testcases.ARegularSerializerPoolChecker;
 import gradingTools.comp533s18.assignment5.testcases.ASerializerPoolChecker;
+import gradingTools.comp533s18.assignment5.testcases.equals.ABinarySerializerEqualsTestSuite;
 import gradingTools.comp533s18.assignment5.testcases.output.ABinarySerializerOutputTestSuite;
 import gradingTools.comp533s18.assignment5.testcases.output.ATextualSerializerOutputTestSuite;
 import util.annotations.Comp533Tags;
@@ -48,6 +49,8 @@ public class Assignment5Requirements extends Assignment4Requirements  {
 		BasicRunningProject.setEchoOutput(false);
     	addJUnitTestSuite(ABinarySerializerOutputTestSuite.class);
     	addJUnitTestSuite(ATextualSerializerOutputTestSuite.class);
+    	addJUnitTestSuite(ABinarySerializerEqualsTestSuite.class);
+
 
     	BasicProjectExecution.setMethodTimeOut(100);
     	BasicProjectExecution.setConstructorTimeOut(100);

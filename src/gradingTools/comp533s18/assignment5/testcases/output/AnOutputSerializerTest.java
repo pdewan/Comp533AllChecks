@@ -21,6 +21,7 @@ import grader.basics.project.BasicProjectIntrospection;
 import grader.basics.project.CurrentProjectHolder;
 import grader.basics.project.Project;
 import gradingTools.comp533s18.assignment4.testcases.SubstringSequenceChecker;
+import gradingTools.comp533s18.assignment5.testcases.ASerializerTest;
 import gradingTools.comp533s18.assignment5.testcases.output.checks.ASerializationTraceChecker;
 import gradingTools.shared.testcases.FactoryMethodTest;
 import gradingTools.shared.testcases.ProxyTest;
@@ -123,7 +124,9 @@ public abstract class AnOutputSerializerTest extends ASerializerTest {
 	@Override
 	public String getOutput() {
 		
-		String anOutputKey = Arrays.toString(proxyClassTags());
+		String anOutputKey = Arrays.toString(proxyClassTags()).replaceAll(" *", "").toLowerCase();
+//		String anOutputKey = proxyClassTags()[0];
+
 		String anOutputLinesKey = anOutputKey + "Lines";
 		String anOutputLinesMatcherKey = anOutputKey + "LinesMatcher";
 		output = (String) BasicProjectIntrospection.getUserObject(anOutputKey);

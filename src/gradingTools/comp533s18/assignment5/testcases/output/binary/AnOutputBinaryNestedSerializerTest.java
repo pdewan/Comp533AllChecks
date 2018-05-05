@@ -1,6 +1,7 @@
 package gradingTools.comp533s18.assignment5.testcases.output.binary;
 
 import gradingTools.comp533s18.assignment4.testcases.SubstringSequenceChecker;
+import gradingTools.comp533s18.assignment5.testcases.output.AnOutputBinarySerializerTest;
 import gradingTools.comp533s18.assignment5.testcases.output.checks.ASerializationTraceChecker;
 
 import org.junit.Assert;
@@ -15,7 +16,7 @@ public class AnOutputBinaryNestedSerializerTest extends AnOutputBinarySerializer
 	protected SubstringSequenceChecker checker() {
 		 
 		return new ASerializationTraceChecker(taggedClass(), "HeapByteBuffer", 
-				"Hello world, 5, BLUE, null, \\[Goodbye world, Hello world\\], \\{5=2.0, greeting=namaste\\}"
+				"Hello world, 5, BLUE, null, \\[.* world, .* world\\], \\{.*greeting=namaste.*\\}"
 //				"namaste"
 //				"Hello world, 3, BLUE, null, .Goodbye world, Hello world., .5=4.0, greeting=ni hao" 
 				);
