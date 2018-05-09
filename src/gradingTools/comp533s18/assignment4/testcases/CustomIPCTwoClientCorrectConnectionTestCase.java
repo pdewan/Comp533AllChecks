@@ -112,7 +112,7 @@ public class CustomIPCTwoClientCorrectConnectionTestCase extends BasicTestCase {
 		ExecutionSpecificationSelector.getExecutionSpecification().setTerminatingProcesses("RegistryBasedDistributedProgram", Arrays.asList("Client_0", "Client_1"));
 		ExecutionSpecificationSelector.getExecutionSpecification().setProcesses("RegistryBasedDistributedProgram", Arrays.asList("Registry", "Server", "Client_0", "Client_1"));
 		ExecutionSpecificationSelector.getExecutionSpecification().setEntryTags("Registry", Arrays.asList("Registry"));
-		ExecutionSpecificationSelector.getExecutionSpecification().setEntryTags("Server", Arrays.asList(Comp533Tags.CUSTOM_IPC));
+		ExecutionSpecificationSelector.getExecutionSpecification().setEntryTags("Server", Arrays.asList(DistributedTags.SERVER, Comp533Tags.CUSTOM_IPC));
 		ExecutionSpecificationSelector.getExecutionSpecification().setEntryTags("Client_0", Arrays.asList("Client", DistributedTags.CLIENT, Comp533Tags.CUSTOM_IPC));
 		ExecutionSpecificationSelector.getExecutionSpecification().setEntryTags("Client_1", Arrays.asList("Client", DistributedTags.CLIENT, Comp533Tags.CUSTOM_IPC ));
 		ExecutionSpecificationSelector.getExecutionSpecification().setArgs("Registry", StaticArgumentsTestCase.TEST_REGISTRY_ARGS);

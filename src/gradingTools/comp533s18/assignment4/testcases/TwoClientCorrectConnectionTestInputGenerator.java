@@ -56,7 +56,7 @@ public class TwoClientCorrectConnectionTestInputGenerator extends AnAbstractInpu
 	private boolean quitSubmitted = false;
 
 	private static final Pattern[] serverNIOSetupStages = {
-			checkStr(MAIN_THREAD, "SelectorFactorySet"),
+//			checkStr(MAIN_THREAD, "SelectorFactorySet"),
 			checkStr(MAIN_THREAD, "SocketChannelBound"),
 			checkStr(MAIN_THREAD, "ListenableAcceptsEnabled"),
 			checkStr(MAIN_THREAD, "SelectorRequestNextInterestOp"),
@@ -75,7 +75,7 @@ public class TwoClientCorrectConnectionTestInputGenerator extends AnAbstractInpu
 	
 	private static final Pattern[] serverGIPCSetupStages = {
 			checkStr(MAIN_THREAD, "GIPCRegistryCreated"),
-			checkStr(MAIN_THREAD, "SelectorFactorySet"),
+//			checkStr(MAIN_THREAD, "SelectorFactorySet"),
 			checkStr(MAIN_THREAD, "ListenableAcceptsEnabled"),
 			checkStr(MAIN_THREAD, "SelectorRequestNextInterestOp"),
 			checkStr(MAIN_THREAD, "SelectorRequestEnqueued"),
@@ -92,7 +92,7 @@ public class TwoClientCorrectConnectionTestInputGenerator extends AnAbstractInpu
 	
 	// PropertyChangeListener, ReadListener
 	private static final Pattern[] clientNIOConnectStages = {
-			checkStr(MAIN_THREAD, "SelectorFactorySet"),
+//			checkStr(MAIN_THREAD, "SelectorFactorySet"),
 			checkStr(MAIN_THREAD, "SocketChannelConnectRequested"),
 			checkStr(MAIN_THREAD, "SelectorRequestNextInterestOp"),
 			checkStr(MAIN_THREAD, "SelectorRequestEnqueued"),
@@ -116,7 +116,7 @@ public class TwoClientCorrectConnectionTestInputGenerator extends AnAbstractInpu
 	// PropertyChangeListener, ReadListener, WriteListener, GIPCObjectLookedUp
 	private static final Pattern[] clientGIPCConnectStages1 = {
 			checkStr(MAIN_THREAD, "GIPCRegistryLocated"),
-			checkStr(MAIN_THREAD, "SelectorFactorySet"),
+//			checkStr(MAIN_THREAD, "SelectorFactorySet"),
 //			checkStr(MAIN_THREAD, "SelectorFactorySet"),
 			checkStr(MAIN_THREAD, "SocketChannelConnectRequested"),
 			checkStr(MAIN_THREAD, "SelectorRequestNextInterestOp"),
