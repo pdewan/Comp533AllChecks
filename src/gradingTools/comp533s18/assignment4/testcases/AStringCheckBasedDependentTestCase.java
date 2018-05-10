@@ -98,6 +98,12 @@ public class AStringCheckBasedDependentTestCase extends BasicTestCase {
 //			RunningProject noInputRunningProject = RunningProjectUtils.runProject(project, 1);
 //			ExclicitReceiveTestInputGenerator anOutputBasedInputGenerator = 
 //					new ExclicitReceiveTestInputGenerator();
+			if (outputGeneratingTestCase == null) {
+				return fail("Internal error: output generating test case is null");
+			}
+			if (outputGeneratingTestCase.getLastResult() == null) {
+				return fail("Internal error: last result of output generating test case is null");
+			}
 			if (!outputGeneratingTestCase.getLastResult().isPass()) {
 				return fail("Did not pass regular output test");
 			}
@@ -114,6 +120,9 @@ public class AStringCheckBasedDependentTestCase extends BasicTestCase {
 //					interactiveInputProject.getProcessOutputLines().get(processName);
 			linesMatcher = 
 					interactiveInputProject.getProcessLineMatcher().get(processName);
+			if (linesMatcher == null) {
+				return fail ("Internal error: Could not find line matcher for process:" + processName);
+			}
 			
 			if (checker == null) {
 				return pass();

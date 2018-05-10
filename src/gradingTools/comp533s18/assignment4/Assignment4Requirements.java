@@ -280,95 +280,14 @@ public class Assignment4Requirements extends AJUnitProjectRequirements {
 					new ABlockingRPCClientReceivesChecker(),
 					null,
 					null);
-		
+			
 	
-		
-//		SingleClassTagListTestCase anExplicitReceiveServerTagged = new SingleClassTagListTestCase(Comp533Tags.EXPLICIT_RECEIVE_SERVER);
-//		SingleClassTagListTestCase anExplicitReceiveClient1Tagged = new SingleClassTagListTestCase(Comp533Tags.EXPLICIT_RECEIVE_CLIENT1);
-//		SingleClassTagListTestCase anExplicitReceiveClient2Tagged = new SingleClassTagListTestCase(Comp533Tags.EXPLICIT_RECEIVE_CLIENT2);
-//		addFeature("Explicit Receive Server Tagged", 2, anExplicitReceiveServerTagged);
-//		addFeature("Explicit Receive Client1 Tagged", 2, anExplicitReceiveClient1Tagged);
-//		addFeature("Explicit Receive Client2 Tagged", 2, anExplicitReceiveClient2Tagged);
-//		
-//
-//		DistributedCounterProgramRunningTestCase anExplicitReceiveProgramRunningTestCase = 
-//				new DistributedCounterProgramRunningTestCase(
-//						new ARegularCounterServerChecker(),
-//						anExplicitReceiveServerTagged,
-//						anExplicitReceiveClient1Tagged,
-//						anExplicitReceiveClient2Tagged);
-//		addFeature("Explicit Receive Regular Server Output", 5, anExplicitReceiveProgramRunningTestCase);
-//		addFeature("Server Creates Two Receive Queues", 5, 
-//				new AStringCheckBasedDependentTestCase(
-//						DistributedCounterProgramRunningTestCase.SERVER_NAME,
-//						new ARegularCounterServerChecker(),
-//						anExplicitReceiveProgramRunningTestCase )
-//				);
-//		addFeature("Explicit Receive Server Receives", 10, 
-//				new AStringCheckBasedDependentTestCase(
-//						DistributedCounterProgramRunningTestCase.CLIENT_1_NAME,
-//						new ARegularCounterClientChecker(),
-//						anExplicitReceiveProgramRunningTestCase )
-//				);
-//		addFeature("Explicit Receive Regular Client 1 Output", 5, 
-//				new AStringCheckBasedDependentTestCase(
-//						DistributedCounterProgramRunningTestCase.CLIENT_1_NAME,
-//						new ARegularCounterClientChecker(),
-//						anExplicitReceiveProgramRunningTestCase )
-//				);
-//		addFeature("Explicit Receive Client 1 Receives", 10, 
-//				new AStringCheckBasedDependentTestCase(
-//						DistributedCounterProgramRunningTestCase.CLIENT_1_NAME,
-//						new AnExplicitReceiveClientReceivesChecker(),
-//						anExplicitReceiveProgramRunningTestCase )
-//				);
-//		;
-//		addFeature("Explicit Receive Regular Client 2 Output", 5, 
-//				new AStringCheckBasedDependentTestCase(
-//						DistributedCounterProgramRunningTestCase.CLIENT_2_NAME,
-//						new ARegularCounterClientChecker(),
-//						anExplicitReceiveProgramRunningTestCase )
-//				);
-//		addFeature("Explicit Receive Client 2 Receives", 10, 
-//				new AStringCheckBasedDependentTestCase(
-//						DistributedCounterProgramRunningTestCase.CLIENT_1_NAME,
-//						new AnExplicitReceiveClientReceivesChecker(),
-//						anExplicitReceiveProgramRunningTestCase )
-//				);
-				
-		
-	
-
-//		addFeature("Custom RPC Server Tagged", 5, new SingleClassTagListTestCase(Comp533Tags.CUSTOM_RPC_SERVER));
-//		addFeature("Blocking Receive Client1 Tagged", 5, new SingleClassTagListTestCase(Comp533Tags.CUSTOM_RPC_CLIENT1));
-//		addFeature("Blocking Receive Client2 Tagged", 5, new SingleClassTagListTestCase(Comp533Tags.CUSTOM_RPC_CLIENT2));
-//		
-//		addFeature("Blocking RPC Server Tagged", 5, new SingleClassTagListTestCase(Comp533Tags.BLOCKING_RPC_SERVER));
-//		addFeature("Blocking Receive Client1 Tagged", 5, new SingleClassTagListTestCase(Comp533Tags.BLOCKING_RPC_CLIENT1));
-//		addFeature("Blocking Receive Client2 Tagged", 5, new SingleClassTagListTestCase(Comp533Tags.BLOCKING_RPC_CLIENT2));
-
 		addFeature("Simulation Registry Tagged", 2, new SingleClassTagListTestCase(false, SIMULATION_REGISTRY_TAGS));
 		addFeature("Simulation Server Tagged", 2, new SingleClassTagListTestCase(SIMULATION_SERVER_TAGS));
 		addFeature("Simulation Client Tagged", 2, new SingleClassTagListTestCase(SIMULATION_CLIENT_TAGS));
 
-//		addFeature("Registry tagged", 5, new SingleClassTagListTestCase("Registry"));
-		
-//		addJUnitTestSuite(Assignment3Suite.class);
-		
-		// takes 0.5 points from each read, write, and behaviors test, behavior exclusive testing
-//		addFeature("Static arguments work properly", 20, new StaticArgumentsTestCase(true, true, true));
-//		
-//		addFeature("Two client correct connection", 20, new CustomIPCTwoClientCorrectConnectionTestCase(false, false, true));
-		
-//		addFeature("One client correct read, write, and behaviors - Atomic", 20, new OneClientCorrectReadWriteTestCase(false, false, true, true));
-//		addFeature("One client correct read, write, and behaviors - Non-Atomic", 20, new OneClientCorrectReadWriteTestCase(false, false, true, true));
 
 		addFeature("Two client correct read, write, and behaviors - Atomic", 20, new TwoClientCorrectReadWriteTestCase(true, false, true, true));
-//		addFeature("Two client correct read, write, and behaviors - Non-Atomic", 20, new TwoClientCorrectReadWriteTestCase(false, false, true, true));
-//
-//		addFeature("Broadcast meta-state - Enabled, set in Client", 5, new MetaStateBroadcastTestCase(true, true, false, false, true));
-//		addFeature("Broadcast meta-state - Enabled, set in Server", 0, new MetaStateBroadcastTestCase(true, false, false, false, true));
-//		addFeature("Broadcast meta-state - Disabled, set in Client", 5, new MetaStateBroadcastTestCase(false, true, false, false, true));
-//		addFeature("Broadcast meta-state - Disabled, set in Server", 5, new MetaStateBroadcastTestCase(false, false, false, false, true));
+
 	}
 }
