@@ -65,8 +65,8 @@ private static final String TRACER_PREFIX = "I***";
 	private static final Pattern[] acceptStages = {
 //			checkStr(SELECT_THREAD, "SelectUnblocked"),
 			checkStr(SELECT_THREAD, "SocketChannelAccepted"),
-			checkStr(SELECT_THREAD, "ReadListenerAdded"),
-			checkStr(SELECT_THREAD, "SocketChannelRegistered"),
+			multipleCheckStr(SELECT_THREAD, "SocketChannelRegistered", SELECT_THREAD, "ReadListenerAdded"),
+			multipleCheckStr(SELECT_THREAD, "SocketChannelRegistered", SELECT_THREAD, "ReadListenerAdded"),
 			checkStr(SELECT_THREAD, "SelectCalled")
 	};
 	
