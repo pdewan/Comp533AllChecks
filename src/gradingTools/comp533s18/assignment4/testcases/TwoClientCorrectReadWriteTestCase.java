@@ -60,6 +60,8 @@ public class TwoClientCorrectReadWriteTestCase extends BasicTestCase {
 		this.doNIO = doNIO;
 		this.doRMI = doRMI;
 		this.doGIPC = doGIPC;
+		outputBasedInputGenerator = new TwoClientCorrectReadWriteTestInputGenerator(atomic, doNIO, doRMI, doGIPC);
+
 	}
 	
 	@Override
@@ -70,11 +72,15 @@ public class TwoClientCorrectReadWriteTestCase extends BasicTestCase {
 
 			// Get the output when we have no input from the user
 //			RunningProject noInputRunningProject = RunningProjectUtils.runProject(project, 1);
-			TwoClientCorrectReadWriteTestInputGenerator anOutputBasedInputGenerator = new TwoClientCorrectReadWriteTestInputGenerator(atomic, doNIO, doRMI, doGIPC);
-			RunningProject interactiveInputProject = null;
+//			TwoClientCorrectReadWriteTestInputGenerator aTwoClientOutputGenerator = new TwoClientCorrectReadWriteTestInputGenerator(atomic, doNIO, doRMI, doGIPC);
+//			outputBasedInputGenerator = new TwoClientCorrectReadWriteTestInputGenerator(atomic, doNIO, doRMI, doGIPC);
+			outputBasedInputGenerator.clear();
+			TwoClientCorrectReadWriteTestInputGenerator aTwoClientOutputGenerator = (TwoClientCorrectReadWriteTestInputGenerator) outputBasedInputGenerator;
+
+			interactiveInputProject = null;
 			try {
 				interactiveInputProject = RunningProjectUtils.runProject(project, RUNTIME,
-						anOutputBasedInputGenerator);
+						aTwoClientOutputGenerator);
 				String incOutput = interactiveInputProject.await();
 			} catch (Exception e){
 				
@@ -86,33 +92,33 @@ public class TwoClientCorrectReadWriteTestCase extends BasicTestCase {
 			int possible = atomic ? 4 : 2;
 			int[] scoring = new int[] {0,0};
 			if (doNIO) {
-				check(scoring, anOutputBasedInputGenerator.isClient0NIOWriteComplete());
-				check(scoring, anOutputBasedInputGenerator.isServerNIORead0Complete());
-				check(scoring, anOutputBasedInputGenerator.isServerNIOWrite1Complete());
-				check(scoring, anOutputBasedInputGenerator.isClient1NIOReadComplete());
+				check(scoring, aTwoClientOutputGenerator.isClient0NIOWriteComplete());
+				check(scoring, aTwoClientOutputGenerator.isServerNIORead0Complete());
+				check(scoring, aTwoClientOutputGenerator.isServerNIOWrite1Complete());
+				check(scoring, aTwoClientOutputGenerator.isClient1NIOReadComplete());
 				if (atomic) {
-					check(scoring, anOutputBasedInputGenerator.isServerNIOWrite0Complete());
-					check(scoring, anOutputBasedInputGenerator.isClient0NIOReadComplete());
+					check(scoring, aTwoClientOutputGenerator.isServerNIOWrite0Complete());
+					check(scoring, aTwoClientOutputGenerator.isClient0NIOReadComplete());
 				}
 			}
 			if (doRMI) {
-				check(scoring, anOutputBasedInputGenerator.isClient0RMIWriteComplete());
-				check(scoring, anOutputBasedInputGenerator.isServerRMIRead0Complete());
-				check(scoring, anOutputBasedInputGenerator.isServerRMIWrite1Complete());
-				check(scoring, anOutputBasedInputGenerator.isClient1RMIReadComplete());
+				check(scoring, aTwoClientOutputGenerator.isClient0RMIWriteComplete());
+				check(scoring, aTwoClientOutputGenerator.isServerRMIRead0Complete());
+				check(scoring, aTwoClientOutputGenerator.isServerRMIWrite1Complete());
+				check(scoring, aTwoClientOutputGenerator.isClient1RMIReadComplete());
 				if (atomic) {
-					check(scoring, anOutputBasedInputGenerator.isServerRMIWrite0Complete());
-					check(scoring, anOutputBasedInputGenerator.isClient0RMIReadComplete());
+					check(scoring, aTwoClientOutputGenerator.isServerRMIWrite0Complete());
+					check(scoring, aTwoClientOutputGenerator.isClient0RMIReadComplete());
 				}
 			}
 			if (doGIPC) {
-				check(scoring, anOutputBasedInputGenerator.isClient0GIPCWriteComplete());
-				check(scoring, anOutputBasedInputGenerator.isServerGIPCRead0Complete());
-				check(scoring, anOutputBasedInputGenerator.isServerGIPCWrite1Complete());
-				check(scoring, anOutputBasedInputGenerator.isClient1GIPCReadComplete());
+				check(scoring, aTwoClientOutputGenerator.isClient0GIPCWriteComplete());
+				check(scoring, aTwoClientOutputGenerator.isServerGIPCRead0Complete());
+				check(scoring, aTwoClientOutputGenerator.isServerGIPCWrite1Complete());
+				check(scoring, aTwoClientOutputGenerator.isClient1GIPCReadComplete());
 				if (atomic) {
-					check(scoring, anOutputBasedInputGenerator.isServerGIPCWrite0Complete());
-					check(scoring, anOutputBasedInputGenerator.isClient0GIPCReadComplete());
+					check(scoring, aTwoClientOutputGenerator.isServerGIPCWrite0Complete());
+					check(scoring, aTwoClientOutputGenerator.isClient0GIPCReadComplete());
 				}
 			}
 			correct = scoring[0];
@@ -120,9 +126,9 @@ public class TwoClientCorrectReadWriteTestCase extends BasicTestCase {
 			if (correct == possible) {
 				return pass();
 			} else if (correct == 0) {
-				return fail("In " + anOutputBasedInputGenerator.getLastNotFoundSource() + ", no line found matching regex: " + anOutputBasedInputGenerator.getLastNotFound());
+				return fail("In " + aTwoClientOutputGenerator.getLastNotFoundSource() + ", no line found matching regex: " + aTwoClientOutputGenerator.getLastNotFound());
 			} else {
-				return partialPass(((double)correct)/possible, "In " + anOutputBasedInputGenerator.getLastNotFoundSource() + ", no line found matching regex: " + anOutputBasedInputGenerator.getLastNotFound());
+				return partialPass(((double)correct)/possible, "In " + aTwoClientOutputGenerator.getLastNotFoundSource() + ", no line found matching regex: " + aTwoClientOutputGenerator.getLastNotFound());
 			}
 		} catch (NotRunnableException e) {
 			throw new NotGradableException();

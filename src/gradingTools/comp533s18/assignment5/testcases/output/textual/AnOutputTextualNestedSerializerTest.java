@@ -16,7 +16,9 @@ public class AnOutputTextualNestedSerializerTest extends AnOutputTextualSerializ
 	protected SubstringSequenceChecker checker() {
 		 
 		return new ASerializationTraceChecker(taggedClass(), "namaste", 
-				"Hello world, 5, BLUE, null, \\[.* world, .* world\\], \\{.*greeting=namaste.*\\}"
+//				"Hello world, 5, BLUE, null, \\[.* world, .* world\\], \\{.*greeting=namaste.*\\}"
+				"Hello world, 5, BLUE, null.*namaste"
+
 //				"namaste"
 //				"Hello world, 3, BLUE, null, .Goodbye world, Hello world., .5=4.0, greeting=ni hao" 
 				);

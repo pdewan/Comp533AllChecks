@@ -16,7 +16,8 @@ public class AnOutputTextualRecursiveSerializerTest extends AnOutputTextualSeria
 	protected SubstringSequenceChecker checker() {
 		 
 		return new ASerializationTraceChecker(taggedClass(), "namaste", 
-				"null, \\[Ljava.lang.Object.*this Collection\\), \\[Hello world, 5, BLUE, null, \\[.* world, .* world\\], \\{.*greeting=namaste.*\\}"
+//				"null, \\[Ljava.lang.Object.*this Collection\\), \\[Hello world, 5, BLUE, null, \\[.* world, .* world\\], \\{.*greeting=namaste.*\\}"
+				"null.*this Collection.*namaste"
 
 				//				"namaste"
 //				"Hello world, 3, BLUE, null, .Goodbye world, Hello world., .5=4.0, greeting=ni hao" 

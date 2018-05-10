@@ -101,8 +101,8 @@ public class StaticArgumentsTestCase extends BasicTestCase {
 		}
 	}
 
-	private static final String TEST_0_NAME = "Client_0";
-	private static final String TEST_1_NAME = "Client_1";
+	public static final String TEST_0_NAME = "Client_0";
+	public static final String TEST_1_NAME = "Client_1";
 
 	public static final List<String> TEST_CLIENT_0_ARGS = Arrays.asList(DEFAULT_HOST, TEST_PORT_NIO, TEST_0_NAME, DEFAULT_HEADLESS, DEFAULT_HOST, TEST_PORT_RMI, TEST_PORT_GIPC);
 	public static final List<String> TEST_CLIENT_1_ARGS = Arrays.asList(DEFAULT_HOST, TEST_PORT_NIO, TEST_1_NAME, DEFAULT_HEADLESS, DEFAULT_HOST, TEST_PORT_RMI, TEST_PORT_GIPC);

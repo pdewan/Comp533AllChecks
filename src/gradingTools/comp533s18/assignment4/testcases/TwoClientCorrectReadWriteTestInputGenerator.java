@@ -232,7 +232,7 @@ public class TwoClientCorrectReadWriteTestInputGenerator extends TwoClientCorrec
 		boolean didClient0 = false;
 		boolean didClient1 = false;
 		
-		
+		recordLine(aProcessName, anOutputLine);
 		if (setupServer == false && SERVER_NAME.equals(aProcessName)) {
 			notifyNewInputLine(SERVER_NAME, "a " + atomic);
 			setupServer = true;

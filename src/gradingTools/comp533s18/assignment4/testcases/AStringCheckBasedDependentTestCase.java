@@ -116,6 +116,9 @@ public class AStringCheckBasedDependentTestCase extends BasicTestCase {
 //			
 			programmingRunOutput = 
 					interactiveInputProject.getProcessOutput().get(processName);
+			if (programmingRunOutput == null || programmingRunOutput.length() == 0) {
+				return fail ("Could not find output for:" + processName);
+			}
 //			programmingRunOutputLinesList =
 //					interactiveInputProject.getProcessOutputLines().get(processName);
 			linesMatcher = 

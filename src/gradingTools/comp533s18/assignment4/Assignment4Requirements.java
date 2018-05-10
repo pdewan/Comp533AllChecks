@@ -3,12 +3,14 @@ package gradingTools.comp533s18.assignment4;
 import util.annotations.Comp533Tags;
 import util.tags.DistributedTags;
 import framework.grading.testing.BasicTestCase;
+import framework.grading.testing.TestCase;
 import grader.basics.execution.BasicRunningProject;
 import grader.basics.project.BasicProjectIntrospection;
 import grader.junit.AJUnitProjectRequirements;
 import grader.trace.GraderTraceUtility;
 import grader.trace.comp533.Comp533TraceUtility;
 import gradingTools.comp533s18.assignment1.testcases.SingleClassTagListTestCase;
+import gradingTools.comp533s18.assignment3.testcases.StaticArgumentsTestCase;
 import gradingTools.comp533s18.assignment4.testcases.TwoClientCorrectReadWriteTestCase;
 import gradingTools.comp533s18.assignment4.testcases.ARegularCounterClientChecker;
 import gradingTools.comp533s18.assignment4.testcases.ARegularCounterServerChecker;
@@ -286,8 +288,16 @@ public class Assignment4Requirements extends AJUnitProjectRequirements {
 		addFeature("Simulation Server Tagged", 2, new SingleClassTagListTestCase(SIMULATION_SERVER_TAGS));
 		addFeature("Simulation Client Tagged", 2, new SingleClassTagListTestCase(SIMULATION_CLIENT_TAGS));
 
-
-		addFeature("Two client correct read, write, and behaviors - Atomic", 20, new TwoClientCorrectReadWriteTestCase(true, false, true, true));
+		BasicTestCase aSimulationTestCase = new TwoClientCorrectReadWriteTestCase(true, false, true, true);
+		addFeature("Two client correct read, write, and behaviors - Atomic", 20, aSimulationTestCase);
+//		addFeature("Blocking RPC used in Simuilation", 20, 
+//				new AStringCheckBasedDependentTestCase(
+//						"Blocking RPC used in Simuilation",
+//						"Server",
+//						new ABlockingRPCClientReceivesChecker(),
+//						true,
+//						aSimulationTestCase)
+//				);
 
 	}
 }

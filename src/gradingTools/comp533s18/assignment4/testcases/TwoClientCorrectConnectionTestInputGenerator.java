@@ -1,11 +1,13 @@
 package gradingTools.comp533s18.assignment4.testcases;
 
+import gradingTools.shared.testcases.utils.ABufferingTestInputGenerator;
+
 import java.util.regex.Pattern;
 
 import util.pipe.AnAbstractInputGenerator;
 import util.trace.Tracer;
 
-public class TwoClientCorrectConnectionTestInputGenerator extends AnAbstractInputGenerator {
+public class TwoClientCorrectConnectionTestInputGenerator extends ABufferingTestInputGenerator {
 	private static final boolean PRINT_CHECKED_REGEX = false;
 
 	private static final String TRACER_PREFIX = "I***";
@@ -217,6 +219,7 @@ public class TwoClientCorrectConnectionTestInputGenerator extends AnAbstractInpu
 	
 	@Override
 	public void newOutputLine(String aProcessName, String anOutputLine) {
+		super.newOutputLine(aProcessName, anOutputLine);
 		if (aProcessName.equals(SERVER_NAME)) {
 			checkServer(anOutputLine);
 //			if (!isServerSetupComplete()) {
