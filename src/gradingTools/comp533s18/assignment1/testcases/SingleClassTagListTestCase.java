@@ -57,6 +57,6 @@ public class SingleClassTagListTestCase extends BasicTestCase {
 	    		return pass();
 	    	}
 		}
-    	return fail("No class tagged: " + Arrays.toString(tags));
+    	return fail("No binary class tagged: " + Arrays.toString(tags));
 	}
 }

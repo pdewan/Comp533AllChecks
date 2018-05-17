@@ -29,6 +29,6 @@ public class SingleClassTaggedTestCase extends BasicTestCase {
     	if (aClasses.size() > 1) {
     		return partialPass(0.5, "Multiple classes tagged:" + tag + " " + aClasses);
     	}
-    	return fail("No class tagged: " + tag);
+    	return fail("No binary class tagged: " + tag);
 	}
 }

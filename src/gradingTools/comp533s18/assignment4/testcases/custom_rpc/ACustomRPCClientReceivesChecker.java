@@ -7,9 +7,9 @@ public class ACustomRPCClientReceivesChecker extends ASubstringSequenceChecker{
 	//make sure receives from both clients take place, need to ensure alternatibg, cannot with regular expressions
 	public  final String[] MY_SUBSTRINGS = {
 //		"(Asynchronous Received Call Invoker|Selecting Thread)..ReceivedMessageDequeued",
-			"I\\*\\*\\*." + "main..ReceivedMessageDequeued.*",
+			toPrefixedRegex("I\\*\\*\\*" , "ReceivedMessageDequeued"),
 //		"main..RemoteCallWaitingForReturnValue",
-			"I\\*\\*\\*." + "main..RemoteCallReturnValueDetermined.*"
+			toPrefixedRegex("I\\*\\*\\*" , "RemoteCallReturnValueDetermined")
 //		"main..ProxyPureFunctionCalled",
 	};
 	public ACustomRPCClientReceivesChecker() {

@@ -4,8 +4,8 @@ import gradingTools.comp533s18.assignment4.testcases.ASubstringSequenceChecker;
 
 public class ARegularSerializerPoolChecker extends ASubstringSequenceChecker{
 	public static final String[] MY_SUBSTRINGS = {
-		"I\\*\\*\\*." + "SerializerTakenFromPool.*" +
-		"serialization.simple.ASimpleSerializer.*"		
+		toPrefixedRegex("I\\*\\*\\*" , "SerializerTakenFromPool" ,
+		"serialization.simple.ASimpleSerializer")		
 		
 	};
 	public ARegularSerializerPoolChecker() {

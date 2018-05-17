@@ -2,14 +2,20 @@ package gradingTools.comp533s18.assignment5.testcases.output.checks;
 
 import gradingTools.comp533s18.assignment4.testcases.ASubstringSequenceChecker;
 import gradingTools.comp533s18.assignment4.testcases.DistributedCounterProgramRunningTestCase;
+import gradingTools.comp533s18.assignment5.testcases.output.AnOutputBinarySerializerTest;
+import gradingTools.comp533s18.assignment5.testcases.output.AnOutputTextualSerializerTest;
 
 public class ASerializationTraceChecker extends ASubstringSequenceChecker{
 	
 	public ASerializationTraceChecker(Class aTaggedClass, String aBinaryOrText, String aStringRepresentation) {
 		String aClassName = aTaggedClass.getSimpleName();
+		String anActualBinaryOrText = aBinaryOrText;
+		if (!aBinaryOrText.equals(AnOutputBinarySerializerTest.BYTE_BUFFER_PATTERN)) {
+			anActualBinaryOrText = "(" + aBinaryOrText + "|" + AnOutputTextualSerializerTest.TEXT_BUFFER_PATTERN + ")";
+		}
 		String[] subStrings = {
 				
-//				"Serializing " + aStringRepresentation ,
+				toPrefixedRegex("Serializing ", aStringRepresentation) ,
 
 //				"ExtensibleValueSerializationInitiated",
 //				"I\\*\\*\\*.*" + aClassName + ".*" +aBinaryOrText +".*",
@@ -23,12 +29,15 @@ public class ASerializationTraceChecker extends ASubstringSequenceChecker{
 //				"HeapByteBuffer",
 //				aStringRepresentation,
 //				"ExtensibleBufferDeserializationFinished",
-				"I\\*\\*\\*.*ExtensibleBufferDeserializationFinished.*" + aClassName + ".*" +aBinaryOrText +".*",
+//				"I\\*\\*\\*.*ExtensibleBufferDeserializationFinished.*" + aClassName + ".*" +aBinaryOrText +".*",
+				toPrefixedRegex("I\\*\\*\\*", "ExtensibleBufferDeserializationFinished", anActualBinaryOrText),
 
 //				aClassName,
 //				"HeapByteBuffer",
 //				aStringRepresentation,
-				"Deserialized.*"+ aStringRepresentation + ".*",
+//				"Deserialized.*"+ aStringRepresentation + ".*",
+				toPrefixedRegex("Deserialized", aStringRepresentation)
+
 				};
 		init (subStrings);
 	}

@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
 
 public class ASubstringSequenceChecker implements SubstringSequenceChecker {
   protected String[] substrings;
+  protected Pattern[] patterns;
 //  protected double myWeight;
   protected String regex;
   protected Pattern pattern;
@@ -21,7 +22,11 @@ public ASubstringSequenceChecker(String[] aSubstrings ) {
 	  
  }
    protected void init(String[] aSubstrings) {
+	   	  patterns = new Pattern[aSubstrings.length];
 		  substrings = aSubstrings;
+		  for (int aRegexIndex = 0; aRegexIndex < aSubstrings.length; aRegexIndex++) {
+	    		patterns[aRegexIndex ]= Pattern.compile(aSubstrings[aRegexIndex], Pattern.DOTALL);
+		  }
 //		  myWeight = aMyWeight;
 //		  regex = toRegex(substrings);
 //		  pattern = toPattern(regex);
@@ -29,12 +34,22 @@ public ASubstringSequenceChecker(String[] aSubstrings ) {
   public static Pattern toPattern(String aRegex) {
 	  return Pattern.compile(aRegex, Pattern.DOTALL);
   }
-  public static  String toRegex(String[] aSubstrings) {
+  public static  String toRegex(String... aSubstrings) {
 	  StringBuffer aRetVal = new StringBuffer(aSubstrings.length * 20);
 	  aRetVal.append(".*");
 	  for (String aSubstring:aSubstrings) {
 //		  aRetVal.append("." + aSubstring + ".*\n");
-		  aRetVal.append(aSubstring + ".*");
+		  aRetVal.append(aSubstring + ".*?");
+
+		  
+	  }
+	  return aRetVal.toString();
+  }
+  public static  String toPrefixedRegex(String... aSubstrings) {
+	  StringBuffer aRetVal = new StringBuffer(aSubstrings.length * 20);
+	  for (String aSubstring:aSubstrings) {
+//		  aRetVal.append("." + aSubstring + ".*\n");
+		  aRetVal.append(aSubstring + ".*?");
 
 		  
 	  }
@@ -72,7 +87,9 @@ public boolean check(StringBuffer aStringBuffer) {
 }
 @Override
 public boolean check(LinesMatcher aLinesMatcher, LinesMatchKind aMatchKind, int aFlags) {
-	  success = aLinesMatcher.match(substrings, aMatchKind, aFlags);
+//	  success = aLinesMatcher.match(substrings, aMatchKind, aFlags);
+	  success = aLinesMatcher.match(patterns, aMatchKind, aFlags);
+
 	  return success;
 }
   /* (non-Javadoc)

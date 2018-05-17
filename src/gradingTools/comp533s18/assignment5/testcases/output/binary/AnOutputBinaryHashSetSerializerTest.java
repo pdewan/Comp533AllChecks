@@ -15,7 +15,7 @@ public class AnOutputBinaryHashSetSerializerTest extends AnOutputBinarySerialize
 	@Override
 	protected SubstringSequenceChecker checker() {
 		 
-		return new ASerializationTraceChecker(taggedClass(), "HeapByteBuffer", ".* world, .* world" );
+		return new ASerializationTraceChecker(taggedClass(), BYTE_BUFFER_PATTERN, ".*? world, .*? world" );
 	}
 //	@Override
 //	protected boolean doTest() {

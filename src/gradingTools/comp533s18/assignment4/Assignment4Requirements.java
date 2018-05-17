@@ -290,14 +290,14 @@ public class Assignment4Requirements extends AJUnitProjectRequirements {
 
 		BasicTestCase aSimulationTestCase = new TwoClientCorrectReadWriteTestCase(true, false, true, true);
 		addFeature("Two client correct read, write, and behaviors - Atomic", 20, aSimulationTestCase);
-//		addFeature("Blocking RPC used in Simuilation", 20, 
-//				new AStringCheckBasedDependentTestCase(
-//						"Blocking RPC used in Simuilation",
-//						"Server",
-//						new ABlockingRPCClientReceivesChecker(),
-//						true,
-//						aSimulationTestCase)
-//				);
+		addFeature("Blocking RPC used in Simuilation", 20, 
+				new AStringCheckBasedDependentTestCase(
+						"Blocking RPC used in Simuilation",
+						"Server",
+						new ABlockingRPCClientReceivesChecker(),
+						true,
+						aSimulationTestCase)
+				);
 
 	}
 }
