@@ -10,18 +10,21 @@ import grader.basics.junit.TestCaseResult;
 import grader.basics.project.NotGradableException;
 import grader.basics.project.Project;
 import grader.execution.ExecutionSpecificationSelector;
+import gradingTools.comp533s18.assignment1.testcases.SingleClassTagListTestCase;
 import gradingTools.comp533s18.assignment3.testcases.StaticArgumentsTestCase;
 import gradingTools.utils.RunningProjectUtils;
 import util.annotations.Comp533Tags;
 import util.trace.Tracer;
 
-public class TwoClientCorrectReadWriteTestCase extends BasicTestCase {
+public class TagbasedTwoClientCorrectReadWriteTestCase extends TagCaseDependentTestCase {
 	private boolean atomic;
 	private final boolean doNIO;
 	private final boolean doRMI;
 	private final boolean doGIPC;
 	
 	private static int RUNTIME = 60;
+	protected SingleClassTagListTestCase registryTaggedTestCase, serverTaggedTestCase, clientTaggedTestCase;
+
 	
 	private static String formatName(boolean atomic, boolean doNIO, boolean doRMI, boolean doGIPC) {
 		StringBuilder sb = new StringBuilder("Two client correct read write test case - ");
@@ -53,21 +56,36 @@ public class TwoClientCorrectReadWriteTestCase extends BasicTestCase {
 		return sb.toString();
 	}
 	
-	public TwoClientCorrectReadWriteTestCase(boolean atomic, boolean doNIO, boolean doRMI, boolean doGIPC) {
+	public TagbasedTwoClientCorrectReadWriteTestCase(boolean atomic, boolean doNIO, boolean doRMI, boolean doGIPC, 
+			SingleClassTagListTestCase aRegistryTagTest,
+			SingleClassTagListTestCase aServerTagTest,
+			SingleClassTagListTestCase aClientTagTest) {
 		super(formatName(atomic, doNIO, doRMI, doGIPC));
+		registryTaggedTestCase = aRegistryTagTest;
+		serverTaggedTestCase = aServerTagTest;
+		clientTaggedTestCase = aClientTagTest;
 		this.atomic = atomic;
 
 		this.doNIO = doNIO;
 		this.doRMI = doRMI;
 		this.doGIPC = doGIPC;
 		outputBasedInputGenerator = new TwoClientCorrectReadWriteTestInputGenerator(atomic, doNIO, doRMI, doGIPC);
+		
 
 	}
 	
 	@Override
 	public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException,
 			NotGradableException {
-		setupProcesses();
+		if (
+				!check(registryTaggedTestCase) ||
+				!check(serverTaggedTestCase) ||
+				!check(clientTaggedTestCase) 
+								
+				) {
+			return fail ("Registry, server or a client not tagged");
+		}
+		setupProcesses(); // This can be done in the constructor but there may be conflicts between test cases
 		try {
 
 			// Get the output when we have no input from the user
@@ -146,10 +164,17 @@ public class TwoClientCorrectReadWriteTestCase extends BasicTestCase {
 		ExecutionSpecificationSelector.getExecutionSpecification().setProcessTeams(Arrays.asList("RegistryBasedDistributedProgram"));
 		ExecutionSpecificationSelector.getExecutionSpecification().setTerminatingProcesses("RegistryBasedDistributedProgram", Arrays.asList("Client_0", "Client_1"));
 		ExecutionSpecificationSelector.getExecutionSpecification().setProcesses("RegistryBasedDistributedProgram", Arrays.asList("Registry", "Server", "Client_0", "Client_1"));
-		ExecutionSpecificationSelector.getExecutionSpecification().setEntryTags("Registry", Arrays.asList("Registry"));
-		ExecutionSpecificationSelector.getExecutionSpecification().setEntryTags("Server", Arrays.asList("Server", Comp533Tags.CUSTOM_IPC));
-		ExecutionSpecificationSelector.getExecutionSpecification().setEntryTags("Client_0", Arrays.asList("Client", Comp533Tags.CUSTOM_IPC));
-		ExecutionSpecificationSelector.getExecutionSpecification().setEntryTags("Client_1", Arrays.asList("Client", Comp533Tags.CUSTOM_IPC));
+		
+//		ExecutionSpecificationSelector.getExecutionSpecification().setEntryTags("Registry", Arrays.asList("Registry"));
+//		ExecutionSpecificationSelector.getExecutionSpecification().setEntryTags("Server", Arrays.asList("Server", Comp533Tags.CUSTOM_IPC));
+//		ExecutionSpecificationSelector.getExecutionSpecification().setEntryTags("Client_0", Arrays.asList("Client", Comp533Tags.CUSTOM_IPC));
+//		ExecutionSpecificationSelector.getExecutionSpecification().setEntryTags("Client_1", Arrays.asList("Client", Comp533Tags.CUSTOM_IPC));
+		
+		ExecutionSpecificationSelector.getExecutionSpecification().setEntryTags("Registry", toEntryTags(registryTaggedTestCase));
+		ExecutionSpecificationSelector.getExecutionSpecification().setEntryTags("Server", toEntryTags(serverTaggedTestCase));
+		ExecutionSpecificationSelector.getExecutionSpecification().setEntryTags("Client_0", toEntryTags(clientTaggedTestCase));
+		ExecutionSpecificationSelector.getExecutionSpecification().setEntryTags("Client_1", toEntryTags(clientTaggedTestCase));
+		
 		ExecutionSpecificationSelector.getExecutionSpecification().setArgs("Registry", StaticArgumentsTestCase.TEST_REGISTRY_ARGS);
 		ExecutionSpecificationSelector.getExecutionSpecification().setArgs("Server", StaticArgumentsTestCase.TEST_SERVER_ARGS);
 		ExecutionSpecificationSelector.getExecutionSpecification().setArgs("Client_0", StaticArgumentsTestCase.TEST_CLIENT_0_ARGS);

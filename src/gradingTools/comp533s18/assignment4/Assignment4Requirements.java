@@ -11,6 +11,7 @@ import grader.trace.GraderTraceUtility;
 import grader.trace.comp533.Comp533TraceUtility;
 import gradingTools.comp533s18.assignment1.testcases.SingleClassTagListTestCase;
 import gradingTools.comp533s18.assignment3.testcases.StaticArgumentsTestCase;
+import gradingTools.comp533s18.assignment4.testcases.TagbasedTwoClientCorrectReadWriteTestCase;
 import gradingTools.comp533s18.assignment4.testcases.TwoClientCorrectReadWriteTestCase;
 import gradingTools.comp533s18.assignment4.testcases.ARegularCounterClientChecker;
 import gradingTools.comp533s18.assignment4.testcases.ARegularCounterServerChecker;
@@ -28,7 +29,7 @@ import gradingTools.comp533s18.assignment4.testcases.explicit_receive.AnExplicit
 public class Assignment4Requirements extends AJUnitProjectRequirements {
 	public static String[] SIMULATION_CLIENT_TAGS = {DistributedTags.CLIENT, DistributedTags.GIPC, Comp533Tags.CUSTOM_IPC};
 	public static String[] SIMULATION_SERVER_TAGS = {DistributedTags.SERVER, DistributedTags.GIPC, Comp533Tags.CUSTOM_IPC};
-	public static String[] SIMULATION_REGISTRY_TAGS = {DistributedTags.REGISTRY, DistributedTags.GIPC, Comp533Tags.CUSTOM_IPC};
+	public static String[] SIMULATION_REGISTRY_TAGS = {DistributedTags.REGISTRY};
 
 	public DistributedCounterProgramRunningTestCase addCounterExperimentFetaures(
 			String anExperimentName,
@@ -49,9 +50,7 @@ public class Assignment4Requirements extends AJUnitProjectRequirements {
 		addFeature(anExperimentName +  " Client1 Tagged", 2, anExplicitReceiveClient1Tagged);
 		addFeature(anExperimentName + " Client2 Tagged", 2, anExplicitReceiveClient2Tagged);
 		
-//		addFeature("Explicit Receive Server Tagged", 5, new SingleClassTagListTestCase(Comp533Tags.EXPLICIT_RECEIVE_SERVER));
-//		addFeature("Explicit Receive Client1 Tagged", 5, new SingleClassTagListTestCase(Comp533Tags.EXPLICIT_RECEIVE_CLIENT1));
-//		addFeature("Explicit Receive Client2 Tagged", 5, new SingleClassTagListTestCase(Comp533Tags.EXPLICIT_RECEIVE_CLIENT2));
+
 		DistributedCounterProgramRunningTestCase aProgrammingRunProgramRunningTestCase = 
 				new DistributedCounterProgramRunningTestCase(
 						new ARegularCounterServerChecker(),
@@ -59,12 +58,7 @@ public class Assignment4Requirements extends AJUnitProjectRequirements {
 						anExplicitReceiveClient1Tagged,
 						anExplicitReceiveClient2Tagged);
 		addFeature(anExperimentName + " Regular Server Output", 5, aProgrammingRunProgramRunningTestCase);
-//		addFeature("Server Creates Two Receive Queues", 5, 
-//				new AStringCheckBasedDependentTestCase(
-//						DistributedCounterProgramRunningTestCase.SERVER_NAME,
-//						new ARegularCounterServerChecker(),
-//						anExplicitReceiveProgramRunningTestCase )
-//				);
+
 		if (aServerChecker != null) {
 		addFeature(anExperimentName + " Special Server Output", 10, 
 				new AStringCheckBasedDependentTestCase(
@@ -147,20 +141,14 @@ public class Assignment4Requirements extends AJUnitProjectRequirements {
 				anExplicitReceiveClient1Tagged, 
 				anExplicitReceiveClient2Tagged);
 		
-//		addFeature("Explicit Receive Server Tagged", 5, new SingleClassTagListTestCase(Comp533Tags.EXPLICIT_RECEIVE_SERVER));
-//		addFeature("Explicit Receive Client1 Tagged", 5, new SingleClassTagListTestCase(Comp533Tags.EXPLICIT_RECEIVE_CLIENT1));
-//		addFeature("Explicit Receive Client2 Tagged", 5, new SingleClassTagListTestCase(Comp533Tags.EXPLICIT_RECEIVE_CLIENT2));
+
 		DistributedCounterProgramRunningTestCase anExplicitReceiveProgramRunningTestCase = 
 				createServerProgrammingRunTestCase(
 						new ARegularCounterServerChecker(), 
 						anExplicitReceiveServerTagged, 
 						anExplicitReceiveClient1Tagged, 
 						anExplicitReceiveClient2Tagged);
-//				new DistributedCounterProgramRunningTestCase(
-//						new ARegularCounterServerChecker(),
-//						anExplicitReceiveServerTagged,
-//						anExplicitReceiveClient1Tagged,
-//						anExplicitReceiveClient2Tagged);
+
 		addFeature(anExperimentName + " Regular Output (S, C1, C2)", regularOutputCredit(), 
 				anExplicitReceiveProgramRunningTestCase,
 				new AStringCheckBasedDependentTestCase(
@@ -213,12 +201,7 @@ public class Assignment4Requirements extends AJUnitProjectRequirements {
 					aClient1TestCase,
 					aClient2TestCase);
 		}
-//		addFeature("Server Creates Two Receive Queues", 5, 
-//				new AStringCheckBasedDependentTestCase(
-//						DistributedCounterProgramRunningTestCase.SERVER_NAME,
-//						new ARegularCounterServerChecker(),
-//						anExplicitReceiveProgramRunningTestCase )
-//				);
+
 		
 		return anExplicitReceiveProgramRunningTestCase;
 	}
@@ -283,12 +266,18 @@ public class Assignment4Requirements extends AJUnitProjectRequirements {
 					null,
 					null);
 			
-	
-		addFeature("Simulation Registry Tagged", 2, new SingleClassTagListTestCase(false, SIMULATION_REGISTRY_TAGS));
-		addFeature("Simulation Server Tagged", 2, new SingleClassTagListTestCase(SIMULATION_SERVER_TAGS));
-		addFeature("Simulation Client Tagged", 2, new SingleClassTagListTestCase(SIMULATION_CLIENT_TAGS));
+		SingleClassTagListTestCase aRegistryTagTest = new SingleClassTagListTestCase(false, SIMULATION_REGISTRY_TAGS);
+		SingleClassTagListTestCase aServerTagTest = new SingleClassTagListTestCase(false, SIMULATION_SERVER_TAGS);
+		SingleClassTagListTestCase aClientTagTest = new SingleClassTagListTestCase(false, SIMULATION_CLIENT_TAGS);
 
-		BasicTestCase aSimulationTestCase = new TwoClientCorrectReadWriteTestCase(true, false, true, true);
+//
+		addFeature("Simulation Registry Tagged", 2, aRegistryTagTest);
+		addFeature("Simulation Server Tagged", 2, aServerTagTest);
+		addFeature("Simulation Client Tagged", 2, aClientTagTest);
+
+//		BasicTestCase aSimulationTestCase = new TwoClientCorrectReadWriteTestCase(true, false, true, true);
+		BasicTestCase aSimulationTestCase = new TagbasedTwoClientCorrectReadWriteTestCase(true, false, true, true, aRegistryTagTest, aServerTagTest, aClientTagTest);
+
 		addFeature("Two client correct read, write, and behaviors - Atomic", 20, aSimulationTestCase);
 		addFeature("Blocking RPC used in Simuilation", 20, 
 				new AStringCheckBasedDependentTestCase(

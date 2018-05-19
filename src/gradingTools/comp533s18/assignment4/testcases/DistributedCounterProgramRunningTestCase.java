@@ -36,7 +36,7 @@ import util.trace.Tracer;
 
 @MaxValue(20)
 //@Group("Test group name ")
-public class DistributedCounterProgramRunningTestCase extends BasicTestCase {
+public class DistributedCounterProgramRunningTestCase extends TagCaseDependentTestCase {
 	
 	
 	protected SubstringSequenceChecker stringChecker ;	
@@ -77,19 +77,30 @@ public class DistributedCounterProgramRunningTestCase extends BasicTestCase {
 //	protected RunningProject interactiveInputProject;
 	
 	
-
+//    public static boolean check (SingleClassTagListTestCase aTestCase) {
+//    	return (aTestCase == null || aTestCase.getLastResult().isPass()) ;
+//    }
 
 	@Override
 	public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException,
 			NotGradableException {
+//		if (
+//				!serverTaggedTestCase.getLastResult().isPass() ||
+//				!client1TaggedTestCase.getLastResult().isPass() ||
+//				!client2TaggedTestCase.getLastResult().isPass()
+//								
+//				) {
+//			return fail ("Server or a client not tagged");
+//		}
 		if (
-				!serverTaggedTestCase.getLastResult().isPass() ||
-				!client1TaggedTestCase.getLastResult().isPass() ||
-				!client2TaggedTestCase.getLastResult().isPass()
+				!check(serverTaggedTestCase) ||
+				!check(client1TaggedTestCase) ||
+				!check(client2TaggedTestCase)
 								
 				) {
 			return fail ("Server or a client not tagged");
 		}
+		
 		setupProcesses();
 		String incOutput = "";
 		try {
