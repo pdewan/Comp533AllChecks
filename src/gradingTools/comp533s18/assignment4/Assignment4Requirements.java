@@ -120,7 +120,7 @@ public class Assignment4Requirements extends AJUnitProjectRequirements {
 	protected int specialOutputCredit() {
 		return 30;
 	}
-	public DistributedCounterProgramRunningTestCase addGroupedCounterExperimentFetaures(
+	public DistributedCounterProgramRunningTestCase addGroupedCounterExperimentFeatures(
 			String anExperimentName,
 			String aServerTag, 
 			String aClient1Tag,
@@ -221,7 +221,7 @@ public class Assignment4Requirements extends AJUnitProjectRequirements {
 		
 		 aDistributedCounterProgramRunningTestCase =
 //				addCounterExperimentFetaures(	
-			addGroupedCounterExperimentFetaures(
+			addGroupedCounterExperimentFeatures(
 				"Explicit Receives (Part 1)", 				
 				Comp533Tags.EXPLICIT_RECEIVE_SERVER, 
 				Comp533Tags.EXPLICIT_RECEIVE_CLIENT1,
@@ -238,7 +238,7 @@ public class Assignment4Requirements extends AJUnitProjectRequirements {
 						aDistributedCounterProgramRunningTestCase)
 				);
 		 aDistributedCounterProgramRunningTestCase =
-			addGroupedCounterExperimentFetaures(				
+			addGroupedCounterExperimentFeatures(				
 				"Custom RPC (Part 2)", 				
 				Comp533Tags.CUSTOM_RPC_SERVER, 
 				Comp533Tags.CUSTOM_RPC_CLIENT1,
@@ -256,7 +256,7 @@ public class Assignment4Requirements extends AJUnitProjectRequirements {
 							aDistributedCounterProgramRunningTestCase)
 					);
 		 aDistributedCounterProgramRunningTestCase =
-				addGroupedCounterExperimentFetaures(				
+				addGroupedCounterExperimentFeatures(				
 					"Blocking RPC (Part 3)", 				
 					Comp533Tags.BLOCKING_RPC_SERVER, 
 					Comp533Tags.BLOCKING_RPC_CLIENT1,
