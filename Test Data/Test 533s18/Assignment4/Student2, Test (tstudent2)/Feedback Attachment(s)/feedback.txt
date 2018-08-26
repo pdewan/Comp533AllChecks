@@ -2,28 +2,24 @@ Grading result for: Student2, Test (tstudent2)
 
 Grading features...
 ----------------------------------
-Server tagged                                          2.5 /  5.0
-Client tagged                                          2.5 /  5.0
-Registry tagged                                        2.5 /  5.0
-Two client correct connection                          16.0 / 20.0
+Explicit Receives (Part 1) Tags (S, C1, C2)            6.0 /  6.0
+Explicit Receives (Part 1) Regular Output (S, C1, C2)  5.0 /  5.0
+Explicit Receives (Part 1) Special Output (S, C1, C2)  30.0 / 30.0
+Explicit Receives Server Creates Two Receive Queues    5.0 /  5.0
+Custom RPC (Part 2) Tags (S, C1, C2)                   6.0 /  6.0
+Custom RPC (Part 2) Regular Output (S, C1, C2)         5.0 /  5.0
+Custom RPC (Part 2) Special Output (C1, C2)            30.0 / 30.0
+Blocking RPC client does not use regular queue for return values 5.0 /  5.0
+Blocking RPC (Part 3) Tags (S, C1, C2)                 6.0 /  6.0
+Blocking RPC (Part 3) Regular Output (S, C1, C2)       5.0 /  5.0
+Blocking RPC (Part 3) Special Output (C1, C2)          30.0 / 30.0
+Simulation Registry Tagged                             2.0 /  2.0
+Simulation Server Tagged                               2.0 /  2.0
+Simulation Client Tagged                               2.0 /  2.0
+Two client correct read, write, and behaviors - Atomic 20.0 / 20.0
 ----------------------------------
-  Points Awarded: 23.5
+  Points Awarded: 159.0
 
-  Features Score: 23.5
-
-Notes from grading features:
-----------------------------------
-Server tagged:
-  -- Multiple classes tagged:Server [rmi.simulation.server.AnRMIAndNIOSimulationServer, gipc.simulation.server.AGIPCAndRMIAndNIOSimulationServer, gipc.simulation.launcher.GIPCAndRMIAndNIOServerLauncher, gipc.custom.simulation.launcher.CustomGIPCAndRMIAndNIOServerLauncher, nio.manager.simulation.NIOManagerSimulationServerLauncher]
-
-Client tagged:
-  -- Multiple classes tagged:Client [gipc.simulation.launcher.BobGIPCAndRMIAndNIOSimulationLauncher, gipc.simulation.client.AGIPCAndRMIAndNIOSimulationClient, rmi.simulation.launcher.ClientRMIAndNIOSimulationLauncher, rmi.simulation.client.AnRMISimulationClientLauncher, nio.manager.simulation.client.AnNIOManagerSimulationClient]
-
-Registry tagged:
-  -- Multiple classes tagged:Registry [gipc.simulation.launcher.RMIRegistryLauncherFromGIPC, gipc.custom.simulation.launcher.CustomRMIRegistryLauncherFromGIPC, rmi.simulation.registry.ADistributedRMIRegistryStarter]
-
-Two client correct connection:
-  -- No nonsense
-
+  Features Score: 159.0
 Submission time: 2014-01-16T15:03:28.874-05:00
-TOTAL SCORE: 23.5
+TOTAL SCORE: 159.0

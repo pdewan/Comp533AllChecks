@@ -1,0 +1,59 @@
+Grading result for: Student2, Test (tstudent2)
+
+Grading features...
+----------------------------------
+AnOutputBinaryInheritingBeanSerializerTest             30.0 / 30.0
+AnOutputBinaryIntegerSerializerTest                    5.0 /  5.0
+AnOutputBinaryRecursiveSerializerTest                  75.0 / 75.0
+AnOutputBinaryEnumSerializerTest                       5.0 /  5.0
+AnOutputBinaryArrayListSerializerTest                  5.0 /  5.0
+AnOutputBinaryDoubleSerializerTest                     5.0 /  5.0
+AnOutputBinarySimpleRecursiveSerializerTest            25.0 / 25.0
+AnOutputBinaryShortSerializerTest                      5.0 /  5.0
+AnOutputBinaryArraySerializerTest                      20.0 / 20.0
+AnOutputBinaryNestedSerializerTest                     50.0 / 50.0
+AnOutputBinaryHashMapSerializerTest                    5.0 /  5.0
+AnOutputBinaryListPatternSerializerTest                50.0 / 50.0
+AnOutputBinaryHashTableSerializerTest                  5.0 /  5.0
+AnOutputBinaryHashSetSerializerTest                    5.0 /  5.0
+AnOutputBinaryLongSerializerTest                       5.0 /  5.0
+AnOutputBinaryFloatSerializerTest                      5.0 /  5.0
+AnOutputBinaryStringSerializerTest                     5.0 /  5.0
+AnOutputBinaryBeanSerializerTest                       75.0 / 75.0
+AnOutputBinaryBooleanSerializerTest                    5.0 /  5.0
+AnOutputTextualDoubleSerializerTest                    2.0 /  2.0
+AnOutputTextualBeanSerializerTest                      35.0 / 35.0
+AnOutputTextualIntegerSerializerTest                   3.0 /  3.0
+AnOutputTextualHashTableSerializerTest                 5.0 /  5.0
+AnOutputTextualStringSerializerTest                    2.0 /  2.0
+AnOutputTextualInheritingBeanSerializerTest            15.0 / 15.0
+AnOutputTextualRecursiveSerializerTest                 32.0 / 32.0
+AnOutputTextualFloatSerializerTest                     3.0 /  3.0
+AnOutputTextualArraySerializerTest                     10.0 / 10.0
+AnOutputTextualVectorSerializerTest                    3.0 /  3.0
+AnOutputTextualSimpleRecursiveSerializerTest           12.0 / 12.0
+AnOutputTextualLongSerializerTest                      3.0 /  3.0
+AnOutputTextualHashMapSerializerTest                   5.0 /  5.0
+AnOutputTextualBooleanSerializerTest                   2.0 /  2.0
+AnOutputTextualArrayListSerializerTest                 5.0 /  5.0
+AnOutputTextualHashSetSerializerTest                   2.0 /  2.0
+AnOutputTextualNestedSerializerTest                    25.0 / 25.0
+AnOutputTextualEnumSerializerTest                      2.0 /  2.0
+AnOutputTextualShortSerializerTest                     2.0 /  2.0
+AnOutputTextualListPatternSerializerTest               25.0 / 25.0
+AnEqualsBinaryProgrammerDefinedCollectionSerializerTest0.0 / 20.0
+Counter: Custom Serialization Tags (S, C1, C2)         6.0 /  6.0
+Counter: Custom Serialization Regular Output (S, C1, C2) 5.0 /  5.0
+Counter: Custom Serialization Special Output (S, C1, C2) 50.0 / 50.0
+----------------------------------
+  Points Awarded: 639.0
+
+  Features Score: 639.0
+
+Notes from grading features:
+----------------------------------
+AnEqualsBinaryProgrammerDefinedCollectionSerializerTest:
+  -- Original object [{}, leaf1, [goodbye, hello], leaf2] not equal to deserialized object null
+
+Submission time: 2014-01-16T15:03:28.874-05:00
+TOTAL SCORE: 639.0

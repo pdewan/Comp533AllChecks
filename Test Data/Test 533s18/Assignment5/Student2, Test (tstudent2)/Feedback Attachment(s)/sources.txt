@@ -1,0 +1,3246 @@
+//START OF FILE: assignment6/src/democustom/aserializingcounterclient1launcher.java
+package demoCustom;
+
+import examples.gipc.counter.customization.ACustomCounterClient;
+import examples.gipc.counter.customization.FactorySetterFactory;
+import examples.gipc.counter.layers.AMultiLayerCounterClient;
+import examples.gipc.counter.layers.AMultiLayerCounterClient1;
+import util.annotations.Comp533Tags;
+import util.annotations.Tags;
+import util.tags.DistributedTags;
+import util.trace.port.objects.ObjectTraceUtility;
+import util.trace.port.serialization.extensible.ExtensibleSerializationTraceUtility;
+
+@Tags({Comp533Tags.CUSTOM_SERIALIZER_CLIENT1})
+public class ASerializingCounterClient1Launcher extends AMultiLayerCounterClient1 {
+	public static void main (String[] args) {
+//		ExtensibleSerializationTraceUtility.setTracing();
+		assignments.util.A4TraceUtility.setTracing();
+		ObjectTraceUtility.setTracing();
+		FactorySetterFactory.setSingleton(new ASerializingFactorySetter());
+		ACustomCounterClient.launch(CLIENT1_NAME);
+	}
+
+}
+//END OF FILE
+//START OF FILE: assignment6/src/democustom/aserializingcounterclient2launcher.java
+package demoCustom;
+
+import examples.gipc.counter.customization.ACustomCounterClient;
+import examples.gipc.counter.customization.FactorySetterFactory;
+import examples.gipc.counter.layers.AMultiLayerCounterClient;
+import examples.gipc.counter.layers.AMultiLayerCounterClient1;
+import examples.gipc.counter.layers.AMultiLayerCounterClient2;
+import util.annotations.Comp533Tags;
+import util.annotations.Tags;
+import util.trace.port.objects.ObjectTraceUtility;
+import util.trace.port.serialization.extensible.ExtensibleSerializationTraceUtility;
+
+@Tags({Comp533Tags.CUSTOM_SERIALIZER_CLIENT2})
+public class ASerializingCounterClient2Launcher extends AMultiLayerCounterClient2 {
+	public static void main (String[] args) {
+//		ExtensibleSerializationTraceUtility.setTracing();
+		assignments.util.A4TraceUtility.setTracing();
+		ObjectTraceUtility.setTracing();
+		FactorySetterFactory.setSingleton(new ASerializingFactorySetter());
+		ACustomCounterClient.launch(CLIENT2_NAME);
+	}
+
+}
+//END OF FILE
+//START OF FILE: assignment6/src/democustom/aserializingcounterserverlauncher.java
+package demoCustom;
+
+import examples.gipc.counter.customization.ACustomCounterServer;
+import examples.gipc.counter.customization.FactorySetterFactory;
+import util.annotations.Comp533Tags;
+import util.annotations.Tags;
+import util.trace.port.objects.ObjectTraceUtility;
+import util.trace.port.serialization.extensible.ExtensibleSerializationTraceUtility;
+
+@Tags({Comp533Tags.CUSTOM_SERIALIZER_SERVER})
+public class ASerializingCounterServerLauncher {
+	public static void main (String[] args) {
+//		ExtensibleSerializationTraceUtility.setTracing();
+		assignments.util.A4TraceUtility.setTracing();
+		ObjectTraceUtility.setTracing();
+		FactorySetterFactory.setSingleton(new ASerializingFactorySetter());
+		ACustomCounterServer.launch();
+	}
+
+}
+//END OF FILE
+//START OF FILE: assignment6/src/democustom/aserializingfactorysetter.java
+package demoCustom;
+
+import examples.gipc.counter.customization.ACustomDuplexObjectInputPortFactory;
+import examples.gipc.counter.customization.ACustomDuplexReceivedCallInvokerFactory;
+import examples.gipc.counter.customization.ACustomSentCallCompleterFactory;
+import examples.gipc.counter.customization.ACustomSerializerFactory;
+import examples.gipc.counter.customization.FactorySetter;
+import inputport.datacomm.duplex.object.DuplexObjectInputPortSelector;
+import inputport.rpc.duplex.DuplexReceivedCallInvokerSelector;
+import inputport.rpc.duplex.DuplexSentCallCompleterSelector;
+import main.LogicalBinarySerializerFactory;
+import main.LogicalTextualSerializerFactory;
+import serialization.SerializerSelector;
+
+public class ASerializingFactorySetter implements FactorySetter{
+
+	@Override
+	public void setFactories() {
+		/*
+		 * Determines the ports  for sending and
+		 * receiving objects. Needed for sync receive.
+		 */
+		DuplexObjectInputPortSelector.setDuplexInputPortFactory(
+				new ACustomDuplexObjectInputPortFactory());
+		
+		
+		/*
+		 * Two alternatives for received call invoker factory, with one
+		 * commented out. This factory determines the object that 
+		 * actually calls a method of a remote object in response to
+		 * a received message
+		 */
+		DuplexReceivedCallInvokerSelector.setReceivedCallInvokerFactory(
+				new ACustomDuplexReceivedCallInvokerFactory());		
+//		DuplexReceivedCallInvokerSelector.setReceivedCallInvokerFactory(
+//				new AnAsynchronousCustomDuplexReceivedCallInvokerFactory());
+		
+		/*
+		 * Determines the object that processes return value, if any, of
+		 * a remote call
+		 */
+		DuplexSentCallCompleterSelector.setDuplexSentCallCompleterFactory(
+				new ACustomSentCallCompleterFactory());
+		
+		
+		/*
+		 * This is for the serializer assignment, determines the serializer
+		 */
+		SerializerSelector.setSerializerFactory(new LogicalBinarySerializerFactory());	
+	}
+
+}
+//END OF FILE
+//START OF FILE: assignment6/src/demosimulation/a6tracingfactorysetter.java
+package demoSimulation;
+
+import examples.gipc.counter.customization.ACustomDuplexObjectInputPortFactory;
+import examples.gipc.counter.customization.ACustomDuplexReceivedCallInvokerFactory;
+import examples.gipc.counter.customization.ACustomSentCallCompleterFactory;
+import examples.gipc.counter.customization.ACustomSerializerFactory;
+import examples.gipc.counter.customization.FactorySetter;
+import inputport.datacomm.duplex.object.DuplexObjectInputPortSelector;
+import inputport.rpc.duplex.DuplexReceivedCallInvokerSelector;
+import inputport.rpc.duplex.DuplexSentCallCompleterSelector;
+import main.ANilsAsynchronousCustomDuplexReceivedCallInvokerFactory;
+import main.ANilsCustomDuplexObjectInputPortFactory;
+import main.ANilsCustomSentCallCompleterFactory;
+import main.ANilsFunctionCustomSentCallCompleterFactory;
+import main.LogicalBinarySerializerFactory;
+import main.LogicalTextualSerializerFactory;
+import serialization.SerializerSelector;
+
+public class A6TracingFactorySetter implements FactorySetter{
+
+	@Override
+	public void setFactories() {
+		/*
+		 * Determines the ports  for sending and
+//		 * receiving objects. Needed for sync receive.
+//		 */
+//		DuplexObjectInputPortSelector.setDuplexInputPortFactory(
+//				new ANilsCustomDuplexObjectInputPortFactory());
+//		
+//		
+//		/*
+//		 * Two alternatives for received call invoker factory, with one
+//		 * commented out. This factory determines the object that 
+//		 * actually calls a method of a remote object in response to
+//		 * a received message
+//		 */
+//		DuplexReceivedCallInvokerSelector.setReceivedCallInvokerFactory(
+//				new ANilsAsynchronousCustomDuplexReceivedCallInvokerFactory());		
+////		DuplexReceivedCallInvokerSelector.setReceivedCallInvokerFactory(
+////				new AnAsynchronousCustomDuplexReceivedCallInvokerFactory());
+//		
+//		/*
+//		 * Determines the object that processes return value, if any, of
+//		 * a remote call
+//		 */
+//		DuplexSentCallCompleterSelector.setDuplexSentCallCompleterFactory(
+//				new ANilsFunctionCustomSentCallCompleterFactory());
+		
+		
+		/*
+		 * This is for the serializer assignment, determines the serializer
+		 */
+		SerializerSelector.setSerializerFactory(new LogicalBinarySerializerFactory());	
+	}
+
+}
+//END OF FILE
+//START OF FILE: assignment6/src/demosimulation/clientlauncher.java
+package demoSimulation;
+
+import assignments.util.MiscAssignmentUtils;
+import assignments.util.mainArgs.ClientArgsProcessor;
+import examples.gipc.counter.customization.ATracingFactorySetter;
+import examples.gipc.counter.customization.FactorySetterFactory;
+import examples.gipc.counter.layers.AMultiLayerCounterClient;
+import examples.gipc.counter.layers.AMultiLayerCounterClient1;
+import main.ANilsTracingFactorySetter;
+import main.client.AClient;
+import part1ServersAndClients.Part1Client1;
+import part1ServersAndClients.Part1TracingFactorySetter;
+import part2ServersAndClients.Part2Client1;
+import part2ServersAndClients.Part2TracingFactorySetter;
+import util.annotations.Comp533Tags;
+import util.annotations.Tags;
+import util.trace.port.objects.ObjectTraceUtility;
+import util.trace.port.rpc.RPCTraceUtility;
+import util.trace.port.serialization.extensible.ExtensibleSerializationTraceUtility;
+
+@Tags({Comp533Tags.CUSTOM_SERIALIZER})
+public class ClientLauncher implements Launcher{
+	public static void main (String[] args) {
+//		util.trace.port.objects.ObjectTraceUtility.setTracing();
+//		util.trace.port.rpc.RPCTraceUtility.setTracing();
+//		ExtensibleSerializationTraceUtility.setTracing();
+		assignments.util.A4TraceUtility.setTracing();
+		ObjectTraceUtility.setTracing();
+		RPCTraceUtility.setTracing();
+		FactorySetterFactory.setSingleton(new A6TracingFactorySetter());
+		MiscAssignmentUtils.setHeadless(true);
+		String clientName = CLIENT_NAME + System.currentTimeMillis();
+		AClient.launchClient(SERVER_HOST, SERVER_PORT, clientName, SERVER_HOST, RMI_PORT, GIPC_PORT);
+	}
+
+}
+//END OF FILE
+//START OF FILE: assignment6/src/demosimulation/launcher.java
+package demoSimulation;
+
+public interface Launcher {
+	public static final String SERVER_HOST = "localhost"; 
+	public static final String CLIENT_NAME = "client";
+
+	public static final int GIPC_PORT = 8003;
+	public static final int SERVER_PORT = 8001;
+	public static final int RMI_PORT = 8002;
+}
+//END OF FILE
+//START OF FILE: assignment6/src/demosimulation/registrylauncher.java
+package demoSimulation;
+
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.util.Scanner;
+
+import assignments.util.mainArgs.ServerArgsProcessor;
+import main.rmi.ARMILauncher;
+import util.trace.port.rpc.rmi.RMIRegistryCreated;
+
+public class RegistryLauncher implements Launcher{
+	public static void main(String[] args) {
+		try {
+			LocateRegistry.createRegistry(RMI_PORT);
+			RMIRegistryCreated.newCase(new ARMILauncher(), RMI_PORT); 
+			Scanner scanner = new Scanner(System.in);
+			scanner.nextLine();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+}
+//END OF FILE
+//START OF FILE: assignment6/src/demosimulation/serverlauncher.java
+package demoSimulation;
+
+import examples.gipc.counter.customization.ATracingFactorySetter;
+import examples.gipc.counter.customization.FactorySetterFactory;
+import main.ANilsTracingFactorySetter;
+import main.server.AServer;
+import part1ServersAndClients.Part1Server;
+import part1ServersAndClients.Part1TracingFactorySetter;
+import part2ServersAndClients.Part2Server;
+import part2ServersAndClients.Part2TracingFactorySetter;
+import util.annotations.Comp533Tags;
+import util.annotations.Tags;
+import util.trace.port.objects.ObjectTraceUtility;
+import util.trace.port.rpc.RPCTraceUtility;
+import util.trace.port.serialization.extensible.ExtensibleSerializationTraceUtility;
+
+@Tags({Comp533Tags.CUSTOM_SERIALIZER})
+public class ServerLauncher implements Launcher{
+	public static void main (String[] args) {
+//		util.trace.port.objects.ObjectTraceUtility.setTracing();
+//		util.trace.port.rpc.RPCTraceUtility.setTracing();
+//		ExtensibleSerializationTraceUtility.setTracing();
+		assignments.util.A4TraceUtility.setTracing();
+		ObjectTraceUtility.setTracing();
+		RPCTraceUtility.setTracing();
+		FactorySetterFactory.setSingleton(new A6TracingFactorySetter());
+		AServer.launchServer(SERVER_PORT,RMI_PORT,"localhost",GIPC_PORT);
+	}
+
+}
+//END OF FILE
+//START OF FILE: assignment6/src/main/adispatchingserializer.java
+package main;
+
+import java.io.NotSerializableException;
+import java.io.Serializable;
+import java.io.StreamCorruptedException;
+import java.lang.reflect.Array;
+import java.nio.ByteBuffer;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Vector;
+
+import util.annotations.Comp533Tags;
+import util.annotations.Tags;
+
+@Tags({Comp533Tags.DISPATCHING_SERIALIZER })
+public class ADispatchingSerializer implements DispatchingSerializer{
+
+	public void objectToBuffer(Object anOutputBuffer, Object anObject, ArrayList<Object> visitedObjects)
+			throws NotSerializableException {
+		// need some type of error handling for no serializer returned
+		if(visitedObjects.contains(anObject)) {
+			addReference(anOutputBuffer, anObject, visitedObjects);
+		}
+		else if(anObject == null) {
+			SerializerRegistry.getNullSerializer().objectToBuffer(anOutputBuffer, anObject, visitedObjects);
+		}
+		else if(anObject instanceof Integer) {
+			SerializerRegistry.getValueSerializer(Integer.class).objectToBuffer(anOutputBuffer, anObject, visitedObjects);
+		}
+		else if(anObject instanceof Boolean) {
+			SerializerRegistry.getValueSerializer(Boolean.class).objectToBuffer(anOutputBuffer, anObject, visitedObjects);
+		}
+		else if(anObject instanceof Long) {
+			SerializerRegistry.getValueSerializer(Long.class).objectToBuffer(anOutputBuffer, anObject, visitedObjects);
+		}
+		else if(anObject instanceof Short) {
+			SerializerRegistry.getValueSerializer(Short.class).objectToBuffer(anOutputBuffer, anObject, visitedObjects);
+		}
+		else if(anObject instanceof Float) {
+			SerializerRegistry.getValueSerializer(Float.class).objectToBuffer(anOutputBuffer, anObject, visitedObjects);
+		}
+		else if(anObject instanceof Double) {
+			SerializerRegistry.getValueSerializer(Double.class).objectToBuffer(anOutputBuffer, anObject, visitedObjects);
+		}
+		else if(anObject instanceof String) {
+			SerializerRegistry.getValueSerializer(String.class).objectToBuffer(anOutputBuffer, anObject, visitedObjects);
+		}
+		else if(anObject instanceof ArrayList) {
+			SerializerRegistry.getValueSerializer(ArrayList.class).objectToBuffer(anOutputBuffer, anObject, visitedObjects);
+		}
+		else if(anObject instanceof Vector) {
+			SerializerRegistry.getValueSerializer(Vector.class).objectToBuffer(anOutputBuffer, anObject, visitedObjects);
+		}
+		else if(anObject instanceof HashSet) {
+			SerializerRegistry.getValueSerializer(HashSet.class).objectToBuffer(anOutputBuffer, anObject, visitedObjects);
+		}
+		else if(anObject instanceof HashMap) {
+			SerializerRegistry.getValueSerializer(HashMap.class).objectToBuffer(anOutputBuffer, anObject, visitedObjects);
+		}
+		else if(anObject instanceof Hashtable) {
+			SerializerRegistry.getValueSerializer(Hashtable.class).objectToBuffer(anOutputBuffer, anObject, visitedObjects);
+		}
+		else if(anObject.getClass().isEnum()) {
+			SerializerRegistry.getEnumSerializer().objectToBuffer(anOutputBuffer, anObject, visitedObjects);
+		}
+		else if(anObject.getClass().isArray()) {
+			SerializerRegistry.getArraySerializer().objectToBuffer(anOutputBuffer, anObject, visitedObjects);
+		}
+		else if(util.misc.RemoteReflectionUtility.isList(anObject.getClass())) { 
+			SerializerRegistry.getListPatternSerializer().objectToBuffer(anOutputBuffer, anObject, visitedObjects);
+		}
+		else if(anObject instanceof Serializable) {
+			SerializerRegistry.getBeanSerializer().objectToBuffer(anOutputBuffer, anObject, visitedObjects);
+		}
+	}
+
+	public Object objectFromBuffer(Object anInputBuffer, ArrayList<Object> retrievedObjects)
+			throws StreamCorruptedException, NotSerializableException {	
+		String classType = getClassType(anInputBuffer);
+		if(classType.equals(SerializerRegistry.REFERENCE)) {
+			return retrieveReference(anInputBuffer, retrievedObjects);
+		}
+		else if(classType.equals(SerializerRegistry.NULL_CLASS)) {
+			return SerializerRegistry.getNullSerializer().objectFromBuffer(anInputBuffer, null, retrievedObjects);
+		}
+		else if(classType.equals(Integer.class.toString())) {
+			return SerializerRegistry.getValueSerializer(Integer.class).objectFromBuffer(anInputBuffer, Integer.class, retrievedObjects);
+		}
+		else if(classType.equals(Boolean.class.toString())) {
+			return SerializerRegistry.getValueSerializer(Boolean.class).objectFromBuffer(anInputBuffer, Boolean.class, retrievedObjects);
+		}
+		else if(classType.equals(Long.class.toString())) {
+			return SerializerRegistry.getValueSerializer(Long.class).objectFromBuffer(anInputBuffer, Long.class, retrievedObjects);
+		}
+		else if(classType.equals(Short.class.toString())) {
+			return SerializerRegistry.getValueSerializer(Short.class).objectFromBuffer(anInputBuffer, Short.class, retrievedObjects);
+		}
+		else if(classType.equals(Double.class.toString())) {
+			return SerializerRegistry.getValueSerializer(Double.class).objectFromBuffer(anInputBuffer, Double.class, retrievedObjects);
+		}
+		else if(classType.equals(Float.class.toString())) {
+			return SerializerRegistry.getValueSerializer(Float.class).objectFromBuffer(anInputBuffer, Float.class, retrievedObjects);
+		}
+		else if(classType.equals(String.class.toString())) {
+			return SerializerRegistry.getValueSerializer(String.class).objectFromBuffer(anInputBuffer, String.class, retrievedObjects);
+		}
+		else if(classType.equals(ArrayList.class.toString())) {
+			return SerializerRegistry.getValueSerializer(ArrayList.class).objectFromBuffer(anInputBuffer, ArrayList.class, retrievedObjects);
+		}
+		else if(classType.equals(Vector.class.toString())) {
+			return SerializerRegistry.getValueSerializer(Vector.class).objectFromBuffer(anInputBuffer, Vector.class, retrievedObjects);
+		}
+		else if(classType.equals(HashSet.class.toString())) {
+			return SerializerRegistry.getValueSerializer(HashSet.class).objectFromBuffer(anInputBuffer, HashSet.class, retrievedObjects);
+		}
+		else if(classType.equals(HashMap.class.toString())) {
+			return SerializerRegistry.getValueSerializer(HashMap.class).objectFromBuffer(anInputBuffer, HashMap.class, retrievedObjects);
+		}
+		else if(classType.equals(Hashtable.class.toString())) {
+			return SerializerRegistry.getValueSerializer(Hashtable.class).objectFromBuffer(anInputBuffer, Hashtable.class, retrievedObjects);
+		}
+		else if(classType.equals(Enum.class.toString())) {
+			return SerializerRegistry.getEnumSerializer().objectFromBuffer(anInputBuffer, Enum.class, retrievedObjects);
+		}
+		else if(classType.equals(Array.class.toString())) {
+			return SerializerRegistry.getArraySerializer().objectFromBuffer(anInputBuffer, Array.class, retrievedObjects);
+		}
+		else if(classType.equals(Class.class.toString())) {
+			return SerializerRegistry.getBeanSerializer().objectFromBuffer(anInputBuffer, Class.class, retrievedObjects);
+		}
+		else if(classType.equals(List.class.toString())) {
+			return SerializerRegistry.getListPatternSerializer().objectFromBuffer(anInputBuffer, List.class, retrievedObjects);
+		}
+		else {
+			return null;
+		}
+	}
+	
+	public String getClassType(Object anInputBuffer) throws NotSerializableException {
+		if(anInputBuffer instanceof IndexedStringBuffer) {
+			int endIndex = ((IndexedStringBuffer)anInputBuffer).indexOf(SerializerRegistry.CLASS_DELIMITER, ((IndexedStringBuffer)anInputBuffer).getIndex());
+			String classString = ((IndexedStringBuffer)anInputBuffer).substring(((IndexedStringBuffer)anInputBuffer).getIndex(), endIndex);
+			((IndexedStringBuffer)anInputBuffer).setIndex(endIndex + 1);
+			return classString;
+		}
+		else if(anInputBuffer instanceof ByteBuffer) {
+			((ByteBuffer)anInputBuffer).mark();
+			byte[] byteArray = new byte[((ByteBuffer)anInputBuffer).remaining()];
+			((ByteBuffer)anInputBuffer).get(byteArray);
+			String fullString = new String(byteArray);
+			int endIndex = fullString.indexOf(SerializerRegistry.CLASS_DELIMITER);
+			String classString = fullString.substring(0, endIndex);
+			((ByteBuffer)anInputBuffer).reset();
+			((ByteBuffer)anInputBuffer).get(new byte[endIndex + 1]);
+			return classString;
+		}
+		else {
+			throw new NotSerializableException("Incorrect buffer type (StringReader or ByteBuffer)");
+		}
+	}
+	
+	private void addReference(Object anOutputBuffer, Object anObject, ArrayList<Object> visitedObjects) throws NotSerializableException {
+		int index = visitedObjects.indexOf(anObject);
+		if(index >= 0)  {
+			if(anOutputBuffer instanceof IndexedStringBuffer) {
+				((IndexedStringBuffer)anOutputBuffer).append(SerializerRegistry.REFERENCE + SerializerRegistry.CLASS_DELIMITER + 
+						index + SerializerRegistry.OBJECT_DELIMITER);
+			}
+			else if(anOutputBuffer instanceof ByteBuffer) {
+				((ByteBuffer)anOutputBuffer).put((SerializerRegistry.REFERENCE + SerializerRegistry.CLASS_DELIMITER).getBytes());
+				((ByteBuffer)anOutputBuffer).putShort((short)index);
+			}
+			else {
+				throw new NotSerializableException("Incorrect buffer type (StringReader or ByteBuffer)");
+			}
+		}
+		else {
+			throw new RuntimeException("Reference not found in visited objects");
+		}
+	}
+	
+	private Object retrieveReference(Object anInputBuffer, ArrayList<Object> retrievedObjects) throws NotSerializableException {
+		int index;
+		if(anInputBuffer instanceof IndexedStringBuffer) {
+			int endIndex = ((IndexedStringBuffer)anInputBuffer).indexOf(SerializerRegistry.OBJECT_DELIMITER, ((IndexedStringBuffer)anInputBuffer).getIndex());
+			index = Integer.parseInt(((IndexedStringBuffer)anInputBuffer).substring(((IndexedStringBuffer)anInputBuffer).getIndex(), endIndex));
+			((IndexedStringBuffer)anInputBuffer).setIndex(endIndex + 1);
+		}
+		else if(anInputBuffer instanceof ByteBuffer) {
+			index = (int)((ByteBuffer)anInputBuffer).getShort();
+		}
+		else {
+			throw new NotSerializableException("Incorrect buffer type (StringReader or ByteBuffer)");
+		}
+		return retrievedObjects.get(index);
+	}
+}
+//END OF FILE
+//START OF FILE: assignment6/src/main/dispatchingserializer.java
+package main;
+
+import java.io.NotSerializableException;
+import java.io.StreamCorruptedException;
+import java.util.ArrayList;
+
+import util.annotations.Comp533Tags;
+import util.annotations.Tags;
+
+@Tags({Comp533Tags.DISPATCHING_SERIALIZER })
+public interface DispatchingSerializer {
+	void objectToBuffer (Object anOutputBuffer, 
+			Object anObject, ArrayList<Object> visitedObjects) 
+	throws NotSerializableException;
+	
+	Object objectFromBuffer(Object anInputBuffer, 
+			ArrayList<Object> retrievedObjects) 
+	throws StreamCorruptedException, NotSerializableException;
+}
+//END OF FILE
+//START OF FILE: assignment6/src/main/indexedstringbuffer.java
+package main;
+
+public class IndexedStringBuffer {
+	public StringBuffer buffer;
+	public int index;
+	
+	public IndexedStringBuffer() {
+		buffer = new StringBuffer();
+		index = 0;
+	}
+	
+	public IndexedStringBuffer(String str) {
+		buffer = new StringBuffer(str);
+		index = 0;
+	}
+	
+	public int getIndex() {
+		return index;
+	}
+	
+	public void setIndex(int i) {
+		index = i;
+	}
+	
+	public void append(String str) {
+		buffer.append(str);
+	}
+	
+	public int indexOf(String str) {
+		return buffer.indexOf(str);
+	}
+	
+	public int indexOf(String str, int idx) {
+		return buffer.indexOf(str, idx);
+	}
+	
+	public String substring(int start, int end) {
+		return buffer.toString().substring(start, end);
+	}
+	
+	public String toString() {
+		return buffer.toString();
+	}
+	
+	public void delete(int start, int end) {
+		buffer.delete(start, end);
+	}
+	
+	public int length() {
+		return buffer.length();
+	}
+}
+//END OF FILE
+//START OF FILE: assignment6/src/main/logicalbinaryserializer.java
+package main;
+
+import java.io.NotSerializableException;
+import java.io.StreamCorruptedException;
+import java.nio.ByteBuffer;
+import java.util.ArrayList;
+
+import serialization.Serializer;
+import util.annotations.Comp533Tags;
+import util.annotations.Tags;
+
+@Tags({Comp533Tags.LOGICAL_BINARY_SERIALIZER})
+public class LogicalBinarySerializer implements Serializer{
+
+	@Override
+	public ByteBuffer outputBufferFromObject(Object object) {
+		byte[] byteArray = new byte[1024];
+		ByteBuffer buffer = ByteBuffer.wrap(byteArray);
+		try {
+			SerializerRegistry.getDispatchingSerializer().objectToBuffer(buffer, object, new ArrayList<Object>());
+		} catch (NotSerializableException e) {
+			e.printStackTrace();
+		}
+		buffer.flip();
+		return buffer;
+	}
+
+	@Override
+	public Object objectFromInputBuffer(ByteBuffer inputBuffer) {
+		Object obj = null;
+		inputBuffer.mark();
+		try {
+			obj = SerializerRegistry.getDispatchingSerializer().objectFromBuffer(inputBuffer, new ArrayList<Object>());
+			inputBuffer.flip();
+			return obj;
+		} catch (StreamCorruptedException e) {
+			inputBuffer.reset();
+			e.printStackTrace();
+			return null;
+		} catch (NotSerializableException e) {
+			inputBuffer.reset();
+			e.printStackTrace();
+			return null;
+		} catch (Exception e) {
+			inputBuffer.reset();
+			return null;
+		}
+	}
+
+}
+//END OF FILE
+//START OF FILE: assignment6/src/main/logicalbinaryserializerfactory.java
+package main;
+
+import serialization.Serializer;
+import serialization.SerializerFactory;
+
+public class LogicalBinarySerializerFactory implements SerializerFactory{
+	LogicalBinarySerializer serializer;
+	
+	public Serializer createSerializer() {
+		if(serializer == null) {
+			serializer =  new LogicalBinarySerializer();
+		}
+		return serializer;
+	}
+}
+//END OF FILE
+//START OF FILE: assignment6/src/main/logicaltextualserializer.java
+package main;
+
+import java.io.NotSerializableException;
+import java.io.StreamCorruptedException;
+import java.nio.ByteBuffer;
+import java.util.ArrayList;
+
+import serialization.Serializer;
+import util.annotations.Comp533Tags;
+import util.annotations.Tags;
+
+@Tags({Comp533Tags.LOGICAL_TEXTUAL_SERIALIZER})
+public class LogicalTextualSerializer implements Serializer{
+
+	public ByteBuffer outputBufferFromObject(Object object) {
+		IndexedStringBuffer buffer = new IndexedStringBuffer();
+		ArrayList<Object> visited = new ArrayList<>();
+		try {
+			SerializerRegistry.getDispatchingSerializer().objectToBuffer(buffer, object, visited);
+		} catch (NotSerializableException e) {
+			e.printStackTrace();
+		}
+		return ByteBuffer.wrap(buffer.toString().getBytes());
+	}
+
+	public Object objectFromInputBuffer(ByteBuffer inputBuffer) {
+		byte[] byteArray = new byte[inputBuffer.remaining()];
+		inputBuffer.mark();
+		inputBuffer.get(byteArray);
+		IndexedStringBuffer buffer = new IndexedStringBuffer(new String(byteArray));
+		try {
+			Object object = SerializerRegistry.getDispatchingSerializer().objectFromBuffer(buffer, new ArrayList());
+			int index = byteArray.length - buffer.length();
+			inputBuffer.reset();
+			inputBuffer.get(new byte[index]);
+			inputBuffer.flip();
+			return object;
+		} catch (StreamCorruptedException e) {
+//			e.printStackTrace();
+			inputBuffer.reset();
+			return null;
+		} catch (NotSerializableException e) {
+			inputBuffer.reset();
+//			e.printStackTrace();
+			return null;
+		} catch (Exception e) {
+			inputBuffer.reset();
+			return null;
+		}
+//		return null;
+	}
+
+}
+//END OF FILE
+//START OF FILE: assignment6/src/main/logicaltextualserializerfactory.java
+package main;
+
+import inputport.nio.manager.factories.classes.AConnectCommandFactory;
+import serialization.Serializer;
+import serialization.SerializerFactory;
+import util.annotations.Comp533Tags;
+import util.annotations.Tags;
+
+public class LogicalTextualSerializerFactory implements SerializerFactory{
+	LogicalTextualSerializer serializer;
+	
+	public Serializer createSerializer() {
+		if(serializer == null) {
+			serializer =  new LogicalTextualSerializer();
+		}
+		return serializer;
+	}
+}
+//END OF FILE
+//START OF FILE: assignment6/src/main/serializerregistry.java
+package main;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Hashtable;
+import java.util.Vector;
+
+import main.serializers.ArraySerializer;
+import main.serializers.BeanSerializer;
+import main.serializers.BooleanSerializer;
+import main.serializers.CollectionSerializer;
+import main.serializers.DoubleSerializer;
+import main.serializers.EnumSerializer;
+import main.serializers.FloatSerializer;
+import main.serializers.IntegerSerializer;
+import main.serializers.ListSerializer;
+import main.serializers.LongSerializer;
+import main.serializers.MapSerializer;
+import main.serializers.NullSerializer;
+import main.serializers.ShortSerializer;
+import main.serializers.StringSerializer;
+import main.serializers.ValueSerializer;
+import util.annotations.Comp533Tags;
+import util.annotations.Tags;
+
+@Tags({Comp533Tags.SERIALIZER_REGISTRY})
+public class SerializerRegistry {
+	public static final String OBJECT_DELIMITER = "#";
+	public static final String CLASS_DELIMITER = "%";
+	public static final String LENGTH_DELIMITER = "@";
+	public static final String NULL_CLASS = "class java.lang.Null";
+	public static final String REFERENCE = "referenceToObject";
+	
+	static DispatchingSerializer dispatchingSerializer;
+	static ValueSerializer arraySerializer;
+	static ValueSerializer beanSerializer;
+	static ValueSerializer listPatternSerializer;
+	static ValueSerializer enumSerializer;
+	static ValueSerializer nullSerializer;
+	static HashMap<Class, ValueSerializer> registry;
+	
+	// make these not static in final version, maybe use a factory or something
+	static {
+		registry = new HashMap<>();
+		registerDispatchingSerializer(new ADispatchingSerializer());
+		registerSerializer(Integer.class, new IntegerSerializer());
+		registerSerializer(Boolean.class, new BooleanSerializer());
+		registerSerializer(Long.class, new LongSerializer());
+		registerSerializer(Short.class, new ShortSerializer());
+		registerSerializer(Float.class, new FloatSerializer());
+		registerSerializer(Double.class, new DoubleSerializer());
+		registerSerializer(String.class, new StringSerializer());
+		registerSerializer(ArrayList.class, new CollectionSerializer());
+		registerSerializer(Vector.class, new CollectionSerializer());
+		registerSerializer(HashSet.class, new CollectionSerializer());
+		registerSerializer(HashMap.class, new MapSerializer());
+		registerSerializer(Hashtable.class, new MapSerializer());
+		
+		registerEnumSerializer(new EnumSerializer());
+		registerNullSerializer(new NullSerializer());
+		registerArraySerializer(new ArraySerializer());
+		registerBeanSerializer(new BeanSerializer());
+		registerListPatternSerializer(new ListSerializer());
+		
+	}
+	
+	// value serializers
+	public static void registerValueSerializer (Class aClass, ValueSerializer anExternalSerializer) {
+		registry.put(aClass, anExternalSerializer);
+	}
+	
+	public static ValueSerializer getValueSerializer(Class aClass) {
+		return registry.get(aClass);
+	}
+	
+	public static void registerSerializer(Class aClass, ValueSerializer anExternalSerializer) {
+		registry.put(aClass, anExternalSerializer);
+	}
+	
+	// dispatching serializer
+	public static void registerDispatchingSerializer (DispatchingSerializer anExternalSerializer) {
+		dispatchingSerializer = anExternalSerializer;
+	}
+	
+	public static DispatchingSerializer getDispatchingSerializer() {
+		return dispatchingSerializer;
+	}
+	
+	// enum serializer
+	public static void registerEnumSerializer (ValueSerializer anExternalSerializer) {
+		enumSerializer = anExternalSerializer;
+	}
+	
+	public static ValueSerializer getEnumSerializer() {
+		return enumSerializer;
+	}
+	
+	// null serializer
+	public static void registerNullSerializer (ValueSerializer anExternalSerializer) {
+		nullSerializer = anExternalSerializer;
+	}
+	
+	public static ValueSerializer getNullSerializer() {
+		return nullSerializer;
+	}
+	
+	// array serializer
+	public static void registerArraySerializer (ValueSerializer anExternalSerializer) {
+		arraySerializer = anExternalSerializer;
+	}
+	
+	public static ValueSerializer getArraySerializer() {
+		return arraySerializer;
+	}
+	
+	// bean serializer 
+	public static void registerBeanSerializer (ValueSerializer anExternalSerializer) {
+		beanSerializer = anExternalSerializer;
+	}
+	
+	public static ValueSerializer getBeanSerializer() {
+		return beanSerializer;
+	}
+	
+	// list serializer 
+	public static void registerListPatternSerializer (ValueSerializer anExternalSerializer) {
+		listPatternSerializer = anExternalSerializer;
+	}
+	
+	public static ValueSerializer getListPatternSerializer() {
+		return listPatternSerializer;
+	}
+	
+}
+//END OF FILE
+//START OF FILE: assignment6/src/main/serializers/arrayserializer.java
+package main.serializers;
+
+import java.io.NotSerializableException;
+import java.io.StreamCorruptedException;
+import java.lang.reflect.Array;
+import java.nio.ByteBuffer;
+import java.util.ArrayList;
+
+import main.IndexedStringBuffer;
+import main.SerializerRegistry;
+import util.annotations.Comp533Tags;
+import util.annotations.Tags;
+import util.trace.port.serialization.extensible.ExtensibleBufferDeserializationFinished;
+import util.trace.port.serialization.extensible.ExtensibleBufferDeserializationInitiated;
+import util.trace.port.serialization.extensible.ExtensibleValueSerializationFinished;
+import util.trace.port.serialization.extensible.ExtensibleValueSerializationInitiated;
+
+@Tags({Comp533Tags.ARRAY_SERIALIZER})
+public class ArraySerializer implements ValueSerializer{
+
+	@Override
+	public void objectToBuffer(Object anOutputBuffer, Object anObject, ArrayList<Object> visitedObjects)
+			throws NotSerializableException {
+		if(anObject.getClass().isArray()) {
+			ExtensibleValueSerializationInitiated.newCase(this, anObject, anOutputBuffer);
+			visitedObjects.add(anObject);
+			Object obj;
+			int size = Array.getLength(anObject);
+			String arrayRep = anObject.getClass().getComponentType().getName() + ":" + size;
+			if(anOutputBuffer instanceof IndexedStringBuffer) {
+				((IndexedStringBuffer)anOutputBuffer).append(Array.class.toString() + SerializerRegistry.CLASS_DELIMITER + 
+						arrayRep + SerializerRegistry.OBJECT_DELIMITER);
+			}
+			else if(anOutputBuffer instanceof ByteBuffer) {
+				((ByteBuffer)anOutputBuffer).put((Array.class.toString() + SerializerRegistry.CLASS_DELIMITER).getBytes());
+				((ByteBuffer)anOutputBuffer).putShort((short)arrayRep.length());
+				((ByteBuffer)anOutputBuffer).put(arrayRep.getBytes());
+			}
+			else {
+				throw new NotSerializableException("Incorrect buffer type (StringReader or ByteBuffer)");
+			}
+			for(int i = 0; i < size; i++) {
+				SerializerRegistry.getDispatchingSerializer().objectToBuffer(anOutputBuffer, Array.get(anObject, i), visitedObjects);
+			}
+			ExtensibleValueSerializationFinished.newCase(this, anObject, anOutputBuffer, visitedObjects);
+		}
+		else {
+			throw new NotSerializableException("Class is not an Array");
+		}
+		
+	}
+
+	@Override
+	public Object objectFromBuffer(Object anInputBuffer, Class aClass, ArrayList<Object> retrievedObjects)
+			throws StreamCorruptedException, NotSerializableException {
+		if(aClass == Array.class) {
+			ExtensibleBufferDeserializationInitiated.newCase(this, null, anInputBuffer, aClass);
+			int size;
+			String arrayRep;
+			if(anInputBuffer instanceof IndexedStringBuffer) {
+				int endIndex = ((IndexedStringBuffer)anInputBuffer).indexOf(SerializerRegistry.OBJECT_DELIMITER, ((IndexedStringBuffer)anInputBuffer).getIndex());
+				arrayRep = ((IndexedStringBuffer)anInputBuffer).substring(((IndexedStringBuffer)anInputBuffer).getIndex(), endIndex);
+				((IndexedStringBuffer)anInputBuffer).setIndex(endIndex + 1);
+			}
+			else if(anInputBuffer instanceof ByteBuffer) {
+				int length = ((ByteBuffer)anInputBuffer).getShort();
+				byte[] byteArray = new byte[length];
+				((ByteBuffer)anInputBuffer).get(byteArray, 0, length);
+				arrayRep = new String(byteArray);
+			}
+			else {
+				throw new NotSerializableException("Incorrect buffer type (StringReader or ByteBuffer)");
+			}
+			String compType = arrayRep.split(":")[0];
+			size = Integer.parseInt(arrayRep.split(":")[1]);
+			Object obj = null;
+			retrievedObjects.add(obj); // add to retrieved objects so references to it can be evaluated
+			try {
+				obj = Array.newInstance(Class.forName(compType), size);
+			} catch (NegativeArraySizeException | ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+			for(int i = 0; i < size; i++) {
+				Array.set(obj, i, SerializerRegistry.getDispatchingSerializer().objectFromBuffer(anInputBuffer, retrievedObjects));
+			}
+			ExtensibleBufferDeserializationFinished.newCase(this, null, anInputBuffer, obj, retrievedObjects);
+			return obj;
+		}
+		else {
+			throw new NotSerializableException("Class is not an Array");
+		}
+	}
+
+}
+//END OF FILE
+//START OF FILE: assignment6/src/main/serializers/beanserializer.java
+package main.serializers;
+
+import java.beans.BeanInfo;
+import java.beans.IntrospectionException;
+import java.beans.Introspector;
+import java.beans.PropertyDescriptor;
+import java.io.NotSerializableException;
+import java.io.Serializable;
+import java.io.StreamCorruptedException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.nio.ByteBuffer;
+import java.util.ArrayList;
+
+import main.IndexedStringBuffer;
+import main.SerializerRegistry;
+import util.annotations.Comp533Tags;
+import util.annotations.Tags;
+import util.misc.RemoteReflectionUtility;
+import util.trace.port.serialization.extensible.ExtensibleBufferDeserializationFinished;
+import util.trace.port.serialization.extensible.ExtensibleBufferDeserializationInitiated;
+import util.trace.port.serialization.extensible.ExtensibleValueSerializationFinished;
+import util.trace.port.serialization.extensible.ExtensibleValueSerializationInitiated;
+
+@Tags({Comp533Tags.BEAN_SERIALIZER})
+public class BeanSerializer implements ValueSerializer {
+
+	@Override
+	public void objectToBuffer(Object anOutputBuffer, Object anObject, ArrayList<Object> visitedObjects)
+			throws NotSerializableException {
+		if(anObject instanceof Serializable) {
+			ExtensibleValueSerializationInitiated.newCase(this, anObject, anOutputBuffer);
+			visitedObjects.add(anObject);
+			try {
+				BeanInfo beanInfo = Introspector.getBeanInfo(anObject.getClass());
+				PropertyDescriptor[] properties = beanInfo.getPropertyDescriptors();
+				if(anOutputBuffer instanceof IndexedStringBuffer) {
+					((IndexedStringBuffer)anOutputBuffer).append(Class.class.toString() + SerializerRegistry.CLASS_DELIMITER + 
+							anObject.getClass().getName() + SerializerRegistry.OBJECT_DELIMITER);
+				}
+				else if(anOutputBuffer instanceof ByteBuffer) {
+					((ByteBuffer)anOutputBuffer).put((Class.class.toString() + SerializerRegistry.CLASS_DELIMITER).getBytes());
+					((ByteBuffer)anOutputBuffer).putShort((short)anObject.getClass().getName().length());
+					((ByteBuffer)anOutputBuffer).put(anObject.getClass().getName().getBytes());
+				}
+				else {
+					throw new NotSerializableException("Incorrect buffer type (StringReader or ByteBuffer)");
+				}
+				for(PropertyDescriptor property : properties) {
+					if(property.getReadMethod() != null && property.getWriteMethod() != null 
+							&& !RemoteReflectionUtility.isTransient(property.getReadMethod())) { // excludes the class itself
+						SerializerRegistry.getDispatchingSerializer().objectToBuffer(anOutputBuffer, property.getReadMethod().invoke(anObject, null), visitedObjects);
+					}
+				}
+			} catch (IntrospectionException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+				e.printStackTrace();
+			}
+			RemoteReflectionUtility.invokeInitSerializedObject(anObject);
+			ExtensibleValueSerializationFinished.newCase(this, anObject, anOutputBuffer, visitedObjects);
+		}
+		else {
+			throw new NotSerializableException("Class is not a Bean");
+		}
+	}
+
+	@Override
+	public Object objectFromBuffer(Object anInputBuffer, Class aClass, ArrayList<Object> retrievedObjects)
+			throws StreamCorruptedException, NotSerializableException {
+		if(aClass == Class.class) {
+			ExtensibleBufferDeserializationInitiated.newCase(this, null, anInputBuffer, aClass);
+			String className = null;
+			if(anInputBuffer instanceof IndexedStringBuffer) {
+				int endIndex = ((IndexedStringBuffer)anInputBuffer).indexOf(SerializerRegistry.OBJECT_DELIMITER, ((IndexedStringBuffer)anInputBuffer).getIndex());
+				className = ((IndexedStringBuffer)anInputBuffer).substring(((IndexedStringBuffer)anInputBuffer).getIndex(), endIndex);
+				((IndexedStringBuffer)anInputBuffer).setIndex(endIndex + 1);
+			}
+			else if(anInputBuffer instanceof ByteBuffer) {
+				int length = ((ByteBuffer)anInputBuffer).getShort();
+				byte[] byteArray = new byte[length];
+				((ByteBuffer)anInputBuffer).get(byteArray, 0, length);
+				className = new String(byteArray);
+			}
+			else {
+				throw new NotSerializableException("Incorrect buffer type (StringReader or ByteBuffer)");
+			}
+			Object obj = null;
+			try {
+				Class<?> specificClass = Class.forName(className);
+				PropertyDescriptor[] properties = null;
+				BeanInfo beanInfo = Introspector.getBeanInfo(specificClass);
+				properties = beanInfo.getPropertyDescriptors();
+				obj = specificClass.newInstance();
+				retrievedObjects.add(obj); // add to retrieved objects so references to it can be evaluated
+				for(PropertyDescriptor property : properties) {
+					if(property.getWriteMethod() != null && property.getReadMethod() != null && 
+							!RemoteReflectionUtility.isTransient(property.getReadMethod())){
+						Object propObj = SerializerRegistry.getDispatchingSerializer().objectFromBuffer(anInputBuffer, retrievedObjects);
+						property.getWriteMethod().invoke(obj, propObj);
+					}
+				}
+			} catch (ClassNotFoundException | IntrospectionException | IllegalAccessException 
+					| IllegalArgumentException | InvocationTargetException | InstantiationException e) {
+				e.printStackTrace();
+			}
+			ExtensibleBufferDeserializationFinished.newCase(this, null, anInputBuffer, obj, retrievedObjects);
+			return obj;
+		}
+		else {
+			throw new NotSerializableException("Class is not a Bean");
+		}
+	}
+
+}
+//END OF FILE
+//START OF FILE: assignment6/src/main/serializers/booleanserializer.java
+package main.serializers;
+
+import java.io.NotSerializableException;
+import java.io.StreamCorruptedException;
+import java.nio.ByteBuffer;
+import java.util.ArrayList;
+
+import main.IndexedStringBuffer;
+import main.SerializerRegistry;
+import util.annotations.Comp533Tags;
+import util.annotations.Tags;
+import util.trace.port.serialization.extensible.ExtensibleBufferDeserializationFinished;
+import util.trace.port.serialization.extensible.ExtensibleBufferDeserializationInitiated;
+import util.trace.port.serialization.extensible.ExtensibleValueSerializationFinished;
+import util.trace.port.serialization.extensible.ExtensibleValueSerializationInitiated;
+
+@Tags({Comp533Tags.BOOLEAN_SERIALIZER})
+public class BooleanSerializer implements ValueSerializer{
+	
+	public void objectToBuffer(Object anOutputBuffer, Object anObject, ArrayList<Object> visitedObjects)
+			throws NotSerializableException {
+		if(anObject instanceof Boolean) {
+			ExtensibleValueSerializationInitiated.newCase(this, anObject, anOutputBuffer);
+//			visitedObjects.add(anObject);
+			Boolean obj = (Boolean)anObject;
+			if(anOutputBuffer instanceof IndexedStringBuffer) {
+				((IndexedStringBuffer)anOutputBuffer).append(Boolean.class.toString() + SerializerRegistry.CLASS_DELIMITER + obj.toString() + SerializerRegistry.OBJECT_DELIMITER);
+			}
+			else if(anOutputBuffer instanceof ByteBuffer) {
+				((ByteBuffer)anOutputBuffer).put((Boolean.class.toString() + SerializerRegistry.CLASS_DELIMITER).getBytes());
+				((ByteBuffer)anOutputBuffer).putShort((short)obj.toString().length());
+				((ByteBuffer)anOutputBuffer).put(obj.toString().getBytes());
+			}
+			else {
+				throw new NotSerializableException("Incorrect buffer type (StringReader or ByteBuffer)");
+			}
+			ExtensibleValueSerializationFinished.newCase(this, anObject, anOutputBuffer, visitedObjects);
+		}
+		else {
+			throw new NotSerializableException("Object is not a Boolean");
+		}
+	}
+
+	public Object objectFromBuffer(Object anInputBuffer, Class aClass, ArrayList<Object> retrievedObjects)
+			throws StreamCorruptedException, NotSerializableException {
+		if(aClass == Boolean.class) {
+			ExtensibleBufferDeserializationInitiated.newCase(this, null, anInputBuffer, aClass);
+			Boolean obj = null;
+//			retrievedObjects.add(obj); // add to retrieved objects so references to it can be evaluated
+			if(anInputBuffer instanceof IndexedStringBuffer) {
+				int endIndex = ((IndexedStringBuffer)anInputBuffer).indexOf(SerializerRegistry.OBJECT_DELIMITER, ((IndexedStringBuffer)anInputBuffer).getIndex());
+				String objString = ((IndexedStringBuffer)anInputBuffer).substring(((IndexedStringBuffer)anInputBuffer).getIndex(), endIndex);
+				obj = objString.equals("true") ? true : false;
+				((IndexedStringBuffer)anInputBuffer).setIndex(endIndex + 1);
+			}
+			else if(anInputBuffer instanceof ByteBuffer) {
+				int length = ((ByteBuffer)anInputBuffer).getShort();
+				byte[] byteArray = new byte[length];
+				((ByteBuffer)anInputBuffer).get(byteArray, 0, length);
+				obj = (new String(byteArray)).equals("true") ? true : false;
+			}
+			else {
+				throw new NotSerializableException("Incorrect buffer type (StringReader or ByteBuffer)");
+			}
+			ExtensibleBufferDeserializationFinished.newCase(this, null, anInputBuffer, obj, retrievedObjects);
+			return obj;
+		}
+		else {
+			throw new NotSerializableException("Class is not a Boolean");
+		}
+	}
+}
+//END OF FILE
+//START OF FILE: assignment6/src/main/serializers/collectionserializer.java
+package main.serializers;
+
+import java.io.NotSerializableException;
+import java.io.StreamCorruptedException;
+import java.nio.ByteBuffer;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Vector;
+
+import main.IndexedStringBuffer;
+import main.SerializerRegistry;
+import util.annotations.Comp533Tags;
+import util.annotations.Tags;
+import util.trace.port.serialization.extensible.ExtensibleBufferDeserializationFinished;
+import util.trace.port.serialization.extensible.ExtensibleBufferDeserializationInitiated;
+import util.trace.port.serialization.extensible.ExtensibleValueSerializationFinished;
+import util.trace.port.serialization.extensible.ExtensibleValueSerializationInitiated;
+
+@Tags({Comp533Tags.COLLECTION_SERIALIZER})
+public class CollectionSerializer implements ValueSerializer{
+	
+	public void objectToBuffer(Object anOutputBuffer, Object anObject, ArrayList<Object> visitedObjects)
+			throws NotSerializableException {
+		if(anObject instanceof ArrayList) {
+			ExtensibleValueSerializationInitiated.newCase(this, anObject, anOutputBuffer);
+			visitedObjects.add(anObject);
+			ArrayList obj = (ArrayList)anObject;
+			if(anOutputBuffer instanceof IndexedStringBuffer) {
+				((IndexedStringBuffer)anOutputBuffer).append(ArrayList.class.toString() + SerializerRegistry.CLASS_DELIMITER + obj.size() + SerializerRegistry.OBJECT_DELIMITER);
+			}
+			else if(anOutputBuffer instanceof ByteBuffer) {
+				((ByteBuffer)anOutputBuffer).put((ArrayList.class.toString() + SerializerRegistry.CLASS_DELIMITER).getBytes());
+				((ByteBuffer)anOutputBuffer).putShort((short)obj.size());
+			}
+			else {
+				throw new NotSerializableException("Incorrect buffer type (StringReader or ByteBuffer)");
+			}
+			for(int i = 0; i < obj.size(); i++) {
+				SerializerRegistry.getDispatchingSerializer().objectToBuffer(anOutputBuffer, obj.get(i), visitedObjects);
+			}
+			ExtensibleValueSerializationFinished.newCase(this, anObject, anOutputBuffer, visitedObjects);
+		}
+		else if(anObject instanceof Vector) {
+			ExtensibleValueSerializationInitiated.newCase(this, anObject, anOutputBuffer);
+			visitedObjects.add(anObject);
+			Vector obj = (Vector)anObject;
+			if(anOutputBuffer instanceof IndexedStringBuffer) {
+				((IndexedStringBuffer)anOutputBuffer).append(Vector.class.toString() + SerializerRegistry.CLASS_DELIMITER + obj.size() + SerializerRegistry.OBJECT_DELIMITER);
+			}
+			else if(anOutputBuffer instanceof ByteBuffer) {
+				((ByteBuffer)anOutputBuffer).put((Vector.class.toString() + SerializerRegistry.CLASS_DELIMITER).getBytes());
+				((ByteBuffer)anOutputBuffer).putShort((short)obj.size());
+			}
+			else {
+				throw new NotSerializableException("Incorrect buffer type (StringReader or ByteBuffer)");
+			}
+			for(int i = 0; i < obj.size(); i++) {
+				SerializerRegistry.getDispatchingSerializer().objectToBuffer(anOutputBuffer, obj.get(i), visitedObjects);
+			}
+			ExtensibleValueSerializationFinished.newCase(this, anObject, anOutputBuffer, visitedObjects);
+		}
+		else if(anObject instanceof HashSet) {
+			ExtensibleValueSerializationInitiated.newCase(this, anObject, anOutputBuffer);
+			visitedObjects.add(anObject);
+			HashSet obj = (HashSet)anObject;
+			if(anOutputBuffer instanceof IndexedStringBuffer) {
+				((IndexedStringBuffer)anOutputBuffer).append(HashSet.class.toString() + SerializerRegistry.CLASS_DELIMITER + obj.size() + SerializerRegistry.OBJECT_DELIMITER);
+			}
+			else if(anOutputBuffer instanceof ByteBuffer) {
+				((ByteBuffer)anOutputBuffer).put((HashSet.class.toString() + SerializerRegistry.CLASS_DELIMITER).getBytes());
+				((ByteBuffer)anOutputBuffer).putShort((short)obj.size());
+			}
+			else {
+				throw new NotSerializableException("Incorrect buffer type (StringReader or ByteBuffer)");
+			}
+			Iterator<Object> iter = obj.iterator();
+			while(iter.hasNext()) {
+				SerializerRegistry.getDispatchingSerializer().objectToBuffer(anOutputBuffer, iter.next(), visitedObjects);
+			}
+			ExtensibleValueSerializationFinished.newCase(this, anObject, anOutputBuffer, visitedObjects);
+		}
+		else {
+			throw new NotSerializableException("Object is not a Collection");
+		}
+	}
+
+	public Object objectFromBuffer(Object anInputBuffer, Class aClass, ArrayList<Object> retrievedObjects)
+			throws StreamCorruptedException, NotSerializableException {
+		if(aClass == ArrayList.class) {
+			ExtensibleBufferDeserializationInitiated.newCase(this, null, anInputBuffer, aClass);
+			ArrayList<Object> obj = new ArrayList<Object>();
+			retrievedObjects.add(obj); // add to retrieved objects so references to it can be evaluated
+			int length;
+			
+			if(anInputBuffer instanceof IndexedStringBuffer) {
+				int endIndex = ((IndexedStringBuffer)anInputBuffer).indexOf(SerializerRegistry.OBJECT_DELIMITER, ((IndexedStringBuffer)anInputBuffer).getIndex());
+				length = Integer.parseInt(((IndexedStringBuffer)anInputBuffer).substring(((IndexedStringBuffer)anInputBuffer).getIndex(), endIndex));
+				((IndexedStringBuffer)anInputBuffer).setIndex(endIndex + 1);
+			}
+			else if(anInputBuffer instanceof ByteBuffer) {
+				length = ((ByteBuffer)anInputBuffer).getShort();
+			}
+			else {
+				throw new NotSerializableException("Incorrect buffer type (StringReader or ByteBuffer)");
+			}
+			for(int i = 0; i < length; i++) {
+				obj.add(SerializerRegistry.getDispatchingSerializer().objectFromBuffer(anInputBuffer, retrievedObjects));
+			}
+			ExtensibleBufferDeserializationFinished.newCase(this, null, anInputBuffer, obj, retrievedObjects);
+			return obj;
+		}
+		else if(aClass == Vector.class) {
+			ExtensibleBufferDeserializationInitiated.newCase(this, null, anInputBuffer, aClass);
+			Vector<Object> obj = new Vector<Object>();
+			retrievedObjects.add(obj); // add to retrieved objects so references to it can be evaluated
+			int length;
+			
+			if(anInputBuffer instanceof IndexedStringBuffer) {
+				int endIndex = ((IndexedStringBuffer)anInputBuffer).indexOf(SerializerRegistry.OBJECT_DELIMITER, ((IndexedStringBuffer)anInputBuffer).getIndex());
+				length = Integer.parseInt(((IndexedStringBuffer)anInputBuffer).substring(((IndexedStringBuffer)anInputBuffer).getIndex(), endIndex));
+				((IndexedStringBuffer)anInputBuffer).setIndex(endIndex + 1);
+			}
+			else if(anInputBuffer instanceof ByteBuffer) {
+				length = ((ByteBuffer)anInputBuffer).getShort();
+			}
+			else {
+				throw new NotSerializableException("Incorrect buffer type (StringReader or ByteBuffer)");
+			}
+			for(int i = 0; i < length; i++) {
+				obj.add(SerializerRegistry.getDispatchingSerializer().objectFromBuffer(anInputBuffer, retrievedObjects));
+			}
+			ExtensibleBufferDeserializationFinished.newCase(this, null, anInputBuffer, obj, retrievedObjects);
+			return obj;
+		}
+		else if(aClass == HashSet.class) {
+			ExtensibleBufferDeserializationInitiated.newCase(this, null, anInputBuffer, aClass);
+			HashSet<Object> obj = new HashSet<Object>();
+			retrievedObjects.add(obj); // add to retrieved objects so references to it can be evaluated
+			int length;
+			
+			if(anInputBuffer instanceof IndexedStringBuffer) {
+				int endIndex = ((IndexedStringBuffer)anInputBuffer).indexOf(SerializerRegistry.OBJECT_DELIMITER, ((IndexedStringBuffer)anInputBuffer).getIndex());
+				length = Integer.parseInt(((IndexedStringBuffer)anInputBuffer).substring(((IndexedStringBuffer)anInputBuffer).getIndex(), endIndex));
+				((IndexedStringBuffer)anInputBuffer).setIndex(endIndex + 1);
+			}
+			else if(anInputBuffer instanceof ByteBuffer) {
+				length = ((ByteBuffer)anInputBuffer).getShort();
+			}
+			else {
+				throw new NotSerializableException("Incorrect buffer type (StringReader or ByteBuffer)");
+			}
+			for(int i = 0; i < length; i++) {
+				obj.add(SerializerRegistry.getDispatchingSerializer().objectFromBuffer(anInputBuffer, retrievedObjects));
+			}
+			ExtensibleBufferDeserializationFinished.newCase(this, null, anInputBuffer, obj, retrievedObjects);
+			return obj;
+		}
+		else {
+			throw new NotSerializableException("Class is not a Collection");
+		}
+	}
+}
+//END OF FILE
+//START OF FILE: assignment6/src/main/serializers/doubleserializer.java
+package main.serializers;
+
+import java.io.NotSerializableException;
+import java.io.StreamCorruptedException;
+import java.io.StringReader;
+import java.nio.ByteBuffer;
+import java.util.ArrayList;
+
+import main.IndexedStringBuffer;
+import main.SerializerRegistry;
+import util.annotations.Comp533Tags;
+import util.annotations.Tags;
+import util.trace.port.serialization.extensible.ExtensibleBufferDeserializationFinished;
+import util.trace.port.serialization.extensible.ExtensibleBufferDeserializationInitiated;
+import util.trace.port.serialization.extensible.ExtensibleValueSerializationFinished;
+import util.trace.port.serialization.extensible.ExtensibleValueSerializationInitiated;
+
+@Tags({Comp533Tags.DOUBLE_SERIALIZER})
+public class DoubleSerializer implements ValueSerializer{
+
+	public void objectToBuffer(Object anOutputBuffer, Object anObject, ArrayList<Object> visitedObjects)
+			throws NotSerializableException {
+		if(anObject instanceof Double) {
+			ExtensibleValueSerializationInitiated.newCase(this, anObject, anOutputBuffer);
+//			visitedObjects.add(anObject);
+			Double obj = (Double)anObject;
+			if(anOutputBuffer instanceof IndexedStringBuffer) {
+				((IndexedStringBuffer)anOutputBuffer).append(Double.class.toString() + SerializerRegistry.CLASS_DELIMITER + obj.toString() + SerializerRegistry.OBJECT_DELIMITER);
+			}
+			else if(anOutputBuffer instanceof ByteBuffer) {
+				((ByteBuffer)anOutputBuffer).put((Double.class.toString() + SerializerRegistry.CLASS_DELIMITER).getBytes());
+				((ByteBuffer)anOutputBuffer).putDouble(obj);
+			}
+			else {
+				throw new NotSerializableException("Incorrect buffer type (StringReader or ByteBuffer)");
+			}
+			ExtensibleValueSerializationFinished.newCase(this, anObject, anOutputBuffer, visitedObjects);
+		}
+		else {
+			throw new NotSerializableException("Object is not an Double");
+		}
+	}
+
+	public Object objectFromBuffer(Object anInputBuffer, Class aClass, ArrayList<Object> retrievedObjects)
+			throws StreamCorruptedException, NotSerializableException {
+		if(aClass == Double.class) {
+			ExtensibleBufferDeserializationInitiated.newCase(this, null, anInputBuffer, aClass);
+			Double obj = null;
+//			retrievedObjects.add(obj); // add to retrieved objects so references to it can be evaluated
+			if(anInputBuffer instanceof IndexedStringBuffer) {
+				int endIndex = ((IndexedStringBuffer)anInputBuffer).indexOf(SerializerRegistry.OBJECT_DELIMITER, ((IndexedStringBuffer)anInputBuffer).getIndex());
+				obj = Double.parseDouble(((IndexedStringBuffer)anInputBuffer).substring(((IndexedStringBuffer)anInputBuffer).getIndex(), endIndex));
+				((IndexedStringBuffer)anInputBuffer).setIndex(endIndex + 1);
+			}
+			else if(anInputBuffer instanceof ByteBuffer) {
+				obj = ((ByteBuffer)anInputBuffer).getDouble();
+			}
+			else {
+				throw new NotSerializableException("Incorrect buffer type (StringReader or ByteBuffer)");
+			}
+			ExtensibleBufferDeserializationFinished.newCase(this, null, anInputBuffer, obj, retrievedObjects);
+			return obj;
+		}
+		else {
+			throw new NotSerializableException("Class is not an Double");
+		}
+	}
+
+
+	
+}
+//END OF FILE
+//START OF FILE: assignment6/src/main/serializers/enumserializer.java
+package main.serializers;
+
+import java.io.NotSerializableException;
+import java.io.StreamCorruptedException;
+import java.nio.ByteBuffer;
+import java.util.ArrayList;
+
+import main.IndexedStringBuffer;
+import main.SerializerRegistry;
+import util.annotations.Comp533Tags;
+import util.annotations.Tags;
+import util.trace.port.serialization.extensible.ExtensibleBufferDeserializationFinished;
+import util.trace.port.serialization.extensible.ExtensibleBufferDeserializationInitiated;
+import util.trace.port.serialization.extensible.ExtensibleValueSerializationFinished;
+import util.trace.port.serialization.extensible.ExtensibleValueSerializationInitiated;
+
+@Tags({Comp533Tags.ENUM_SERIALIZER})
+public class EnumSerializer implements ValueSerializer{
+
+	@Override
+	public void objectToBuffer(Object anOutputBuffer, Object anObject, ArrayList<Object> visitedObjects)
+			throws NotSerializableException {
+		if(anObject.getClass().isEnum()) {
+			ExtensibleValueSerializationInitiated.newCase(this, anObject, anOutputBuffer);
+			visitedObjects.add(anObject);
+			Enum<?> obj = (Enum<?>)anObject;
+			if(anOutputBuffer instanceof IndexedStringBuffer) {
+				((IndexedStringBuffer)anOutputBuffer).append(Enum.class.toString() + SerializerRegistry.CLASS_DELIMITER + 
+						obj.getClass().getName() + ":" + obj.toString() + SerializerRegistry.OBJECT_DELIMITER);
+			}
+			else if(anOutputBuffer instanceof ByteBuffer) {
+				((ByteBuffer)anOutputBuffer).put((Enum.class.toString() + SerializerRegistry.CLASS_DELIMITER).getBytes());
+				String enumRep = obj.getClass().getName() + ":" + obj.toString();
+				((ByteBuffer)anOutputBuffer).putShort((short)enumRep.length());
+				((ByteBuffer)anOutputBuffer).put(enumRep.getBytes());
+			}
+			else {
+				throw new NotSerializableException("Incorrect buffer type (StringReader or ByteBuffer)");
+			}
+			ExtensibleValueSerializationFinished.newCase(this, anObject, anOutputBuffer, visitedObjects);
+		}
+		else {
+			throw new NotSerializableException("Object is not an Enum");
+		}
+		
+	}
+
+	@Override
+	public Object objectFromBuffer(Object anInputBuffer, Class aClass, ArrayList<Object> retrievedObjects)
+			throws StreamCorruptedException, NotSerializableException {
+		if(aClass == Enum.class) {
+			ExtensibleBufferDeserializationInitiated.newCase(this, null, anInputBuffer, aClass);
+			Object obj = null;
+			retrievedObjects.add(obj); // add to retrieved objects so references to it can be evaluated
+			if(anInputBuffer instanceof IndexedStringBuffer) {
+				int endIndex = ((IndexedStringBuffer)anInputBuffer).indexOf(SerializerRegistry.OBJECT_DELIMITER, ((IndexedStringBuffer)anInputBuffer).getIndex());
+				String enumString = ((IndexedStringBuffer)anInputBuffer).substring(((IndexedStringBuffer)anInputBuffer).getIndex(), endIndex);
+				try {
+					aClass = Class.forName(enumString.split(":")[0]);
+				} catch (ClassNotFoundException e) {
+					e.printStackTrace();
+				}
+				obj = Enum.valueOf(aClass, enumString.split(":")[1]);
+				((IndexedStringBuffer)anInputBuffer).setIndex(endIndex + 1);
+			}
+			else if(anInputBuffer instanceof ByteBuffer) {
+				int length = ((ByteBuffer)anInputBuffer).getShort();
+				byte[] byteArray = new byte[length];
+				((ByteBuffer)anInputBuffer).get(byteArray, 0, length);
+				String enumString = new String(byteArray);
+				try {
+					aClass = Class.forName(enumString.split(":")[0]);
+				} catch (ClassNotFoundException e) {
+					e.printStackTrace();
+				}
+				obj = Enum.valueOf(aClass, enumString.split(":")[1]);
+			}
+			else {
+				throw new NotSerializableException("Incorrect buffer type (StringReader or ByteBuffer)");
+			}
+			ExtensibleBufferDeserializationFinished.newCase(this, null, anInputBuffer, obj, retrievedObjects);
+			return obj;
+		}
+		else {
+			throw new NotSerializableException("Class is not a Enum");
+		}
+	}
+
+}
+//END OF FILE
+//START OF FILE: assignment6/src/main/serializers/floatserializer.java
+package main.serializers;
+
+import java.io.NotSerializableException;
+import java.io.StreamCorruptedException;
+import java.io.StringReader;
+import java.nio.ByteBuffer;
+import java.util.ArrayList;
+
+import main.IndexedStringBuffer;
+import main.SerializerRegistry;
+import util.annotations.Comp533Tags;
+import util.annotations.Tags;
+import util.trace.port.serialization.extensible.ExtensibleBufferDeserializationFinished;
+import util.trace.port.serialization.extensible.ExtensibleBufferDeserializationInitiated;
+import util.trace.port.serialization.extensible.ExtensibleValueSerializationFinished;
+import util.trace.port.serialization.extensible.ExtensibleValueSerializationInitiated;
+
+@Tags({Comp533Tags.FLOAT_SERIALIZER})
+public class FloatSerializer implements ValueSerializer{
+
+	public void objectToBuffer(Object anOutputBuffer, Object anObject, ArrayList<Object> visitedObjects)
+			throws NotSerializableException {
+		if(anObject instanceof Float) {
+			ExtensibleValueSerializationInitiated.newCase(this, anObject, anOutputBuffer);
+//			visitedObjects.add(anObject);
+			Float obj = (Float)anObject;
+			if(anOutputBuffer instanceof IndexedStringBuffer) {
+				((IndexedStringBuffer)anOutputBuffer).append(Float.class.toString() + SerializerRegistry.CLASS_DELIMITER + obj.toString() + SerializerRegistry.OBJECT_DELIMITER);
+			}
+			else if(anOutputBuffer instanceof ByteBuffer) {
+				((ByteBuffer)anOutputBuffer).put((Float.class.toString() + SerializerRegistry.CLASS_DELIMITER).getBytes());
+				((ByteBuffer)anOutputBuffer).putFloat(obj);
+			}
+			else {
+				throw new NotSerializableException("Incorrect buffer type (StringReader or ByteBuffer)");
+			}
+			ExtensibleValueSerializationFinished.newCase(this, anObject, anOutputBuffer, visitedObjects);
+		}
+		else {
+			throw new NotSerializableException("Object is not an Float");
+		}
+	}
+
+	public Object objectFromBuffer(Object anInputBuffer, Class aClass, ArrayList<Object> retrievedObjects)
+			throws StreamCorruptedException, NotSerializableException {
+		if(aClass == Float.class) {
+			ExtensibleBufferDeserializationInitiated.newCase(this, null, anInputBuffer, aClass);
+			Float obj = null;
+//			retrievedObjects.add(obj); // add to retrieved objects so references to it can be evaluated
+			if(anInputBuffer instanceof IndexedStringBuffer) {
+				int endIndex = ((IndexedStringBuffer)anInputBuffer).indexOf(SerializerRegistry.OBJECT_DELIMITER, ((IndexedStringBuffer)anInputBuffer).getIndex());
+				obj = Float.parseFloat(((IndexedStringBuffer)anInputBuffer).substring(((IndexedStringBuffer)anInputBuffer).getIndex(), endIndex));
+				((IndexedStringBuffer)anInputBuffer).setIndex(endIndex + 1);
+			}
+			else if(anInputBuffer instanceof ByteBuffer) {
+				obj = ((ByteBuffer)anInputBuffer).getFloat();
+			}
+			else {
+				throw new NotSerializableException("Incorrect buffer type (StringReader or ByteBuffer)");
+			}
+			ExtensibleBufferDeserializationFinished.newCase(this, null, anInputBuffer, obj, retrievedObjects);
+			return obj;
+		}
+		else {
+			throw new NotSerializableException("Class is not an Float");
+		}
+	}
+
+
+	
+}
+//END OF FILE
+//START OF FILE: assignment6/src/main/serializers/integerserializer.java
+package main.serializers;
+
+import java.io.NotSerializableException;
+import java.io.StreamCorruptedException;
+import java.io.StringReader;
+import java.nio.ByteBuffer;
+import java.util.ArrayList;
+
+import main.IndexedStringBuffer;
+import main.SerializerRegistry;
+import util.annotations.Comp533Tags;
+import util.annotations.Tags;
+import util.trace.port.serialization.extensible.ExtensibleBufferDeserializationFinished;
+import util.trace.port.serialization.extensible.ExtensibleBufferDeserializationInitiated;
+import util.trace.port.serialization.extensible.ExtensibleValueSerializationFinished;
+import util.trace.port.serialization.extensible.ExtensibleValueSerializationInitiated;
+
+@Tags({Comp533Tags.INTEGER_SERIALIZER})
+public class IntegerSerializer implements ValueSerializer{
+
+	public void objectToBuffer(Object anOutputBuffer, Object anObject, ArrayList<Object> visitedObjects)
+			throws NotSerializableException {
+		if(anObject instanceof Integer) {
+			ExtensibleValueSerializationInitiated.newCase(this, anObject, anOutputBuffer);
+//			visitedObjects.add(anObject);
+			Integer obj = (Integer)anObject;
+			if(anOutputBuffer instanceof IndexedStringBuffer) {
+				((IndexedStringBuffer)anOutputBuffer).append(Integer.class.toString() + SerializerRegistry.CLASS_DELIMITER + obj.toString() + SerializerRegistry.OBJECT_DELIMITER);
+			}
+			else if(anOutputBuffer instanceof ByteBuffer) {
+				((ByteBuffer)anOutputBuffer).put((Integer.class.toString() + SerializerRegistry.CLASS_DELIMITER).getBytes());
+				((ByteBuffer)anOutputBuffer).putInt(obj);
+			}
+			else {
+				throw new NotSerializableException("Incorrect buffer type (StringReader or ByteBuffer)");
+			}
+			ExtensibleValueSerializationFinished.newCase(this, anObject, anOutputBuffer, visitedObjects);
+		}
+		else {
+			throw new NotSerializableException("Object is not an Integer");
+		}
+	}
+
+	public Object objectFromBuffer(Object anInputBuffer, Class aClass, ArrayList<Object> retrievedObjects)
+			throws StreamCorruptedException, NotSerializableException {
+		if(aClass == Integer.class) {
+			ExtensibleBufferDeserializationInitiated.newCase(this, null, anInputBuffer, aClass);
+			Integer obj = null;
+//			retrievedObjects.add(obj); // add to retrieved objects so references to it can be evaluated
+			if(anInputBuffer instanceof IndexedStringBuffer) {
+				int endIndex = ((IndexedStringBuffer)anInputBuffer).indexOf(SerializerRegistry.OBJECT_DELIMITER, ((IndexedStringBuffer)anInputBuffer).getIndex());
+				obj = Integer.parseInt(((IndexedStringBuffer)anInputBuffer).substring(((IndexedStringBuffer)anInputBuffer).getIndex(), endIndex));
+				((IndexedStringBuffer)anInputBuffer).setIndex(endIndex + 1);
+			}
+			else if(anInputBuffer instanceof ByteBuffer) {
+				obj = ((ByteBuffer)anInputBuffer).getInt();
+			}
+			else {
+				throw new NotSerializableException("Incorrect buffer type (StringReader or ByteBuffer)");
+			}
+			ExtensibleBufferDeserializationFinished.newCase(this, null, anInputBuffer, obj, retrievedObjects);
+			return obj;
+		}
+		else {
+			throw new NotSerializableException("Class is not an Integer");
+		}
+	}
+
+
+	
+}
+//END OF FILE
+//START OF FILE: assignment6/src/main/serializers/listserializer.java
+package main.serializers;
+
+import java.beans.BeanInfo;
+import java.beans.IntrospectionException;
+import java.beans.Introspector;
+import java.beans.PropertyDescriptor;
+import java.io.NotSerializableException;
+import java.io.Serializable;
+import java.io.StreamCorruptedException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.nio.ByteBuffer;
+import java.util.ArrayList;
+import java.util.List;
+
+import main.IndexedStringBuffer;
+import main.SerializerRegistry;
+import util.annotations.Comp533Tags;
+import util.annotations.Tags;
+import util.misc.RemoteReflectionUtility;
+import util.trace.port.serialization.extensible.ExtensibleBufferDeserializationFinished;
+import util.trace.port.serialization.extensible.ExtensibleBufferDeserializationInitiated;
+import util.trace.port.serialization.extensible.ExtensibleValueSerializationFinished;
+import util.trace.port.serialization.extensible.ExtensibleValueSerializationInitiated;
+
+@Tags({Comp533Tags.LIST_PATTERN_SERIALIZER})
+public class ListSerializer implements ValueSerializer {
+
+	@Override
+	public void objectToBuffer(Object anOutputBuffer, Object anObject, ArrayList<Object> visitedObjects)
+			throws NotSerializableException {
+		if(util.misc.RemoteReflectionUtility.isList(anObject.getClass())) {
+			ExtensibleValueSerializationInitiated.newCase(this, anObject, anOutputBuffer);
+			visitedObjects.add(anObject);
+			int length = util.misc.RemoteReflectionUtility.listSize(anObject);
+			if(anOutputBuffer instanceof IndexedStringBuffer) {
+				((IndexedStringBuffer)anOutputBuffer).append(List.class.toString() + SerializerRegistry.CLASS_DELIMITER + 
+						anObject.getClass().getName() + ":" + length + SerializerRegistry.OBJECT_DELIMITER);
+			}
+			else if(anOutputBuffer instanceof ByteBuffer) {
+				((ByteBuffer)anOutputBuffer).put((List.class.toString() + SerializerRegistry.CLASS_DELIMITER).getBytes());
+				String listRep = anObject.getClass().getName() + ":" + length;
+				((ByteBuffer)anOutputBuffer).putShort((short)listRep.length());
+				((ByteBuffer)anOutputBuffer).put(listRep.getBytes());
+			}
+			else {
+				throw new NotSerializableException("Incorrect buffer type (StringReader or ByteBuffer)");
+			}
+			for(int i = 0; i < length; i++) {
+				SerializerRegistry.getDispatchingSerializer().objectToBuffer(anOutputBuffer, util.misc.RemoteReflectionUtility.listGet(anObject, i), visitedObjects);
+			}
+			RemoteReflectionUtility.invokeInitSerializedObject(anObject);
+			ExtensibleValueSerializationFinished.newCase(this, anObject, anOutputBuffer, visitedObjects);
+		}
+		else {
+			throw new NotSerializableException("Class is not a List");
+		}
+	}
+
+	@Override
+	public Object objectFromBuffer(Object anInputBuffer, Class aClass, ArrayList<Object> retrievedObjects)
+			throws StreamCorruptedException, NotSerializableException {
+		if(aClass == List.class) {
+			ExtensibleBufferDeserializationInitiated.newCase(this, null, anInputBuffer, aClass);
+			String listString;
+			Object obj = null;
+			retrievedObjects.add(obj); // add to retrieved objects so references to it can be evaluated
+			if(anInputBuffer instanceof IndexedStringBuffer) {
+				int endIndex = ((IndexedStringBuffer)anInputBuffer).indexOf(SerializerRegistry.OBJECT_DELIMITER);
+				listString = ((IndexedStringBuffer)anInputBuffer).substring(((IndexedStringBuffer)anInputBuffer).getIndex(), endIndex);
+				((IndexedStringBuffer)anInputBuffer).setIndex(endIndex + 1);
+			}
+			else if(anInputBuffer instanceof ByteBuffer) {
+				int size = ((ByteBuffer)anInputBuffer).getShort();
+				byte[] byteArray = new byte[size];
+				((ByteBuffer)anInputBuffer).get(byteArray, 0, size);
+				listString = new String(byteArray);
+			}
+			else {
+				throw new NotSerializableException("Incorrect buffer type (StringReader or ByteBuffer)");
+			}
+			String listName = listString.split(":")[0];
+			int length = Integer.parseInt(listString.split(":")[1]);
+			try {
+				Class<?> specificList = Class.forName(listName);
+				obj = specificList.newInstance();
+			} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+			for(int i = 0; i < length; i++) {
+				util.misc.RemoteReflectionUtility.listAdd(obj, 
+						SerializerRegistry.getDispatchingSerializer().objectFromBuffer(anInputBuffer, retrievedObjects));
+			}
+			ExtensibleBufferDeserializationFinished.newCase(this, null, anInputBuffer, obj, retrievedObjects);
+			return obj;
+		}
+		else {
+			throw new NotSerializableException("Class is not a List");
+		}
+	}
+
+}
+//END OF FILE
+//START OF FILE: assignment6/src/main/serializers/longserializer.java
+package main.serializers;
+
+import java.io.NotSerializableException;
+import java.io.StreamCorruptedException;
+import java.io.StringReader;
+import java.nio.ByteBuffer;
+import java.util.ArrayList;
+
+import main.IndexedStringBuffer;
+import main.SerializerRegistry;
+import util.annotations.Comp533Tags;
+import util.annotations.Tags;
+import util.trace.port.serialization.extensible.ExtensibleBufferDeserializationFinished;
+import util.trace.port.serialization.extensible.ExtensibleBufferDeserializationInitiated;
+import util.trace.port.serialization.extensible.ExtensibleValueSerializationFinished;
+import util.trace.port.serialization.extensible.ExtensibleValueSerializationInitiated;
+
+@Tags({Comp533Tags.LONG_SERIALIZER})
+public class LongSerializer implements ValueSerializer{
+
+	public void objectToBuffer(Object anOutputBuffer, Object anObject, ArrayList<Object> visitedObjects)
+			throws NotSerializableException {
+		if(anObject instanceof Long) {
+			ExtensibleValueSerializationInitiated.newCase(this, anObject, anOutputBuffer);
+//			visitedObjects.add(anObject);
+			Long obj = (Long)anObject;
+			if(anOutputBuffer instanceof IndexedStringBuffer) {
+				((IndexedStringBuffer)anOutputBuffer).append(Long.class.toString() + SerializerRegistry.CLASS_DELIMITER + obj.toString() + SerializerRegistry.OBJECT_DELIMITER);
+			}
+			else if(anOutputBuffer instanceof ByteBuffer) {
+				((ByteBuffer)anOutputBuffer).put((Long.class.toString() + SerializerRegistry.CLASS_DELIMITER).getBytes());
+				((ByteBuffer)anOutputBuffer).putLong(obj);
+			}
+			else {
+				throw new NotSerializableException("Incorrect buffer type (StringReader or ByteBuffer)");
+			}
+			ExtensibleValueSerializationFinished.newCase(this, anObject, anOutputBuffer, visitedObjects);
+		}
+		else {
+			throw new NotSerializableException("Object is not an Long");
+		}
+	}
+
+	public Object objectFromBuffer(Object anInputBuffer, Class aClass, ArrayList<Object> retrievedObjects)
+			throws StreamCorruptedException, NotSerializableException {
+		if(aClass == Long.class) {
+			ExtensibleBufferDeserializationInitiated.newCase(this, null, anInputBuffer, aClass);
+			Long obj = null;
+//			retrievedObjects.add(obj); // add to retrieved objects so references to it can be evaluated
+			if(anInputBuffer instanceof IndexedStringBuffer) {
+				int endIndex = ((IndexedStringBuffer)anInputBuffer).indexOf(SerializerRegistry.OBJECT_DELIMITER, ((IndexedStringBuffer)anInputBuffer).getIndex());
+				obj = Long.parseLong(((IndexedStringBuffer)anInputBuffer).substring(((IndexedStringBuffer)anInputBuffer).getIndex(), endIndex));
+				((IndexedStringBuffer)anInputBuffer).setIndex(endIndex + 1);
+			}
+			else if(anInputBuffer instanceof ByteBuffer) {
+				obj = ((ByteBuffer)anInputBuffer).getLong();
+			}
+			else {
+				throw new NotSerializableException("Incorrect buffer type (StringReader or ByteBuffer)");
+			}
+			ExtensibleBufferDeserializationFinished.newCase(this, null, anInputBuffer, obj, retrievedObjects);
+			return obj;
+		}
+		else {
+			throw new NotSerializableException("Class is not an Long");
+		}
+	}
+
+
+	
+}
+//END OF FILE
+//START OF FILE: assignment6/src/main/serializers/mapserializer.java
+package main.serializers;
+
+import java.io.NotSerializableException;
+import java.io.StreamCorruptedException;
+import java.nio.ByteBuffer;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Vector;
+
+import main.IndexedStringBuffer;
+import main.SerializerRegistry;
+import util.annotations.Comp533Tags;
+import util.annotations.Tags;
+import util.trace.port.serialization.extensible.ExtensibleBufferDeserializationFinished;
+import util.trace.port.serialization.extensible.ExtensibleBufferDeserializationInitiated;
+import util.trace.port.serialization.extensible.ExtensibleValueSerializationFinished;
+import util.trace.port.serialization.extensible.ExtensibleValueSerializationInitiated;
+
+@Tags({Comp533Tags.MAP_SERIALIZER})
+public class MapSerializer implements ValueSerializer{
+	
+	public void objectToBuffer(Object anOutputBuffer, Object anObject, ArrayList<Object> visitedObjects)
+			throws NotSerializableException {
+		if(anObject instanceof HashMap) {
+			ExtensibleValueSerializationInitiated.newCase(this, anObject, anOutputBuffer);
+			visitedObjects.add(anObject);
+			HashMap obj = (HashMap)anObject;
+			if(anOutputBuffer instanceof IndexedStringBuffer) {
+				((IndexedStringBuffer)anOutputBuffer).append(HashMap.class.toString() + SerializerRegistry.CLASS_DELIMITER + obj.size() + SerializerRegistry.OBJECT_DELIMITER);
+			}
+			else if(anOutputBuffer instanceof ByteBuffer) {
+				((ByteBuffer)anOutputBuffer).put((HashMap.class.toString() + SerializerRegistry.CLASS_DELIMITER).getBytes());
+				((ByteBuffer)anOutputBuffer).putShort((short)obj.size());
+			}
+			else {
+				throw new NotSerializableException("Incorrect buffer type (StringReader or ByteBuffer)");
+			}
+			Iterator<Map.Entry<Object, Object>> iter = obj.entrySet().iterator();
+			while(iter.hasNext()) {
+				Map.Entry<Object, Object> entry = iter.next();
+				SerializerRegistry.getDispatchingSerializer().objectToBuffer(anOutputBuffer, entry.getKey(), visitedObjects);
+				SerializerRegistry.getDispatchingSerializer().objectToBuffer(anOutputBuffer, entry.getValue(), visitedObjects);
+			}
+			ExtensibleValueSerializationFinished.newCase(this, anObject, anOutputBuffer, visitedObjects);
+		}
+		else if(anObject instanceof Hashtable) {
+			ExtensibleValueSerializationInitiated.newCase(this, anObject, anOutputBuffer);
+			visitedObjects.add(anObject);
+			Hashtable obj = (Hashtable)anObject;
+			if(anOutputBuffer instanceof IndexedStringBuffer) {
+				((IndexedStringBuffer)anOutputBuffer).append(Hashtable.class.toString() + SerializerRegistry.CLASS_DELIMITER + obj.size() + SerializerRegistry.OBJECT_DELIMITER);
+			}
+			else if(anOutputBuffer instanceof ByteBuffer) {
+				((ByteBuffer)anOutputBuffer).put((Hashtable.class.toString() + SerializerRegistry.CLASS_DELIMITER).getBytes());
+				((ByteBuffer)anOutputBuffer).putShort((short)obj.size());
+			}
+			else {
+				throw new NotSerializableException("Incorrect buffer type (StringReader or ByteBuffer)");
+			}
+			Iterator<Map.Entry<Object, Object>> iter = obj.entrySet().iterator();
+			while(iter.hasNext()) {
+				Map.Entry<Object, Object> entry = iter.next();
+				SerializerRegistry.getDispatchingSerializer().objectToBuffer(anOutputBuffer, entry.getKey(), visitedObjects);
+				SerializerRegistry.getDispatchingSerializer().objectToBuffer(anOutputBuffer, entry.getValue(), visitedObjects);
+			}
+			ExtensibleValueSerializationFinished.newCase(this, anObject, anOutputBuffer, visitedObjects);
+		}
+		else {
+			throw new NotSerializableException("Object is not a Map");
+		}
+	}
+
+	public Object objectFromBuffer(Object anInputBuffer, Class aClass, ArrayList<Object> retrievedObjects)
+			throws StreamCorruptedException, NotSerializableException {
+		if(aClass == HashMap.class) {
+			ExtensibleBufferDeserializationInitiated.newCase(this, null, anInputBuffer, aClass);
+			HashMap<Object, Object> obj = new HashMap<Object, Object>();
+			retrievedObjects.add(obj); // add to retrieved objects so references to it can be evaluated
+			int length;
+			
+			if(anInputBuffer instanceof IndexedStringBuffer) {
+				int endIndex = ((IndexedStringBuffer)anInputBuffer).indexOf(SerializerRegistry.OBJECT_DELIMITER, ((IndexedStringBuffer)anInputBuffer).getIndex());
+				length = Integer.parseInt(((IndexedStringBuffer)anInputBuffer).substring(((IndexedStringBuffer)anInputBuffer).getIndex(), endIndex));
+				((IndexedStringBuffer)anInputBuffer).setIndex(endIndex + 1);
+			}
+			else if(anInputBuffer instanceof ByteBuffer) {
+				length = ((ByteBuffer)anInputBuffer).getShort();
+			}
+			else {
+				throw new NotSerializableException("Incorrect buffer type (StringReader or ByteBuffer)");
+			}
+			for(int i = 0; i < length; i++) {
+				Object key = SerializerRegistry.getDispatchingSerializer().objectFromBuffer(anInputBuffer, retrievedObjects);
+				obj.put(key, SerializerRegistry.getDispatchingSerializer().objectFromBuffer(anInputBuffer, retrievedObjects));
+			}
+			ExtensibleBufferDeserializationFinished.newCase(this, null, anInputBuffer, obj, retrievedObjects);
+			return obj;
+		}
+		else if(aClass == Hashtable.class) {
+			ExtensibleBufferDeserializationInitiated.newCase(this, null, anInputBuffer, aClass);
+			Hashtable<Object, Object> obj = new Hashtable<>();
+			retrievedObjects.add(obj); // add to retrieved objects so references to it can be evaluated
+			int length;
+			
+			if(anInputBuffer instanceof IndexedStringBuffer) {
+				int endIndex = ((IndexedStringBuffer)anInputBuffer).indexOf(SerializerRegistry.OBJECT_DELIMITER, ((IndexedStringBuffer)anInputBuffer).getIndex());
+				length = Integer.parseInt(((IndexedStringBuffer)anInputBuffer).substring(((IndexedStringBuffer)anInputBuffer).getIndex(), endIndex));
+				((IndexedStringBuffer)anInputBuffer).setIndex(endIndex + 1);
+			}
+			else if(anInputBuffer instanceof ByteBuffer) {
+				length = ((ByteBuffer)anInputBuffer).getShort();
+			}
+			else {
+				throw new NotSerializableException("Incorrect buffer type (StringReader or ByteBuffer)");
+			}
+			for(int i = 0; i < length; i++) {
+				Object key = SerializerRegistry.getDispatchingSerializer().objectFromBuffer(anInputBuffer, retrievedObjects);
+				obj.put(key, SerializerRegistry.getDispatchingSerializer().objectFromBuffer(anInputBuffer, retrievedObjects));
+			}
+			ExtensibleBufferDeserializationFinished.newCase(this, null, anInputBuffer, obj, retrievedObjects);
+			return obj;
+		}
+		else {
+			throw new NotSerializableException("Class is not a Map");
+		}
+	}
+}
+//END OF FILE
+//START OF FILE: assignment6/src/main/serializers/nullserializer.java
+package main.serializers;
+
+import java.io.NotSerializableException;
+import java.io.StreamCorruptedException;
+import java.nio.ByteBuffer;
+import java.util.ArrayList;
+
+import main.IndexedStringBuffer;
+import main.SerializerRegistry;
+import util.annotations.Comp533Tags;
+import util.annotations.Tags;
+import util.trace.port.serialization.extensible.ExtensibleBufferDeserializationFinished;
+import util.trace.port.serialization.extensible.ExtensibleBufferDeserializationInitiated;
+import util.trace.port.serialization.extensible.ExtensibleValueSerializationFinished;
+import util.trace.port.serialization.extensible.ExtensibleValueSerializationInitiated;
+
+@Tags({Comp533Tags.NULL_SERIALIZER})
+public class NullSerializer implements ValueSerializer{
+
+	@Override
+	public void objectToBuffer(Object anOutputBuffer, Object anObject, ArrayList<Object> visitedObjects)
+			throws NotSerializableException {
+		if(anObject == null) {
+			ExtensibleValueSerializationInitiated.newCase(this, anObject, anOutputBuffer);
+//			visitedObjects.add(anObject);
+			if(anOutputBuffer instanceof IndexedStringBuffer) {
+				((IndexedStringBuffer)anOutputBuffer).append(SerializerRegistry.NULL_CLASS + SerializerRegistry.CLASS_DELIMITER + "null" + SerializerRegistry.OBJECT_DELIMITER);
+			}
+			else if(anOutputBuffer instanceof ByteBuffer) {
+				((ByteBuffer)anOutputBuffer).put((SerializerRegistry.NULL_CLASS + SerializerRegistry.CLASS_DELIMITER).getBytes());
+				((ByteBuffer)anOutputBuffer).putShort((short)SerializerRegistry.NULL_CLASS.length());
+				((ByteBuffer)anOutputBuffer).put(SerializerRegistry.NULL_CLASS.getBytes());
+			}
+			else {
+				throw new NotSerializableException("Incorrect buffer type (StringReader or ByteBuffer)");
+			}
+			ExtensibleValueSerializationFinished.newCase(this, anObject, anOutputBuffer, visitedObjects);
+		}
+		else {
+			throw new NotSerializableException("Object is not null");
+		}
+	}
+
+	@Override
+	public Object objectFromBuffer(Object anInputBuffer, Class aClass, ArrayList<Object> retrievedObjects)
+			throws StreamCorruptedException, NotSerializableException {
+		if(aClass == null) {
+			ExtensibleBufferDeserializationInitiated.newCase(this, null, anInputBuffer, Integer.class); // this needs to be some type of class
+			String obj = null;
+//			retrievedObjects.add(obj); // add to retrieved objects so references to it can be evaluated
+			if(anInputBuffer instanceof IndexedStringBuffer) {
+				int endIndex = ((IndexedStringBuffer)anInputBuffer).indexOf(SerializerRegistry.OBJECT_DELIMITER, ((IndexedStringBuffer)anInputBuffer).getIndex());
+				obj = ((IndexedStringBuffer)anInputBuffer).substring(((IndexedStringBuffer)anInputBuffer).getIndex(), endIndex);
+				((IndexedStringBuffer)anInputBuffer).setIndex(endIndex + 1);
+			}
+			else if(anInputBuffer instanceof ByteBuffer) {
+				int length = ((ByteBuffer)anInputBuffer).getShort();
+				byte[] byteArray = new byte[length];
+				((ByteBuffer)anInputBuffer).get(byteArray, 0, length);
+				obj = new String(byteArray);
+			}
+			else {
+				throw new NotSerializableException("Incorrect buffer type (StringReader or ByteBuffer)");
+			}
+			ExtensibleBufferDeserializationFinished.newCase(this, null, anInputBuffer, obj, retrievedObjects);
+			return null; // the string processing was only to move the pointers in the buffers for future reads
+		}
+		else {
+			throw new NotSerializableException("Class is not null");
+		}
+	}
+
+}
+//END OF FILE
+//START OF FILE: assignment6/src/main/serializers/shortserializer.java
+package main.serializers;
+
+import java.io.NotSerializableException;
+import java.io.StreamCorruptedException;
+import java.io.StringReader;
+import java.nio.ByteBuffer;
+import java.util.ArrayList;
+
+import main.IndexedStringBuffer;
+import main.SerializerRegistry;
+import util.annotations.Comp533Tags;
+import util.annotations.Tags;
+import util.trace.port.serialization.extensible.ExtensibleBufferDeserializationFinished;
+import util.trace.port.serialization.extensible.ExtensibleBufferDeserializationInitiated;
+import util.trace.port.serialization.extensible.ExtensibleValueSerializationFinished;
+import util.trace.port.serialization.extensible.ExtensibleValueSerializationInitiated;
+
+@Tags({Comp533Tags.SHORT_SERIALIZER})
+public class ShortSerializer implements ValueSerializer{
+
+	public void objectToBuffer(Object anOutputBuffer, Object anObject, ArrayList<Object> visitedObjects)
+			throws NotSerializableException {
+		if(anObject instanceof Short) {
+			ExtensibleValueSerializationInitiated.newCase(this, anObject, anOutputBuffer);
+//			visitedObjects.add(anObject);
+			Short obj = (Short)anObject;
+			if(anOutputBuffer instanceof IndexedStringBuffer) {
+				((IndexedStringBuffer)anOutputBuffer).append(Short.class.toString() + SerializerRegistry.CLASS_DELIMITER + obj.toString() + SerializerRegistry.OBJECT_DELIMITER);
+			}
+			else if(anOutputBuffer instanceof ByteBuffer) {
+				((ByteBuffer)anOutputBuffer).put((Short.class.toString() + SerializerRegistry.CLASS_DELIMITER).getBytes());
+				((ByteBuffer)anOutputBuffer).putShort(obj);
+			}
+			else {
+				throw new NotSerializableException("Incorrect buffer type (StringReader or ByteBuffer)");
+			}
+			ExtensibleValueSerializationFinished.newCase(this, anObject, anOutputBuffer, visitedObjects);
+		}
+		else {
+			throw new NotSerializableException("Object is not an Short");
+		}
+	}
+
+	public Object objectFromBuffer(Object anInputBuffer, Class aClass, ArrayList<Object> retrievedObjects)
+			throws StreamCorruptedException, NotSerializableException {
+		if(aClass == Short.class) {
+			ExtensibleBufferDeserializationInitiated.newCase(this, null, anInputBuffer, aClass);
+			Short obj = null;
+//			retrievedObjects.add(obj); // add to retrieved objects so references to it can be evaluated
+			if(anInputBuffer instanceof IndexedStringBuffer) {
+				int endIndex = ((IndexedStringBuffer)anInputBuffer).indexOf(SerializerRegistry.OBJECT_DELIMITER, ((IndexedStringBuffer)anInputBuffer).getIndex());
+				obj = Short.parseShort(((IndexedStringBuffer)anInputBuffer).substring(((IndexedStringBuffer)anInputBuffer).getIndex(), endIndex));
+				((IndexedStringBuffer)anInputBuffer).setIndex(endIndex + 1);
+			}
+			else if(anInputBuffer instanceof ByteBuffer) {
+				obj = ((ByteBuffer)anInputBuffer).getShort();
+			}
+			else {
+				throw new NotSerializableException("Incorrect buffer type (StringReader or ByteBuffer)");
+			}
+			ExtensibleBufferDeserializationFinished.newCase(this, null, anInputBuffer, obj, retrievedObjects);
+			return obj;
+		}
+		else {
+			throw new NotSerializableException("Class is not an Short");
+		}
+	}
+
+
+	
+}
+//END OF FILE
+//START OF FILE: assignment6/src/main/serializers/stringserializer.java
+package main.serializers;
+
+import java.io.NotSerializableException;
+import java.io.StreamCorruptedException;
+import java.nio.ByteBuffer;
+import java.util.ArrayList;
+
+import main.IndexedStringBuffer;
+import main.SerializerRegistry;
+import util.annotations.Comp533Tags;
+import util.annotations.Tags;
+import util.trace.port.serialization.extensible.ExtensibleBufferDeserializationFinished;
+import util.trace.port.serialization.extensible.ExtensibleBufferDeserializationInitiated;
+import util.trace.port.serialization.extensible.ExtensibleValueSerializationFinished;
+import util.trace.port.serialization.extensible.ExtensibleValueSerializationInitiated;
+
+@Tags({Comp533Tags.STRING_SERIALIZER})
+public class StringSerializer implements ValueSerializer{
+	
+	public void objectToBuffer(Object anOutputBuffer, Object anObject, ArrayList<Object> visitedObjects)
+			throws NotSerializableException {
+		if(anObject instanceof String) {
+			ExtensibleValueSerializationInitiated.newCase(this, anObject, anOutputBuffer);
+//			visitedObjects.add(anObject);
+			String obj = (String)anObject;
+			if(anOutputBuffer instanceof IndexedStringBuffer) {
+				((IndexedStringBuffer)anOutputBuffer).append(String.class.toString() + SerializerRegistry.CLASS_DELIMITER + obj.toString() + SerializerRegistry.OBJECT_DELIMITER);
+			}
+			else if(anOutputBuffer instanceof ByteBuffer) {
+				((ByteBuffer)anOutputBuffer).put((String.class.toString() + SerializerRegistry.CLASS_DELIMITER).getBytes());
+				((ByteBuffer)anOutputBuffer).putShort((short)obj.toString().length());
+				((ByteBuffer)anOutputBuffer).put(obj.toString().getBytes());
+			}
+			else {
+				throw new NotSerializableException("Incorrect buffer type (StringReader or ByteBuffer)");
+			}
+			ExtensibleValueSerializationFinished.newCase(this, anObject, anOutputBuffer, visitedObjects);
+		}
+		else {
+			throw new NotSerializableException("Object is not a String");
+		}
+	}
+
+	public Object objectFromBuffer(Object anInputBuffer, Class aClass, ArrayList<Object> retrievedObjects)
+			throws StreamCorruptedException, NotSerializableException {
+		if(aClass == String.class) {
+			ExtensibleBufferDeserializationInitiated.newCase(this, null, anInputBuffer, aClass);
+			String obj = null;
+//			retrievedObjects.add(obj); // add to retrieved objects so references to it can be evaluated
+			if(anInputBuffer instanceof IndexedStringBuffer) {
+				int endIndex = ((IndexedStringBuffer)anInputBuffer).indexOf(SerializerRegistry.OBJECT_DELIMITER, ((IndexedStringBuffer)anInputBuffer).getIndex());
+				obj = ((IndexedStringBuffer)anInputBuffer).substring(((IndexedStringBuffer)anInputBuffer).getIndex(), endIndex);
+				((IndexedStringBuffer)anInputBuffer).setIndex(endIndex + 1);
+			}
+			else if(anInputBuffer instanceof ByteBuffer) {
+				int length = ((ByteBuffer)anInputBuffer).getShort();
+				byte[] byteArray = new byte[length];
+				((ByteBuffer)anInputBuffer).get(byteArray, 0, length);
+				obj = new String(byteArray);
+			}
+			else {
+				throw new NotSerializableException("Incorrect buffer type (StringReader or ByteBuffer)");
+			}
+			ExtensibleBufferDeserializationFinished.newCase(this, null, anInputBuffer, obj, retrievedObjects);
+			return obj;
+		}
+		else {
+			throw new NotSerializableException("Class is not a String");
+		}
+	}
+}
+//END OF FILE
+//START OF FILE: assignment6/src/main/serializers/valueserializer.java
+package main.serializers;
+
+import java.io.NotSerializableException;
+import java.io.StreamCorruptedException;
+import java.util.ArrayList;
+
+import util.annotations.Comp533Tags;
+import util.annotations.Tags;
+
+@Tags({Comp533Tags.VALUE_SERIALIZER})
+public interface ValueSerializer {
+	
+	void objectToBuffer (Object anOutputBuffer, 
+			Object anObject, ArrayList<Object> visitedObjects) 
+	throws NotSerializableException;
+	
+	Object objectFromBuffer(Object anInputBuffer, 
+			Class aClass, ArrayList<Object> retrievedObjects) 
+	throws StreamCorruptedException, NotSerializableException;
+}
+//END OF FILE
+//START OF FILE: assignment6/src/main/test/coordinate.java
+package main.test;
+
+import java.io.Serializable;
+
+public class Coordinate implements Serializable{
+	private int x;
+	private int y; 
+	
+	public Coordinate(int X, int Y) {
+		x = X;
+		y = Y;
+	}
+	
+	public Coordinate() {}
+	
+	public void setX(int X) {
+		x = X;
+	}
+	
+	public int getX() {
+		return x;
+	}
+	
+	public void setY(int Y) {
+		y = Y;
+	}
+	
+	public int getY() {
+		return y;
+	}
+}
+//END OF FILE
+//START OF FILE: assignment6/src/main/test/node.java
+package main.test;
+
+import java.io.Serializable;
+
+public class Node implements Serializable{
+	int data;
+	Node next = null;
+	
+	public Node() {}
+	
+	public Node(int d) {
+		data = d;
+	}
+	
+	public void setData(int d) {
+		data = d;
+	}
+	
+	public int getData() {
+		return data;
+	}
+	
+	public void setNext(Node n) {
+		next = n;
+	}
+	
+	public Node getNext() {
+		return next;
+	}
+	
+}
+//END OF FILE
+//START OF FILE: assignment6/src/main/test/primitivetest.java
+package main.test;
+
+import static org.junit.Assert.*;
+
+import java.lang.reflect.Array;
+import java.nio.ByteBuffer;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Random;
+import java.util.Vector;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.LongStream;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import examples.serialization.ANamedBMISpreadsheet;
+import examples.serialization.AStringHistory;
+import examples.serialization.AnotherBMISpreadsheet;
+import examples.serialization.BMISpreadsheet;
+import examples.serialization.NamedBMISpreadsheet;
+import examples.serialization.ObjectHistory;
+import examples.serialization.StringHistory;
+import main.LogicalBinarySerializerFactory;
+import main.LogicalTextualSerializerFactory;
+import serialization.Serializer;
+import serialization.SerializerSelector;
+import util.misc.RemoteReflectionUtility;
+
+public class PrimitiveTest {
+	 static final int EXP_SIZE = 100;
+	 static final String STRING = "123ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+	 static Serializer logicalSerializer;
+	 static Serializer binarySerializer;
+	
+	public  PrimitiveTest() {
+		
+	}
+	public enum Day {
+		SUNDAY, MONDAY, TUESDAY, WEDNESDAY,
+		THURSDAY, FRIDAY, SATURDAY 
+	}
+
+
+	@Before
+	public void setUp() throws Exception {
+		SerializerSelector  logical = new SerializerSelector();
+		SerializerSelector  binary = new SerializerSelector();
+
+		binary.setSerializerFactory(new LogicalBinarySerializerFactory());
+		logical.setSerializerFactory(new LogicalTextualSerializerFactory());
+
+		logicalSerializer = logical.createSerializer();
+		binarySerializer = binary.createSerializer();
+
+	}
+
+
+	@Test
+	public void longTest() {
+		getLongs()
+		.forEach(i -> performTest(i));	}
+	@Test
+	public void floatTest() {
+		getFloats()
+		.forEach(i -> performTest(i));
+	}
+	@Test
+	public void intTest() {
+
+		getIntegers()
+		.forEach(i -> performTest(i));
+	}
+	@Test
+	public void doubleTest() {
+		getDoubles()
+		.forEach(i -> performTest(i));	}
+	@Test
+	public void stringTest() {
+		getStrings()
+		.forEach(i -> performTest(i));	}
+	@Test
+	public void booleanTest() {
+		getBoolean()
+		.forEach(i -> performTest(i));	}
+	@Test
+	public void shortTest() {
+		getShorts()
+		.forEach(i -> performTest(i));	}
+	@Test
+	public void arrayListAndHashSetTest() {
+		//		 test list of strings
+		List strings = getStrings();
+		HashSet strSet = new HashSet(strings);
+		Vector vector = new Vector(strings);
+		performTest(strings);
+		performTest(strSet);
+		performTest(vector);
+
+
+		// test list of integers
+		ArrayList<Integer> integers = getIntegers();
+		HashSet intSet = new HashSet(integers);
+		vector = new Vector(integers);
+		performTest(vector);
+		performTest(integers);
+		performTest(intSet);
+
+		// test boolean
+		List<Boolean> booleans = getBoolean();
+		HashSet boolSet = new HashSet(booleans);
+		vector = new Vector(booleans);
+		performTest(vector);
+		performTest(booleans);
+		performTest(boolSet);
+
+		// test shorts
+		List<Short> shorts = getShorts();
+		HashSet shortSet = new HashSet(shorts);
+		vector = new Vector(shorts);
+		performTest(vector);
+		performTest(shorts);
+		performTest(shortSet);
+
+		// test double
+		List<Double> doubles = getDoubles();
+		HashSet doubleSet = new HashSet(doubles);
+		vector = new Vector(doubles);
+		performTest(vector);
+		performTest(doubles);
+		performTest(doubleSet);
+
+		// test Long
+		List<Long> longs = getLongs();
+		HashSet longSet = new HashSet(longs);
+		vector = new Vector(longs);
+		performTest(vector);
+		performTest(longs);
+		performTest(longSet);
+
+		// test all objects combined
+		List allObjs = getAllObjs();
+		HashSet objSet = new HashSet(allObjs);
+		vector = new Vector(allObjs);
+		performTest(vector);
+		performTest(allObjs);
+		performTest(objSet);
+
+		// test list of lists
+		List listOfList = new ArrayList();
+		listOfList.add("asdf");
+		listOfList.add(strings);
+		listOfList.add(shorts);
+		listOfList.add(booleans);
+		listOfList.add(integers);
+		listOfList.add(doubles);
+		listOfList.add(longs);
+		HashSet listOfListSet = new HashSet(listOfList);
+		vector = new Vector(listOfList);
+		performTest(vector);
+		performTest(listOfList);
+		performTest(listOfListSet);
+
+
+		List nulls = new ArrayList();
+		nulls.add(null);
+		performTest(nulls);
+
+		List nullList = null;
+		performTest(nullList);
+
+	}
+	@Test
+	public void hashTableTest() {
+		Hashtable table = new Hashtable();
+		table.put("key", "value");
+		table.put(1, 2);
+		table.put("shit", "fuuck");
+		table.put(getStrings(), getLongs());
+		table.put(getBoolean(), getDoubles());
+		HashMap map = new HashMap();
+		map.put("key", "value");
+		map.put(1, 2);
+		map.put("shit", "fuck");
+		map.put(getStrings(), getLongs());
+		map.put(getBoolean(), getDoubles());
+		performTest(table);
+		performTest(map);
+	}
+	@Test
+	public void recursiveTest() {
+		List recursive = new ArrayList();
+		recursive.add(1);
+		recursive.add(2);
+		recursive.add(null);
+		recursive.add(recursive);
+		HashSet recursiveSet = makeSet(recursive);
+		recursiveSet.add(recursiveSet);
+		Vector vector = new Vector();
+		vector.add(1);
+		vector.add(2);
+		vector.add(null);
+		vector.add(vector);
+		performRecursiveTest(vector);
+		performRecursiveTest(recursive);
+		performRecursiveTest(recursiveSet);
+
+		List listOfList = new ArrayList();
+		listOfList.add("asdf");
+		listOfList.add(getStrings());
+		listOfList.add(getShorts());
+		listOfList.add(getBoolean());
+		listOfList.add(getIntegers());
+		listOfList.add(getDoubles());
+		listOfList.add(getLongs());
+		listOfList.add(null);
+		vector = new Vector();
+		vector.addAll(listOfList);
+		vector.add(vector);
+		listOfList.add(listOfList);
+		HashSet listOfListSet = makeSet(listOfList);
+		listOfListSet.add(listOfListSet);
+		performRecursiveTest(vector);
+		performRecursiveTest(listOfList);
+		performRecursiveTest(listOfListSet);
+	}
+	@Test
+	public void nullTest() {
+		Object a = null;
+		performTest(a);
+		performTest(null);
+	}
+	@Test
+	public void arrayTest() {
+		Object [] array = {1 , 2.0 , true, "fuck", null };
+		performArrayTest(array);
+	}
+	@Test
+	public void enumTest() {
+		for (Day day: Day.values()) {
+			performTest(day);
+		}
+
+	}
+	@Test
+	public void beanTest() {
+		BMISpreadsheet bmi = new AnotherBMISpreadsheet();
+		bmi.setHeight(2.0);
+		bmi.setMale(true);
+		performBeanTest(bmi);
+		NamedBMISpreadsheet namedBMI = new ANamedBMISpreadsheet();
+		namedBMI.setName("Joe Doe");
+		namedBMI.setHeight(2.0);
+		performBeanTest(namedBMI);
+		performBeanTest(null);
+	}
+	@Test
+	public void listPatternTest() {
+		StringHistory stringHistory = new AStringHistory();
+		stringHistory.add("James Dean");
+		stringHistory.add("Joe Doe");
+		stringHistory.add("Jane Smith");
+		stringHistory.add("John Smith");
+		performStringPattern(stringHistory);
+
+		StringHistory nullHistory = null;
+		performStringPattern(nullHistory);
+
+	}
+
+
+	 public void performStringPattern(StringHistory a) {
+		helperPatternString(logicalSerializer,a);
+		helperPatternString(binarySerializer,a);
+
+	}
+	 public void performStringObj(ObjectHistory a) {
+		helperPatternObj(logicalSerializer,a);
+		helperPatternObj(binarySerializer,a);
+
+	}
+
+	 public void helperPatternString(Serializer serial, StringHistory a) {
+		try {
+			ByteBuffer byteBuffer = serial.outputBufferFromObject(a);
+			Object returned = serial.objectFromInputBuffer(byteBuffer);
+			if (returned==null) {
+				assertEquals(returned,a);
+
+			} else {
+				if (!RemoteReflectionUtility.isList(returned.getClass())) {
+					fail("not a list");
+				}
+
+				StringHistory ret = (StringHistory) returned;
+				assertEquals(a.size(), ret.size());
+				for(int i=0; i<a.size(); i++) {
+					assertEquals(a.get(i), ret.get(i));
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+	 public void helperPatternObj(Serializer serial, ObjectHistory a) {
+		try {
+			ByteBuffer byteBuffer = serial.outputBufferFromObject(a);
+			Object returned = serial.objectFromInputBuffer(byteBuffer);
+			if (!RemoteReflectionUtility.isList(returned.getClass())) {
+				fail("not a list");
+			}
+			ObjectHistory ret = (ObjectHistory) returned;
+			assertEquals(a.size(), ret.size());
+			for(int i=0; i<a.size(); i++) {
+				assertEquals(a.get(i).toString(), ret.get(i).toString());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	 public void performBeanTest(BMISpreadsheet bmi) {
+		helperBean(logicalSerializer,  bmi);
+		helperBean(binarySerializer, bmi);	
+	}
+	static public void performTest(Object obj) {
+		helper(logicalSerializer,  obj);
+		helper(binarySerializer, obj);
+	}
+	static public void performRecursiveTest(Object obj) {
+		helperRecursive(logicalSerializer,  obj);
+		helperRecursive(binarySerializer, obj);
+	}
+	 public void performArrayTest(Object[] array) {
+		helperArray(logicalSerializer, array);
+		helperArray(binarySerializer, array);
+	}
+	static public void helperRecursive(Serializer serial, Object obj) {
+		try {
+			ByteBuffer byteBuffer = serial.outputBufferFromObject(obj);
+			Object returned = serial.objectFromInputBuffer(byteBuffer);
+			assertEquals(obj.toString(),returned.toString());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	static public void helper(Serializer serial, Object obj) {
+		try {
+			ByteBuffer byteBuffer = serial.outputBufferFromObject(obj);
+			Object returned = serial.objectFromInputBuffer(byteBuffer);
+			assertEquals(obj,returned);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	 public void helperArray(Serializer serial, Object[] array) {
+		try {
+			ByteBuffer byteBuffer = serial.outputBufferFromObject(array);
+			Object returned = serial.objectFromInputBuffer(byteBuffer);
+			assertEquals(array.length, Array.getLength(returned));
+			for(int i=0; i<array.length; i++) {
+				assertEquals(array[i], Array.get(returned, i));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+	public void helperBean(Serializer serial, BMISpreadsheet bmi) {
+		try {
+			ByteBuffer byteBuffer = serial.outputBufferFromObject(bmi);
+			Object returned = serial.objectFromInputBuffer(byteBuffer);
+			if (returned==null) {
+				assertEquals(returned,bmi);
+			} else {
+				if (!(returned instanceof BMISpreadsheet)) {
+					fail("not of type BMISpreadsheet");
+				}
+
+				BMISpreadsheet ret = (BMISpreadsheet) returned;
+
+				assertEquals(bmi.getHeight(), ret.getHeight(), 0.01);
+				assertEquals(bmi.getWeight(), ret.getWeight(), 0.01);
+				assertEquals(bmi.getBMI(), ret.getBMI(), 0.01);
+				assertEquals(bmi.isMale(), ret.isMale());
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	static ArrayList<String> getStrings(){
+		ArrayList<String> list = new ArrayList<>();
+		for(int i=0; i<EXP_SIZE; i++) {
+			list.add(generateRandomString());
+		}
+		list.add(new String());
+		list.add(null);
+		return list;
+	}
+	static ArrayList<Integer> getIntegers() {
+		return (ArrayList) IntStream.range(-1*EXP_SIZE, EXP_SIZE)
+				.boxed()
+				.collect(Collectors.toList());
+	}
+	static List<Boolean> getBoolean() {
+		List<Boolean> bool = new ArrayList<>();
+		bool.add(new Boolean(true));
+		bool.add(new Boolean(false));
+		return bool;
+	}
+	static List getAllObjs() {
+		List objs = new ArrayList();
+		objs.addAll(getStrings());
+		objs.addAll(getIntegers());
+		objs.addAll(getBoolean());
+		objs.addAll(getShorts());
+		objs.addAll(getLongs());
+		objs.addAll(getDoubles());
+		return objs;
+
+	}
+	static String generateRandomString() {
+		StringBuilder builder = new StringBuilder();
+		Random random = new Random();
+		for(int i=0; i<STRING.length(); i++) {
+			builder.append(STRING.charAt(random.nextInt(STRING.length())));
+		}
+		return builder.toString();
+	}
+	static List<Short> getShorts() {
+		List shorts = new ArrayList();
+		for(int i=-1*EXP_SIZE; i<EXP_SIZE; i++) {
+			short curr = (short)i;
+			Short obj = new Short(curr);
+			shorts.add(obj);
+		}
+		shorts.add(null);
+		return shorts;
+
+	}
+	static List<Long> getLongs() {
+		Random r = new Random();
+		return LongStream.range(-1*EXP_SIZE,EXP_SIZE)
+				.boxed()
+				.map(i -> i+r.nextLong())
+				.collect(Collectors.toList());
+	}
+	static List<Double> getDoubles() {
+		Random r = new Random();
+		return IntStream.range(-1*EXP_SIZE, EXP_SIZE)
+				.asDoubleStream()
+				.boxed()
+				.map(i -> i+r.nextDouble())
+				.collect(Collectors.toList());
+	}
+	static List<Float> getFloats() {
+		ArrayList <Float> vals = new ArrayList<>();
+		Random rand = new Random();
+		for (int i = 0; i < EXP_SIZE; i++) {
+			vals.add(rand.nextFloat());
+		}
+		return vals;
+	}
+	 HashSet makeSet(List list) {
+		HashSet set = new HashSet();
+		for (Object o : list)
+			set.add(0);
+		return set;
+	}
+}
+
+//END OF FILE
+//START OF FILE: assignment6/src/main/test/serializationtester.java
+package main.test;
+
+import java.nio.ByteBuffer;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.Vector;
+
+import examples.serialization.ANamedBMISpreadsheet;
+import examples.serialization.AStringHistory;
+import examples.serialization.AnObjectHistory;
+import examples.serialization.AnotherBMISpreadsheet;
+import examples.serialization.BMISpreadsheet;
+import examples.serialization.NamedBMISpreadsheet;
+import examples.serialization.ObjectHistory;
+import examples.serialization.StringHistory;
+import main.LogicalBinarySerializerFactory;
+import main.LogicalTextualSerializerFactory;
+import serialization.Serializer;
+import serialization.SerializerSelector;
+import util.trace.port.serialization.extensible.ExtensibleSerializationTraceUtility;
+
+public class SerializationTester {
+
+	public static void main(String[] args) {
+
+		testSerialization();
+	}
+	
+	enum Color {RED,GREEN, BLUE}
+
+	public static void testSerialization() {
+		ExtensibleSerializationTraceUtility.setTracing();
+		// part 1
+		SerializerSelector.setSerializerFactory(new LogicalBinarySerializerFactory());
+		Serializer serializer = SerializerSelector.createSerializer();
+		translate(serializer, 5);
+		translate(serializer, (short)5);
+		translate(serializer, (long)5);
+		translate(serializer, 5.5);
+		translate(serializer, (float) 5.5);
+		translate (serializer, "hello world");
+		translate(serializer, true);
+		translate(serializer, Color.RED);
+		Object[] values = { "Hello World", "Goodbye World", Color.GREEN };
+		translate(serializer, values);
+		List list = new ArrayList();
+		list.add("Hello world");
+		list.add(3);
+		list.add(Color.BLUE);
+		list.add(null);
+		translate(serializer, list);
+		list = new Vector();
+		list.add("Hello world");
+		list.add(3);
+		list.add(Color.BLUE);
+		list.add(null);
+		translate(serializer, list);
+		Map map = new HashMap();
+		map.put("greeting", "ni hao");
+		map.put(5, 4.0);
+		translate(serializer, map);
+		map = new Hashtable();
+		map.put("greeting", "ni hao");
+		map.put(5, 4.0);
+		translate(serializer, map);
+		Set<String> set = new HashSet();
+		set.add("Hello world");
+		set.add("Goodbye world");
+		translate(serializer, set);
+		list.add(set);
+		list.add(map);
+		translate(serializer, list);
+		
+		// part 2
+		List recursive = new ArrayList();
+		recursive.add(null);
+		recursive.add(values);
+		recursive.add(recursive);
+		recursive.add(list);
+		translate(serializer, recursive);
+		BMISpreadsheet bmi = new AnotherBMISpreadsheet();
+		bmi.setHeight(2.0);
+		bmi.setMale(true);
+	    translate(serializer, bmi);
+		NamedBMISpreadsheet namedBMI = new ANamedBMISpreadsheet();
+		namedBMI.setName("Joe Doe");
+		namedBMI.setHeight(2.0);
+		translate(serializer, namedBMI);
+		StringHistory stringHistory = new AStringHistory();
+		stringHistory.add("James Dean");
+		stringHistory.add("Joe Doe");
+		stringHistory.add("Jane Smith");
+		stringHistory.add("John Smith");
+		translate(serializer, stringHistory);
+		ObjectHistory objectHistory = new AnObjectHistory();
+		objectHistory.add(objectHistory);
+		objectHistory.add("hello");
+		translate(serializer, objectHistory);
+		List recursiveList = new ArrayList();
+		recursiveList.add(recursiveList);
+		translate(serializer, recursiveList);
+
+	}
+
+	static void translate(Serializer serializer, Object object) {
+		try {
+			System.out.println("Serializing " + object);
+			ByteBuffer buffer = serializer.outputBufferFromObject(object);
+			Object readVal = serializer.objectFromInputBuffer(buffer);
+			System.out.println("Deserialized " + readVal);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	//
+	// static void testClassLoading() {
+	// System.out.println( RMIClassLoader.getClassAnnotation
+	// (ABMISpreadsheet.class));
+	//
+	// }
+
+}
+//END OF FILE
+//START OF FILE: assignment6/src/main/test/tester.java
+package main.test;
+
+import java.awt.Color;
+import java.io.NotSerializableException;
+import java.io.StreamCorruptedException;
+import java.nio.ByteBuffer;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Hashtable;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Vector;
+
+import examples.serialization.AnotherBMISpreadsheet;
+import examples.serialization.BMISpreadsheet;
+import main.LogicalBinarySerializerFactory;
+import main.LogicalTextualSerializerFactory;
+import serialization.Serializer;
+import serialization.SerializerSelector;
+import util.trace.factories.FactoryTraceUtility;
+
+public class Tester {
+	
+	public static enum Family{
+		MOM, DAD
+	}
+	public static void main(String args[]) {
+		System.out.println("********************************************************");
+		System.out.println("******************** TESTING LOGICAL *******************");
+		System.out.println("********************************************************\n");
+		
+		SerializerSelector.setSerializerFactory(new LogicalTextualSerializerFactory());
+		Serializer serializer = SerializerSelector.createSerializer();
+		System.out.println("--------------------------------------------------------");
+		
+		runTest(serializer, 5);
+		runTest(serializer, false);
+		runTest(serializer, true);
+		runTest(serializer, (long)7);
+		runTest(serializer, (short)8);
+		runTest(serializer, (float)9);
+		runTest(serializer, (double)10);
+		runTest(serializer, "this is a string!");
+		
+		ArrayList<Object> arrayList = new ArrayList<>();
+		arrayList.add(3);
+		arrayList.add(4);
+		runTest(serializer, arrayList);
+		arrayList.removeAll(arrayList);
+		
+		arrayList.add(false);
+		arrayList.add(true);
+		runTest(serializer, arrayList);
+		arrayList.removeAll(arrayList);
+		
+		arrayList.add((long)5);
+		arrayList.add((long)6);
+		runTest(serializer, arrayList);
+		arrayList.removeAll(arrayList);
+		
+		arrayList.add((short)7);
+		arrayList.add((short)8);
+		runTest(serializer, arrayList);
+		arrayList.removeAll(arrayList);
+		
+		arrayList.add((float)9);
+		arrayList.add((float)10);
+		runTest(serializer, arrayList);
+		arrayList.removeAll(arrayList);
+		
+		arrayList.add((double)1);
+		arrayList.add((double)2);
+		runTest(serializer, arrayList);
+		arrayList.removeAll(arrayList);
+		
+		arrayList.add("String 1");
+		arrayList.add("String 2");
+		runTest(serializer, arrayList);
+		arrayList.removeAll(arrayList);
+		
+		Vector<Object> vector = new Vector<>();
+		vector.add(5);
+		vector.add(6);
+		runTest(serializer, vector);
+		vector.removeAll(vector);
+		
+		vector.add(false);
+		vector.add(true);
+		runTest(serializer, vector);
+		vector.removeAll(vector);
+		
+		vector.add((long)5);
+		vector.add((long)6);
+		runTest(serializer, vector);
+		vector.removeAll(vector);
+		
+		vector.add((short)7);
+		vector.add((short)8);
+		runTest(serializer, vector);
+		vector.removeAll(vector);
+		
+		vector.add((float)9);
+		vector.add((float)10);
+		runTest(serializer, vector);
+		vector.removeAll(vector);
+		
+		vector.add((double)1);
+		vector.add((double)2);
+		runTest(serializer, vector);
+		vector.removeAll(vector);
+		
+		vector.add("String 1");
+		vector.add("String 2");
+		runTest(serializer, vector);
+		vector.removeAll(vector);
+		
+		HashSet<Object> hashSet = new HashSet<>();
+		hashSet.add(2);
+		hashSet.add(3);
+		runTest(serializer, hashSet);
+		hashSet.removeAll(hashSet);
+		
+		hashSet.add(false);
+		hashSet.add(true);
+		runTest(serializer, hashSet);
+		hashSet.removeAll(hashSet);
+		
+		hashSet.add((long)5);
+		hashSet.add((long)6);
+		runTest(serializer, hashSet);
+		hashSet.removeAll(hashSet);
+		
+		hashSet.add((short)7);
+		hashSet.add((short)8);
+		runTest(serializer, hashSet);
+		hashSet.removeAll(hashSet);
+		
+		hashSet.add((float)9);
+		hashSet.add((float)10);
+		runTest(serializer, hashSet);
+		hashSet.removeAll(hashSet);
+		
+		hashSet.add((double)1);
+		hashSet.add((double)2);
+		runTest(serializer, hashSet);
+		hashSet.removeAll(hashSet);
+		
+		hashSet.add("String 1");
+		hashSet.add("String 2");
+		runTest(serializer, hashSet);
+		hashSet.removeAll(hashSet);
+		
+		HashMap<Object, Object> hashMap = new HashMap<>();
+		hashMap.put(1, "one");
+		hashMap.put(2, "two");
+		runTest(serializer, hashMap);
+		hashMap.clear();
+		
+		hashMap.put((long)1, false);
+		hashMap.put((long)2, true);
+		runTest(serializer, hashMap);
+		hashMap.clear();
+		
+		hashMap.put((double)3, (float)4);
+		hashMap.put((double)5, (float)6);
+		runTest(serializer, hashMap);
+		hashMap.clear();
+		
+		Hashtable<Object, Object> hashtable = new Hashtable<>();
+		hashtable.put(1, "one");
+		hashtable.put(2, "two");
+		runTest(serializer, hashtable);
+		hashtable.clear();
+		
+		hashtable.put((long)1, false);
+		hashtable.put((long)2, true);
+		runTest(serializer, hashtable);
+		hashtable.clear();
+		
+		hashtable.put((double)3, (float)4);
+		hashtable.put((double)5, (float)6);
+		runTest(serializer, hashtable);
+		hashtable.clear();
+		
+		runTest(serializer, Family.DAD);
+		runTest(serializer, null);
+		
+		Integer[] array = {1, 2};
+		runTest(serializer, array);
+		
+		Coordinate coor = new Coordinate(5, 10);
+		runTest(serializer, coor);
+		
+		Node node = new Node(5);
+		runTest(serializer, node);
+		
+		List<Integer> list = new LinkedList<Integer>();
+		list.add(6);
+		list.add(11);
+		runTest(serializer, list);
+		
+		Node node1 = new Node(7);
+		Node node2 = new Node(8);
+		node1.setNext(node2);
+		node2.setNext(node1);
+		runTest(serializer, node1);
+		
+		BMISpreadsheet bmi = new AnotherBMISpreadsheet();
+		bmi.setHeight(2.0);
+		bmi.setMale(true);
+		runTest(serializer, bmi);
+		
+		System.out.println("\n********************************************************");
+		System.out.println("******************** TESTING BINARY ********************");
+		System.out.println("********************************************************\n");
+		
+		SerializerSelector.setSerializerFactory(new LogicalBinarySerializerFactory());
+		serializer = SerializerSelector.createSerializer();
+		System.out.println("--------------------------------------------------------");
+		
+		runTest(serializer, 5);
+		runTest(serializer, false);
+		runTest(serializer, true);
+		runTest(serializer, (long)7);
+		runTest(serializer, (short)8);
+		runTest(serializer, (float)9);
+		runTest(serializer, (double)10);
+		runTest(serializer, "this is a string!");
+		
+		arrayList.add(3);
+		arrayList.add(4);
+		runTest(serializer, arrayList);
+		arrayList.removeAll(arrayList);
+		
+		arrayList.add(false);
+		arrayList.add(true);
+		runTest(serializer, arrayList);
+		arrayList.removeAll(arrayList);
+		
+		arrayList.add((long)5);
+		arrayList.add((long)6);
+		runTest(serializer, arrayList);
+		arrayList.removeAll(arrayList);
+		
+		arrayList.add((short)7);
+		arrayList.add((short)8);
+		runTest(serializer, arrayList);
+		arrayList.removeAll(arrayList);
+		
+		arrayList.add((float)9);
+		arrayList.add((float)10);
+		runTest(serializer, arrayList);
+		arrayList.removeAll(arrayList);
+		
+		arrayList.add((double)1);
+		arrayList.add((double)2);
+		runTest(serializer, arrayList);
+		arrayList.removeAll(arrayList);
+		
+		arrayList.add("String 1");
+		arrayList.add("String 2");
+		runTest(serializer, arrayList);
+		arrayList.removeAll(arrayList);
+		
+		vector.add(5);
+		vector.add(6);
+		runTest(serializer, vector);
+		vector.removeAll(vector);
+		
+		vector.add(false);
+		vector.add(true);
+		runTest(serializer, vector);
+		vector.removeAll(vector);
+		
+		vector.add((long)5);
+		vector.add((long)6);
+		runTest(serializer, vector);
+		vector.removeAll(vector);
+		
+		vector.add((short)7);
+		vector.add((short)8);
+		runTest(serializer, vector);
+		vector.removeAll(vector);
+		
+		vector.add((float)9);
+		vector.add((float)10);
+		runTest(serializer, vector);
+		vector.removeAll(vector);
+		
+		vector.add((double)1);
+		vector.add((double)2);
+		runTest(serializer, vector);
+		vector.removeAll(vector);
+		
+		vector.add("String 1");
+		vector.add("String 2");
+		runTest(serializer, vector);
+		vector.removeAll(vector);
+		
+		hashSet.add(2);
+		hashSet.add(3);
+		runTest(serializer, hashSet);
+		hashSet.removeAll(hashSet);
+		
+		hashSet.add(false);
+		hashSet.add(true);
+		runTest(serializer, hashSet);
+		hashSet.removeAll(hashSet);
+		
+		hashSet.add((long)5);
+		hashSet.add((long)6);
+		runTest(serializer, hashSet);
+		hashSet.removeAll(hashSet);
+		
+		hashSet.add((short)7);
+		hashSet.add((short)8);
+		runTest(serializer, hashSet);
+		hashSet.removeAll(hashSet);
+		
+		hashSet.add((float)9);
+		hashSet.add((float)10);
+		runTest(serializer, hashSet);
+		hashSet.removeAll(hashSet);
+		
+		hashSet.add((double)1);
+		hashSet.add((double)2);
+		runTest(serializer, hashSet);
+		hashSet.removeAll(hashSet);
+		
+		hashSet.add("String 1");
+		hashSet.add("String 2");
+		runTest(serializer, hashSet);
+		hashSet.removeAll(hashSet);
+		
+		hashMap.put(1, "one");
+		hashMap.put(2, "two");
+		runTest(serializer, hashMap);
+		hashMap.clear();
+		
+		hashMap.put((long)1, false);
+		hashMap.put((long)2, true);
+		runTest(serializer, hashMap);
+		hashMap.clear();
+		
+		hashMap.put((double)3, (float)4);
+		hashMap.put((double)5, (float)6);
+		runTest(serializer, hashMap);
+		hashMap.clear();
+		
+		hashtable.put(1, "one");
+		hashtable.put(2, "two");
+		runTest(serializer, hashtable);
+		hashtable.clear();
+		
+		hashtable.put((long)1, false);
+		hashtable.put((long)2, true);
+		runTest(serializer, hashtable);
+		hashtable.clear();
+		
+		hashtable.put((double)3, (float)4);
+		hashtable.put((double)5, (float)6);
+		runTest(serializer, hashtable);
+		hashtable.clear();
+		
+		runTest(serializer, Family.DAD);
+		runTest(serializer, null);
+		
+		runTest(serializer, array);
+		
+		runTest(serializer, coor);
+		runTest(serializer, node);
+		
+		runTest(serializer, list);
+		
+		runTest(serializer, node1);
+		
+		bmi = new AnotherBMISpreadsheet();
+		bmi.setHeight(2.0);
+		bmi.setMale(true);
+		runTest(serializer, bmi);
+	}
+	
+	public static void runTest(Serializer serializer, Object obj) {
+		try {
+			System.out.println("object sent: " + (obj == null ? "null" : (obj.getClass().isArray() ? Arrays.deepToString((Object[]) obj) : obj.toString())));
+			ByteBuffer buf = serializer.outputBufferFromObject(obj);
+			System.out.println("buffer received: " + new String(buf.array(), buf.position(), buf.limit()));
+			Object objRec = serializer.objectFromInputBuffer(buf);
+			System.out.println("object received: " + (objRec == null ? "null" : (objRec.getClass().isArray() ? Arrays.deepToString((Object[]) objRec) : objRec.toString())));
+			boolean output = ((obj != null) ? obj.getClass() == objRec.getClass() : objRec == null) ;
+			if (output) {
+				System.out.println("*** result: " + output + " ***");
+			}
+			else {
+				System.err.println(output);
+			}
+			System.out.println("--------------------------------------------------------");
+		} catch (NotSerializableException e) {
+			e.printStackTrace();
+		} catch (StreamCorruptedException e) {
+			e.printStackTrace();
+		}
+	}
+}
+//END OF FILE
