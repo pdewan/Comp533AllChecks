@@ -3,51 +3,26 @@ package gradingTools.comp533s18.assignment1.testcases;
 import java.util.Arrays;
 import java.util.concurrent.TimeoutException;
 
-import org.junit.Test;
-
 import framework.grading.testing.BasicTestCase;
 import grader.basics.execution.NotRunnableException;
 import grader.basics.execution.RunningProject;
-import grader.basics.junit.BasicJUnitUtils;
 import grader.basics.junit.NotAutomatableException;
 import grader.basics.junit.TestCaseResult;
-import grader.basics.project.CurrentProjectHolder;
 import grader.basics.project.NotGradableException;
 import grader.basics.project.Project;
 import grader.execution.ExecutionSpecificationSelector;
 import gradingTools.comp110.assignment1.testcases.PromptTestCase;
 import gradingTools.utils.RunningProjectUtils;
-import util.annotations.Group;
 import util.annotations.MaxValue;
 import util.trace.Tracer;
-
 @MaxValue(20)
-//@Group("Test group name")
-public class OneClientCorrectConnectionTestCase extends BasicTestCase {
+public class TwoClientConnection extends BasicTestCase {
 	
 	
-	public OneClientCorrectConnectionTestCase() {
+	public TwoClientConnection() {
 //		super("Prompt printer test case");
-		super("One client correct connection test case");
-
+		super("Two client correct connection test case");
 	}
-	
-//	@Test
-//	public void test() {
-//		TestCaseResult result = null;
-//        try {
-//        	result = test(CurrentProjectHolder.getOrCreateCurrentProject(), true);  
-//        	
-//    		BasicJUnitUtils.assertTrue(result.getNotes(), result.getPercentage(), result.isPass());
-//        } catch (Throwable e) {
-//        	e.printStackTrace();
-//        	if (result != null) {
-//        		BasicJUnitUtils.assertTrue(e, result.getPercentage());
-//        	} else {
-//        		BasicJUnitUtils.assertTrue(e, 0);
-//        	}
-//        }
-//	}
 	
 	@Override
 	public TestCaseResult test(Project project, boolean autoGrade) throws NotAutomatableException,
@@ -57,10 +32,10 @@ public class OneClientCorrectConnectionTestCase extends BasicTestCase {
 
 			// Get the output when we have no input from the user
 //			RunningProject noInputRunningProject = RunningProjectUtils.runProject(project, 1);
-			OneClientCorrectConnectionTestInputGenerator anOutputBasedInputGenerator = new OneClientCorrectConnectionTestInputGenerator();
+			TwoClientCorrectConnectionTestInputGenerator anOutputBasedInputGenerator = new TwoClientCorrectConnectionTestInputGenerator();
 			RunningProject interactiveInputProject = null;
 			try {
-				interactiveInputProject = RunningProjectUtils.runProject(project, 20,
+				interactiveInputProject = RunningProjectUtils.runProject(project, 40,
 						anOutputBasedInputGenerator);
 				String incOutput = interactiveInputProject.await();
 			} catch (Exception e){
@@ -71,16 +46,20 @@ public class OneClientCorrectConnectionTestCase extends BasicTestCase {
 			}
 			
 			if (anOutputBasedInputGenerator.isEnableAcceptComplete()) {
-				if (anOutputBasedInputGenerator.isConnectComplete()) {
-					if (anOutputBasedInputGenerator.isAcceptComplete()) {
+				if (anOutputBasedInputGenerator.areConnectsComplete()) {
+					if (anOutputBasedInputGenerator.areAcceptsComplete()) {
 						return pass();
 					} else {
-						return partialPass(0.66, "In " + anOutputBasedInputGenerator.getLastNotFoundSource() + ", no line found matching regex: " + anOutputBasedInputGenerator.getLastNotFound());
-//						return partialPass(0.66, "Server failed to accept connection from client");
+						System.out.println("Accept 0: " + anOutputBasedInputGenerator.isAccepted0Complete());
+						System.out.println("Accept 1: " + anOutputBasedInputGenerator.isAccepted1Complete());
+						return partialPass(0.66, "In " + anOutputBasedInputGenerator.getLastNotFoundSource() + ", no line found matching regex: " + anOutputBasedInputGenerator.getLastNotFound());					
+//						return partialPass(0.66, "Server failed to accept connection from at least one client");					
 					}
 				} else {
+					System.out.println("Connect 0: " + anOutputBasedInputGenerator.isConnect0Complete());
+					System.out.println("Connect 1: " + anOutputBasedInputGenerator.isConnect1Complete());
 					return partialPass(0.33, "In " + anOutputBasedInputGenerator.getLastNotFoundSource() + ", no line found matching regex: " + anOutputBasedInputGenerator.getLastNotFound());
-//					return partialPass(0.33, "Client failed to connect to server");
+//					return partialPass(0.33, "At least one client failed to connect to server");
 				}
 			} else {
 				return fail("In " + anOutputBasedInputGenerator.getLastNotFoundSource() + ", no line found matching regex: " + anOutputBasedInputGenerator.getLastNotFound());
@@ -93,14 +72,18 @@ public class OneClientCorrectConnectionTestCase extends BasicTestCase {
 	
 	private static void setupProcesses() {
 		ExecutionSpecificationSelector.getExecutionSpecification().setProcessTeams(Arrays.asList("DistributedProgram"));
-		ExecutionSpecificationSelector.getExecutionSpecification().setTerminatingProcesses("DistributedProgram", Arrays.asList("Client"));
-		ExecutionSpecificationSelector.getExecutionSpecification().setProcesses("DistributedProgram", Arrays.asList("Server", "Client"));
+		ExecutionSpecificationSelector.getExecutionSpecification().setTerminatingProcesses("DistributedProgram", Arrays.asList("Client_0", "Client_1"));
+		ExecutionSpecificationSelector.getExecutionSpecification().setProcesses("DistributedProgram", Arrays.asList("Server", "Client_0", "Client_1"));
 		ExecutionSpecificationSelector.getExecutionSpecification().setEntryTags("Server", Arrays.asList("Server"));
-		ExecutionSpecificationSelector.getExecutionSpecification().setEntryTags("Client", Arrays.asList("Client"));
-		ExecutionSpecificationSelector.getExecutionSpecification().setArgs("Server", StaticArgumentsTestCase.DEFAULT_SERVER_ARGS);
-		ExecutionSpecificationSelector.getExecutionSpecification().setArgs("Client", StaticArgumentsTestCase.DEFAULT_CLIENT_ARGS);
+		ExecutionSpecificationSelector.getExecutionSpecification().setEntryTags("Client_0", Arrays.asList("Client"));
+		ExecutionSpecificationSelector.getExecutionSpecification().setEntryTags("Client_1", Arrays.asList("Client"));
+		ExecutionSpecificationSelector.getExecutionSpecification().setArgs("Server", StaticArguments.DEFAULT_SERVER_ARGS);
+		ExecutionSpecificationSelector.getExecutionSpecification().setArgs("Client_0", StaticArguments.DEFAULT_CLIENT_ARGS);
+		ExecutionSpecificationSelector.getExecutionSpecification().setArgs("Client_1", StaticArguments.DEFAULT_CLIENT_ARGS);
 		ExecutionSpecificationSelector.getExecutionSpecification().setSleepTime("Server", 2000);
-		ExecutionSpecificationSelector.getExecutionSpecification().setSleepTime("Client", 5000);
+		ExecutionSpecificationSelector.getExecutionSpecification().setSleepTime("Client_0", 15000);
+		ExecutionSpecificationSelector.getExecutionSpecification().setSleepTime("Client_1", 2000);
 		ExecutionSpecificationSelector.getExecutionSpecification().getProcessTeams().forEach(team -> System.out.println("### " + team));
+
 	}
 }

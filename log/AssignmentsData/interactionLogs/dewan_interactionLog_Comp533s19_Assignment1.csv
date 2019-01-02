@@ -1,0 +1,29 @@
+1546440052825,09:40:52,ProjectStepperStarted
+1546440052841,09:40:52,NavigationKindChange,Automatic
+1546440052841,09:40:52,NavigationStarted
+1546440052841,09:40:52,AutomaticNavigationStarted
+1546440052888,09:40:52,ProjectStepStarted,tstudent2,
+1546440257554,09:44:17,ProjectStepperStarted
+1546440257584,09:44:17,NavigationKindChange,Automatic
+1546440257584,09:44:17,NavigationStarted
+1546440257592,09:44:17,AutomaticNavigationStarted
+1546440257594,09:44:17,ProjectStepStarted,tstudent2,
+1546440286113,09:44:46,ProjectStepEnded,tstudent2,student2COMMMA test ,20.0,20.0,0.0,1.0,,,0
+1546440286113,09:44:46,AutomaticNavigationEnded
+1546440286113,09:44:46,NavigationKindChange,Manual
+1546440286121,09:44:46,NavigationStarted
+1546440286121,09:44:46,ManualNavigationStarted
+1546440286121,09:44:46,ProjectStepStarted,tstudent2,student2COMMMA test 
+1546440286294,09:44:46,ManualNavigationEnded
+1546440474985,09:47:54,ProjectStepperStarted
+1546440475001,09:47:55,NavigationKindChange,Automatic
+1546440475001,09:47:55,NavigationStarted
+1546440475016,09:47:55,AutomaticNavigationStarted
+1546440475032,09:47:55,ProjectStepStarted,tstudent2,
+1546440827739,09:53:47,ProjectStepEnded,tstudent2,student2COMMMA test ,107.5,107.5,0.0,1.0,,,0
+1546440827739,09:53:47,AutomaticNavigationEnded
+1546440827739,09:53:47,NavigationKindChange,Manual
+1546440827739,09:53:47,NavigationStarted
+1546440827739,09:53:47,ManualNavigationStarted
+1546440827739,09:53:47,ProjectStepStarted,tstudent2,student2COMMMA test 
+1546440827970,09:53:47,ManualNavigationEnded

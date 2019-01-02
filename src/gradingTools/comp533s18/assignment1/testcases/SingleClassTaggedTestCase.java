@@ -8,6 +8,7 @@ import grader.basics.project.BasicProjectIntrospection;
 import grader.basics.project.ClassDescription;
 import grader.basics.project.NotGradableException;
 import grader.basics.project.Project;
+import util.annotations.MaxValue;
 
 public class SingleClassTaggedTestCase extends BasicTestCase {
 	private final String tag;

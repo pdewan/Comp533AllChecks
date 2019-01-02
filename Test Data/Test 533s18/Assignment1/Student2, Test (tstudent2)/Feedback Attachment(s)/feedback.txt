@@ -2,32 +2,37 @@ Grading result for: Student2, Test (tstudent2)
 
 Grading features...
 ----------------------------------
-Static arguments work properly                         2.0 /  2.0
-One client correct connection                          2.0 /  2.0
-One client correct read, write, and behaviors - Atomic 3.5 /  3.5
-One client correct read, write, and behaviors - Non-atomic 3.5 /  3.5
-One client correct threads - Atomic                    0.5 /  0.5
-One client correct threads - Non-atomic                0.5 /  0.5
-One client correct message ratios - Atomic             1.0 /  1.0
-One client correct message ratios - Non-atomic         1.0 /  1.0
-Two client correct connection                          2.0 /  2.0
-Two client correct read, write, and behaviors - Atomic 3.5 /  3.5
-Two client correct read, write, and behaviors - Non-atomic 3.5 /  3.5
-Two client correct threads - Atomic                    0.5 /  0.5
-Two client correct threads - Non-atomic                0.5 /  0.5
-Two client correct message ratios - Atomic             1.0 /  1.0
-Two client correct message ratios - Non-atomic         1.0 /  1.0
-Read-Write-Update ordering - Atomic                    1.0 /  1.0
-Read-Write-Update ordering - Non-atomic                1.0 /  1.0
+ServerTagged                                           5.0 /  5.0
+OneClientThreadsNonAtomic                              5.0 /  5.0
+OneClientConnection                                    20.0 / 20.0
+OneClientThreadsAtomic                                 2.5 /  5.0
+ClientTagged                                           5.0 /  5.0
+OneClientReadWriteNonAtomic                            70.0 / 70.0
 ----------------------------------
-  Points Awarded: 28.0
+  Points Awarded: 107.5
 
-  Features Score: 28.0
+Grading restrictions...
+----------------------------------
+StaticArguments                                        0.0 /  0.0
+OneClientReadWrite                                     0.0 /  0.0
+----------------------------------
+  Points Deducted: 0.0
+
+  Features Score: 107.5
 
 Notes from grading features:
 ----------------------------------
-Two client correct read, write, and behaviors - Atomic:
-  -- Improper client read(s).
+OneClientThreadsAtomic:
+  -- Didn't find server read thread. Didn't find client reading thread.
+
+
+Notes from grading restrictions:
+----------------------------------
+StaticArguments:
+  -- Couldn't find client connection info in traces.
+
+OneClientReadWrite:
+  -- InitializationError Could not initialize an instance of test class 
 
 Submission time: 2014-01-16T15:03:28.874-05:00
-TOTAL SCORE: 28.0
+TOTAL SCORE: 107.5

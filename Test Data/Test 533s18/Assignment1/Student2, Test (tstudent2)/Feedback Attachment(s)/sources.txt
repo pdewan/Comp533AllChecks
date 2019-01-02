@@ -1,0 +1,1065 @@
+//START OF FILE: src/nio/manager/simulation/aliceniomanagersimulationclient.java
+package nio.manager.simulation;
+
+import static nio.manager.simulation.client.AnNIOManagerSimulationClient.SIMULATION1_PREFIX;
+import static nio.manager.simulation.client.AnNIOManagerSimulationClient.SIMULATION_COMMAND_Y_OFFSET;
+import static nio.manager.simulation.client.AnNIOManagerSimulationClient.SIMULATION_HEIGHT;
+import static nio.manager.simulation.client.AnNIOManagerSimulationClient.SIMULATION_WIDTH;
+
+import assignments.util.mainArgs.ClientArgsProcessor;
+import assignments.util.mainArgs.ServerPort;
+import nio.manager.simulation.client.AnNIOManagerSimulationClient;
+import util.trace.port.nio.NIOTraceUtility;
+
+public class AliceNIOManagerSimulationClient  {
+	public static void main(String[] args) {
+		NIOTraceUtility.setTracing();
+		AnNIOManagerSimulationClient.launchClient(ClientArgsProcessor.getServerHost(args), ServerPort.SERVER_PORT,
+				"Alice", SIMULATION1_PREFIX, 0, SIMULATION_COMMAND_Y_OFFSET,
+				SIMULATION_WIDTH, SIMULATION_HEIGHT, 0, 0 );
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/nio/manager/simulation/bobniomanagersimulationclient.java
+package nio.manager.simulation;
+
+import static nio.manager.simulation.client.AnNIOManagerSimulationClient.SIMULATION2_PREFIX;
+import static nio.manager.simulation.client.AnNIOManagerSimulationClient.SIMULATION_2_X_OFFSET;
+import static nio.manager.simulation.client.AnNIOManagerSimulationClient.SIMULATION_COMMAND_Y_OFFSET;
+import static nio.manager.simulation.client.AnNIOManagerSimulationClient.SIMULATION_HEIGHT;
+import static nio.manager.simulation.client.AnNIOManagerSimulationClient.SIMULATION_WIDTH;
+
+import assignments.util.mainArgs.ClientArgsProcessor;
+import assignments.util.mainArgs.ServerPort;
+import nio.manager.simulation.client.AnNIOManagerSimulationClient;
+import util.trace.port.nio.NIOTraceUtility;
+
+public class BobNIOManagerSimulationClient  {
+	public static void main(String[] args) {
+		NIOTraceUtility.setTracing();
+		AnNIOManagerSimulationClient.launchClient(ClientArgsProcessor.getServerHost(args), ServerPort.SERVER_PORT,
+				"Bob", SIMULATION2_PREFIX, SIMULATION_2_X_OFFSET, SIMULATION_COMMAND_Y_OFFSET,
+				SIMULATION_WIDTH, SIMULATION_HEIGHT, SIMULATION_2_X_OFFSET, SIMULATION_COMMAND_Y_OFFSET );
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/nio/manager/simulation/cathyniomanagersimulationclient.java
+package nio.manager.simulation;
+
+import static nio.manager.simulation.client.AnNIOManagerSimulationClient.SIMULATION3_PREFIX;
+import static nio.manager.simulation.client.AnNIOManagerSimulationClient.SIMULATION_3_X_OFFSET;
+import static nio.manager.simulation.client.AnNIOManagerSimulationClient.SIMULATION_COMMAND_Y_OFFSET;
+import static nio.manager.simulation.client.AnNIOManagerSimulationClient.SIMULATION_HEIGHT;
+import static nio.manager.simulation.client.AnNIOManagerSimulationClient.SIMULATION_WIDTH;
+
+import assignments.util.mainArgs.ClientArgsProcessor;
+import assignments.util.mainArgs.ServerPort;
+import nio.manager.simulation.client.AnNIOManagerSimulationClient;
+import util.trace.port.nio.NIOTraceUtility;
+
+public class CathyNIOManagerSimulationClient  {
+	public static void main(String[] args) {
+		NIOTraceUtility.setTracing();
+		AnNIOManagerSimulationClient.launchClient(ClientArgsProcessor.getServerHost(args), ServerPort.SERVER_PORT,
+				"Cathy", SIMULATION3_PREFIX, SIMULATION_3_X_OFFSET, SIMULATION_COMMAND_Y_OFFSET,
+				SIMULATION_WIDTH, SIMULATION_HEIGHT, SIMULATION_3_X_OFFSET, SIMULATION_COMMAND_Y_OFFSET );
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/nio/manager/simulation/niomanagersimulationserverlauncher.java
+package nio.manager.simulation;
+
+import nio.manager.simulation.server.AnNIOManagerSimulationServer;
+import util.annotations.Tags;
+import util.tags.DistributedTags;
+import util.trace.bean.BeanTraceUtility;
+import util.trace.factories.FactoryTraceUtility;
+import util.trace.port.nio.NIOTraceUtility;
+@Tags({DistributedTags.SERVER})
+public class NIOManagerSimulationServerLauncher {
+	public static void main(String[] args) {
+		FactoryTraceUtility.setTracing();
+		BeanTraceUtility.setTracing();
+		NIOTraceUtility.setTracing();
+		AnNIOManagerSimulationServer.launch(args);
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/nio/manager/simulation/client/anniomanagerlocalsimulation.java
+package nio.manager.simulation.client;
+
+import main.BeauAndersonFinalProject;
+import stringProcessors.HalloweenCommandProcessor;
+
+public class AnNIOManagerLocalSimulation implements NIOManagerSimulationProcessor{
+	public static final String SIMULATION1_PREFIX = "1:";
+//	public static final String SIMULATION2_PREFIX = "2:";
+//	public static final int SIMULATION_2_X_OFFSET = 250;
+//	public static final int SIMULATION_3_X_OFFSET = 500;
+
+	public static int SIMULATION_COMMAND_Y_OFFSET = 0;
+	public static int SIMULATION_WIDTH = 400;
+	public static int SIMULATION_HEIGHT = 765;
+	HalloweenCommandProcessor commandProcessor;
+//	protected NIOSimulationInCoupler nioManagerSimulationInCoupler;
+	@Override
+	public void run() {
+		
+		createUI();
+	}
+	public void createUI(HalloweenCommandProcessor aCommandProcessor) {
+		try {
+			commandProcessor = aCommandProcessor;
+//			nioManagerSimulationInCoupler = new AnNIOManagerSimulationInCoupler(commandProcessor);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	public void createUI(String aPrefix, int anXOffset, int aYOffset,
+			int aWidth, int aHeight, int aCommandWindowXOffset,
+			int aCommandWindowYOffset) {
+		HalloweenCommandProcessor aCommandProcessor = BeauAndersonFinalProject
+				.createSimulation(aPrefix, anXOffset, aYOffset, aWidth,
+						aHeight, aCommandWindowXOffset, aCommandWindowYOffset);
+		createUI(aCommandProcessor);
+	
+	}
+	public void createUI(){
+		
+	}
+	
+
+}
+//END OF FILE
+//START OF FILE: src/nio/manager/simulation/client/anniomanagersimulationclient.java
+package nio.manager.simulation.client;
+
+import java.io.IOException;
+import java.net.InetAddress;
+import java.nio.channels.SocketChannel;
+
+import assignments.util.mainArgs.ClientArgsProcessor;
+import assignments.util.mainArgs.ServerPort;
+import inputport.nio.manager.NIOManagerFactory;
+import inputport.nio.manager.factories.classes.AReadingWritingConnectCommandFactory;
+import inputport.nio.manager.factories.selectors.ConnectCommandFactorySelector;
+import main.BeauAndersonFinalProject;
+import nio.manager.simulation.server.AnNIOManagerSimulationServer;
+import stringProcessors.HalloweenCommandProcessor;
+import util.annotations.Tags;
+import util.interactiveMethodInvocation.ConsensusAlgorithm;
+import util.interactiveMethodInvocation.IPCMechanism;
+import util.interactiveMethodInvocation.SimulationParametersControllerFactory;
+import util.tags.DistributedTags;
+import util.trace.Tracer;
+import util.trace.bean.BeanTraceUtility;
+import util.trace.factories.FactoryTraceUtility;
+import util.trace.port.PerformanceExperimentEnded;
+import util.trace.port.PerformanceExperimentStarted;
+import util.trace.port.nio.NIOTraceUtility;
+@Tags({DistributedTags.CLIENT})
+public class AnNIOManagerSimulationClient implements NIOManagerSimulationClient {
+	String clientName;
+	public static final String SIMULATION1_PREFIX = "1:";
+	public static final String SIMULATION2_PREFIX = "2:";
+	public static final String SIMULATION3_PREFIX = "3:";
+	public static final int SIMULATION_2_X_OFFSET = 250;
+	public static final int SIMULATION_3_X_OFFSET = 500;
+	public static int SIMULATION_COMMAND_Y_OFFSET = 0;
+	public static int SIMULATION_WIDTH = 400;
+	public static int SIMULATION_HEIGHT = 765;
+	protected HalloweenCommandProcessor commandProcessor;
+	protected NIOManagerSimulationInCoupler nioManagerSimulationInCoupler;
+	protected NIOManagerSimulationOutCoupler nioSimulationOutCoupler;
+	protected int NUM_EXPERIMENT_COMMANDS = 500;
+	public static final String EXPERIMENT_COMMAND_1 = "move 1 -1";
+	public static final String EXPERIMENT_COMMAND_2 = "undo";
+	SocketChannel socketChannel;
+//	boolean localProcessingOnly = false;
+
+	public AnNIOManagerSimulationClient(String aClientName) {
+		// ConnectCommandSelector.setFactory(new AConnectCommandFactory());
+		// ConnectCommandSelector.setFactory(new
+		// AReadingWritingConnectCommandFactory());
+		clientName = aClientName;
+		// socketChannel = createSocketChannel();
+		// InetAddress aServerAddress = InetAddress.getByName(aServerHost);
+		// nioManager.connect(socketChannel, aServerAddress, aServerPort, this);
+	}
+
+	protected void setFactories() {
+		ConnectCommandFactorySelector
+				.setFactory(new AReadingWritingConnectCommandFactory());
+
+	}
+
+	protected SocketChannel createSocketChannel() {
+		try {
+			SocketChannel retVal = SocketChannel.open();
+			return retVal;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public void connectToServer(String aServerHost, int aServerPort) {
+		try {
+			InetAddress aServerAddress = InetAddress.getByName(aServerHost);
+
+			NIOManagerFactory.getSingleton().connect(socketChannel,
+					aServerAddress, aServerPort, this);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	// public void createUI(HalloweenCommandProcessor aCommandProcessor) {
+	// try {
+	// commandProcessor = aCommandProcessor;
+	//
+	// } catch (Exception e) {
+	// e.printStackTrace();
+	// }
+	// }
+
+	// public void createUI(String aPrefix, int anXOffset, int aYOffset,
+	// int aWidth, int aHeight, int aCommandWindowXOffset,
+	// int aCommandWindowYOffset) {
+	// HalloweenCommandProcessor aCommandProcessor = BeauAndersonFinalProject
+	// .createSimulation(aPrefix, anXOffset, aYOffset, aWidth,
+	// aHeight, aCommandWindowXOffset, aCommandWindowYOffset);
+	// createUI(aCommandProcessor);
+	// // try {
+	// // commandProcessor = BeauAndersonFinalProject.createSimulation(
+	// // aPrefix, anXOffset, aYOffset, aWidth, aHeight, aCommandWindowXOffset,
+	// // aCommandWindowYOffset);
+	// // simulationInCoupler = new ASimulationInCoupler(commandProcessor);
+	// // socket = initiateConnection();
+	// // } catch (Exception e) {
+	// // e.printStackTrace();
+	// // }
+	// }
+	protected void createCommunicationObjects(SocketChannel aSocketChannel) {
+		nioSimulationOutCoupler = new AnNIOManagerSimulationClientOutCoupler(
+				aSocketChannel);
+		nioManagerSimulationInCoupler = new AnNIOManagerSimulationClientInCoupler(
+				commandProcessor);
+		Thread aThread = new Thread(nioManagerSimulationInCoupler);
+		aThread.setName(AnNIOManagerSimulationServer.READ_THREAD_NAME);
+		aThread.start();
+
+	}
+
+	protected void addListeners(SocketChannel aSocketChannel) {
+		// nioSimulationOutCoupler = new
+		// AnNIOManagerSimulationOutCoupler(aSocketChannel);
+		commandProcessor.addPropertyChangeListener(nioSimulationOutCoupler);
+		// nioManagerSimulationInCoupler = new AnNIOManagerSimulationInCoupler(
+		// commandProcessor);
+		NIOManagerFactory.getSingleton().addReadListener(aSocketChannel,
+				nioManagerSimulationInCoupler);
+
+//		addWriteBufferListener(aSocketChannel);
+	}
+
+	public void connected(SocketChannel aSocketChannel) {
+		// createCommunicationObjects(aSocketChannel);
+		// addListeners(aSocketChannel);
+		//
+		// nioSimulationOutCoupler = new
+		// AnNIOManagerSimulationOutCoupler(aSocketChannel);
+		// commandProcessor.addPropertyChangeListener(nioSimulationOutCoupler);
+		//
+		// NIOManagerFactory.getSingleton().addReadListener(aSocketChannel,
+		// nioManagerSimulationInCoupler);
+	}
+
+	@Override
+	public void notConnected(SocketChannel theSocketChannel, Exception e) {
+
+	}
+
+	@Override
+	public void createModelAndUI(String aPrefix, int anXOffset, int aYOffset,
+			int aWidth, int aHeight, int aCommandWindowXOffset,
+			int aCommandWindowYOffset) {
+		commandProcessor = BeauAndersonFinalProject.createSimulation(aPrefix,
+				anXOffset, aYOffset, aWidth, aHeight, aCommandWindowXOffset,
+				aCommandWindowYOffset);
+	}
+
+	@Override
+	public void initialize(String aServerHost, int aServerPort,
+			String aClientName, String aPrefix, int anXOffset, int aYOffset,
+			int aWidth, int aHeight, int aCommandWindowXOffset,
+			int aCommandWindowYOffset) {
+		setFactories();
+		createModelAndUI(aPrefix, anXOffset, aYOffset, aWidth, aHeight,
+				aCommandWindowXOffset, aCommandWindowYOffset);
+		socketChannel = createSocketChannel();
+		createCommunicationObjects(socketChannel);
+		addListeners(socketChannel);
+		connectToServer(aServerHost, aServerPort);
+		SimulationParametersControllerFactory.getSingleton().addSimulationParameterListener(this);
+		SimulationParametersControllerFactory.getSingleton().processCommands();		
+	}
+
+	protected void addWriteBufferListener(SocketChannel aSocketChannel) {
+		NIOManagerFactory.getSingleton().addWriteBoundedBufferListener(
+				aSocketChannel, this);
+	}
+
+	@Override
+	public void writeBufferIsEmpty(SocketChannel aSocketChannel) {
+		NIOManagerFactory.getSingleton().enableReads(aSocketChannel);
+	}
+
+	public static void launchClient(String aServerHost, int aServerPort,
+			String aClientName, String aPrefix, int anXOffset, int aYOffset,
+			int aWidth, int aHeight, int aCommandWindowXOffset,
+			int aCommandWindowYOffset) {
+		NIOManagerSimulationClient aClient = new AnNIOManagerSimulationClient(
+				aClientName);
+		aClient.initialize(aServerHost, aServerPort, aClientName, aPrefix,
+				anXOffset, aYOffset, aWidth, aHeight, aCommandWindowXOffset,
+				aCommandWindowYOffset);
+		// aClient.createModelAndUI(aPrefix, anXOffset, aYOffset, aWidth,
+		// aHeight, aCommandWindowXOffset, aCommandWindowYOffset);
+		// aClient.connectToServer(aServerHost, aServerPort);
+
+	}
+
+	public static void main(String[] args) {
+//		NIOTraceUtility.setTracing();
+		FactoryTraceUtility.setTracing();
+		BeanTraceUtility.setTracing();
+		NIOTraceUtility.setTracing();
+		launchClient(ClientArgsProcessor.getServerHost(args),
+				ClientArgsProcessor.getServerPort(args),
+				ClientArgsProcessor.getClientName(args), SIMULATION1_PREFIX, 0,
+				SIMULATION_COMMAND_Y_OFFSET, SIMULATION_WIDTH,
+				SIMULATION_HEIGHT, 0, 0);
+	}
+
+	@Override
+	public void atomicBroadcast(boolean newValue) {
+		commandProcessor.setConnectedToSimulation(!newValue);
+	}
+
+	@Override
+	public void ipcMechanism(IPCMechanism newValue) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void experimentInput() {
+		Tracer.showInfo(false);
+		long aStartTime = System.currentTimeMillis();
+		PerformanceExperimentStarted.newCase(this, aStartTime, NUM_EXPERIMENT_COMMANDS);
+		for (int i = 0; i < NUM_EXPERIMENT_COMMANDS; i++) {
+			commandProcessor.setInputString(EXPERIMENT_COMMAND_1);
+			commandProcessor.setInputString(EXPERIMENT_COMMAND_2);
+		}
+		Tracer.showInfo(true);
+		long anEndTime = System.currentTimeMillis();
+		PerformanceExperimentEnded.newCase(this, aStartTime, anEndTime, anEndTime - aStartTime, NUM_EXPERIMENT_COMMANDS);
+//		System.out.println("Elapsed time:" + (System.currentTimeMillis() - aStartTime));
+
+	}
+
+	@Override
+	public void broadcastMetaState(boolean newValue) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void waitForBroadcastConsensus(boolean newValue) {
+		// TODO Auto-generated method stub
+
+	}
+
+//	@Override
+//	public void broadcastIPCMechanism(boolean newValue) {
+//		// TODO Auto-generated method stub
+//
+//	}
+
+	@Override
+	public void waitForIPCMechanismConsensus(boolean newValue) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void consensusAlgorithm(ConsensusAlgorithm newValue) {
+		// TODO Auto-generated method stub
+
+	}
+
+//	@Override
+	public void localProcessingOnly(boolean newValue) {
+		nioSimulationOutCoupler.localProcessingOnly(newValue);
+		
+	}
+//	@Override
+//	public boolean isLocalProcessingOnly() {
+//		return localProcessingOnly;
+//	}
+//	@Override
+//	public void setLocalProcessingOnly(boolean localProcessingOnly) {
+//		nioSimulationOutCoupler.localProcessingOnly(localProcessingOnly);
+//	}
+//	
+
+	@Override
+	public void quit(int aCode) {
+		try {
+			socketChannel.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.exit(aCode);
+	}
+
+	@Override
+	public void simulationCommand(String aCommand) {
+		commandProcessor.setInputString(aCommand);
+	}
+}
+//END OF FILE
+//START OF FILE: src/nio/manager/simulation/client/anniomanagersimulationclientincoupler.java
+package nio.manager.simulation.client;
+
+import java.nio.ByteBuffer;
+import java.nio.channels.SocketChannel;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
+
+import nio.manager.simulation.common.AChannelByteBuffer;
+import nio.manager.simulation.common.ChannelByteBuffer;
+import stringProcessors.HalloweenCommandProcessor;
+import util.trace.port.nio.RemoteCommandExecuted;
+
+public class AnNIOManagerSimulationClientInCoupler implements NIOManagerSimulationInCoupler{
+	HalloweenCommandProcessor commandProcessor;
+	int numReceivedCommands = 0;
+	public static int MAX_QUEUE_SIZE = 2000;
+	BlockingQueue<ChannelByteBuffer> messageQueue = new ArrayBlockingQueue<>(MAX_QUEUE_SIZE);
+	public AnNIOManagerSimulationClientInCoupler(HalloweenCommandProcessor aCommandProcessor) {
+		commandProcessor = aCommandProcessor;
+	}
+
+
+	@Override
+	public void socketChannelRead(SocketChannel aSocketChannel,
+			ByteBuffer aMessage, int aLength) {
+		if (messageQueue.size() >= MAX_QUEUE_SIZE) {
+			System.err.println("Message queue full, ignoring message");
+			return;
+		}
+		messageQueue.add(new AChannelByteBuffer(aSocketChannel, aMessage));
+//		doRead(aSocketChannel, aMessage);
+//		 String aCommand = new String(aMessage.array(), aMessage.position(), aLength);
+//		 RemoteCommandExecuted.newCase(this, aCommand);
+//		 commandProcessor.processCommand(aCommand); // make this is a thread
+	}
+	
+	protected void doRead(SocketChannel aSocketChannel,
+			ByteBuffer aMessage) {
+		String aCommand = new String(aMessage.array(), aMessage.position(), aMessage.remaining());
+		 RemoteCommandExecuted.newCase(this, aCommand);
+		 commandProcessor.processCommand(aCommand); // make this is a thread
+	}
+	
+	@Override
+	public void run() {
+		while (true) {
+			try {
+			ChannelByteBuffer aMessage = messageQueue.take();
+			doRead(aMessage.getSocketChannel(), aMessage.getByteBuffer());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+	
+
+}
+//END OF FILE
+//START OF FILE: src/nio/manager/simulation/client/anniomanagersimulationclientoutcoupler.java
+package nio.manager.simulation.client;
+
+import java.beans.PropertyChangeEvent;
+import java.nio.ByteBuffer;
+import java.nio.channels.SocketChannel;
+
+import inputport.nio.manager.NIOManagerFactory;
+import util.trace.Tracer;
+import util.trace.port.nio.LocalCommandObserved;
+
+public class AnNIOManagerSimulationClientOutCoupler implements NIOManagerSimulationOutCoupler {
+	SocketChannel socketChannel;
+	boolean localProcessingOnly = false;
+	
+//	int numSentCommands = 0;
+	
+	public AnNIOManagerSimulationClientOutCoupler (SocketChannel aSocketChannel) {
+		socketChannel = aSocketChannel;
+	}
+
+	@Override
+	public void propertyChange(PropertyChangeEvent anEvent) {
+		if (!anEvent.getPropertyName().equals("InputString")) return;
+		if (localProcessingOnly) {
+			return;
+		}
+		String newCommand = (String) anEvent.getNewValue();
+		LocalCommandObserved.newCase(this, newCommand);		
+		Tracer.info(this, " Sending command:" + newCommand);
+		ByteBuffer aByteBuffer = ByteBuffer.wrap(newCommand.getBytes());
+		NIOManagerFactory.getSingleton().write(socketChannel, aByteBuffer);		
+
+	}
+
+	@Override
+	public void localProcessingOnly(boolean newVal) {
+		localProcessingOnly = newVal;		
+	}
+
+	
+
+}
+//END OF FILE
+//START OF FILE: src/nio/manager/simulation/client/niomanagersimulationclient.java
+package nio.manager.simulation.client;
+
+import assignments.util.inputParameters.SimulationParametersListener;
+import assignments.util.mainArgs.ServerPort;
+import inputport.nio.manager.listeners.SocketChannelConnectListener;
+import inputport.nio.manager.listeners.WriteBoundedBufferListener;
+
+public interface NIOManagerSimulationClient extends 
+	SocketChannelConnectListener, 
+	ServerPort, 
+	WriteBoundedBufferListener,
+	SimulationParametersListener{
+	public static String SERVER_HOST = "localhost";
+//	void createModelAndUI();
+	void connectToServer(String aServerHost, int aServerPort);
+	void createModelAndUI(String aPrefix, int anXOffset, int aYOffset,
+			int aWidth, int aHeight, int aCommandWindowXOffset,
+			int aCommandWindowYOffset);
+	void initialize(String aServerHost, int aServerPort, String aClientName,
+			String aPrefix, int anXOffset, int aYOffset, int aWidth,
+			int aHeight, int aCommandWindowXOffset, int aCommandWindowYOffset);
+//	boolean isLocalProcessingOnly();
+//	void setLocalProcessingOnly(boolean localProcessingOnly);
+
+}
+//END OF FILE
+//START OF FILE: src/nio/manager/simulation/client/niomanagersimulationincoupler.java
+package nio.manager.simulation.client;
+
+import inputport.nio.manager.listeners.SocketChannelReadListener;
+
+public interface NIOManagerSimulationInCoupler extends SocketChannelReadListener, Runnable{
+
+}
+//END OF FILE
+//START OF FILE: src/nio/manager/simulation/client/niomanagersimulationoutcoupler.java
+package nio.manager.simulation.client;
+
+import java.beans.PropertyChangeListener;
+
+public interface NIOManagerSimulationOutCoupler extends PropertyChangeListener {
+	void localProcessingOnly(boolean newVal);
+	
+}
+//END OF FILE
+//START OF FILE: src/nio/manager/simulation/client/niomanagersimulationprocessor.java
+package nio.manager.simulation.client;
+
+public interface NIOManagerSimulationProcessor extends Runnable {
+
+}
+//END OF FILE
+//START OF FILE: src/nio/manager/simulation/client/package-info.java
+/**
+ * 
+ */
+/**
+ * @author Dewan
+ *
+ */
+package nio.manager.simulation.client;
+//END OF FILE
+//START OF FILE: src/nio/manager/simulation/common/achannelbytebuffer.java
+package nio.manager.simulation.common;
+
+import java.nio.ByteBuffer;
+import java.nio.channels.SocketChannel;
+
+import assignments.util.MiscAssignmentUtils;
+
+public class AChannelByteBuffer implements ChannelByteBuffer {
+	SocketChannel socketChannel;
+	ByteBuffer byteBuffer;
+	
+	public AChannelByteBuffer(SocketChannel socketChannel,
+			ByteBuffer aByteBuffer) {
+		super();
+		this.socketChannel = socketChannel;
+		this.byteBuffer = MiscAssignmentUtils.deepDuplicate(aByteBuffer);
+	}
+	
+	@Override
+	public SocketChannel getSocketChannel() {
+		return socketChannel;
+	}
+	
+	@Override
+	public void setSocketChannel(SocketChannel socketChannel) {
+		this.socketChannel = socketChannel;
+	}
+
+	@Override
+	public ByteBuffer getByteBuffer() {
+		return byteBuffer;
+	}
+	
+	@Override
+	public void setByteBuffer(ByteBuffer byteBuffer) {
+		this.byteBuffer = byteBuffer;
+	}
+	
+	
+
+}
+//END OF FILE
+//START OF FILE: src/nio/manager/simulation/common/channelbytebuffer.java
+package nio.manager.simulation.common;
+
+import java.nio.ByteBuffer;
+import java.nio.channels.SocketChannel;
+
+public interface ChannelByteBuffer {
+
+	public abstract SocketChannel getSocketChannel();
+
+	public abstract void setSocketChannel(SocketChannel socketChannel);
+
+	public abstract ByteBuffer getByteBuffer();
+
+	public abstract void setByteBuffer(ByteBuffer byteBuffer);
+
+}
+//END OF FILE
+//START OF FILE: src/nio/manager/simulation/common/package-info.java
+/**
+ * 
+ */
+/**
+ * @author Dewan
+ *
+ */
+package nio.manager.simulation.common;
+//END OF FILE
+//START OF FILE: src/nio/manager/simulation/server/anniomanagersimulationserver.java
+package nio.manager.simulation.server;
+
+import java.net.InetSocketAddress;
+import java.nio.channels.ServerSocketChannel;
+import java.nio.channels.SocketChannel;
+
+import assignments.util.mainArgs.ServerArgsProcessor;
+import inputport.nio.manager.NIOManagerFactory;
+import inputport.nio.manager.factories.classes.AReadingAcceptCommandFactory;
+import inputport.nio.manager.factories.selectors.AcceptCommandFactorySelector;
+import util.interactiveMethodInvocation.SimulationParametersControllerFactory;
+import util.trace.Tracer;
+import util.trace.port.nio.NIOTraceUtility;
+import util.trace.port.nio.SocketChannelBound;
+
+public class AnNIOManagerSimulationServer implements NIOManagerSimulationServer {
+	// ObservableNIOManager nioManager;
+	ServerSocketChannel serverSocketChannel;
+	NIOManagerSimulationServerMulticaster multicaster;
+	NIOManagerSimulationServerReceiver receiver;
+	public static final String READ_THREAD_NAME = "Read Thread";
+
+//	public AnNIOManagerSimulationServer(int aServerPort) {
+////		AcceptCommandSelector.setFactory(new AReadingAcceptCommandFactory());
+//		ServerSocketChannel aServerSocketChannel = createSocketChannel(aServerPort);
+//		NIOManagerFactory.getSingleton().enableListenableAccepts(
+//				aServerSocketChannel, this);
+//
+//	}
+
+	protected void createMulticaster() {
+		multicaster = new AnNIOManagerSimulationServerMulticaster();
+		Thread aMultiCasterThread = new Thread(multicaster);
+		aMultiCasterThread.setName(READ_THREAD_NAME);
+		aMultiCasterThread.start();
+	}
+
+	protected void createReceiver() {
+		receiver = new AnNIOManagerSimulationServerReceiver(multicaster);
+	}
+
+	protected void setFactories() {
+		AcceptCommandFactorySelector.setFactory(new AReadingAcceptCommandFactory());
+	}
+
+
+	protected void createCommunicationObjects() {
+		createMulticaster();
+		createReceiver();
+	}
+
+	protected ServerSocketChannel createSocketChannel(int aServerPort) {
+		try {
+			ServerSocketChannel retVal = ServerSocketChannel.open();
+			InetSocketAddress isa = new InetSocketAddress(aServerPort);
+			retVal.socket().bind(isa);
+			SocketChannelBound.newCase(this, retVal, isa);
+			return retVal;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	protected void makeServerConnectable(int aServerPort) {
+//		ServerSocketChannel aServerSocketChannel = createSocketChannel(aServerPort);
+		NIOManagerFactory.getSingleton().enableListenableAccepts(
+				serverSocketChannel, this);
+	}
+	@Override
+	public void initialize(int aServerPort) {
+		setFactories();
+		serverSocketChannel = createSocketChannel(aServerPort);
+		createCommunicationObjects();
+		makeServerConnectable(aServerPort);
+		SimulationParametersControllerFactory.getSingleton().addSimulationParameterListener(multicaster);
+		SimulationParametersControllerFactory.getSingleton().processCommands();
+	}
+
+	protected void addListeners(SocketChannel aSocketChannel) {
+		addReadListener(aSocketChannel);
+//		addWriteBufferListener(aSocketChannel);
+	}
+
+	protected void addReadListener(SocketChannel aSocketChannel) {
+		NIOManagerFactory.getSingleton().addReadListener(aSocketChannel,
+				receiver);
+	}
+
+	protected void joinMulticast(SocketChannel aSocketChannel) {
+		multicaster.join(aSocketChannel);
+	}
+
+	@Override
+	public void socketChannelAccepted(ServerSocketChannel aServerSocketChannel,
+			SocketChannel aSocketChannel) {
+		joinMulticast(aSocketChannel);
+		addListeners(aSocketChannel);
+//		addReadListener(aSocketChannel);
+//		addWriteBufferListener(aSocketChannel);
+	}
+	protected void addWriteBufferListener(SocketChannel aSocketChannel) {
+		NIOManagerFactory.getSingleton().addWriteBoundedBufferListener(
+				aSocketChannel, this);
+	}
+	@Override
+	public void writeBufferIsEmpty(SocketChannel aSocketChannel) {
+		NIOManagerFactory.getSingleton().enableReads(aSocketChannel);
+	}
+	
+	public static void launch(String[] args) {
+		NIOManagerSimulationServer anNIOManagerSimulationServer = 
+				new AnNIOManagerSimulationServer();
+		anNIOManagerSimulationServer.initialize(ServerArgsProcessor.getServerPort(args));
+	}
+
+	public static void main(String[] args) {
+		NIOTraceUtility.setTracing();
+//		Tracer.setBufferTracedMessages(true);
+		NIOManagerSimulationServer anNIOManagerSimulationServer = 
+				new AnNIOManagerSimulationServer();
+		anNIOManagerSimulationServer.initialize(ServerArgsProcessor.getServerPort(args));
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("Buffered messages");
+		System.out.println(Tracer.getBufferedTracedMessages());
+
+	}
+
+	
+
+}
+//END OF FILE
+//START OF FILE: src/nio/manager/simulation/server/anniomanagersimulationservermulticaster.java
+package nio.manager.simulation.server;
+
+import java.nio.ByteBuffer;
+import java.nio.channels.SocketChannel;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
+
+import inputport.nio.manager.NIOManagerFactory;
+import nio.manager.simulation.common.AChannelByteBuffer;
+import nio.manager.simulation.common.ChannelByteBuffer;
+import util.interactiveMethodInvocation.ConsensusAlgorithm;
+import util.interactiveMethodInvocation.IPCMechanism;
+
+public class AnNIOManagerSimulationServerMulticaster implements NIOManagerSimulationServerMulticaster {
+//	private List queue = new LinkedList();
+	List<SocketChannel> allClients = new ArrayList();
+	public static int MAX_QUEUE_SIZE = 100;
+	BlockingQueue<ChannelByteBuffer> messageQueue = new ArrayBlockingQueue(MAX_QUEUE_SIZE);
+	protected boolean atomicBroadcast;
+	
+	
+//	public void processData(SimulationNioRelayer server, SocketChannel socket, byte[] data, int count) {
+//		TrickOrTreatClientControllerFactory.getOrCreateSingleton().getSendReceiveSettings().maybeDelayReceive();
+//
+//		byte[] dataCopy = new byte[count];
+//		System.arraycopy(data, 0, dataCopy, 0, count);
+//		synchronized(queue) {
+////			queue.add(new ServerDataEvent(server, socket, dataCopy));
+//			List<SocketChannel> allClients = server.getAllClients();
+//			for (SocketChannel client:allClients) {
+//				if (client == socket && !RelayerControllerFactory.getOrCreateSingleton().isEchoBack()) {
+//					Tracer.info(this, "Not Sending message to:" + client);
+//
+//					continue;
+//				}
+////				if (!TrickOrTreatClientControllerFactory.getOrCreateSingleton().getSendReceiveSettings().maybeDelaySend()) {
+////					maybeWaitForRelay();
+////				};
+//				Tracer.info(this, "Sending message to:" + client);
+//				queue.add(new ServerDataEvent(server, client, dataCopy));
+//
+//			}
+//			queue.notify();
+//		}
+//	}
+//	protected void maybeWaitForRelay() {
+//		RelayerController aRelayerController =  RelayerControllerFactory.getOrCreateSingleton();
+//		if (aRelayerController.isWaitForRelay()) {
+//			ClearanceManagerFactory.getOrCreateClearanceManager().waitForClearance();
+//		}
+//
+//	}
+//	
+//	public void run() {
+//		ServerDataEvent dataEvent;
+//		
+//		while(true) {
+//			// Wait for data to become available
+//			synchronized(queue) {
+//				while(queue.isEmpty()) {
+//					try {
+//						queue.wait();
+//					} catch (InterruptedException e) {
+//					}
+//				}
+//				dataEvent = (ServerDataEvent) queue.remove(0);
+//			}
+//			
+//			// Return to sender
+//			dataEvent.server.send(dataEvent.socket, dataEvent.data);
+//		}
+//	}
+	@Override
+	public void multicast(SocketChannel aWriter, ByteBuffer aByteBuffer) {
+		if (messageQueue.size() >= MAX_QUEUE_SIZE) {
+			System.err.println("Message queue full, ignoring message");
+			return;
+		}
+		
+		messageQueue.add(new AChannelByteBuffer(aWriter, aByteBuffer));
+//		doMulticast(aWriter, aByteBuffer);
+//		byte[] aBytes = new byte[aByteBuffer.limit() - aByteBuffer.position()];
+//		System.arraycopy(aByteBuffer.array(), aByteBuffer.position(), aBytes, 0, aBytes.length);
+//
+////		aByteBuffer.get(aBytes, aByteBuffer.position(), aBytes.length);
+//				
+//
+//		for (SocketChannel aSocketChannel: allClients) {
+//			if (aSocketChannel == aWriter) {
+//				continue;
+//			}
+//			NIOManagerFactory.getSingleton().write(aSocketChannel, ByteBuffer.wrap(aBytes));
+//		}		
+	}
+	protected void doMulticast(SocketChannel aWriter, ByteBuffer aByteBuffer) {
+		byte[] aBytes = new byte[aByteBuffer.limit() - aByteBuffer.position()];
+		System.arraycopy(aByteBuffer.array(), aByteBuffer.position(), aBytes, 0, aBytes.length);
+
+//		aByteBuffer.get(aBytes, aByteBuffer.position(), aBytes.length);
+				
+
+		for (SocketChannel aSocketChannel: allClients) {
+			if (aSocketChannel == aWriter && !atomicBroadcast) {
+				continue;
+			}
+			NIOManagerFactory.getSingleton().write(aSocketChannel, ByteBuffer.wrap(aBytes));
+		}		
+	}
+	@Override
+	public void join(SocketChannel aSocketChannel) {
+		allClients.add(aSocketChannel);		
+	}
+	@Override
+	public void run() {
+		while (true) {
+			try {
+			ChannelByteBuffer aMessage = messageQueue.take();
+			doMulticast(aMessage.getSocketChannel(), aMessage.getByteBuffer());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+	@Override
+	public void atomicBroadcast(boolean newValue) {
+		atomicBroadcast = newValue;
+		
+	}
+	@Override
+	public void ipcMechanism(IPCMechanism newValue) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void experimentInput() {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void broadcastMetaState(boolean newValue) {
+		
+		
+	}
+	@Override
+	public void waitForBroadcastConsensus(boolean newValue) {
+		// TODO Auto-generated method stub
+		
+	}
+//	@Override
+//	public void broadcastIPCMechanism(boolean newValue) {
+//		// TODO Auto-generated method stub
+//		
+//	}
+	@Override
+	public void waitForIPCMechanismConsensus(boolean newValue) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void consensusAlgorithm(ConsensusAlgorithm newValue) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void localProcessingOnly(boolean newValue) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void quit(int aCode) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void simulationCommand(String aCommand) {
+		System.out.println("Server cannot play aComand:" + aCommand);
+		
+	}
+}
+
+//END OF FILE
+//START OF FILE: src/nio/manager/simulation/server/anniomanagersimulationserverreceiver.java
+package nio.manager.simulation.server;
+
+import java.nio.ByteBuffer;
+import java.nio.channels.SocketChannel;
+
+public class AnNIOManagerSimulationServerReceiver implements NIOManagerSimulationServerReceiver{
+	NIOManagerSimulationServerMulticaster multicaster;
+	public AnNIOManagerSimulationServerReceiver(NIOManagerSimulationServerMulticaster aMulticaster) {
+		multicaster = aMulticaster;
+	}
+	@Override
+	public void socketChannelRead(SocketChannel aSocketChannel,
+			ByteBuffer aMessage, int aLength) {
+		multicaster.multicast(aSocketChannel, aMessage);
+		
+	}
+
+}
+//END OF FILE
+//START OF FILE: src/nio/manager/simulation/server/niomanagersimulationserver.java
+package nio.manager.simulation.server;
+
+import assignments.util.mainArgs.ServerPort;
+import inputport.nio.manager.listeners.SocketChannelAcceptListener;
+import inputport.nio.manager.listeners.WriteBoundedBufferListener;
+
+
+public interface NIOManagerSimulationServer extends ServerPort, SocketChannelAcceptListener, WriteBoundedBufferListener {
+	void initialize(int aServerPort);
+}
+//END OF FILE
+//START OF FILE: src/nio/manager/simulation/server/niomanagersimulationservermulticaster.java
+package nio.manager.simulation.server;
+
+import java.nio.ByteBuffer;
+import java.nio.channels.SocketChannel;
+
+import assignments.util.inputParameters.SimulationParametersListener;
+
+public interface NIOManagerSimulationServerMulticaster extends Runnable, SimulationParametersListener{
+	void multicast(SocketChannel aWriter, ByteBuffer aByteBuffer);
+	void join(SocketChannel aSocketChannel);
+
+}
+//END OF FILE
+//START OF FILE: src/nio/manager/simulation/server/niomanagersimulationserverreceiver.java
+package nio.manager.simulation.server;
+
+import inputport.nio.manager.listeners.SocketChannelReadListener;
+
+public interface NIOManagerSimulationServerReceiver extends SocketChannelReadListener{
+
+}
+//END OF FILE
+//START OF FILE: src/nio/manager/simulation/server/package-info.java
+/**
+ * 
+ */
+/**
+ * @author Dewan
+ *
+ */
+package nio.manager.simulation.server;
+//END OF FILE

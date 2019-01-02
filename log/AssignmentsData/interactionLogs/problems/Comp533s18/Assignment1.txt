@@ -1,0 +1,7 @@
+Auto Grading Time: Total: 0:53:56 Average: 0:53:56
+Manual Grading Time: Total: 0:8:20 Average: 0:8:20
+Number of Source Notes: Total: 1 Average: 1.0
+
+Comp533s18:Assignment1
+--------------------------------------------------------------------------------------------------
+null(tstudent2) TOTAL:20.0 AUTO:0:53:56 MANUAL:0:8:20 GRADER:dewan

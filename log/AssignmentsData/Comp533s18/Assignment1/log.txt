@@ -1,0 +1,57 @@
+
+Grading result for: Student2, Test (tstudent2)
+
+Grading features...
+----------------------------------
+Server tagged                                          5.0 /  5.0
+Client tagged                                          5.0 /  5.0
+Static arguments work properly                         16.7 / 20.0
+One client correct connection                          20.0 / 20.0
+One client correct read, write, and behaviors - Atomic 35.0 / 35.0
+One client correct read, write, and behaviors - Non-atomic 35.0 / 35.0
+One client correct threads - Atomic                    2.5 /  5.0
+One client correct threads - Non-atomic                5.0 /  5.0
+One client correct message ratios - Atomic             0.0 / 10.0
+One client correct message ratios - Non-atomic         5.0 / 10.0
+Two client correct connection                          20.0 / 20.0
+Two client correct read, write, and behaviors - Atomic 35.0 / 35.0
+Two client correct read, write, and behaviors - Non-atomic 35.0 / 35.0
+Two client correct threads - Atomic                    5.0 /  5.0
+Two client correct threads - Non-atomic                5.0 /  5.0
+Two client correct message ratios - Atomic             1.7 / 10.0
+Two client correct message ratios - Non-atomic         3.3 / 10.0
+Read-Write-Update ordering - Atomic                    0.0 / 10.0
+Read-Write-Update ordering - Non-atomic                0.0 / 10.0
+----------------------------------
+  Points Awarded: 234.2
+
+  Features Score: 234.2
+
+Notes from grading features:
+----------------------------------
+Static arguments work properly:
+  -- Couldn't find client connection info in traces.
+
+One client correct threads - Atomic:
+  -- Didn't find server read thread. Didn't find client reading thread.
+
+One client correct message ratios - Atomic:
+  -- Incorrect number of client writes (saw 0, expected 1). Incorrect number of client reads (saw 0, expected 1). Incorrect number of server writes (saw 0, expected 1). Incorrect number of server reads (saw 0, expected 1).
+
+One client correct message ratios - Non-atomic:
+  -- Incorrect number of client writes (saw 0, expected 1). Incorrect number of server reads (saw 0, expected 1).
+
+Two client correct message ratios - Atomic:
+  -- Incorrect number of client 0 writes (saw 0, expected 1). Incorrect number of client 1 reads (saw 0, expected 1). Incorrect number of client 1 writes (saw 0, expected 1). Incorrect number of server writes (saw 0, expected 2). Incorrect number of server reads (saw 0, expected 1).
+
+Two client correct message ratios - Non-atomic:
+  -- Incorrect number of client 0 writes (saw 0, expected 1). Incorrect number of client 1 writes (saw 0, expected 1). Incorrect number of server writes (saw 0, expected 1). Incorrect number of server reads (saw 0, expected 1).
+
+Read-Write-Update ordering - Atomic:
+  -- Update not found after write.
+
+Read-Write-Update ordering - Non-atomic:
+  -- Update not found before write.
+
+Submission time: 2014-01-16T15:03:28.874-05:00
+TOTAL SCORE: 234.2

@@ -1,0 +1,39 @@
+
+Grading result for: Student2, Test (tstudent2)
+
+Grading features...
+----------------------------------
+ServerTagged                                           5.0 /  5.0
+OneClientThreadsNonAtomic                              5.0 /  5.0
+OneClientConnection                                    20.0 / 20.0
+OneClientThreadsAtomic                                 2.5 /  5.0
+ClientTagged                                           5.0 /  5.0
+OneClientReadWriteNonAtomic                            70.0 / 70.0
+----------------------------------
+  Points Awarded: 107.5
+
+Grading restrictions...
+----------------------------------
+StaticArguments                                        0.0 /  0.0
+OneClientReadWrite                                     0.0 /  0.0
+----------------------------------
+  Points Deducted: 0.0
+
+  Features Score: 107.5
+
+Notes from grading features:
+----------------------------------
+OneClientThreadsAtomic:
+  -- Didn't find server read thread. Didn't find client reading thread.
+
+
+Notes from grading restrictions:
+----------------------------------
+StaticArguments:
+  -- Couldn't find client connection info in traces.
+
+OneClientReadWrite:
+  -- InitializationError Could not initialize an instance of test class 
+
+Submission time: 2014-01-16T15:03:28.874-05:00
+TOTAL SCORE: 107.5

@@ -12,8 +12,9 @@ import grader.basics.project.Project;
 import grader.execution.ExecutionSpecificationSelector;
 import gradingTools.comp110.assignment1.testcases.PromptTestCase;
 import gradingTools.utils.RunningProjectUtils;
+import util.annotations.MaxValue;
 import util.trace.Tracer;
-
+@MaxValue(35)
 public class OneClientCorrectReadWriteTestCase extends BasicTestCase {
 	private boolean atomic;
 	
@@ -97,8 +98,8 @@ public class OneClientCorrectReadWriteTestCase extends BasicTestCase {
 		ExecutionSpecificationSelector.getExecutionSpecification().setProcesses("DistributedProgram", Arrays.asList("Server", "Client"));
 		ExecutionSpecificationSelector.getExecutionSpecification().setEntryTags("Server", Arrays.asList("Server"));
 		ExecutionSpecificationSelector.getExecutionSpecification().setEntryTags("Client", Arrays.asList("Client"));
-		ExecutionSpecificationSelector.getExecutionSpecification().setArgs("Server", StaticArgumentsTestCase.DEFAULT_SERVER_ARGS);
-		ExecutionSpecificationSelector.getExecutionSpecification().setArgs("Client", StaticArgumentsTestCase.DEFAULT_CLIENT_ARGS);
+		ExecutionSpecificationSelector.getExecutionSpecification().setArgs("Server", StaticArguments.DEFAULT_SERVER_ARGS);
+		ExecutionSpecificationSelector.getExecutionSpecification().setArgs("Client", StaticArguments.DEFAULT_CLIENT_ARGS);
 		ExecutionSpecificationSelector.getExecutionSpecification().setSleepTime("Server", 2000);
 		ExecutionSpecificationSelector.getExecutionSpecification().setSleepTime("Client", 5000);
 		ExecutionSpecificationSelector.getExecutionSpecification().getProcessTeams().forEach(team -> System.out.println("### " + team));

@@ -96,9 +96,9 @@ public class TwoClientCorrectReadWriteTestCase extends BasicTestCase {
 		ExecutionSpecificationSelector.getExecutionSpecification().setEntryTags("Server", Arrays.asList("Server"));
 		ExecutionSpecificationSelector.getExecutionSpecification().setEntryTags("Client_0", Arrays.asList("Client"));
 		ExecutionSpecificationSelector.getExecutionSpecification().setEntryTags("Client_1", Arrays.asList("Client"));
-		ExecutionSpecificationSelector.getExecutionSpecification().setArgs("Server", StaticArgumentsTestCase.DEFAULT_SERVER_ARGS);
-		ExecutionSpecificationSelector.getExecutionSpecification().setArgs("Client_0", StaticArgumentsTestCase.DEFAULT_CLIENT_ARGS);
-		ExecutionSpecificationSelector.getExecutionSpecification().setArgs("Client_1", StaticArgumentsTestCase.DEFAULT_CLIENT_ARGS);
+		ExecutionSpecificationSelector.getExecutionSpecification().setArgs("Server", StaticArguments.DEFAULT_SERVER_ARGS);
+		ExecutionSpecificationSelector.getExecutionSpecification().setArgs("Client_0", StaticArguments.DEFAULT_CLIENT_ARGS);
+		ExecutionSpecificationSelector.getExecutionSpecification().setArgs("Client_1", StaticArguments.DEFAULT_CLIENT_ARGS);
 		ExecutionSpecificationSelector.getExecutionSpecification().setSleepTime("Server", 2000);
 		ExecutionSpecificationSelector.getExecutionSpecification().setSleepTime("Client_0", 15000);
 		ExecutionSpecificationSelector.getExecutionSpecification().setSleepTime("Client_1", 2000);

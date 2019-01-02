@@ -2,8 +2,8 @@ package grader.trace.comp533;
 
 import util.trace.ImplicitKeywordKind;
 import util.trace.Tracer;
-import gradingTools.comp533s18.assignment1.testcases.OneClientCorrectConnectionTestCase;
-import gradingTools.comp533s18.assignment1.testcases.StaticArgumentsTestCase;
+import gradingTools.comp533s18.assignment1.testcases.OneClientCorrectConnection;
+import gradingTools.comp533s18.assignment1.testcases.StaticArguments;
 
 public class Comp533TraceUtility {
 	static boolean turnOn = true;
@@ -17,8 +17,8 @@ public class Comp533TraceUtility {
 	public static void setTracing() {
 		Tracer.setImplicitPrintKeywordKind(ImplicitKeywordKind.OBJECT_PACKAGE_NAME);	
 		if (isTurnOn()) {
-			Tracer.setKeywordPrintStatus(StaticArgumentsTestCase.class, true);
-			Tracer.setKeywordPrintStatus(OneClientCorrectConnectionTestCase.class, true);
+			Tracer.setKeywordPrintStatus(StaticArguments.class, true);
+			Tracer.setKeywordPrintStatus(OneClientCorrectConnection.class, true);
 			Tracer.setKeywordPrintStatus(gradingTools.comp533s18.assignment3.testcases.StaticArgumentsTestCase.class, true);
 		}
 
