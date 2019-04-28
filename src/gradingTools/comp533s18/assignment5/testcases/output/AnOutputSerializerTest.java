@@ -20,11 +20,11 @@ import grader.basics.execution.BasicProjectExecution;
 import grader.basics.project.BasicProjectIntrospection;
 import grader.basics.project.CurrentProjectHolder;
 import grader.basics.project.Project;
-import gradingTools.comp533s18.assignment4.testcases.SubstringSequenceChecker;
 import gradingTools.comp533s18.assignment5.testcases.ASerializerTest;
 import gradingTools.comp533s18.assignment5.testcases.output.checks.ASerializationTraceChecker;
 import gradingTools.shared.testcases.FactoryMethodTest;
 import gradingTools.shared.testcases.ProxyTest;
+import gradingTools.shared.testcases.SubstringSequenceChecker;
 import gradingTools.shared.testcases.utils.ALinesMatcher;
 import gradingTools.shared.testcases.utils.LinesMatchKind;
 import gradingTools.shared.testcases.utils.LinesMatcher;
@@ -133,7 +133,7 @@ public abstract class AnOutputSerializerTest extends ASerializerTest {
 		outputLines = (String[]) BasicProjectIntrospection.getUserObject(anOutputLinesKey);
 		linesMatcher = (LinesMatcher) BasicProjectIntrospection.getUserObject(anOutputLinesMatcherKey);
 		if (output == null) {
-			createUsingFactoryMethod();
+			createUsingFactoryClassAndMethodTags();
 			ExtensibleSerializationTraceUtility.setTracing();
 			boolean prevBufferTracedMessages = Tracer.isBufferTracedMessages();
 			Tracer.setBufferTracedMessages(false);

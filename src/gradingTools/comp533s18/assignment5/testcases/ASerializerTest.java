@@ -20,7 +20,6 @@ import grader.basics.execution.BasicProjectExecution;
 import grader.basics.project.BasicProjectIntrospection;
 import grader.basics.project.CurrentProjectHolder;
 import grader.basics.project.Project;
-import gradingTools.comp533s18.assignment4.testcases.SubstringSequenceChecker;
 import gradingTools.comp533s18.assignment5.testcases.output.checks.ASerializationTraceChecker;
 import gradingTools.shared.testcases.FactoryMethodTest;
 import gradingTools.shared.testcases.ProxyTest;
@@ -55,7 +54,7 @@ public abstract class ASerializerTest extends FactoryMethodTest {
 	
 	
 	
-	protected Object createUsingFactoryMethod() {
+	protected Object createUsingFactoryClassAndMethodTags() {
 		if (serializerFactory == null ) {
 			serializerFactory = (SerializerFactory) createInstance();
 			serializerFactory = (SerializerFactory) BasicProjectIntrospection.

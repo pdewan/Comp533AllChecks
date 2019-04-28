@@ -11,7 +11,6 @@ import gradingTools.comp533s18.assignment4.Assignment4Requirements;
 import gradingTools.comp533s18.assignment4.testcases.ARegularCounterServerChecker;
 import gradingTools.comp533s18.assignment4.testcases.AStringCheckBasedDependentTestCase;
 import gradingTools.comp533s18.assignment4.testcases.DistributedCounterProgramRunningTestCase;
-import gradingTools.comp533s18.assignment4.testcases.SubstringSequenceChecker;
 import gradingTools.comp533s18.assignment4.testcases.TagbasedTwoClientCorrectReadWriteTestCase;
 import gradingTools.comp533s18.assignment4.testcases.blocking_rpc.ABlockingRPCClientReceivesChecker;
 import gradingTools.comp533s18.assignment5.testcases.ARegularSerializerPoolChecker;

@@ -22,6 +22,7 @@ import gradingTools.comp110.assignment1.testcases.PromptTestCase;
 import gradingTools.comp110.assignment4.Assignment4Requirements;
 import gradingTools.comp533s18.assignment1.testcases.SingleClassTagListTestCase;
 import gradingTools.comp533s18.assignment3.testcases.StaticArgumentsTestCase;
+import gradingTools.shared.testcases.SubstringSequenceChecker;
 import gradingTools.shared.testcases.utils.ABufferingTestInputGenerator;
 import gradingTools.utils.RunningProjectUtils;
 import util.annotations.Comp533Tags;

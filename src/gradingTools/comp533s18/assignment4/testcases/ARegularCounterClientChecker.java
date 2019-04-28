@@ -1,5 +1,7 @@
 package gradingTools.comp533s18.assignment4.testcases;
 
+import gradingTools.comp533s19.assignment4.testcases.ASubstringSequenceChecker;
+
 public class ARegularCounterClientChecker extends ASubstringSequenceChecker{
 	public static final String[] MY_SUBSTRINGS = {
 		"Sending counter increment message:2.*",
