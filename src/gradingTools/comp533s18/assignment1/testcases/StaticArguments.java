@@ -237,8 +237,8 @@ public class StaticArguments extends BasicTestCase {
 		ExecutionSpecificationSelector.getExecutionSpecification().setEntryTags("Client", Arrays.asList("Client"));
 		ExecutionSpecificationSelector.getExecutionSpecification().setArgs("Server", Arrays.asList(serverArgs));
 		ExecutionSpecificationSelector.getExecutionSpecification().setArgs("Client", Arrays.asList(clientArgs));
-		ExecutionSpecificationSelector.getExecutionSpecification().setSleepTime("Server", 2000);
-		ExecutionSpecificationSelector.getExecutionSpecification().setSleepTime("Client", 2000);
+		ExecutionSpecificationSelector.getExecutionSpecification().setGraderResourceReleaseTime("Server", 2000);
+		ExecutionSpecificationSelector.getExecutionSpecification().setGraderResourceReleaseTime("Client", 2000);
 		ExecutionSpecificationSelector.getExecutionSpecification().getProcessTeams().forEach(team -> System.out.println("### " + team));
 	}
 }

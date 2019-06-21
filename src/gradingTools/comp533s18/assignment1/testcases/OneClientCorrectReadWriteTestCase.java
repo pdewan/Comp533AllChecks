@@ -100,8 +100,8 @@ public class OneClientCorrectReadWriteTestCase extends BasicTestCase {
 		ExecutionSpecificationSelector.getExecutionSpecification().setEntryTags("Client", Arrays.asList("Client"));
 		ExecutionSpecificationSelector.getExecutionSpecification().setArgs("Server", StaticArguments.DEFAULT_SERVER_ARGS);
 		ExecutionSpecificationSelector.getExecutionSpecification().setArgs("Client", StaticArguments.DEFAULT_CLIENT_ARGS);
-		ExecutionSpecificationSelector.getExecutionSpecification().setSleepTime("Server", 2000);
-		ExecutionSpecificationSelector.getExecutionSpecification().setSleepTime("Client", 5000);
+		ExecutionSpecificationSelector.getExecutionSpecification().setGraderResourceReleaseTime("Server", 2000);
+		ExecutionSpecificationSelector.getExecutionSpecification().setGraderResourceReleaseTime("Client", 5000);
 		ExecutionSpecificationSelector.getExecutionSpecification().getProcessTeams().forEach(team -> System.out.println("### " + team));
 
 	}

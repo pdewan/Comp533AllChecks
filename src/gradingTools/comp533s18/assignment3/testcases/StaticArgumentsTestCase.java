@@ -627,7 +627,7 @@ public class StaticArgumentsTestCase extends BasicTestCase {
 			ExecutionSpecificationSelector.getExecutionSpecification().setProcesses("RegistryBasedDistributedProgram", Arrays.asList("Registry", "Server", "Client"));
 			ExecutionSpecificationSelector.getExecutionSpecification().setEntryTags("Registry", Arrays.asList("Registry"));
 			ExecutionSpecificationSelector.getExecutionSpecification().setArgs("Registry", registryArgList);
-			ExecutionSpecificationSelector.getExecutionSpecification().setSleepTime("Registry", 500);
+			ExecutionSpecificationSelector.getExecutionSpecification().setGraderResourceReleaseTime("Registry", 500);
 		} else {
 			ExecutionSpecificationSelector.getExecutionSpecification().setProcessTeams(Arrays.asList("DistributedProgram"));
 			ExecutionSpecificationSelector.getExecutionSpecification().setTerminatingProcesses("DistributedProgram", Arrays.asList("Client"));
@@ -637,8 +637,8 @@ public class StaticArgumentsTestCase extends BasicTestCase {
 		ExecutionSpecificationSelector.getExecutionSpecification().setEntryTags("Client", Arrays.asList("Client"));
 		ExecutionSpecificationSelector.getExecutionSpecification().setArgs("Server", serverArgList);
 		ExecutionSpecificationSelector.getExecutionSpecification().setArgs("Client", clientArgList);
-		ExecutionSpecificationSelector.getExecutionSpecification().setSleepTime("Server", 1000);
-		ExecutionSpecificationSelector.getExecutionSpecification().setSleepTime("Client", 2000);
+		ExecutionSpecificationSelector.getExecutionSpecification().setGraderResourceReleaseTime("Server", 1000);
+		ExecutionSpecificationSelector.getExecutionSpecification().setGraderResourceReleaseTime("Client", 2000);
 		ExecutionSpecificationSelector.getExecutionSpecification().getProcessTeams().forEach(team -> System.out.println("### " + team));
 	}
 }

@@ -130,9 +130,9 @@ public class TwoClientMessageRatioTestCase extends BasicTestCase {
 		ExecutionSpecificationSelector.getExecutionSpecification().setArgs("Server", StaticArguments.DEFAULT_SERVER_ARGS);
 		ExecutionSpecificationSelector.getExecutionSpecification().setArgs("Client_0", StaticArguments.DEFAULT_CLIENT_ARGS);
 		ExecutionSpecificationSelector.getExecutionSpecification().setArgs("Client_1", StaticArguments.DEFAULT_CLIENT_ARGS);
-		ExecutionSpecificationSelector.getExecutionSpecification().setSleepTime("Server", 2000);
-		ExecutionSpecificationSelector.getExecutionSpecification().setSleepTime("Client_0", 5000);
-		ExecutionSpecificationSelector.getExecutionSpecification().setSleepTime("Client_1", 2000);
+		ExecutionSpecificationSelector.getExecutionSpecification().setGraderResourceReleaseTime("Server", 2000);
+		ExecutionSpecificationSelector.getExecutionSpecification().setGraderResourceReleaseTime("Client_0", 5000);
+		ExecutionSpecificationSelector.getExecutionSpecification().setGraderResourceReleaseTime("Client_1", 2000);
 		ExecutionSpecificationSelector.getExecutionSpecification().getProcessTeams().forEach(team -> System.out.println("### " + team));
 	}
 }

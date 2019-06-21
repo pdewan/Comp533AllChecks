@@ -179,10 +179,10 @@ public class TagbasedTwoClientCorrectReadWriteTestCase extends TagCaseDependentT
 		ExecutionSpecificationSelector.getExecutionSpecification().setArgs("Server", StaticArgumentsTestCase.TEST_SERVER_ARGS);
 		ExecutionSpecificationSelector.getExecutionSpecification().setArgs("Client_0", StaticArgumentsTestCase.TEST_CLIENT_0_ARGS);
 		ExecutionSpecificationSelector.getExecutionSpecification().setArgs("Client_1", StaticArgumentsTestCase.TEST_CLIENT_1_ARGS);
-		ExecutionSpecificationSelector.getExecutionSpecification().setSleepTime("Registry", 500);
-		ExecutionSpecificationSelector.getExecutionSpecification().setSleepTime("Server", 2000);
-		ExecutionSpecificationSelector.getExecutionSpecification().setSleepTime("Client_0", 5000);
-		ExecutionSpecificationSelector.getExecutionSpecification().setSleepTime("Client_1", 5000);
+		ExecutionSpecificationSelector.getExecutionSpecification().setGraderResourceReleaseTime("Registry", 500);
+		ExecutionSpecificationSelector.getExecutionSpecification().setGraderResourceReleaseTime("Server", 2000);
+		ExecutionSpecificationSelector.getExecutionSpecification().setGraderResourceReleaseTime("Client_0", 5000);
+		ExecutionSpecificationSelector.getExecutionSpecification().setGraderResourceReleaseTime("Client_1", 5000);
 		ExecutionSpecificationSelector.getExecutionSpecification().getProcessTeams().forEach(team -> System.out.println("### " + team));
 	}
 }
