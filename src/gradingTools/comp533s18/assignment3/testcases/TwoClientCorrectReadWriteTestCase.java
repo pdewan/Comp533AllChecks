@@ -9,7 +9,7 @@ import grader.basics.junit.NotAutomatableException;
 import grader.basics.junit.TestCaseResult;
 import grader.basics.project.NotGradableException;
 import grader.basics.project.Project;
-import grader.execution.ExecutionSpecificationSelector;
+import grader.config.ExecutionSpecificationSelector;
 import gradingTools.utils.RunningProjectUtils;
 import util.trace.Tracer;
 

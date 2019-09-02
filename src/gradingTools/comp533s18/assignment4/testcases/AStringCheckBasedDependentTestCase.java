@@ -20,7 +20,7 @@ import grader.basics.junit.TestCaseResult;
 import grader.basics.project.CurrentProjectHolder;
 import grader.basics.project.NotGradableException;
 import grader.basics.project.Project;
-import grader.execution.ExecutionSpecificationSelector;
+import grader.config.ExecutionSpecificationSelector;
 import gradingTools.comp110.assignment1.testcases.PromptTestCase;
 import gradingTools.comp110.assignment4.Assignment4Requirements;
 import gradingTools.comp533s18.assignment1.testcases.SingleClassTagListTestCase;
