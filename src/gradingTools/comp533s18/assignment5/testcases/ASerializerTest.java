@@ -58,11 +58,11 @@ public abstract class ASerializerTest extends FactoryMethodTest {
 		if (serializerFactory == null ) {
 			serializerFactory = (SerializerFactory) createInstance();
 			serializerFactory = (SerializerFactory) BasicProjectIntrospection.
-					forceCreateProxy(SerializerFactory.class, serializerFactory);
+					createTimingOutProxy(SerializerFactory.class, serializerFactory);
 			serializer = serializerFactory.createSerializer();
 			Assert.assertTrue(serializerFactory + " returned null instance", serializer != null);
 			Assert.assertTrue(serializerFactory + " returned instance of " + ASimpleSerializer.class, !ASimpleSerializer.class.isInstance(serializer));
-			serializerProxy = (Serializer) BasicProjectIntrospection.forceCreateProxy(Serializer.class, serializer); 
+			serializerProxy = (Serializer) BasicProjectIntrospection.createTimingOutProxy(Serializer.class, serializer); 
 			rootProxy = serializerProxy;
 			SerializerSelector.setSerializerFactory(serializerFactory);
 		
