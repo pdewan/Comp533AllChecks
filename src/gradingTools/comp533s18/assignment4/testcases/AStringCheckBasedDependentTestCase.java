@@ -123,7 +123,7 @@ public class AStringCheckBasedDependentTestCase extends BasicTestCase {
 //			programmingRunOutputLinesList =
 //					interactiveInputProject.getProcessOutputLines().get(processName);
 			linesMatcher = 
-					interactiveInputProject.getProcessLineMatcher().get(processName);
+					interactiveInputProject.getProcessLinesMatcher().get(processName);
 			if (linesMatcher == null) {
 				return fail ("Internal error: Could not find line matcher for process:" + processName);
 			}

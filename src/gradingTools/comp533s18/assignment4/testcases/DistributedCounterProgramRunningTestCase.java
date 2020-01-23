@@ -121,7 +121,7 @@ public class DistributedCounterProgramRunningTestCase extends TagCaseDependentTe
 				
 			}
 			StringBuffer aServerOutput = interactiveInputProject.getProcessOutput().get(SERVER_NAME);
-			LinesMatcher aLinesMatcher = interactiveInputProject.getProcessLineMatcher().get(SERVER_NAME);
+			LinesMatcher aLinesMatcher = interactiveInputProject.getProcessLinesMatcher().get(SERVER_NAME);
 			
 //			ARegularCounterServerChecker aServerChecker = new ARegularCounterServerChecker(1.0);
 			
