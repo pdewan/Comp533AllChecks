@@ -34,7 +34,7 @@ public class Assignment3Requirements extends AJUnitProjectRequirements {
 		addDueDate("02/21/2020 01:00:00", 1.03); // other early extra
 		addDueDate("02/26/2020 01:00:00", 1.0); // regular
 		addDueDate("03/4/2020 01:00:00", 0.90); // one week late
-		addDueDate("03/18/2020 01:00:00", 0.5); // two weeks late
+		addDueDate("03/18/2020 01:00:00", 0.75); // two weeks late
 		
 		addJUnitTestSuite(Assignment3Suite.class);
         addManualFeature("Test Cases", 20, false);
