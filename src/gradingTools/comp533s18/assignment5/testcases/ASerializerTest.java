@@ -20,7 +20,7 @@ import grader.basics.execution.BasicProjectExecution;
 import grader.basics.project.BasicProjectIntrospection;
 import grader.basics.project.CurrentProjectHolder;
 import grader.basics.project.Project;
-import gradingTools.comp533s18.assignment5.testcases.output.checks.ASerializationTraceChecker;
+import gradingTools.comp533s21.assignment9.testcases.output.checks.ASerializationTraceChecker;
 import gradingTools.shared.testcases.FactoryMethodTest;
 import gradingTools.shared.testcases.ProxyTest;
 import gradingTools.shared.testcases.utils.ALinesMatcher;

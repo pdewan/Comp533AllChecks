@@ -3,7 +3,7 @@ package gradingTools.comp533s18.assignment5.testcases.equals;
 import org.junit.Assert;
 
 import examples.serialization.SerializationTester;
-import gradingTools.comp533s18.assignment5.testcases.ASerializerTest;
+import gradingTools.comp533s21.assignment9.testcases.ASerializerTest;
 import util.trace.Tracer;
 import util.trace.port.serialization.extensible.ExtensibleSerializationTraceUtility;
 

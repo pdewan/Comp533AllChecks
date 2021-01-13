@@ -13,11 +13,11 @@ import gradingTools.comp533s18.assignment4.testcases.AStringCheckBasedDependentT
 import gradingTools.comp533s18.assignment4.testcases.DistributedCounterProgramRunningTestCase;
 import gradingTools.comp533s18.assignment4.testcases.TagbasedTwoClientCorrectReadWriteTestCase;
 import gradingTools.comp533s18.assignment4.testcases.blocking_rpc.ABlockingRPCClientReceivesChecker;
-import gradingTools.comp533s18.assignment5.testcases.ARegularSerializerPoolChecker;
-import gradingTools.comp533s18.assignment5.testcases.ASerializerPoolChecker;
-import gradingTools.comp533s18.assignment5.testcases.equals.ABinarySerializerEqualsTestSuite;
-import gradingTools.comp533s18.assignment5.testcases.output.ABinarySerializerOutputTestSuite;
-import gradingTools.comp533s18.assignment5.testcases.output.ATextualSerializerOutputTestSuite;
+import gradingTools.comp533s21.assignment9.testcases.ARegularSerializerPoolChecker;
+import gradingTools.comp533s21.assignment9.testcases.ASerializerPoolChecker;
+import gradingTools.comp533s21.assignment9.testcases.equals.ABinarySerializerEqualsTestSuite;
+import gradingTools.comp533s21.assignment9.testcases.output.ABinarySerializerOutputTestSuite;
+import gradingTools.comp533s21.assignment9.testcases.output.ATextualSerializerOutputTestSuite;
 import util.annotations.Comp533Tags;
 import util.tags.DistributedTags;
 

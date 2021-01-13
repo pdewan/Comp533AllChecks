@@ -3,31 +3,23 @@ package gradingTools.comp533s18.assignment5.testcases.output;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 import java.util.regex.Pattern;
 
 import org.junit.Assert;
 
 import examples.serialization.SerializationTester;
-import serialization.Serializer;
-import serialization.SerializerFactory;
-import serialization.SerializerSelector;
-import serialization.simple.ASimpleSerializer;
-import util.annotations.Comp533Tags;
-import util.trace.Tracer;
-import util.trace.port.serialization.extensible.ExtensibleSerializationTraceUtility;
 import grader.basics.execution.BasicProjectExecution;
 import grader.basics.project.BasicProjectIntrospection;
 import grader.basics.project.CurrentProjectHolder;
 import grader.basics.project.Project;
-import gradingTools.comp533s18.assignment5.testcases.ASerializerTest;
-import gradingTools.comp533s18.assignment5.testcases.output.checks.ASerializationTraceChecker;
-import gradingTools.shared.testcases.FactoryMethodTest;
-import gradingTools.shared.testcases.ProxyTest;
+import gradingTools.comp533s21.assignment9.testcases.ASerializerTest;
 import gradingTools.shared.testcases.SubstringSequenceChecker;
 import gradingTools.shared.testcases.utils.ALinesMatcher;
 import gradingTools.shared.testcases.utils.LinesMatchKind;
 import gradingTools.shared.testcases.utils.LinesMatcher;
+import util.annotations.Comp533Tags;
+import util.trace.Tracer;
+import util.trace.port.serialization.extensible.ExtensibleSerializationTraceUtility;
 
 public abstract class AnOutputSerializerTest extends ASerializerTest {
 	

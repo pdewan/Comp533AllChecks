@@ -1,6 +1,7 @@
 package gradingTools.comp533s18.assignment5.testcases.equals;
 
-import gradingTools.comp533s18.assignment5.testcases.output.AnOutputBinarySerializerTest;
+import gradingTools.comp533s21.assignment9.testcases.equals.AnEqualsSerializerTest;
+import gradingTools.comp533s21.assignment9.testcases.output.AnOutputBinarySerializerTest;
 import util.annotations.Comp533Tags;
 
 public abstract class AnEqualsBinarySerializerTest extends AnEqualsSerializerTest {

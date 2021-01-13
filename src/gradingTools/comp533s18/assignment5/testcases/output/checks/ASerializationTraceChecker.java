@@ -1,8 +1,8 @@
 package gradingTools.comp533s18.assignment5.testcases.output.checks;
 
 import gradingTools.comp533s18.assignment4.testcases.DistributedCounterProgramRunningTestCase;
-import gradingTools.comp533s18.assignment5.testcases.output.AnOutputBinarySerializerTest;
-import gradingTools.comp533s18.assignment5.testcases.output.AnOutputTextualSerializerTest;
+import gradingTools.comp533s21.assignment9.testcases.output.AnOutputBinarySerializerTest;
+import gradingTools.comp533s21.assignment9.testcases.output.AnOutputTextualSerializerTest;
 import gradingTools.shared.testcases.ASubstringSequenceChecker;
 
 public class ASerializationTraceChecker extends ASubstringSequenceChecker{

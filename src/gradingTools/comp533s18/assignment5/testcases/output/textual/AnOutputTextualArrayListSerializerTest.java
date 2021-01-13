@@ -1,7 +1,7 @@
 package gradingTools.comp533s18.assignment5.testcases.output.textual;
 
-import gradingTools.comp533s18.assignment5.testcases.output.AnOutputTextualSerializerTest;
-import gradingTools.comp533s18.assignment5.testcases.output.checks.ASerializationTraceChecker;
+import gradingTools.comp533s21.assignment9.testcases.output.AnOutputTextualSerializerTest;
+import gradingTools.comp533s21.assignment9.testcases.output.checks.ASerializationTraceChecker;
 import gradingTools.shared.testcases.SubstringSequenceChecker;
 
 import org.junit.Assert;
