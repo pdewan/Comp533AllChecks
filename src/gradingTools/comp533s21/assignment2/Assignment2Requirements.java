@@ -10,10 +10,10 @@ public class Assignment2Requirements extends AJUnitProjectRequirements {
 		Comp533TraceUtility.setTracing();
 		GraderTraceUtility.setTurnOn(true);
 		GraderTraceUtility.setTracing();
-		addDueDate("02/13/2021 01:00:00", 1.05);
-		addDueDate("02/18/2021 01:00:00", 1.0);
-		addDueDate("02/25/2021 01:00:00", 0.9);
-		addDueDate("03/01/2021 01:00:00", 0.75);
+		addDueDate("02/18/2021 01:00:00", 1.05);
+		addDueDate("02/20/2021 01:00:00", 1.0);
+		addDueDate("02/27/2021 01:00:00", 0.9);
+		addDueDate("03/03/2021 01:00:00", 0.75);
 		
 		addJUnitTestSuite(S21Assignment2Suite.class);
 		

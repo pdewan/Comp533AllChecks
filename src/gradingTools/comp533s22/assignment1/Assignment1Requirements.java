@@ -1,23 +1,24 @@
-package gradingTools.comp533s21.assignment7;
+package gradingTools.comp533s22.assignment1;
 
 import grader.basics.config.BasicExecutionSpecificationSelector;
 import grader.junit.AJUnitProjectRequirements;
 import grader.trace.GraderTraceUtility;
 import grader.trace.comp533.Comp533TraceUtility;
 
-public class Assignment7Requirements extends AJUnitProjectRequirements {
-	public Assignment7Requirements() {
+public class Assignment1Requirements extends AJUnitProjectRequirements {
+	public Assignment1Requirements() {
 		Comp533TraceUtility.setTurnOn(true);
 		Comp533TraceUtility.setTracing();
 		GraderTraceUtility.setTurnOn(true);
 		GraderTraceUtility.setTracing();
-		addDueDate("04/24/2021 01:00:00", 1.05);
-		addDueDate("04/29/2021 01:00:00", 1.0);
-		addDueDate("05/6/2021 01:00:00", 0.9);
-		BasicExecutionSpecificationSelector.getBasicExecutionSpecification().
-		setCheckStyleConfiguration("unc_checks_533_A7.xml");
-//		S21Assignment7Suite.configureProperties();
-		addJUnitTestSuite(S21Assignment7Suite.class);
+		addDueDate("01/29/2022 01:00:00", 1.05);
+		addDueDate("02/02/2022 01:00:00", 1.0);
+		addDueDate("02/09/2022 01:00:00", 0.9);
+		addDueDate("02/16/2022 01:00:00", 0.75);
+		
+		addJUnitTestSuite(S22Assignment1Suite.class);
+//		BasicExecutionSpecificationSelector.getBasicExecutionSpecification().
+//		setCheckStyleConfiguration("unc_checks_533_A0.xml");
 		
 //		addFeature("Server tagged", 5, new SingleClassTaggedTestCase("Server"));
 //		addFeature("Client tagged", 5, new SingleClassTaggedTestCase("Client"));
