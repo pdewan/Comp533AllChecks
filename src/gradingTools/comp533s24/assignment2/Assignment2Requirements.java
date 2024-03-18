@@ -1,21 +1,22 @@
-package gradingTools.comp533s22.assignment0;
+package gradingTools.comp533s24.assignment2;
 
+import grader.basics.config.BasicExecutionSpecificationSelector;
 import grader.junit.AJUnitProjectRequirements;
 import grader.trace.GraderTraceUtility;
 import grader.trace.comp533.Comp533TraceUtility;
 
-public class Assignment0Requirements extends AJUnitProjectRequirements {
-	public Assignment0Requirements() {
+public class Assignment2Requirements extends AJUnitProjectRequirements {
+	public Assignment2Requirements() {
 		Comp533TraceUtility.setTurnOn(true);
 		Comp533TraceUtility.setTracing();
 		GraderTraceUtility.setTurnOn(true);
 		GraderTraceUtility.setTracing();
-		addDueDate("01/15/2022 01:00:00", 1.05);
-		addDueDate("01/19/2022 01:00:00", 1.0);
-		addDueDate("01/26/2022 01:00:00", 0.9);
-		addDueDate("02/02/2022 01:00:00", 0.75);
+		addDueDate("02/17/2024 01:00:00", 1.05);
+		addDueDate("02/21/2024 01:00:00", 1.0);
+		addDueDate("02/28/2024 01:00:00", 0.9);
+		addDueDate("03/06/2024 01:00:00", 0.7);
 		
-		addJUnitTestSuite(S22Assignment0Suite.class);
+		addJUnitTestSuite(S24Assignment2Suite.class);
 //		BasicExecutionSpecificationSelector.getBasicExecutionSpecification().
 //		setCheckStyleConfiguration("unc_checks_533_A0.xml");
 		

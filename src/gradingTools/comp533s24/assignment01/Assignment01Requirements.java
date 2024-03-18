@@ -1,21 +1,20 @@
-package gradingTools.comp533s22.assignment0;
+package gradingTools.comp533s24.assignment01;
 
 import grader.junit.AJUnitProjectRequirements;
 import grader.trace.GraderTraceUtility;
 import grader.trace.comp533.Comp533TraceUtility;
+import gradingTools.sharedTestCase.DocumentEnclosedTestCase;
 
-public class Assignment0Requirements extends AJUnitProjectRequirements {
-	public Assignment0Requirements() {
+public class Assignment01Requirements extends AJUnitProjectRequirements {
+	public Assignment01Requirements() {
 		Comp533TraceUtility.setTurnOn(true);
 		Comp533TraceUtility.setTracing();
 		GraderTraceUtility.setTurnOn(true);
 		GraderTraceUtility.setTracing();
-		addDueDate("01/15/2022 01:00:00", 1.05);
-		addDueDate("01/19/2022 01:00:00", 1.0);
-		addDueDate("01/26/2022 01:00:00", 0.9);
-		addDueDate("02/02/2022 01:00:00", 0.75);
-		
-		addJUnitTestSuite(S22Assignment0Suite.class);
+		addDueDate("01/30/2024 14:05:00", 1.0);
+		addDueDate("02/01/2024 12:35:00", 0.7);
+        addFeature("Screenshots enclosed", 3, new DocumentEnclosedTestCase());
+		addJUnitTestSuite(S24Assignment0_1SuiteNoHints.class);
 //		BasicExecutionSpecificationSelector.getBasicExecutionSpecification().
 //		setCheckStyleConfiguration("unc_checks_533_A0.xml");
 		
