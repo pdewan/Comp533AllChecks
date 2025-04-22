@@ -1,22 +1,29 @@
-package gradingTools.comp533s25.assignment3;
+package gradingTools.comp533s25.assignment4;
 
 import grader.basics.config.BasicExecutionSpecificationSelector;
 import grader.junit.AJUnitProjectRequirements;
 import grader.trace.GraderTraceUtility;
 import grader.trace.comp533.Comp533TraceUtility;
 
-public class Assignment3Requirements extends AJUnitProjectRequirements {
-	public Assignment3Requirements() {
+public class Assignment4Requirements extends AJUnitProjectRequirements {
+	public Assignment4Requirements() {
 		Comp533TraceUtility.setTurnOn(true);
 		Comp533TraceUtility.setTracing();
 		GraderTraceUtility.setTurnOn(true);
 		GraderTraceUtility.setTracing();
-		addDueDate("02/26/2025 01:00:00", 1.05);
-		addDueDate("03/01/2025 01:00:00", 1.0);
-		addDueDate("03/18/2025 01:00:00", 0.9);
-		addDueDate("03/22/2025 01:00:00", 0.7);
+		addDueDate("03/26/2025 01:00:00", 1.05);
+		addDueDate("03/29/2025 01:00:00", 1.0);
+		addDueDate("04/5/2025 01:00:00", 0.9);
+		addDueDate("04/12/2025 01:00:00", 0.7);
+		/*
+		 * Early Completion Date:  Tuesday, Mar 25 2025, 11:55 pm (+5% extra credit)
+Completion Date: Friday, Mar 28, 2025, 11:55 pm
+Late Date: Tuesday, April 4, 2025, 11:55pm (-10% late penalty)
+Scary Late Date: Tuesday, Apr 11, 2025, 11:55pm (-30 % late penalty)
+
+		 */
 		
-		addJUnitTestSuite(S25Assignment3Suite.class);
+		addJUnitTestSuite(S25Assignment4Suite.class);
 //		BasicExecutionSpecificationSelector.getBasicExecutionSpecification().
 //		setCheckStyleConfiguration("unc_checks_533_A0.xml");
 		
